@@ -148,7 +148,7 @@ void PersonalizationModel::setHideDDEDock(const bool value)
     else {
         QFile::remove(QDir::homePath() + "/.config/GXDE/gxde-dock/dock-hide");
     }
-    system("killall dde-dock -9");
+    system("killall gxde-dock -9");
 }
 
 
