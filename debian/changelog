@@ -1,4 +1,4 @@
-gxde-control-center (5.0.5) UNRELEASED; urgency=medium
+gxde-control-center (5.0.6) UNRELEASED; urgency=medium
 
   * 修复屏幕缩放调整条不对准刻度的问题
   * 修复系统信息在时间异常时显示类似 ©2023-1970 等错误信息的问题
@@ -16,8 +16,9 @@ gxde-control-center (5.0.5) UNRELEASED; urgency=medium
   * 修复 treeland 下无法隐藏标题栏的问题
   * 调整 Conflict，依赖gxde-desktop
   * 修复隐藏/开启任务栏选项无效的问题
+  * 修复高分屏下分类图标模糊的问题
 
- -- gfdgd_xi <3025613752@qq.com>  Wed, 16 Jul 2025 11:37:30 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Sat, 20 Dec 2025 13:10:17 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 

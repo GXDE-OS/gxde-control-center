@@ -39,8 +39,9 @@ static const char *ObjectNameTemplateIcon = "ModuleHeaderIcon%1";
 ModuleWidget::ModuleWidget()
     : QWidget(nullptr)
 {
-    m_moduleIcon = new QLabel;
+    m_moduleIcon = new DTK_WIDGET_NAMESPACE::DImageButton;
     m_moduleIcon->setFixedSize(24, 24);
+    m_moduleIcon->setDisabled(true);
 
     m_moduleTitle = new LargeLabel;
     m_moduleTitle->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -65,7 +66,13 @@ ModuleWidget::ModuleWidget()
     setLayout(m_centralLayout);
 
     connect(this, &ModuleWidget::objectNameChanged, [this] {
-        m_moduleIcon->setObjectName(QString(ObjectNameTemplateIcon).arg(objectName()));
+        //m_moduleIcon->setObjectName(QString(ObjectNameTemplateIcon).arg(objectName()));
+        QString moduleName = objectName().toLower();
+        if (moduleName == "sysinfo") {
+            moduleName = "systeminfo";
+        }
+        m_moduleIcon->setNormalPic(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
+        m_moduleIcon->setDisabledPic(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
     });
 }
 
