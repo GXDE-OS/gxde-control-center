@@ -345,7 +345,7 @@ void MonitorSettingDialog::updateModeList(const QList<Resolution> &modeList)
     bool first = true;
     for (auto r : modeList)
     {
-        const QString option = QString::number(r.width()) + "×" + QString::number(r.height());
+        const QString option = QString::number(r.width()) + "×" + QString::number(r.height()) + "+" + QString::number(round(r.rate())) + "Hz";
 
         if (first)
         {
