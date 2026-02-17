@@ -204,7 +204,9 @@ void MouseWidget::onTouchpadHideChanged(const bool visible)
     const bool tpadExist = m_mouseModel->tpadExist();
 
     m_disInTyping->setVisible(tpadExist);
-    m_disTchStn->setVisible(tpadExist);
+    //m_disTchStn->setVisible(tpadExist);
+    // 因为功能异常，所以暂时禁用该功能
+    m_disTchStn->setVisible(false);
     m_touchSettingsGrp->setVisible(tpadExist);
     m_palmDetectSetting->setVisible(tpadExist);
 
