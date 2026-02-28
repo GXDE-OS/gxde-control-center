@@ -22,11 +22,12 @@ SyncWorker::SyncWorker(SyncModel *model, QObject *parent)
     connect(m_syncInter, &SyncInter::LastSyncTimeChanged, this, &SyncWorker::onLastSyncTimeChanged, Qt::QueuedConnection);
     connect(m_syncInter, &SyncInter::SwitcherChange, this, &SyncWorker::onSyncModuleStateChanged, Qt::QueuedConnection);
 
-    m_model->setSyncIsValid(
+    /*m_model->setSyncIsValid(
         QProcess::execute(
-            "which", QStringList() << "/usr/lib/deepin-sync-daemon/deepin-sync-daemon") ==
+            "which", QStringList() << "/usr/lib/deepin-deepinid-daemon/deepin-deepinid-daemon") ==
             0 &&
-        valueByQSettings<bool>(DCC_CONFIG_FILES, "CloudSync", "AllowCloudSync", false));
+        valueByQSettings<bool>(DCC_CONFIG_FILES, "CloudSync", "AllowCloudSync", false));*/
+    m_model->setSyncIsValid(QFile::exists("/usr/lib/deepin-deepinid-daemon/deepin-deepinid-daemon"));
 }
 
 void SyncWorker::activate()

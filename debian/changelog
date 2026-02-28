@@ -1,4 +1,4 @@
-gxde-control-center (5.0.8) UNRELEASED; urgency=medium
+gxde-control-center (5.0.9) UNRELEASED; urgency=medium
 
   * 修复屏幕缩放调整条不对准刻度的问题
   * 修复系统信息在时间异常时显示类似 ©2023-1970 等错误信息的问题
@@ -19,8 +19,9 @@ gxde-control-center (5.0.8) UNRELEASED; urgency=medium
   * 修复高分屏下分类图标模糊的问题
   * 多屏幕分辨率设置窗口支持显示刷新率
   * 禁用 插入鼠标禁用触摸板 功能
+  * 启用 deepin 云同步
 
- -- gfdgd_xi <3025613752@qq.com>  Tue, 17 Feb 2026 10:40:14 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Sat, 28 Feb 2026 12:59:35 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 
