@@ -31,6 +31,7 @@
 
 #include <QHBoxLayout>
 #include <QPointer>
+#include <DImageButton>
 
 namespace dcc {
 namespace widgets {
@@ -68,7 +69,7 @@ protected:
     QWidget *m_titleFrame;
     QPointer<QWidget> m_titleWidget;
     QPointer<QWidget> m_contentWidget;
-    QLabel *m_selectedIcon;
+    DTK_WIDGET_NAMESPACE::DImageButton *m_selectedIcon;
 };
 
 } // namespace widgets;

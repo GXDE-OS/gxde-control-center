@@ -27,6 +27,7 @@
 #include "widgets/translucentframe.h"
 
 #include <QMouseEvent>
+#include <DImageButton>
 
 namespace dcc {
 namespace widgets {
@@ -46,12 +47,16 @@ OptionItem::OptionItem(QString title, bool selected, QWidget *parent)
       m_titleLayout(new QHBoxLayout),
       m_titleWidget(new NormalLabel(title)),
       m_contentWidget(nullptr),
-      m_selectedIcon(new QLabel)
+      m_selectedIcon(new DTK_WIDGET_NAMESPACE::DImageButton)
 {
     m_titleWidget->setObjectName("OptionItemTitle");
     m_selectedIcon->setObjectName("OptionItemSelectedIcon");
     m_selectedIcon->setVisible(m_selected);
     m_selectedIcon->setFixedSize(16, 16);
+    QString iconPath = ":/widgets/themes/dark/icons/select.svg";
+    m_selectedIcon->setNormalPic(iconPath);
+    m_selectedIcon->setDisabledPic(iconPath); 
+    m_selectedIcon->setEnabled(false);
 
     m_titleFrame = new TranslucentFrame;
     m_titleFrame->setFixedHeight(36);
