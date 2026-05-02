@@ -1,4 +1,4 @@
-gxde-control-center (5.0.10) UNRELEASED; urgency=medium
+gxde-control-center (5.0.11) UNRELEASED; urgency=medium
 
   * 修复屏幕缩放调整条不对准刻度的问题
   * 修复系统信息在时间异常时显示类似 ©2023-1970 等错误信息的问题
@@ -21,8 +21,9 @@ gxde-control-center (5.0.10) UNRELEASED; urgency=medium
   * 禁用 插入鼠标禁用触摸板 功能
   * 启用 deepin 云同步
   * 修复高分屏下声音高级设置中选中图标模糊的问题
+  * 使 VNC 密码输入框样式与其他设置项的输入框样式统一
 
- -- gfdgd_xi <3025613752@qq.com>  Sat, 28 Feb 2026 12:59:35 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Sun, 03 May 2026 07:49:49 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 
