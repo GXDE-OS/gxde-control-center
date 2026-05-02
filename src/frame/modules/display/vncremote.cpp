@@ -22,24 +22,35 @@ dcc::display::VNCRemote::VNCRemote(QWidget *parent)
     SettingsGroup *group = new SettingsGroup();
 
     m_enableSwitch = new SwitchWidget("VNC Remote");
+    group->appendItem(m_enableSwitch); 
 
     // 连接密码设置
     QVBoxLayout *passwordControlLayout = new QVBoxLayout();
+
     passwordTips = new TipsLabel(tr("Connect Password:"));
+
+    //统一输入框样式
     passwordFirst = new PasswdEditWidget();
     passwordAgain = new PasswdEditWidget();
 
+    SettingsGroup *passwordGroup = new SettingsGroup();
+    passwordGroup->appendItem(passwordFirst);
+    passwordGroup->appendItem(passwordAgain);
+
     passwordFirst->setTitle(tr("New Password"));
     passwordAgain->setTitle("Repeat Password");
+    
+    passwordControlLayout->addWidget(passwordTips);
+    passwordControlLayout->addWidget(group); 
+    passwordControlLayout->addWidget(passwordGroup);  
 
     removePasswordButton = new QPushButton(tr("Remove Password"));
     setPasswordButton = new QPushButton(tr("Set"));
 
     passwordSettingStatus = new TipsLabel("");
 
-    passwordControlLayout->addWidget(passwordTips);
-    passwordControlLayout->addWidget(passwordFirst);
-    passwordControlLayout->addWidget(passwordAgain);
+    // passwordControlLayout->addWidget(passwordFirst);
+    // passwordControlLayout->addWidget(passwordAgain);
     passwordControlLayout->addWidget(setPasswordButton);
     passwordControlLayout->addWidget(removePasswordButton);
     passwordControlLayout->addWidget(passwordSettingStatus);
@@ -52,18 +63,14 @@ dcc::display::VNCRemote::VNCRemote(QWidget *parent)
     connect(setPasswordButton, &QPushButton::clicked, this, &VNCRemote::SetVNCPassword);
     connect(removePasswordButton, &QPushButton::clicked, this, &VNCRemote::RemovePassword);
 
-
-    group->appendItem(m_enableSwitch);
-
-    m_mainlayout->addWidget(group);
     m_mainlayout->addLayout(passwordControlLayout);
     m_mainlayout->addWidget(new TipsLabel(tr("You can use IP address and VNC View to connect.\nPort: 5900\nPower by x11vnc")));
     m_mainlayout->addSpacing(10);
     m_mainlayout->setMargin(0);
     m_mainlayout->setSpacing(10);
 
-    m_widget->setLayout(m_mainlayout);
     setTitle(tr("VNC Remote"));
+    m_widget->setLayout(m_mainlayout);
     setContent(m_widget);
 
 
