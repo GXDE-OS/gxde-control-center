@@ -29,8 +29,8 @@
 #include <QStyle>
 #include <QDebug>
 #include <ddialog.h>
-#include <QProcess>
 #include <QFile>
+#include <QProcess>
 #include <dpushbutton.h>
 #include <unistd.h>
 #include <QDBusMessage>
@@ -59,11 +59,7 @@ UpdateView::UpdateView()
 //    m_centralLayout->addWidget(m_settingsGroup);
     m_neoUpgrader = new Dtk::Widget::DPushButton;
     m_neoUpgrader->setText(tr("Check and perform system Upgrade"));
-    if (QFile::exists("/usr/bin/gxde-app-upgrader")) {
-        // 需要保证脚本存在才会显示按钮
-        //m_centralLayout->addWidget(m_neoUpgrader);
-        m_centralLayout->addWidget(m_neoUpgrader);
-    }
+    m_centralLayout->addWidget(m_neoUpgrader);
 
     m_addTestingSource = new Dtk::Widget::DPushButton;
     m_addTestingSource->setText(tr("Internal Testing Group Settings"));
@@ -106,8 +102,7 @@ void UpdateView::init()
 
 void UpdateView::ExecUpgrader()
 {
-    QProcess process;
-    system("/usr/bin/gxde-app-upgrader &");
+    Q_EMIT pushUpdate();
 }
 
 void UpdateView::ShowTesingDialog()

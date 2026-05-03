@@ -29,6 +29,7 @@
 #include "updatemodel.h"
 
 #include <QObject>
+#include <QProcess>
 #include <com_deepin_lastore_updater.h>
 #include <com_deepin_lastore_job.h>
 #include <com_deepin_lastore_jobmanager.h>
@@ -105,6 +106,12 @@ private:
     void setAppUpdateInfo(const AppUpdateInfoList &list);
     inline bool checkDbusIsValid();
     void onSmartMirrorServiceIsValid(bool isvalid);
+    QString updateWorkerPath() const;
+    QString packageDisplayName(const QString &packageName) const;
+    void runAptssCheckList();
+    void runAptssDownloadSize(const QList<AppUpdateInfo> &infos, const QStringList &packages);
+    QStringList upgradablePackages() const;
+    void clearAptssProcess();
 
 private:
     UpdateModel* m_model;
@@ -126,6 +133,7 @@ private:
 
     QList<QString> m_updatableApps;
     QList<QString> m_updatablePackages;
+    QProcess *m_aptssProcess;
 };
 }
 }

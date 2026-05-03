@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>GXDE</vendor>
+  <vendor_url>https://gxde.top</vendor_url>
+
+  <action id="com.gxde.controlcenter.update.worker">
+    <icon_name>gxde-control-center</icon_name>
+    <description>Run GXDE Control Center update helper</description>
+    <description xml:lang="zh_CN">运行 GXDE 控制中心更新助手</description>
+    <message>Authentication is required to update system packages</message>
+    <message xml:lang="zh_CN">更新系统软件包需要认证</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/gxde-control-center/gxde-update-worker.sh</annotate>
+  </action>
+</policyconfig>

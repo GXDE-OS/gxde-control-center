@@ -30,6 +30,8 @@
 #include <QFutureWatcher>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QRegExp>
+#include <QDir>
 
 #define MIN_NM_ACTIVE 50
 
@@ -73,6 +75,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject *parent)
     , m_onBattery(true)
     , m_batteryPercentage(0)
     , m_baseProgress(0)
+    , m_aptssProcess(nullptr)
 {
     m_managerInter->setSync(false);
     m_updateInter->setSync(false);
@@ -127,6 +130,30 @@ void UpdateWorker::deactivate()
 
 void UpdateWorker::checkForUpdates()
 {
+    if (m_aptssProcess) {
+        return;
+    }
+
+    m_model->setStatus(UpdatesStatus::Checking);
+    m_model->setUpdateProgress(0);
+
+    m_aptssProcess = new QProcess(this);
+    connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QByteArray errorOutput = m_aptssProcess->readAllStandardError();
+        if (exitStatus != QProcess::NormalExit || exitCode != 0) {
+            qWarning() << "aptss update failed:" << errorOutput;
+            m_model->setStatus(UpdatesStatus::UpdateFailed);
+            clearAptssProcess();
+            return;
+        }
+
+        m_model->setUpdateProgress(0.5);
+        clearAptssProcess();
+        runAptssCheckList();
+    });
+    m_aptssProcess->start(updateWorkerPath(), QStringList() << "update");
+    return;
+
     if (checkDbusIsValid()) {
         return;
     }
@@ -324,14 +351,197 @@ void UpdateWorker::resumeDownload()
 
 void UpdateWorker::distUpgrade()
 {
+    const QStringList packages = upgradablePackages();
+    if (m_aptssProcess || packages.isEmpty()) {
+        return;
+    }
+
+    m_model->setStatus(UpdatesStatus::Installing);
+    m_model->setUpgradeProgress(0);
+
+    m_aptssProcess = new QProcess(this);
+    connect(m_aptssProcess, &QProcess::readyReadStandardOutput, this, [this] {
+        const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
+        if (output.contains('%')) {
+            const QRegExp rx("(\\d+)%");
+            if (rx.indexIn(output) != -1) {
+                m_model->setUpgradeProgress(rx.cap(1).toDouble() / 100.0);
+            }
+        }
+    });
+    connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            m_model->setUpgradeProgress(1);
+            m_model->setStatus(UpdatesStatus::UpdateSucceeded);
+
+            QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
+
+            QFile file("/tmp/.dcc-update-successd");
+            if (!file.exists()) {
+                file.open(QIODevice::WriteOnly);
+                file.close();
+            }
+        } else {
+            qWarning() << "aptss upgrade failed:" << m_aptssProcess->readAllStandardError();
+            m_model->setStatus(UpdatesStatus::UpdateFailed);
+        }
+
+        clearAptssProcess();
+    });
+
+    QStringList args;
+    args << "upgrade" << packages;
+    m_aptssProcess->start(updateWorkerPath(), args);
+    return;
+
     m_baseProgress = 0;
     distUpgradeInstallUpdates();
 }
 
 void UpdateWorker::downloadAndDistUpgrade()
 {
+    distUpgrade();
+    return;
+
     m_baseProgress = 0.5;
     distUpgradeDownloadUpdates();
+}
+
+QString UpdateWorker::updateWorkerPath() const
+{
+    const QString installedPath = QStringLiteral("/usr/lib/gxde-control-center/gxde-update-worker.sh");
+    if (QFile::exists(installedPath)) {
+        return installedPath;
+    }
+
+    const QString legacyInstalledPath = QStringLiteral("/usr/share/gxde-control-center/gxde-update-worker.sh");
+    if (QFile::exists(legacyInstalledPath)) {
+        return legacyInstalledPath;
+    }
+
+    const QString sourcePath = QDir::current().filePath("tools/gxde-control-center/gxde-update-worker.sh");
+    if (QFile::exists(sourcePath)) {
+        return sourcePath;
+    }
+
+    return installedPath;
+}
+
+QString UpdateWorker::packageDisplayName(const QString &packageName) const
+{
+    QProcess process;
+    process.start("dpkg-query", QStringList() << "-W" << "-f=${binary:Summary}" << packageName);
+    process.waitForFinished(1000);
+
+    const QString summary = QString::fromLocal8Bit(process.readAllStandardOutput()).trimmed();
+    if (!summary.isEmpty()) {
+        return summary;
+    }
+
+    return packageName;
+}
+
+void UpdateWorker::runAptssCheckList()
+{
+    m_aptssProcess = new QProcess(this);
+    connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
+        if (exitStatus != QProcess::NormalExit || exitCode != 0) {
+            qWarning() << "aptss list --upgradable failed:" << m_aptssProcess->readAllStandardError();
+            m_model->setStatus(UpdatesStatus::UpdateFailed);
+            clearAptssProcess();
+            return;
+        }
+
+        QList<AppUpdateInfo> infos;
+        m_updatablePackages.clear();
+
+        const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
+        for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
+            const QStringList fields = line.split('\t');
+            if (fields.count() < 3) {
+                continue;
+            }
+
+            AppUpdateInfo info;
+            info.m_packageId = fields.at(0);
+            info.m_name = packageDisplayName(info.m_packageId);
+            info.m_avilableVersion = fields.at(1);
+            info.m_currentVersion = fields.at(2);
+            info.m_changelog = tr("System package update");
+
+            infos << info;
+            m_updatablePackages << info.m_packageId;
+        }
+
+        if (infos.isEmpty()) {
+            clearAptssProcess();
+            m_model->setUpdateProgress(1);
+            m_model->setDownloadInfo(new DownloadInfo(0, infos));
+            m_model->setStatus(UpdatesStatus::Updated);
+            return;
+        }
+
+        const QStringList packages = upgradablePackages();
+        clearAptssProcess();
+        runAptssDownloadSize(infos, packages);
+    });
+    m_aptssProcess->start(updateWorkerPath(), QStringList() << "upgradable-list");
+}
+
+void UpdateWorker::runAptssDownloadSize(const QList<AppUpdateInfo> &infos, const QStringList &packages)
+{
+    if (m_aptssProcess) {
+        return;
+    }
+
+    m_aptssProcess = new QProcess(this);
+    connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this, infos](int exitCode, QProcess::ExitStatus exitStatus) {
+        qlonglong downloadSize = 1;
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput()).trimmed();
+            const QStringList lines = output.split('\n', QString::SkipEmptyParts);
+            for (int i = lines.count() - 1; i >= 0; --i) {
+                bool ok = false;
+                const qlonglong size = lines.at(i).trimmed().toLongLong(&ok);
+                if (ok) {
+                    downloadSize = size;
+                    break;
+                }
+            }
+        } else {
+            qWarning() << "aptss download-size failed:" << m_aptssProcess->readAllStandardError();
+        }
+
+        clearAptssProcess();
+        m_model->setUpdateProgress(1);
+        m_model->setDownloadInfo(new DownloadInfo(downloadSize, infos));
+        m_model->setStatus(UpdatesStatus::UpdatesAvailable);
+    });
+
+    QStringList args;
+    args << "download-size" << packages;
+    m_aptssProcess->start(updateWorkerPath(), args);
+}
+
+QStringList UpdateWorker::upgradablePackages() const
+{
+    QStringList packages;
+    for (const QString &package : m_updatablePackages) {
+        packages << package;
+    }
+
+    return packages;
+}
+
+void UpdateWorker::clearAptssProcess()
+{
+    if (!m_aptssProcess) {
+        return;
+    }
+
+    m_aptssProcess->deleteLater();
+    m_aptssProcess = nullptr;
 }
 
 void UpdateWorker::setAutoCheckUpdates(const bool autocheckUpdates)
