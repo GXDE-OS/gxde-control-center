@@ -118,6 +118,8 @@ UpdateCtrlWidget::~UpdateCtrlWidget()
 void UpdateCtrlWidget::loadAppList(const QList<AppUpdateInfo>& infos)
 {
     qDebug() << infos.count();
+    m_updateItems.clear();
+    m_selectedPackages.clear();
     QLayoutItem *item;
     while((item = m_summaryGroup->layout()->takeAt(1)) != NULL) {
         item->widget()->deleteLater();
@@ -128,16 +130,20 @@ void UpdateCtrlWidget::loadAppList(const QList<AppUpdateInfo>& infos)
     {
         UpdateItem* item = new UpdateItem();
         item->setAppInfo(info);
+        connect(item, &UpdateItem::selectionChanged, this, &UpdateCtrlWidget::updateSelectedPackages);
 
         m_summaryGroup->appendItem(item);
+        m_updateItems << item;
     }
+
+    updateSelectedPackages();
 }
 
 void UpdateCtrlWidget::onProgressBarClicked()
 {
     switch (m_status) {
     case UpdatesStatus::UpdatesAvailable:
-        Q_EMIT requestDownloadUpdates();
+        Q_EMIT requestDownloadUpdates(selectedPackages());
         break;
     case UpdatesStatus::Downloading:
         Q_EMIT requestPauseDownload();
@@ -178,7 +184,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     case UpdatesStatus::UpdatesAvailable:
         m_progress->setVisible(true);
         m_summaryGroup->setVisible(true);
-        m_progress->setMessage(tr("Download and install updates"));
+        m_progress->setMessage(tr("Download and install selected updates"));
         setDownloadInfo(m_model->downloadInfo());
         m_progress->setValue(100);
         setLowBattery(m_model->lowBattery());
@@ -210,7 +216,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     case UpdatesStatus::Installing:
         m_progress->setVisible(true);
         m_summaryGroup->setVisible(true);
-        m_progress->setMessage(tr("Updating, please wait..."));
+        m_progress->setMessage(m_model->upgradeMessage().isEmpty() ? tr("Updating, please wait...") : m_model->upgradeMessage());
         break;
     case UpdatesStatus::UpdateSucceeded:
         m_resultItem->setSuccess(true);
@@ -295,6 +301,31 @@ void UpdateCtrlWidget::setProgressValue(const double value)
     }
 }
 
+void UpdateCtrlWidget::setUpgradeMessage(const QString &message)
+{
+    if (m_status == UpdatesStatus::Installing && !message.isEmpty()) {
+        m_progress->setMessage(message);
+    }
+}
+
+QStringList UpdateCtrlWidget::selectedPackages() const
+{
+    return m_selectedPackages.values();
+}
+
+void UpdateCtrlWidget::updateSelectedPackages()
+{
+    m_selectedPackages.clear();
+
+    for (UpdateItem *item : m_updateItems) {
+        if (item && item->isSelected()) {
+            m_selectedPackages.insert(item->packageId());
+        }
+    }
+
+    m_progress->setDisabled(m_selectedPackages.isEmpty() || m_model->lowBattery());
+}
+
 void UpdateCtrlWidget::setLowBattery(const bool &lowBattery)
 {
     if (m_status == UpdatesStatus::Downloaded || m_status == UpdatesStatus::UpdatesAvailable) {
@@ -322,10 +353,12 @@ void UpdateCtrlWidget::setModel(UpdateModel *model)
     connect(m_model, &UpdateModel::lowBatteryChanged, this, &UpdateCtrlWidget::setLowBattery);
     connect(m_model, &UpdateModel::downloadInfoChanged, this, &UpdateCtrlWidget::setDownloadInfo);
     connect(m_model, &UpdateModel::upgradeProgressChanged, this, &UpdateCtrlWidget::setProgressValue);
+    connect(m_model, &UpdateModel::upgradeMessageChanged, this, &UpdateCtrlWidget::setUpgradeMessage);
     connect(m_model, &UpdateModel::updateProgressChanged, this, &UpdateCtrlWidget::setUpdateProgress);
 
     setUpdateProgress(m_model->updateProgress());
     setProgressValue(m_model->upgradeProgress());
+    setUpgradeMessage(m_model->upgradeMessage());
     setStatus(m_model->status());
     setLowBattery(m_model->lowBattery());
     setDownloadInfo(m_model->downloadInfo());

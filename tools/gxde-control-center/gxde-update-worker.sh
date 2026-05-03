@@ -61,6 +61,29 @@ validate_packages() {
     done
 }
 
+download_to_cache() {
+    env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install -d -y --only-upgrade "$@" 2>&1 | tr '\r' '\n' | while IFS= read -r line; do
+        printf '%s\n' "$line"
+        speed=$(printf '%s\n' "$line" | sed -n 's/.*DL:\([^ ]*\).*/\1/p')
+        progress=$(printf '%s\n' "$line" | sed -n 's/.*(\([0-9][0-9]*\)%).*/\1/p')
+
+        if [ -n "$speed" ]; then
+            echo "# Downloading updates... ${speed}"
+        fi
+
+        if [ -n "$progress" ]; then
+            echo "$((progress * 80 / 100))"
+        fi
+    done
+    return "${PIPESTATUS[0]}"
+}
+
+install_from_cache() {
+    echo "# Installing updates from cache..."
+    echo 85
+    env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install -y --no-download --only-upgrade "$@"
+}
+
 case "$1" in
     update)
         run_as_root "$@"
@@ -117,7 +140,18 @@ case "$1" in
         validate_packages "$@"
 
         if [ "$#" -gt 0 ]; then
-            env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install -y --only-upgrade "$@" 2>&1 | tee "$UPGRADE_LOG"
+            {
+                download_to_cache "$@"
+                download_ret="$?"
+                if [ "$download_ret" -ne 0 ]; then
+                    exit "$download_ret"
+                fi
+
+                install_from_cache "$@"
+                install_ret="$?"
+                echo 100
+                exit "$install_ret"
+            } 2>&1 | tee "$UPGRADE_LOG"
         else
             env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} upgrade -y 2>&1 | tee "$UPGRADE_LOG"
         fi

@@ -351,17 +351,35 @@ void UpdateWorker::resumeDownload()
 
 void UpdateWorker::distUpgrade()
 {
-    const QStringList packages = upgradablePackages();
+    distUpgradePackages(upgradablePackages());
+}
+
+void UpdateWorker::distUpgradePackages(const QStringList &packages)
+{
     if (m_aptssProcess || packages.isEmpty()) {
         return;
     }
 
     m_model->setStatus(UpdatesStatus::Installing);
     m_model->setUpgradeProgress(0);
+    m_model->setUpgradeMessage(tr("Downloading updates..."));
 
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, &QProcess::readyReadStandardOutput, this, [this] {
         const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
+        for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
+            if (line.startsWith('#')) {
+                m_model->setUpgradeMessage(line.mid(1).trimmed());
+                continue;
+            }
+
+            bool ok = false;
+            const int progress = line.trimmed().toInt(&ok);
+            if (ok) {
+                m_model->setUpgradeProgress(progress / 100.0);
+            }
+        }
+
         if (output.contains('%')) {
             const QRegExp rx("(\\d+)%");
             if (rx.indexIn(output) != -1) {
@@ -372,6 +390,7 @@ void UpdateWorker::distUpgrade()
     connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             m_model->setUpgradeProgress(1);
+            m_model->setUpgradeMessage(QString());
             m_model->setStatus(UpdatesStatus::UpdateSucceeded);
 
             QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
@@ -383,6 +402,7 @@ void UpdateWorker::distUpgrade()
             }
         } else {
             qWarning() << "aptss upgrade failed:" << m_aptssProcess->readAllStandardError();
+            m_model->setUpgradeMessage(QString());
             m_model->setStatus(UpdatesStatus::UpdateFailed);
         }
 
@@ -398,9 +418,9 @@ void UpdateWorker::distUpgrade()
     distUpgradeInstallUpdates();
 }
 
-void UpdateWorker::downloadAndDistUpgrade()
+void UpdateWorker::downloadAndDistUpgrade(const QStringList &packages)
 {
-    distUpgrade();
+    distUpgradePackages(packages.isEmpty() ? upgradablePackages() : packages);
     return;
 
     m_baseProgress = 0.5;

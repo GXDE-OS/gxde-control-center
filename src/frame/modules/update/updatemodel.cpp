@@ -165,6 +165,19 @@ double UpdateModel::upgradeProgress() const
     return m_upgradeProgress;
 }
 
+QString UpdateModel::upgradeMessage() const
+{
+    return m_upgradeMessage;
+}
+
+void UpdateModel::setUpgradeMessage(const QString &upgradeMessage)
+{
+    if (m_upgradeMessage != upgradeMessage) {
+        m_upgradeMessage = upgradeMessage;
+        Q_EMIT upgradeMessageChanged(upgradeMessage);
+    }
+}
+
 void UpdateModel::setUpgradeProgress(double upgradeProgress)
 {
     if (m_upgradeProgress != upgradeProgress) {

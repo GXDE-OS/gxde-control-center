@@ -32,6 +32,8 @@
 
 #include <QLabel>
 
+class QCheckBox;
+
 class QVBoxLayout;
 class QPushButton;
 
@@ -52,11 +54,17 @@ public:
     explicit UpdateItem(QFrame* parent = 0);
 
     void setAppInfo(const AppUpdateInfo& info);
+    QString packageId() const;
+    bool isSelected() const;
+    void setSelected(bool selected);
 
     static bool isAnchor(const QString &input);
     static QPair<QString, QString> parseAnchor(const QString &input);
 
     QSize sizeHint() const override;
+
+Q_SIGNALS:
+    void selectionChanged();
 
 private:
     AppUpdateInfo m_info;
@@ -65,6 +73,7 @@ private:
     dcc::widgets::SmallLabel *m_appName;
     dcc::widgets::SmallLabel *m_appVersion;
     dcc::widgets::SmallLabel *m_appChangelog;
+    QCheckBox *m_checkBox;
 
     QPushButton *m_details;
     QVBoxLayout *m_iconLayout;

@@ -28,6 +28,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QIcon>
 #include <QFile>
 #include <QDesktopServices>
@@ -92,6 +93,7 @@ UpdateItem::UpdateItem(QFrame *parent)
       m_appName(new SmallLabel),
       m_appVersion(new SmallLabel),
       m_appChangelog(new SmallLabel),
+      m_checkBox(new QCheckBox),
       m_details(new QPushButton)
 {
     TranslucentFrame *iconContainer = new TranslucentFrame;
@@ -106,6 +108,7 @@ UpdateItem::UpdateItem(QFrame *parent)
     iconContainer->setLayout(m_iconLayout);
 
     m_appIcon->setFixedSize(36, 36);
+    m_checkBox->setChecked(true);
 
     QFont changelogFont("Noto Mono");
     changelogFont.setPointSize(10);
@@ -149,6 +152,8 @@ UpdateItem::UpdateItem(QFrame *parent)
     QHBoxLayout* layout = new QHBoxLayout();
     layout->setMargin(10);
     layout->setSpacing(0);
+    layout->addWidget(m_checkBox, 0, Qt::AlignCenter);
+    layout->addSpacing(10);
     layout->addWidget(iconContainer);
     layout->addSpacing(10);
     layout->addLayout(rightLayout, 1);
@@ -161,12 +166,28 @@ UpdateItem::UpdateItem(QFrame *parent)
         // after the relayout of this item caused by the hide of details button.
         QTimer::singleShot(0, this, &UpdateItem::expandChangelog);
     });
+    connect(m_checkBox, &QCheckBox::toggled, this, &UpdateItem::selectionChanged);
 
 //    connect(m_openWebsite, &QPushButton::clicked, [this] {
 //        qDebug() << QString("open website %1 to see release notes of %2").arg(m_anchorAddress).arg(m_anchorName);
 //        QDesktopServices::openUrl(m_anchorAddress);
 //    });
     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
+}
+
+QString UpdateItem::packageId() const
+{
+    return m_info.m_packageId;
+}
+
+bool UpdateItem::isSelected() const
+{
+    return m_checkBox->isChecked();
+}
+
+void UpdateItem::setSelected(bool selected)
+{
+    m_checkBox->setChecked(selected);
 }
 
 void UpdateItem::setAppInfo(const AppUpdateInfo &info)

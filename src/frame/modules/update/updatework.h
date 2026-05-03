@@ -68,7 +68,7 @@ public Q_SLOTS:
     void pauseDownload();
     void resumeDownload();
     void distUpgrade();
-    void downloadAndDistUpgrade();
+    void downloadAndDistUpgrade(const QStringList &packages);
     void setAutoCheckUpdates(const bool autocheckUpdates);
     void setAutoCleanCache(const bool autoCleanCache);
     void setAutoDownloadUpdates(const bool &autoDownload);
@@ -103,6 +103,7 @@ private:
     AppUpdateInfo getDDEInfo();
     void distUpgradeDownloadUpdates();
     void distUpgradeInstallUpdates();
+    void distUpgradePackages(const QStringList &packages);
     void setAppUpdateInfo(const AppUpdateInfoList &list);
     inline bool checkDbusIsValid();
     void onSmartMirrorServiceIsValid(bool isvalid);

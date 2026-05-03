@@ -36,6 +36,7 @@
 #include <types/appupdateinfolist.h>
 
 #include <QSettings>
+#include <QSet>
 
 using namespace dcc;
 using namespace dcc::widgets;
@@ -46,6 +47,7 @@ namespace update{
 class UpdateModel;
 class DownloadInfo;
 class LoadingItem;
+class UpdateItem;
 
 class UpdateCtrlWidget : public ContentWidget
 {
@@ -58,7 +60,7 @@ public:
     void setModel(UpdateModel *model);
 
 Q_SIGNALS:
-    void requestDownloadUpdates();
+    void requestDownloadUpdates(const QStringList &packages);
     void requestPauseDownload();
     void requestResumeDownload();
     void requestInstallUpdates();
@@ -73,6 +75,9 @@ private:
     void setProgressValue(const double value);
     void setLowBattery(const bool &lowBattery);
     void setUpdateProgress(const double value);
+    void setUpgradeMessage(const QString &message);
+    QStringList selectedPackages() const;
+    void updateSelectedPackages();
 
 private:
     UpdateModel *m_model;
@@ -92,6 +97,8 @@ private:
     TipsLabel *m_noNetworkTip;
 
     QSettings *m_qsettings;
+    QList<UpdateItem *> m_updateItems;
+    QSet<QString> m_selectedPackages;
 };
 
 }
