@@ -60,6 +60,7 @@ private:
 
 private Q_SLOTS:
     void onPushUpdate();
+    void onRefreshUpdates();
     void onPushMirrorsView();
     void onPushSettings();
 
@@ -70,6 +71,7 @@ private:
     UpdateCtrlWidget* m_updatePage;
     UpdateSettings* m_settingsPage;
     MirrorsWidget* m_mirrorsWidget;
+    bool m_checkedUpdates;
 };
 
 }

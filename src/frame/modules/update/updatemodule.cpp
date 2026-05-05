@@ -37,7 +37,8 @@ UpdateModule::UpdateModule(FrameProxyInterface *frame, QObject *parent)
       m_updateView(nullptr),
       m_updatePage(nullptr),
       m_settingsPage(nullptr),
-      m_mirrorsWidget(nullptr)
+      m_mirrorsWidget(nullptr),
+      m_checkedUpdates(false)
 {
 
 }
@@ -115,18 +116,29 @@ void UpdateModule::onPushUpdate()
 {
     if (!m_updatePage) {
         m_updatePage = new UpdateCtrlWidget(m_model);
-        m_work->checkForUpdates();
 
         connect(m_updatePage, &UpdateCtrlWidget::requestDownloadUpdates, m_work, &UpdateWorker::downloadAndDistUpgrade);
         connect(m_updatePage, &UpdateCtrlWidget::requestPauseDownload, m_work, &UpdateWorker::pauseDownload);
         connect(m_updatePage, &UpdateCtrlWidget::requestResumeDownload, m_work, &UpdateWorker::resumeDownload);
         connect(m_updatePage, &UpdateCtrlWidget::requestInstallUpdates, m_work, &UpdateWorker::distUpgrade);
+        connect(m_updatePage, &UpdateCtrlWidget::requestRefreshUpdates, this, &UpdateModule::onRefreshUpdates);
+    }
+
+    if (!m_checkedUpdates) {
+        m_checkedUpdates = true;
+        m_work->checkForUpdates();
     }
 
     m_frameProxy->pushWidget(this, m_updatePage);
 
     // prohibit dde-offline-upgrader from showing while this page is showing.
     QDBusConnection::sessionBus().registerService(OfflineUpgraderService);
+}
+
+void UpdateModule::onRefreshUpdates()
+{
+    m_checkedUpdates = true;
+    m_work->checkForUpdates();
 }
 
 void UpdateModule::onPushMirrorsView()

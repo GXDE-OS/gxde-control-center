@@ -26,10 +26,14 @@
 #include "updatectrlwidget.h"
 #include "updateitem.h"
 #include "widgets/translucentframe.h"
+#include "widgets/plantextitem.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QCheckBox>
+#include <QPushButton>
+#include <QPlainTextEdit>
+#include <QFontDatabase>
 
 #include "updatemodel.h"
 #include "loadingitem.h"
@@ -46,8 +50,11 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
       m_status(UpdatesStatus::Updated),
       m_checkGroup(new SettingsGroup),
       m_checkUpdateItem(new LoadingItem),
+      m_refreshButton(new QPushButton(tr("Refresh"))),
       m_resultGroup(new SettingsGroup),
       m_resultItem(new ResultItem),
+      m_failureLogGroup(new SettingsGroup),
+      m_failureLogItem(new PlainTextItem),
       m_progress(new DownloadProgressBar),
       m_summaryGroup(new SettingsGroup),
       m_selectAllGroup(new SettingsGroup),
@@ -71,8 +78,21 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     m_checkGroup->setVisible(false);
     m_checkGroup->appendItem(m_checkUpdateItem);
 
+    QHBoxLayout *refreshLayout = new QHBoxLayout;
+    refreshLayout->setMargin(0);
+    refreshLayout->addStretch();
+    refreshLayout->addWidget(m_refreshButton);
+
     m_resultGroup->setVisible(false);
     m_resultGroup->appendItem(m_resultItem);
+
+    m_failureLogGroup->setVisible(false);
+    m_failureLogItem->plainEdit()->setReadOnly(true);
+    m_failureLogItem->plainEdit()->setLineWrapMode(QPlainTextEdit::NoWrap);
+    m_failureLogItem->plainEdit()->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    m_failureLogItem->plainEdit()->setMinimumHeight(180);
+    m_failureLogItem->plainEdit()->setMaximumHeight(320);
+    m_failureLogGroup->appendItem(m_failureLogItem);
 
     m_progress->setVisible(false);
 
@@ -105,8 +125,10 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     m_upgradeWarningGroup->appendItem(m_upgradeWarning);
 
     layout->addSpacing(10);
+    layout->addLayout(refreshLayout);
     layout->addWidget(m_checkGroup);
     layout->addWidget(m_resultGroup);
+    layout->addWidget(m_failureLogGroup);
     layout->addWidget(m_progress);
     layout->addWidget(m_upgradeWarningGroup);
     layout->addWidget(m_selectAllGroup);
@@ -123,6 +145,7 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
 
     connect(m_progress, &DownloadProgressBar::clicked, this, &UpdateCtrlWidget::onProgressBarClicked);
     connect(m_selectAll, &QCheckBox::toggled, this, &UpdateCtrlWidget::setAllPackagesSelected);
+    connect(m_refreshButton, &QPushButton::clicked, this, &UpdateCtrlWidget::requestRefreshUpdates);
 }
 
 UpdateCtrlWidget::~UpdateCtrlWidget()
@@ -181,6 +204,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
 
     m_noNetworkTip->setVisible(false);
     m_resultGroup->setVisible(false);
+    m_failureLogGroup->setVisible(false);
     m_progress->setVisible(false);
     m_selectAllGroup->setVisible(false);
     m_summaryGroup->setVisible(false);
@@ -189,6 +213,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     m_checkGroup->setVisible(false);
     m_checkUpdateItem->setVisible(false);
     m_checkUpdateItem->setProgressBarVisible(false);
+    m_refreshButton->setDisabled(status == UpdatesStatus::Checking || status == UpdatesStatus::Downloading || status == UpdatesStatus::Installing);
 
     switch (status) {
     case UpdatesStatus::Checking:
@@ -247,6 +272,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     case UpdatesStatus::UpdateFailed:
         m_resultGroup->setVisible(true);
         m_resultItem->setSuccess(false);
+        setFailureMessage(m_model->failureMessage());
         break;
     case UpdatesStatus::NeedRestart:
         m_checkGroup->setVisible(true);
@@ -327,6 +353,12 @@ void UpdateCtrlWidget::setUpgradeMessage(const QString &message)
     }
 }
 
+void UpdateCtrlWidget::setFailureMessage(const QString &message)
+{
+    m_failureLogItem->plainEdit()->setPlainText(message);
+    m_failureLogGroup->setVisible(m_status == UpdatesStatus::UpdateFailed && !message.isEmpty());
+}
+
 QStringList UpdateCtrlWidget::selectedPackages() const
 {
     return m_selectedPackages.values();
@@ -392,11 +424,13 @@ void UpdateCtrlWidget::setModel(UpdateModel *model)
     connect(m_model, &UpdateModel::downloadInfoChanged, this, &UpdateCtrlWidget::setDownloadInfo);
     connect(m_model, &UpdateModel::upgradeProgressChanged, this, &UpdateCtrlWidget::setProgressValue);
     connect(m_model, &UpdateModel::upgradeMessageChanged, this, &UpdateCtrlWidget::setUpgradeMessage);
+    connect(m_model, &UpdateModel::failureMessageChanged, this, &UpdateCtrlWidget::setFailureMessage);
     connect(m_model, &UpdateModel::updateProgressChanged, this, &UpdateCtrlWidget::setUpdateProgress);
 
     setUpdateProgress(m_model->updateProgress());
     setProgressValue(m_model->upgradeProgress());
     setUpgradeMessage(m_model->upgradeMessage());
+    setFailureMessage(m_model->failureMessage());
     setStatus(m_model->status());
     setLowBattery(m_model->lowBattery());
     setDownloadInfo(m_model->downloadInfo());

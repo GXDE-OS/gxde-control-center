@@ -170,11 +170,24 @@ QString UpdateModel::upgradeMessage() const
     return m_upgradeMessage;
 }
 
+QString UpdateModel::failureMessage() const
+{
+    return m_failureMessage;
+}
+
 void UpdateModel::setUpgradeMessage(const QString &upgradeMessage)
 {
     if (m_upgradeMessage != upgradeMessage) {
         m_upgradeMessage = upgradeMessage;
         Q_EMIT upgradeMessageChanged(upgradeMessage);
+    }
+}
+
+void UpdateModel::setFailureMessage(const QString &failureMessage)
+{
+    if (m_failureMessage != failureMessage) {
+        m_failureMessage = failureMessage;
+        Q_EMIT failureMessageChanged(failureMessage);
     }
 }
 

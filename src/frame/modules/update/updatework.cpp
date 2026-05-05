@@ -59,6 +59,56 @@ static int TestMirrorSpeedInternal(const QString &url)
     return 10000;
 }
 
+static QString RemoveAnsiEscapeCodes(QString text)
+{
+    const QRegExp ansi(QString("%1\\[[0-9;]*[A-Za-z]").arg(QChar(27)));
+    text.remove(ansi);
+    return text;
+}
+
+static QString FormatWorkerFailureLog(const QString &stdoutText, const QString &stderrText)
+{
+    QString log = stderrText;
+    const QString marker = QStringLiteral("gxde-update-worker: full log");
+    const int markerIndex = log.indexOf(marker);
+
+    if (markerIndex >= 0) {
+        const int lineEnd = log.indexOf('\n', markerIndex);
+        log = lineEnd >= 0 ? log.mid(lineEnd + 1) : log.mid(markerIndex + marker.length());
+    } else {
+        log = stdoutText;
+        if (!stderrText.trimmed().isEmpty()) {
+            if (!log.endsWith('\n') && !log.isEmpty()) {
+                log += '\n';
+            }
+            log += stderrText;
+        }
+    }
+
+    log = RemoveAnsiEscapeCodes(log);
+    log.replace("\r\n", "\n");
+    log.replace('\r', '\n');
+
+    QStringList lines;
+    for (QString line : log.split('\n')) {
+        if (line.startsWith("  ")) {
+            line = line.mid(2);
+        }
+
+        lines << line;
+    }
+
+    while (!lines.isEmpty() && lines.first().trimmed().isEmpty()) {
+        lines.removeFirst();
+    }
+
+    while (!lines.isEmpty() && lines.last().trimmed().isEmpty()) {
+        lines.removeLast();
+    }
+
+    return lines.join('\n');
+}
+
 UpdateWorker::UpdateWorker(UpdateModel* model, QObject *parent)
     : QObject(parent)
     , m_model(model)
@@ -135,6 +185,7 @@ void UpdateWorker::checkForUpdates()
     }
 
     m_model->setStatus(UpdatesStatus::Checking);
+    m_model->setFailureMessage(QString());
     m_model->setUpdateProgress(0);
 
     m_aptssProcess = new QProcess(this);
@@ -142,6 +193,7 @@ void UpdateWorker::checkForUpdates()
         const QByteArray errorOutput = m_aptssProcess->readAllStandardError();
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
             qWarning() << "aptss update failed:" << errorOutput;
+            m_model->setFailureMessage(FormatWorkerFailureLog(QString(), QString::fromLocal8Bit(errorOutput)));
             m_model->setStatus(UpdatesStatus::UpdateFailed);
             clearAptssProcess();
             return;
@@ -361,6 +413,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     }
 
     m_model->setStatus(UpdatesStatus::Installing);
+    m_model->setFailureMessage(QString());
     m_model->setUpgradeProgress(0);
     m_model->setUpgradeMessage(tr("Downloading updates..."));
     m_aptssStdout.clear();
@@ -400,6 +453,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             m_model->setUpgradeProgress(1);
             m_model->setUpgradeMessage(QString());
+            m_model->setFailureMessage(QString());
             m_model->setStatus(UpdatesStatus::UpdateSucceeded);
 
             QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
@@ -416,6 +470,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
                        << "stdout:" << m_aptssStdout
                        << "stderr:" << m_aptssStderr;
             m_model->setUpgradeMessage(QString());
+            m_model->setFailureMessage(FormatWorkerFailureLog(m_aptssStdout, m_aptssStderr));
             m_model->setStatus(UpdatesStatus::UpdateFailed);
         }
 
@@ -480,7 +535,9 @@ void UpdateWorker::runAptssCheckList()
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
-            qWarning() << "aptss list --upgradable failed:" << m_aptssProcess->readAllStandardError();
+            const QString errorOutput = QString::fromLocal8Bit(m_aptssProcess->readAllStandardError());
+            qWarning() << "aptss list --upgradable failed:" << errorOutput;
+            m_model->setFailureMessage(FormatWorkerFailureLog(QString(), errorOutput));
             m_model->setStatus(UpdatesStatus::UpdateFailed);
             clearAptssProcess();
             return;

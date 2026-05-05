@@ -87,6 +87,8 @@ public:
     void setUpgradeProgress(double upgradeProgress);
     QString upgradeMessage() const;
     void setUpgradeMessage(const QString &upgradeMessage);
+    QString failureMessage() const;
+    void setFailureMessage(const QString &failureMessage);
 
     bool autoCleanCache() const;
     void setAutoCleanCache(bool autoCleanCache);
@@ -125,6 +127,7 @@ Q_SIGNALS:
     void updateProgressChanged(const double &updateProgress);
     void upgradeProgressChanged(const double &upgradeProgress);
     void upgradeMessageChanged(const QString &upgradeMessage);
+    void failureMessageChanged(const QString &failureMessage);
     void autoCleanCacheChanged(const bool autoCleanCache);
     void netselectExistChanged(const bool netselectExist);
     void autoCheckUpdatesChanged(const bool autoCheckUpdates);
@@ -136,6 +139,7 @@ private:
     double m_updateProgress;
     double m_upgradeProgress;
     QString m_upgradeMessage;
+    QString m_failureMessage;
 
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
     bool m_sourceCheck;

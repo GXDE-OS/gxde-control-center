@@ -57,16 +57,17 @@ UpdateView::UpdateView()
 
     m_addTestingSource = new QPushButton;
     m_addTestingSource->setText(tr("Internal Testing Group Settings"));
-    if (QFile::exists("/usr/share/gxde-control-center/join-testing-group.sh")) {
-        // 需要保证脚本存在才会显示按钮
-        m_centralLayout->addWidget(m_addTestingSource);
-    }
 
 
     m_disabledUpgradeNotifications = new SwitchWidget(tr("Disabled Upgrade Notifications"));
     m_updateGroup->appendItem(m_disabledUpgradeNotifications);
 
     m_centralLayout->addWidget(m_updateGroup);
+
+    if (QFile::exists("/usr/share/gxde-control-center/join-testing-group.sh")) {
+        // 需要保证脚本存在才会显示按钮
+        m_centralLayout->addWidget(m_addTestingSource);
+    }
 
     connect(m_addTestingSource, &QPushButton::clicked, this, &UpdateView::ShowTesingDialog);
     connect(m_updateItem, &NextPageWidget::clicked,this, &UpdateView::ExecUpgrader);

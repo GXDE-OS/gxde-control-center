@@ -39,11 +39,15 @@
 #include <QSet>
 
 class QCheckBox;
+class QPushButton;
 
 using namespace dcc;
 using namespace dcc::widgets;
 
 namespace dcc{
+namespace widgets {
+class PlainTextItem;
+}
 namespace update{
 
 class UpdateModel;
@@ -66,6 +70,7 @@ Q_SIGNALS:
     void requestPauseDownload();
     void requestResumeDownload();
     void requestInstallUpdates();
+    void requestRefreshUpdates();
 
 private Q_SLOTS:
     void onProgressBarClicked();
@@ -78,6 +83,7 @@ private:
     void setLowBattery(const bool &lowBattery);
     void setUpdateProgress(const double value);
     void setUpgradeMessage(const QString &message);
+    void setFailureMessage(const QString &message);
     QStringList selectedPackages() const;
     void updateSelectedPackages();
     void setAllPackagesSelected(bool selected);
@@ -88,8 +94,11 @@ private:
 
     SettingsGroup* m_checkGroup;
     LoadingItem* m_checkUpdateItem;
+    QPushButton *m_refreshButton;
     SettingsGroup *m_resultGroup;
     ResultItem *m_resultItem;
+    SettingsGroup *m_failureLogGroup;
+    dcc::widgets::PlainTextItem *m_failureLogItem;
     DownloadProgressBar* m_progress;
     SettingsGroup* m_summaryGroup;
     SettingsGroup* m_selectAllGroup;
