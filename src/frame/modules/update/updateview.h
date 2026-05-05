@@ -27,10 +27,9 @@
 #define UPDATEVIEW_H
 
 #include "modules/modulewidget.h"
-//#include "widgets/nextpagewidget.h"
+#include "widgets/nextpagewidget.h"
 #include "widgets/settingsgroup.h"
 #include "widgets/switchwidget.h"
-#include "dpushbutton.h"
 #include <QCheckBox>
 #include <QPushButton>
 
@@ -51,8 +50,8 @@ Q_SIGNALS:
 
 private:
     dcc::widgets::SettingsGroup* m_updateGroup;
-    DPushButton* m_addTestingSource;
-    DPushButton* m_neoUpgrader;
+    dcc::widgets::NextPageWidget* m_updateItem;
+    QPushButton* m_addTestingSource;
     dcc::widgets::SwitchWidget *m_disabledUpgradeNotifications;
 
     void ShowTesingDialog();

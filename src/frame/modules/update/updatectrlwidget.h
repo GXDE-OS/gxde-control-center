@@ -38,6 +38,8 @@
 #include <QSettings>
 #include <QSet>
 
+class QCheckBox;
+
 using namespace dcc;
 using namespace dcc::widgets;
 
@@ -78,6 +80,7 @@ private:
     void setUpgradeMessage(const QString &message);
     QStringList selectedPackages() const;
     void updateSelectedPackages();
+    void setAllPackagesSelected(bool selected);
 
 private:
     UpdateModel *m_model;
@@ -89,7 +92,10 @@ private:
     ResultItem *m_resultItem;
     DownloadProgressBar* m_progress;
     SettingsGroup* m_summaryGroup;
+    SettingsGroup* m_selectAllGroup;
     SettingsGroup* m_upgradeWarningGroup;
+    SettingsItem *m_selectAllItem;
+    QCheckBox *m_selectAll;
     SummaryItem* m_summary;
     SummaryItem* m_upgradeWarning;
     TipsLabel *m_powerTip;

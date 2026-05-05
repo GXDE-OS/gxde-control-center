@@ -135,6 +135,8 @@ private:
     QList<QString> m_updatableApps;
     QList<QString> m_updatablePackages;
     QProcess *m_aptssProcess;
+    QString m_aptssStdout;
+    QString m_aptssStderr;
 };
 }
 }

@@ -1,4 +1,4 @@
-gxde-control-center (5.0.14) UNRELEASED; urgency=medium
+gxde-control-center (5.0.15) UNRELEASED; urgency=medium
 
   * 修复屏幕缩放调整条不对准刻度的问题
   * 修复系统信息在时间异常时显示类似 ©2023-1970 等错误信息的问题
@@ -25,8 +25,10 @@ gxde-control-center (5.0.14) UNRELEASED; urgency=medium
   * 内置更新模块，优先使用 aptss 进行系统更新
   * 更新模块免验证提权并依赖新版 gxde-app-upgrader
   * 支持选择更新软件包，并先下载到 cache 后统一安装
+  * 调整更新入口样式、增加全选并增强更新失败日志
+  * 安装阶段沿用 aptss 的 apt 配置
 
- -- gfdgd_xi <3025613752@qq.com>  Mon, 04 May 2026 01:35:53 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Tue, 05 May 2026 11:17:58 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 

@@ -363,10 +363,13 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     m_model->setStatus(UpdatesStatus::Installing);
     m_model->setUpgradeProgress(0);
     m_model->setUpgradeMessage(tr("Downloading updates..."));
+    m_aptssStdout.clear();
+    m_aptssStderr.clear();
 
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, &QProcess::readyReadStandardOutput, this, [this] {
         const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
+        m_aptssStdout += output;
         for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
             if (line.startsWith('#')) {
                 m_model->setUpgradeMessage(line.mid(1).trimmed());
@@ -387,7 +390,13 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
             }
         }
     });
+    connect(m_aptssProcess, &QProcess::readyReadStandardError, this, [this] {
+        m_aptssStderr += QString::fromLocal8Bit(m_aptssProcess->readAllStandardError());
+    });
     connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
+        m_aptssStdout += QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
+        m_aptssStderr += QString::fromLocal8Bit(m_aptssProcess->readAllStandardError());
+
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             m_model->setUpgradeProgress(1);
             m_model->setUpgradeMessage(QString());
@@ -401,7 +410,11 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
                 file.close();
             }
         } else {
-            qWarning() << "aptss upgrade failed:" << m_aptssProcess->readAllStandardError();
+            qWarning() << "aptss upgrade failed"
+                       << "exitCode:" << exitCode
+                       << "exitStatus:" << exitStatus
+                       << "stdout:" << m_aptssStdout
+                       << "stderr:" << m_aptssStderr;
             m_model->setUpgradeMessage(QString());
             m_model->setStatus(UpdatesStatus::UpdateFailed);
         }
@@ -411,6 +424,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
 
     QStringList args;
     args << "upgrade" << packages;
+    qDebug() << "starting aptss upgrade worker:" << updateWorkerPath() << args;
     m_aptssProcess->start(updateWorkerPath(), args);
     return;
 

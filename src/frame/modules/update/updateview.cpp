@@ -31,7 +31,6 @@
 #include <ddialog.h>
 #include <QFile>
 #include <QProcess>
-#include <dpushbutton.h>
 #include <unistd.h>
 #include <QDBusMessage>
 #include <QDBusConnection>
@@ -45,10 +44,10 @@ UpdateView::UpdateView()
     : ModuleWidget()
 {
     setObjectName("Update");
-//    m_updateItem = new NextPageWidget;
-//    m_updateItem->setTitle(tr("Update"));
     m_updateGroup = new SettingsGroup;
-//    m_updateGroup->appendItem(m_updateItem);
+    m_updateItem = new NextPageWidget;
+    m_updateItem->setTitle(tr("Update"));
+    m_updateGroup->appendItem(m_updateItem);
 
 //    m_settingsItem = new NextPageWidget;
 //    m_settingsItem->setTitle(tr("Update Settings"));
@@ -56,12 +55,7 @@ UpdateView::UpdateView()
 //    m_settingsGroup->appendItem(m_settingsItem);
 
 
-//    m_centralLayout->addWidget(m_settingsGroup);
-    m_neoUpgrader = new Dtk::Widget::DPushButton;
-    m_neoUpgrader->setText(tr("Check and perform system Upgrade"));
-    m_centralLayout->addWidget(m_neoUpgrader);
-
-    m_addTestingSource = new Dtk::Widget::DPushButton;
+    m_addTestingSource = new QPushButton;
     m_addTestingSource->setText(tr("Internal Testing Group Settings"));
     if (QFile::exists("/usr/share/gxde-control-center/join-testing-group.sh")) {
         // 需要保证脚本存在才会显示按钮
@@ -74,14 +68,13 @@ UpdateView::UpdateView()
 
     m_centralLayout->addWidget(m_updateGroup);
 
-    connect(m_addTestingSource, &Dtk::Widget::DPushButton::clicked, this, &UpdateView::ShowTesingDialog);
-    connect(m_neoUpgrader, &Dtk::Widget::DPushButton::clicked,this, &UpdateView::ExecUpgrader);
+    connect(m_addTestingSource, &QPushButton::clicked, this, &UpdateView::ShowTesingDialog);
+    connect(m_updateItem, &NextPageWidget::clicked,this, &UpdateView::ExecUpgrader);
     connect(m_disabledUpgradeNotifications, &SwitchWidget::checkedChanged, this, &UpdateView::DisabledUpgradeNotifications);
 
 
     setTitle(tr("Update"));
 
-    //connect(m_updateItem, &NextPageWidget::clicked, this, &UpdateView::pushUpdate);
     //connect(m_settingsItem, &NextPageWidget::clicked, this, &UpdateView::pushMirrors);
 }
 

@@ -14,6 +14,16 @@ else
     APT_CMD=/usr/bin/apt
 fi
 
+APTSS_APT_CONF=/opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
+
+apt_get_install_from_cache() {
+    if [ -f "$APTSS_APT_CONF" ]; then
+        env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get -c "$APTSS_APT_CONF" install -y --no-download --only-upgrade "$@"
+    else
+        env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get install -y --no-download --only-upgrade "$@"
+    fi
+}
+
 run_as_root() {
     if [ "$(id -u)" != "0" ]; then
         exec pkexec "$0" "$@"
@@ -31,6 +41,14 @@ write_error_status() {
     fi
 
     chmod 666 "$status_file" 2>/dev/null || true
+}
+
+fail_with_log() {
+    local stage="$1"
+    local ret="$2"
+
+    echo "gxde-update-worker: ${stage} failed with exit code ${ret}" >&2
+    exit "$ret"
 }
 
 size_to_bytes() {
@@ -81,7 +99,7 @@ download_to_cache() {
 install_from_cache() {
     echo "# Installing updates from cache..."
     echo 85
-    env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install -y --no-download --only-upgrade "$@"
+    apt_get_install_from_cache "$@"
 }
 
 case "$1" in
@@ -144,13 +162,17 @@ case "$1" in
                 download_to_cache "$@"
                 download_ret="$?"
                 if [ "$download_ret" -ne 0 ]; then
-                    exit "$download_ret"
+                    fail_with_log "download" "$download_ret"
                 fi
 
                 install_from_cache "$@"
                 install_ret="$?"
                 echo 100
-                exit "$install_ret"
+                if [ "$install_ret" -ne 0 ]; then
+                    fail_with_log "install" "$install_ret"
+                fi
+
+                exit 0
             } 2>&1 | tee "$UPGRADE_LOG"
         else
             env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} upgrade -y 2>&1 | tee "$UPGRADE_LOG"
@@ -160,6 +182,11 @@ case "$1" in
         write_error_status "$UPGRADE_LOG" "$UPGRADE_STATUS"
 
         if [ "$ret" -ne 0 ] || [ -s "$UPGRADE_STATUS" ]; then
+            echo "gxde-update-worker: upgrade failed, ret=${ret}, status=$(cat "$UPGRADE_STATUS" 2>/dev/null)" >&2
+            if [ -f "$UPGRADE_LOG" ]; then
+                echo "gxde-update-worker: full log from ${UPGRADE_LOG}:" >&2
+                sed 's/^/  /' "$UPGRADE_LOG" >&2
+            fi
             exit 1
         fi
         ;;
