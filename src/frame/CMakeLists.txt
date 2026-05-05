@@ -952,6 +952,15 @@ foreach(LETTER ${BUILD_MACRO})
     add_build_macro(${LETTER})
 endforeach()
 
+set(OBJECT_DIR "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${BIN_NAME}.dir")
+file(MAKE_DIRECTORY "${OBJECT_DIR}")
+foreach(SRC_FILE ${SRCS})
+    get_filename_component(SRC_DIR "${SRC_FILE}" DIRECTORY)
+    if (SRC_DIR)
+        file(MAKE_DIRECTORY "${OBJECT_DIR}/${SRC_DIR}")
+    endif()
+endforeach()
+
 add_executable(${BIN_NAME} ${SRCS} ${QRC})
 target_include_directories(${BIN_NAME} PUBLIC
     ${DtkWidget_INCLUDE_DIRS}
