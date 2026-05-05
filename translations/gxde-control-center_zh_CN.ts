@@ -4545,6 +4545,26 @@ Power by fantascene-dynamic-wallpaper</source>
         <source>System patches</source>
         <translation>系统补丁</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="418"/>
+        <source>Downloading updates...</source>
+        <translation>正在下载更新...</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="433"/>
+        <source>Downloading updates... %1</source>
+        <translation>正在下载更新... %1</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="431"/>
+        <source>Installing updates from cache...</source>
+        <translation>正在从缓存安装更新...</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="429"/>
+        <source>Updates installed successfully</source>
+        <translation>更新安装成功</translation>
+    </message>
 </context>
 <context>
     <name>dcc::wacom::WacomModePage</name>

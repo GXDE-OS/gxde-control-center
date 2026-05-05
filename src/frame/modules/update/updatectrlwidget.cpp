@@ -327,7 +327,7 @@ void UpdateCtrlWidget::setDownloadInfo(DownloadInfo *downloadInfo)
         }
     }
 
-    m_summary->setDetails(QString(tr("Download size: %1").arg(formatCap(downloadSize))));
+    m_summary->setDetails(downloadSize > 0 ? QString(tr("Download size: %1").arg(formatCap(downloadSize))) : QString());
 
     if (downloadSize) {
         if ((downloadSize / 1024) / 1024 >= m_qsettings->value("upgrade_waring_size", UpgradeWarningSize).toInt())

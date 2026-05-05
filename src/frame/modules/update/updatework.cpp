@@ -426,8 +426,14 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
         for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
             if (line.startsWith('#')) {
                 const QString message = line.mid(1).trimmed();
-                if (message == tr("Updates installed successfully") || message == QStringLiteral("Updates installed successfully")) {
+                if (message == QStringLiteral("Updates installed successfully")) {
                     m_model->setUpgradeProgress(1);
+                    m_model->setUpgradeMessage(tr("Updates installed successfully"));
+                } else if (message == QStringLiteral("Installing updates from cache...")) {
+                    m_model->setUpgradeMessage(tr("Installing updates from cache..."));
+                } else if (message.startsWith(QStringLiteral("Downloading updates..."))) {
+                    const QString speed = message.mid(QStringLiteral("Downloading updates...").length()).trimmed();
+                    m_model->setUpgradeMessage(speed.isEmpty() ? tr("Downloading updates...") : tr("Downloading updates... %1").arg(speed));
                 } else {
                     m_model->setUpgradeMessage(message);
                 }
@@ -592,7 +598,7 @@ void UpdateWorker::runAptssDownloadSize(const QList<AppUpdateInfo> &infos, const
 
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this, infos](int exitCode, QProcess::ExitStatus exitStatus) {
-        qlonglong downloadSize = 1;
+        qlonglong downloadSize = 0;
 
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput()).trimmed();
