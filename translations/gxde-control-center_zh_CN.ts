@@ -4343,6 +4343,11 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>本次更新可能会用时较长，更新完成前请不要关机或重启</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
+        <source>Select all</source>
+        <translation>全选</translation>
+    </message>
+    <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="176"/>
         <source>Checking for updates, please wait...</source>
         <translation>检查更新中，请稍候...</translation>
@@ -4351,6 +4356,11 @@ Power by fantascene-dynamic-wallpaper</source>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="181"/>
         <source>Download and install updates</source>
         <translation>下载并安装更新</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
+        <source>Download and install selected updates</source>
+        <translation>下载并安装选中的更新</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="190"/>

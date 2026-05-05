@@ -32,6 +32,9 @@
 #include <QJsonDocument>
 #include <QRegExp>
 #include <QDir>
+#include <QFile>
+#include <QLocale>
+#include <QTextStream>
 
 #define MIN_NM_ACTIVE 50
 
@@ -107,6 +110,78 @@ static QString FormatWorkerFailureLog(const QString &stdoutText, const QString &
     }
 
     return lines.join('\n');
+}
+
+static QStringList DesktopNameLanguageKeys()
+{
+    QString language = QString::fromLocal8Bit(qgetenv("LANGUAGE")).split(':').value(0);
+    if (language.isEmpty()) {
+        language = QLocale::system().name();
+    }
+
+    language.replace('-', '_');
+    const int encodingIndex = language.indexOf('.');
+    if (encodingIndex >= 0) {
+        language = language.left(encodingIndex);
+    }
+
+    QStringList keys;
+    if (!language.isEmpty()) {
+        keys << QStringLiteral("Name[%1]").arg(language);
+        const QString shortLanguage = language.section('_', 0, 0);
+        if (!shortLanguage.isEmpty() && shortLanguage != language) {
+            keys << QStringLiteral("Name[%1]").arg(shortLanguage);
+        }
+    }
+
+    return keys;
+}
+
+static QString DesktopNameFromFile(const QString &path, const QStringList &languageKeys, QString *genericName)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return QString();
+    }
+
+    bool inDesktopEntry = false;
+    QTextStream stream(&file);
+    while (!stream.atEnd()) {
+        const QString line = stream.readLine().trimmed();
+        if (line.isEmpty() || line.startsWith('#')) {
+            continue;
+        }
+
+        if (line.startsWith('[') && line.endsWith(']')) {
+            inDesktopEntry = line == QStringLiteral("[Desktop Entry]");
+            continue;
+        }
+
+        if (!inDesktopEntry) {
+            continue;
+        }
+
+        const int equalsIndex = line.indexOf('=');
+        if (equalsIndex <= 0) {
+            continue;
+        }
+
+        const QString key = line.left(equalsIndex);
+        const QString value = line.mid(equalsIndex + 1).trimmed();
+        if (value.isEmpty()) {
+            continue;
+        }
+
+        if (languageKeys.contains(key)) {
+            return value;
+        }
+
+        if (key == QStringLiteral("Name") && genericName && genericName->isEmpty()) {
+            *genericName = value;
+        }
+    }
+
+    return QString();
 }
 
 UpdateWorker::UpdateWorker(UpdateModel* model, QObject *parent)
@@ -527,12 +602,26 @@ QString UpdateWorker::updateWorkerPath() const
 QString UpdateWorker::packageDisplayName(const QString &packageName) const
 {
     QProcess process;
-    process.start("dpkg-query", QStringList() << "-W" << "-f=${binary:Summary}" << packageName);
+    process.start("dpkg-query", QStringList() << "-L" << packageName);
     process.waitForFinished(1000);
 
-    const QString summary = QString::fromLocal8Bit(process.readAllStandardOutput()).trimmed();
-    if (!summary.isEmpty()) {
-        return summary;
+    const QStringList languageKeys = DesktopNameLanguageKeys();
+    QString fallbackName;
+    const QString output = QString::fromLocal8Bit(process.readAllStandardOutput());
+    for (const QString &path : output.split('\n', QString::SkipEmptyParts)) {
+        const QString desktopPath = path.trimmed();
+        if (!desktopPath.startsWith(QStringLiteral("/usr/share/applications/")) || !desktopPath.endsWith(QStringLiteral(".desktop"))) {
+            continue;
+        }
+
+        const QString localizedName = DesktopNameFromFile(desktopPath, languageKeys, &fallbackName);
+        if (!localizedName.isEmpty()) {
+            return localizedName;
+        }
+    }
+
+    if (!fallbackName.isEmpty()) {
+        return fallbackName;
     }
 
     return packageName;
