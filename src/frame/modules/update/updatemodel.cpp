@@ -52,6 +52,7 @@ UpdateModel::UpdateModel(QObject *parent) :
     m_downloadInfo(nullptr),
     m_upgradeProgress(0),
     m_lowBattery(false),
+    m_restartRequired(false),
     m_autoDownloadUpdates(true),
     m_mirrorId("")
 {
@@ -112,11 +113,24 @@ bool UpdateModel::lowBattery() const
     return m_lowBattery;
 }
 
+bool UpdateModel::restartRequired() const
+{
+    return m_restartRequired;
+}
+
 void UpdateModel::setLowBattery(bool lowBattery)
 {
     if (lowBattery != m_lowBattery) {
         m_lowBattery = lowBattery;
         Q_EMIT lowBatteryChanged(lowBattery);
+    }
+}
+
+void UpdateModel::setRestartRequired(bool restartRequired)
+{
+    if (restartRequired != m_restartRequired) {
+        m_restartRequired = restartRequired;
+        Q_EMIT restartRequiredChanged(restartRequired);
     }
 }
 

@@ -267,7 +267,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     case UpdatesStatus::UpdateSucceeded:
         m_resultItem->setSuccess(true);
         m_resultGroup->setVisible(true);
-        m_reminderTip->setVisible(true);
+        m_reminderTip->setVisible(m_model->restartRequired());
         break;
     case UpdatesStatus::UpdateFailed:
         m_resultGroup->setVisible(true);
@@ -410,6 +410,13 @@ void UpdateCtrlWidget::setLowBattery(const bool &lowBattery)
     }
 }
 
+void UpdateCtrlWidget::setRestartRequired(const bool &restartRequired)
+{
+    if (m_status == UpdatesStatus::UpdateSucceeded) {
+        m_reminderTip->setVisible(restartRequired);
+    }
+}
+
 void UpdateCtrlWidget::setUpdateProgress(const double value)
 {
     m_checkUpdateItem->setProgressValue(value * 100);
@@ -421,6 +428,7 @@ void UpdateCtrlWidget::setModel(UpdateModel *model)
 
     connect(m_model, &UpdateModel::statusChanged, this, &UpdateCtrlWidget::setStatus);
     connect(m_model, &UpdateModel::lowBatteryChanged, this, &UpdateCtrlWidget::setLowBattery);
+    connect(m_model, &UpdateModel::restartRequiredChanged, this, &UpdateCtrlWidget::setRestartRequired);
     connect(m_model, &UpdateModel::downloadInfoChanged, this, &UpdateCtrlWidget::setDownloadInfo);
     connect(m_model, &UpdateModel::upgradeProgressChanged, this, &UpdateCtrlWidget::setProgressValue);
     connect(m_model, &UpdateModel::upgradeMessageChanged, this, &UpdateCtrlWidget::setUpgradeMessage);
@@ -433,6 +441,7 @@ void UpdateCtrlWidget::setModel(UpdateModel *model)
     setFailureMessage(m_model->failureMessage());
     setStatus(m_model->status());
     setLowBattery(m_model->lowBattery());
+    setRestartRequired(m_model->restartRequired());
     setDownloadInfo(m_model->downloadInfo());
 }
 

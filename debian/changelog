@@ -1,4 +1,4 @@
-gxde-control-center (5.1.1) UNRELEASED; urgency=medium
+gxde-control-center (5.1.2) UNRELEASED; urgency=medium
 
   * 修复屏幕缩放调整条不对准刻度的问题
   * 修复系统信息在时间异常时显示类似 ©2023-1970 等错误信息的问题
@@ -32,8 +32,9 @@ gxde-control-center (5.1.1) UNRELEASED; urgency=medium
   * 调整刷新按钮位置并使用 aptss apt 配置计算下载大小
   * 为更新安装阶段补充非交互环境和 dpkg 配置策略
   * 下载大小为 0 或获取不到时隐藏，并补充更新进度状态翻译
+  * 仅在更新 dde、deepin 或 gxde 相关包后提示重启
 
- -- gfdgd_xi <3025613752@qq.com>  Tue, 05 May 2026 13:05:48 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Tue, 05 May 2026 13:18:34 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 

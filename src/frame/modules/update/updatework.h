@@ -112,6 +112,8 @@ private:
     void runAptssCheckList();
     void runAptssDownloadSize(const QList<AppUpdateInfo> &infos, const QStringList &packages);
     QStringList upgradablePackages() const;
+    bool packageUpdatesNeedRestart(const QStringList &packages) const;
+    void showRestartReminderIfNeeded(bool restartRequired);
     void clearAptssProcess();
 
 private:

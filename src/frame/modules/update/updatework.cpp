@@ -412,7 +412,10 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
         return;
     }
 
+    const bool restartRequired = packageUpdatesNeedRestart(packages);
+
     m_model->setStatus(UpdatesStatus::Installing);
+    m_model->setRestartRequired(restartRequired);
     m_model->setFailureMessage(QString());
     m_model->setUpgradeProgress(0);
     m_model->setUpgradeMessage(tr("Downloading updates..."));
@@ -467,13 +470,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
             m_model->setFailureMessage(QString());
             m_model->setStatus(UpdatesStatus::UpdateSucceeded);
 
-            QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
-
-            QFile file("/tmp/.dcc-update-successd");
-            if (!file.exists()) {
-                file.open(QIODevice::WriteOnly);
-                file.close();
-            }
+            showRestartReminderIfNeeded(m_model->restartRequired());
         } else {
             qWarning() << "aptss upgrade failed"
                        << "exitCode:" << exitCode
@@ -634,6 +631,33 @@ QStringList UpdateWorker::upgradablePackages() const
     }
 
     return packages;
+}
+
+bool UpdateWorker::packageUpdatesNeedRestart(const QStringList &packages) const
+{
+    for (const QString &package : packages) {
+        const QString name = package.toLower();
+        if (name.contains("dde") || name.contains("deepin") || name.contains("gxde")) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void UpdateWorker::showRestartReminderIfNeeded(bool restartRequired)
+{
+    if (!restartRequired) {
+        return;
+    }
+
+    QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
+
+    QFile file("/tmp/.dcc-update-successd");
+    if (!file.exists()) {
+        file.open(QIODevice::WriteOnly);
+        file.close();
+    }
 }
 
 void UpdateWorker::clearAptssProcess()
@@ -919,14 +943,7 @@ void UpdateWorker::onUpgradeStatusChanged(const QString &status)
         m_distUpgradeJob->deleteLater();
 
         m_model->setStatus(UpdatesStatus::UpdateSucceeded);
-
-        QProcess::startDetached("/usr/lib/gxde-control-center/reboot-reminder-dialog");
-
-        QFile file("/tmp/.dcc-update-successd");
-        if (file.exists())
-            return;
-        file.open(QIODevice::WriteOnly);
-        file.close();
+        showRestartReminderIfNeeded(m_model->restartRequired());
     }
 }
 

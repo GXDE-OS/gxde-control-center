@@ -79,6 +79,8 @@ public:
 
     bool lowBattery() const;
     void setLowBattery(bool lowBattery);
+    bool restartRequired() const;
+    void setRestartRequired(bool restartRequired);
 
     bool autoDownloadUpdates() const;
     void setAutoDownloadUpdates(bool autoDownloadUpdates);
@@ -116,6 +118,7 @@ Q_SIGNALS:
     void smartMirrorSwitchChanged(bool smartMirrorSwitch);
 
     void lowBatteryChanged(const bool &lowBattery);
+    void restartRequiredChanged(const bool &restartRequired);
     void statusChanged(const UpdatesStatus &status);
 
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
@@ -146,6 +149,7 @@ private:
 #endif
 
     bool m_lowBattery;
+    bool m_restartRequired;
     bool m_netselectExist;
     bool m_autoCleanCache;
     bool m_autoDownloadUpdates;

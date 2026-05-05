@@ -81,6 +81,7 @@ private:
     void setDownloadInfo(DownloadInfo *downloadInfo);
     void setProgressValue(const double value);
     void setLowBattery(const bool &lowBattery);
+    void setRestartRequired(const bool &restartRequired);
     void setUpdateProgress(const double value);
     void setUpgradeMessage(const QString &message);
     void setFailureMessage(const QString &message);
