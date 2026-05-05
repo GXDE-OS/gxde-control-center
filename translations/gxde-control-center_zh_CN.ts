@@ -4333,6 +4333,11 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>网络断开，请联网后重试</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <source>Refresh</source>
+        <translation>刷新</translation>
+    </message>
+    <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="89"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>本次更新可能会用时较长，更新完成前请不要关机或重启</translation>

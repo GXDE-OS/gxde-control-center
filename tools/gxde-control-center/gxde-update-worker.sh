@@ -15,12 +15,33 @@ else
 fi
 
 APTSS_APT_CONF=/opt/durapps/spark-store/bin/apt-fast-conf/aptss-apt.conf
+APT_ENV=(
+    LANGUAGE=en_US
+    DEBIAN_FRONTEND=noninteractive
+    DEBCONF_NONINTERACTIVE_SEEN=true
+    APT_LISTCHANGES_FRONTEND=none
+    NEEDRESTART_MODE=a
+    UCF_FORCE_CONFFOLD=1
+)
+APT_OPTIONS=(
+    -o Dpkg::Use-Pty=0
+    -o Dpkg::Options::=--force-confdef
+    -o Dpkg::Options::=--force-confold
+)
 
 apt_get_install_from_cache() {
     if [ -f "$APTSS_APT_CONF" ]; then
-        env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get -c "$APTSS_APT_CONF" install -y --no-download --only-upgrade "$@"
+        env "${APT_ENV[@]}" /usr/bin/apt-get -c "$APTSS_APT_CONF" "${APT_OPTIONS[@]}" install -y --no-download --only-upgrade "$@"
     else
-        env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive /usr/bin/apt-get install -y --no-download --only-upgrade "$@"
+        env "${APT_ENV[@]}" /usr/bin/apt-get "${APT_OPTIONS[@]}" install -y --no-download --only-upgrade "$@"
+    fi
+}
+
+apt_get_simulate_download_size() {
+    if [ -f "$APTSS_APT_CONF" ]; then
+        env "${APT_ENV[@]}" /usr/bin/apt-get -c "$APTSS_APT_CONF" "${APT_OPTIONS[@]}" install --simulate --only-upgrade "$@"
+    else
+        env "${APT_ENV[@]}" /usr/bin/apt-get "${APT_OPTIONS[@]}" install --simulate --only-upgrade "$@"
     fi
 }
 
@@ -140,7 +161,7 @@ case "$1" in
             exit 0
         fi
 
-        output=$(env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install --simulate --only-upgrade "$@" 2>/dev/null || true)
+        output=$(apt_get_simulate_download_size "$@" 2>/dev/null || true)
         need_line=$(printf '%s\n' "$output" | awk '/^Need to get / { line = $0 } END { print line }')
 
         if [ -z "$need_line" ]; then
@@ -189,6 +210,9 @@ case "$1" in
             fi
             exit 1
         fi
+
+        echo "# Updates installed successfully"
+        echo 100
         ;;
     clean-log)
         rm -f "$UPDATE_LOG" "$UPDATE_STATUS" "$UPGRADE_LOG" "$UPGRADE_STATUS"

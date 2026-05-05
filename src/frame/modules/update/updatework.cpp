@@ -425,7 +425,12 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
         m_aptssStdout += output;
         for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
             if (line.startsWith('#')) {
-                m_model->setUpgradeMessage(line.mid(1).trimmed());
+                const QString message = line.mid(1).trimmed();
+                if (message == tr("Updates installed successfully") || message == QStringLiteral("Updates installed successfully")) {
+                    m_model->setUpgradeProgress(1);
+                } else {
+                    m_model->setUpgradeMessage(message);
+                }
                 continue;
             }
 

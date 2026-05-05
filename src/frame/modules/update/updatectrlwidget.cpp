@@ -125,11 +125,11 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     m_upgradeWarningGroup->appendItem(m_upgradeWarning);
 
     layout->addSpacing(10);
-    layout->addLayout(refreshLayout);
     layout->addWidget(m_checkGroup);
     layout->addWidget(m_resultGroup);
     layout->addWidget(m_failureLogGroup);
     layout->addWidget(m_progress);
+    layout->addLayout(refreshLayout);
     layout->addWidget(m_upgradeWarningGroup);
     layout->addWidget(m_selectAllGroup);
     layout->addWidget(m_summaryGroup);
