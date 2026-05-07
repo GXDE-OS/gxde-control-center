@@ -736,6 +736,9 @@ bool UpdateWorker::packageUpdatesNeedRestart(const QStringList &packages) const
 
 void UpdateWorker::showRestartReminderIfNeeded(bool restartRequired)
 {
+    Q_UNUSED(restartRequired)
+    return; // temporarily disabled
+
     if (!restartRequired) {
         return;
     }
