@@ -198,7 +198,6 @@ PersonalizationWidget::PersonalizationWidget()
             [this](){
         m_showTopPanel->setChecked(true);
         m_showTopPanelGlobalMenu->setChecked(true);
-        m_hideDDEDock->setChecked(true);
     });
     connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this, [=] {
        // reset state
