@@ -194,6 +194,12 @@ PersonalizationWidget::PersonalizationWidget()
 
     connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this,
             &PersonalizationWidget::requestSetDockUseMacMode);
+    connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this,
+            [this](){
+        m_showTopPanel->setChecked(true);
+        m_showTopPanelGlobalMenu->setChecked(true);
+        m_hideDDEDock->setChecked(true);
+    });
     connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this, [=] {
        // reset state
         m_dockUseMacMode->setChecked(m_model->isDockUseMacMode());
