@@ -196,8 +196,13 @@ PersonalizationWidget::PersonalizationWidget()
             &PersonalizationWidget::requestSetDockUseMacMode);
     connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this,
             [this](){
-        m_showTopPanel->setChecked(true);
-        m_showTopPanelGlobalMenu->setChecked(true);
+        if (m_dockUseMacMode->checked()) {
+            m_showTopPanel->setChecked(true);
+            m_showTopPanelGlobalMenu->setChecked(true);
+            // 手动发送信号避免勾选后未执行相关操作
+            // 注：只发送全局菜单的事件避免重复执行开关顶栏的函数开启多个顶栏
+            Q_EMIT requestSetTopPanel(true);
+        }
     });
     connect(m_dockUseMacMode, &SwitchWidget::checkedChanged, this, [=] {
        // reset state
