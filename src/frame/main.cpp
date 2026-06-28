@@ -30,6 +30,8 @@
 #include <DDBusSender>
 #include <DLog>
 #include <QStyle>
+#include <QDBusMetaType>
+#include <QMap>
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -145,6 +147,9 @@ static void onFontSizeChanged(const float pointSizeF) {
 
 int main(int argc, char *argv[])
 {
+    // 修复点击键盘与语言和鼠标子页设置崩溃的问题
+    qDBusRegisterMetaType<QMap<QString, QString>>();
+
     DApplication::loadDXcbPlugin();
     DApplication app(argc, argv);
     app.setOrganizationName("GXDE");
