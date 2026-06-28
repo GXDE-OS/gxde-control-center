@@ -1,4 +1,4 @@
-gxde-control-center (6.0.0) UNRELEASED; urgency=medium
+gxde-control-center (6.0.1) UNRELEASED; urgency=medium
 
   * 暂时禁用更新后的重启提示对话框
   * 修复屏幕缩放调整条不对准刻度的问题
@@ -37,8 +37,9 @@ gxde-control-center (6.0.0) UNRELEASED; urgency=medium
   * 更新列表标题优先使用 .desktop 本地化名称并补充进度条翻译
   * 勾选“启用任务栏仿Mac风格”时自动勾选顶栏与顶栏全局菜单选项
   * Qt6 迁移
+  * 修复翻译缺失的问题
 
- -- gfdgd_xi <3025613752@qq.com>  Sun, 28 Jun 2026 20:09:44 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Sun, 28 Jun 2026 21:51:53 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 
