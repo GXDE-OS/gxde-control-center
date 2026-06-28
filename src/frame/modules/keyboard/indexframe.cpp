@@ -42,7 +42,7 @@ IndexFrame::IndexFrame(QFrame *parent):TranslucentFrame(parent)
     char ch = 'A';
     for(int i = 0; i<26; i++)
     {
-        int w = fm.width(QChar(ch));
+        int w = fm.horizontalAdvance(QChar(ch));
         if(w > max)
             max = w;
 
@@ -70,7 +70,7 @@ void IndexFrame::setLetters(const QStringList &lists)
         if((*it).count() > 0)
         {
             QChar ch = (*it)[0];
-            int w = fm.width(ch.toUpper());
+            int w = fm.horizontalAdvance(ch.toUpper());
             if(w > max)
                 max = w;
 
@@ -100,7 +100,7 @@ void IndexFrame::paintEvent(QPaintEvent *)
     }
     painter.setBrush(Qt::white);
     painter.setOpacity(m_pressed ? 0.6 : 0.3);
-    painter.drawRoundRect(m_rect);
+    painter.drawRoundedRect(m_rect, 25, 25);
 }
 
 void IndexFrame::mousePressEvent(QMouseEvent *e)

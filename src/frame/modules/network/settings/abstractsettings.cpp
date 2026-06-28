@@ -37,7 +37,7 @@ AbstractSettings::AbstractSettings(NetworkManager::ConnectionSettings::Ptr connS
       m_sectionsLayout(new QVBoxLayout)
 {
     m_sectionsLayout->setSpacing(10);
-    m_sectionsLayout->setMargin(0);
+    m_sectionsLayout->setContentsMargins(0, 0, 0, 0);
     m_sectionsLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_sectionsLayout);

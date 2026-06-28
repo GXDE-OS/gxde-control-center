@@ -158,7 +158,7 @@ void DefAppWorker::onCreateFile(const QString &mime, const QFileInfo &info)
             "Icon=application-default-icon\n"
             "Terminal=false\n"
             "Categories=" + mime + ";"
-            << endl;
+            << Qt::endl;
         out.flush();
         file.close();
 

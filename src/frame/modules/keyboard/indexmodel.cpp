@@ -104,8 +104,8 @@ bool MetaData::operator >(const MetaData &md) const
 
 QDebug &operator<<(QDebug dbg, const MetaData &md)
 {
-    dbg.nospace()<<"key: "<<md.key()<<endl;
-    dbg.nospace()<<"text: "<<md.text()<<endl;
+    dbg.nospace()<<"key: "<<md.key()<<Qt::endl;
+    dbg.nospace()<<"text: "<<md.text()<<Qt::endl;
     /*
     dbg.nospace()<<"MetaData ( pinyin: "<<md.pinyin()<<" , ";
     dbg.nospace()<<"text: "<<md.text()<<" , ";
@@ -176,7 +176,7 @@ QVariant IndexModel::data(const QModelIndex &index, int role) const
         v.setValue(md);
         return v;
     }
-    else if(role == Qt::BackgroundColorRole)
+    else if(role == Qt::BackgroundRole)
     {
         return QBrush(Qt::transparent);
     }

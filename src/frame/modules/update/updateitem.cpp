@@ -100,7 +100,7 @@ UpdateItem::UpdateItem(QFrame *parent)
     iconContainer->setFixedWidth(36);
 
     m_iconLayout = new QVBoxLayout;
-    m_iconLayout->setMargin(0);
+    m_iconLayout->setContentsMargins(0, 0, 0, 0);
     m_iconLayout->setSpacing(0);
     m_iconLayout->addWidget(m_appIcon, 0, Qt::AlignCenter);
     m_iconLayout->addStretch();
@@ -127,13 +127,13 @@ UpdateItem::UpdateItem(QFrame *parent)
     m_details->setText(tr("Details"));
 
     QHBoxLayout* logLayout = new QHBoxLayout;
-    logLayout->setMargin(0);
+    logLayout->setContentsMargins(0, 0, 0, 0);
     logLayout->setSpacing(0);
     logLayout->addWidget(m_appChangelog, 1);
     logLayout->addWidget(m_details);
 
     QHBoxLayout *nameLayout = new QHBoxLayout;
-    nameLayout->setMargin(0);
+    nameLayout->setContentsMargins(0, 0, 0, 0);
     nameLayout->setSpacing(0);
     nameLayout->addWidget(m_appName);
     nameLayout->addSpacing(4);
@@ -141,7 +141,7 @@ UpdateItem::UpdateItem(QFrame *parent)
     nameLayout->addStretch();
 
     QVBoxLayout* rightLayout = new QVBoxLayout;
-    rightLayout->setMargin(0);
+    rightLayout->setContentsMargins(0, 0, 0, 0);
     rightLayout->setSpacing(0);
     rightLayout->addStretch();
     rightLayout->addLayout(nameLayout);
@@ -150,7 +150,7 @@ UpdateItem::UpdateItem(QFrame *parent)
     rightLayout->addStretch();
 
     QHBoxLayout* layout = new QHBoxLayout();
-    layout->setMargin(10);
+    layout->setContentsMargins(10, 10, 10, 10);
     layout->setSpacing(0);
     layout->addWidget(m_checkBox, 0, Qt::AlignCenter);
     layout->addSpacing(10);

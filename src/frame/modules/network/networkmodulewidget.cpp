@@ -69,7 +69,7 @@ NetworkModuleWidget::NetworkModuleWidget()
 
     m_detailBtn->setTitle(tr("Network Details"));
 
-    m_devicesLayout->setMargin(0);
+    m_devicesLayout->setContentsMargins(0, 0, 0, 0);
     m_devicesLayout->setSpacing(10);
     m_centralLayout->addLayout(m_devicesLayout);
 
@@ -127,7 +127,7 @@ void NetworkModuleWidget::setModel(NetworkModel *model)
 void NetworkModuleWidget::onDeviceListChanged(const QList<NetworkDevice *> &devices)
 {
     bool recreate = false;
-    const auto devs = m_devicesWidgets.values().toSet();
+    const QSet<NetworkDevice *> devs(m_devicesWidgets.values().begin(), m_devicesWidgets.values().end());
 
     if (devs.size() != devices.size())
     {

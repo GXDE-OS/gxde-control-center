@@ -43,8 +43,11 @@ MiracastDeviceModel *MiracastModel::deviceModelByPath(const QString &path)
 }
 void MiracastModel::addSink(const SinkInfo &peer)
 {
-    if (m_sinks.contains(peer))
-        return;
+    for (int i = 0; i < m_sinks.size(); ++i) {
+        SinkInfo s = m_sinks[i];
+        if (s == peer)
+            return;
+    }
 
     m_sinks.append(peer);
     m_deviceModelList[peer.m_linkPath.path()]->onSinkAdded(peer);
@@ -52,8 +55,11 @@ void MiracastModel::addSink(const SinkInfo &peer)
 
 void MiracastModel::addLink(const LinkInfo &link)
 {
-    if (m_links.contains(link))
-        return;
+    for (int i = 0; i < m_links.size(); ++i) {
+        LinkInfo l = m_links[i];
+        if (l == link)
+            return;
+    }
 
     m_links.append(link);
     m_deviceModelList.insert(link.m_dbusPath.path(), new MiracastDeviceModel(link));
@@ -88,7 +94,13 @@ void MiracastModel::removeSink(const QString &sinkInfo)
     const SinkInfo info = SinkInfo::fromJson(infoObject);
 
     m_deviceModelList[info.m_linkPath.path()]->onSinkRemoved(info);
-    m_sinks.removeOne(info);
+    for (int i = 0; i < m_sinks.size(); ++i) {
+        SinkInfo s = m_sinks[i];
+        if (s == info) {
+            m_sinks.removeAt(i);
+            break;
+        }
+    }
 }
 
 void MiracastModel::setLinks(const QList<LinkInfo> &links)

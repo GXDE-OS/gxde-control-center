@@ -56,7 +56,7 @@ SettingsHead::SettingsHead(QFrame *parent)
     m_cancel->setVisible(false);
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(20, 0, 10, 0);
     mainLayout->addWidget(m_title);

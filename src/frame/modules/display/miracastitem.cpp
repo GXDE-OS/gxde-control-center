@@ -47,7 +47,7 @@ MiracastItem::MiracastItem(const SinkInfo &info, QWidget *parent) :
         m_connectWidget->onConnectChanged(ConnectWidget::ConnectFaild);
 
     QHBoxLayout *mainlayout = new QHBoxLayout;
-    mainlayout->setMargin(0);
+    mainlayout->setContentsMargins(0, 0, 0, 0);
     mainlayout->setSpacing(0);
     mainlayout->setContentsMargins(20, 5, 10, 5);
     mainlayout->addWidget(title);
@@ -89,7 +89,7 @@ void MiracastItem::mouseReleaseEvent(QMouseEvent *e)
     }
 }
 
-void MiracastItem::enterEvent(QEvent *e)
+void MiracastItem::enterEvent(QEnterEvent *e)
 {
     SettingsItem::enterEvent(e);
 

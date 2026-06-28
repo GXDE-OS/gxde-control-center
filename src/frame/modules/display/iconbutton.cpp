@@ -47,7 +47,7 @@ void IconButton::setPressIcon(const QIcon &icon)
     m_press = icon;
 }
 
-void IconButton::enterEvent(QEvent *e)
+void IconButton::enterEvent(QEnterEvent *e)
 {
     QPushButton::enterEvent(e);
 

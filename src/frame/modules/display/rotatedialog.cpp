@@ -78,7 +78,7 @@ RotateDialog::RotateDialog(Monitor *mon, QWidget *parent)
     osd->setFixedSize(rotatePixmap.width() / ratio, rotatePixmap.height() / ratio);
 
     QVBoxLayout *l = new QVBoxLayout(blurWidget);
-    l->setMargin(0);
+    l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
     l->addWidget(osd, Qt::AlignHCenter);
     l->setAlignment(osd, Qt::AlignCenter);
@@ -86,7 +86,7 @@ RotateDialog::RotateDialog(Monitor *mon, QWidget *parent)
     QVBoxLayout *centralLayout = new QVBoxLayout;
     centralLayout->addWidget(blurWidget);
     centralLayout->setAlignment(blurWidget, Qt::AlignCenter);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
     centralLayout->setSpacing(0);
 
     connect(m_mon, &Monitor::wChanged, m_adjustDelayTimer, static_cast<void (QTimer::*)()>(&QTimer::start));

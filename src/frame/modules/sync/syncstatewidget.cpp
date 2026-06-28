@@ -35,7 +35,7 @@ SyncStateWidget::SyncStateWidget(QWidget *parent)
     regionTip->setWordWrap(true);
 
     QVBoxLayout* regionLayout = new QVBoxLayout;
-    regionLayout->setMargin(0);
+    regionLayout->setContentsMargins(0, 0, 0, 0);
     regionLayout->setSpacing(0);
     regionLayout->addWidget(regionTip);
 
@@ -43,7 +43,7 @@ SyncStateWidget::SyncStateWidget(QWidget *parent)
     m_regionTipFrame->hide();
 
     QVBoxLayout* layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     QVBoxLayout* syncStateLayout = new QVBoxLayout;
@@ -104,7 +104,7 @@ SyncStateWidget::SyncStateWidget(QWidget *parent)
     m_backgroundFrame->setLayout(layout);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(10);
     mainLayout->addWidget(m_backgroundFrame);
     mainLayout->addWidget(m_regionTipFrame);

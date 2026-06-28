@@ -39,20 +39,20 @@ SettingsListWidget::SettingsListWidget(QWidget *parent)
     m_title->setObjectName("SettingsListWidgetTitle");
 
     m_listLayout->setSpacing(0);
-    m_listLayout->setMargin(0);
+    m_listLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *listWidget = new QWidget;
     listWidget->setObjectName("SettingsListWidget");
     listWidget->setLayout(m_listLayout);
 
     QHBoxLayout *hly = new QHBoxLayout;
-    hly->setMargin(0);
+    hly->setContentsMargins(0, 0, 0, 0);
     hly->setSpacing(0);
     hly->addSpacing(15);
     hly->addWidget(m_title);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(25, 0, 15, 0);
 

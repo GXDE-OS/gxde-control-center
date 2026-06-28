@@ -112,7 +112,7 @@ void ComboBoxWidget::onNextPageClicked()
 
     TranslucentFrame *mainWidget = new TranslucentFrame;
     QVBoxLayout *layout = new QVBoxLayout(mainWidget);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addSpacing(10);
     layout->addWidget(m_optionsGroup);

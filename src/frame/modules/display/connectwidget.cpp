@@ -46,7 +46,7 @@ ConnectWidget::ConnectWidget(QWidget *parent) :
     m_disconnectBtn->setPressPic(":/display/themes/dark/icons/disconnect_press.png");
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_loading, 0, Qt::AlignRight);

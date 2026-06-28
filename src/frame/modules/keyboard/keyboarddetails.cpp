@@ -42,7 +42,7 @@ KeyboardDetails::KeyboardDetails(QWidget *parent)
     TranslucentFrame* content = new TranslucentFrame();
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSpacing(20);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     m_group = new SettingsGroup();
     m_head = new SettingsHead();

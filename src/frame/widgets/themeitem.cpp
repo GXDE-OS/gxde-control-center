@@ -42,11 +42,11 @@ ThemeItem::ThemeItem(QWidget *parent)
 {
     m_itemPic = new ThemeItemPic;
 
-    m_mainLayout->setMargin(10);
+    m_mainLayout->setContentsMargins(10, 10, 10, 10);
     m_title->setFixedHeight(20);
 
     QHBoxLayout *titleLayout = new QHBoxLayout;
-    titleLayout->setMargin(0);
+    titleLayout->setContentsMargins(0, 0, 0, 0);
     titleLayout->setSpacing(0);
 
     m_selectLabel->setPixmap(loadPixmap(":/widgets/themes/dark/icons/select.svg"));

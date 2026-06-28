@@ -92,7 +92,7 @@ static void onThemeChange(const QString &theme)
 
 #ifdef QT_DEBUG
 //    qDebug() << "set theme:" << theme;
-//    qDebug().noquote() << "qss: " << endl << qss;
+//    qDebug().noquote() << "qss: " << Qt::endl << qss;
 #endif
 
     qApp->setStyleSheet(qss);
@@ -146,7 +146,6 @@ static void onFontSizeChanged(const float pointSizeF) {
 int main(int argc, char *argv[])
 {
     DApplication::loadDXcbPlugin();
-
     DApplication app(argc, argv);
     app.setOrganizationName("GXDE");
     app.setApplicationName("gxde-control-center");
@@ -161,6 +160,9 @@ int main(int argc, char *argv[])
     QTranslator translator;
     translator.load("/usr/share/gxde-network-utils/translations/gxde-network-utils_" + QLocale::system().name());
     app.installTranslator(&translator);
+
+    app.setTheme("semidark");
+    onThemeChange("dark");
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
@@ -183,9 +185,6 @@ int main(int argc, char *argv[])
 
     const QString &reqModule = parser.value(moduleOption);
     const QString &reqPage = parser.value(pageOption);
-
-    app.setTheme("semidark");
-    onThemeChange("dark");
 
     QTimer::singleShot(0, [] { onFontSizeChanged(qApp->font().pointSizeF()); });
 

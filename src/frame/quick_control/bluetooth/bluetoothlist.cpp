@@ -47,7 +47,7 @@ BluetoothList::BluetoothList(BluetoothModel *model, QWidget *parent)
     QVBoxLayout *centralLayout = new QVBoxLayout;
     centralLayout->addStretch();
     centralLayout->addWidget(listView);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(centralLayout);
 

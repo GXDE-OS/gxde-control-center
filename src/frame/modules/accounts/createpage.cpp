@@ -218,8 +218,10 @@ class FakeKeyEvent : public QKeyEvent {
 bool CreatePage::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == m_username->textEdit() && event->type() == QEvent::KeyPress) {
-        FakeKeyEvent *tmp_event = static_cast<FakeKeyEvent*>(event);
-        tmp_event->txt = tmp_event->txt.toLower();
+        QKeyEvent *tmp_event = static_cast<QKeyEvent*>(event);
+        QKeyEvent lowerEvent(tmp_event->type(), tmp_event->key(), tmp_event->modifiers(), tmp_event->text().toLower());
+        QApplication::sendEvent(watched, &lowerEvent);
+        return true;
     }
 
     return false;

@@ -74,7 +74,7 @@ ModifyPasswordPage::ModifyPasswordPage(User *user, QWidget *parent)
     mainLayout->addWidget(pwdGroup);
     mainLayout->addWidget(m_buttonTuple);
     mainLayout->setSpacing(10);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     TranslucentFrame *mainWidget = new TranslucentFrame;
     mainWidget->setLayout(mainLayout);

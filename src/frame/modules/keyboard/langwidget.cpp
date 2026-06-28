@@ -50,7 +50,7 @@ LangWidget::LangWidget(KeyboardModel *model, QWidget *parent)
 
     m_contentWidget = new TranslucentFrame();
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     m_searchModel = new IndexModel();

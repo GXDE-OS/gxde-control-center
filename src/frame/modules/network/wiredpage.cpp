@@ -75,7 +75,7 @@ WiredPage::WiredPage(WiredDevice *dev, QWidget *parent)
     centralLayout->addWidget(m_createBtn);
     centralLayout->addStretch();
     centralLayout->setSpacing(10);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *centralWidget = new TranslucentFrame;
     centralWidget->setLayout(centralLayout);

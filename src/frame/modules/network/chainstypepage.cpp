@@ -57,7 +57,7 @@ ChainsTypePage::ChainsTypePage(QWidget *parent) : ContentWidget(parent)
     m_list << http << socks4 << socks5;
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     layout->addSpacing(10);

@@ -49,7 +49,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent)
     centralLayout->addSpacing(15);
     centralLayout->addWidget(m_nextPluginBtn);
     centralLayout->addStretch();
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
     m_prevPluginBtn->setObjectName("PrevBtn");
     m_prevPluginBtn->setAccessibleName("PrevBtn");
@@ -76,7 +76,7 @@ IndicatorWidget::IndicatorWidget(QWidget *parent)
     setLayout(centralLayout);
 }
 
-void IndicatorWidget::enterEvent(QEvent *e)
+void IndicatorWidget::enterEvent(QEnterEvent *e)
 {
     QWidget::enterEvent(e);
 
@@ -100,7 +100,7 @@ void IndicatorWidget::wheelEvent(QWheelEvent *e)
         return;
     m_ignoreWheelRepeat->start();
 
-    if (e->delta() < 0)
+    if (e->angleDelta().y() < 0)
     {
         m_pluginsIndicator->nextPage();
         Q_EMIT requestNext();

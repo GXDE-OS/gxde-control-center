@@ -55,7 +55,7 @@ CustomConfigPage::CustomConfigPage(const QString &config, QWidget *parent)
     centralLayout->addWidget(m_modifyTips);
     centralLayout->addWidget(m_deleteBtn);
     centralLayout->addWidget(m_deleteTips);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *centralWidget = new TranslucentFrame;
     centralWidget->setLayout(centralLayout);

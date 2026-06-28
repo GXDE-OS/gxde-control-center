@@ -27,6 +27,7 @@
 
 #include <QDebug>
 #include <QUrl>
+#include <QFile>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPaintEvent>
@@ -48,7 +49,7 @@ AvatarWidget::AvatarWidget(QWidget *parent)
     m_delBtn->setVisible(false);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_delBtn);
     mainLayout->setAlignment(m_delBtn, Qt::AlignCenter);
@@ -141,7 +142,7 @@ void AvatarWidget::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 
-void AvatarWidget::enterEvent(QEvent *)
+void AvatarWidget::enterEvent(QEnterEvent *)
 {
     m_hover = true;
     m_delBtn->setVisible(m_deleable);

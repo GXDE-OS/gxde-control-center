@@ -63,7 +63,7 @@ MainWidget::MainWidget(FrameContentWrapper *parent)
     , m_quickSettingsPanel(new QuickControlPanel(this))
 #endif
 {
-    m_pluginsLayout->setMargin(0);
+    m_pluginsLayout->setContentsMargins(0, 0, 0, 0);
     m_pluginsLayout->setSpacing(0);
 
     // 默认隐藏
@@ -114,7 +114,7 @@ MainWidget::MainWidget(FrameContentWrapper *parent)
     m_notifyToggleBtn->setHoverPic(":/frame/themes/dark/icons/notifications_toggle_hover.svg");
 
     QHBoxLayout *toggleNotifyLayout = new QHBoxLayout(this);
-    toggleNotifyLayout->setMargin(0);
+    toggleNotifyLayout->setContentsMargins(0, 0, 0, 0);
     toggleNotifyLayout->setSpacing(0);
     toggleNotifyLayout->addWidget(m_notifyToggleBtn, 0, Qt::AlignVCenter);
 
@@ -125,7 +125,7 @@ MainWidget::MainWidget(FrameContentWrapper *parent)
 
     QVBoxLayout *timedateLayout = new QVBoxLayout;
     timedateLayout->setSpacing(0);
-    timedateLayout->setMargin(0);
+    timedateLayout->setContentsMargins(0, 0, 0, 0);
     timedateLayout->addStretch();
     timedateLayout->addWidget(m_currentTimeLbl);
     timedateLayout->addWidget(m_currentDateLbl);
@@ -165,7 +165,7 @@ MainWidget::MainWidget(FrameContentWrapper *parent)
     centralLayout->addWidget(m_quickSettingsPanel, 1);
     centralLayout->addSpacing(10);
     centralLayout->setSpacing(0);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
     centralLayout->setContentsMargins(1, 1, 1, 1);
 
     connect(m_pluginsController, &PluginsController::pluginAdded, this, &MainWidget::pluginAdded, Qt::QueuedConnection);
@@ -222,7 +222,7 @@ void MainWidget::refershTimedate()
 {
     const QDateTime tm = QDateTime::currentDateTime();
     m_currentTimeLbl->setText(tm.time().toString("HH:mm"));
-    m_currentDateLbl->setText(tm.date().toString(Qt::SystemLocaleLongDate));
+    m_currentDateLbl->setText(QLocale::system().toString(tm, QLocale::LongFormat));
 }
 
 void MainWidget::SetNotifyWidget()

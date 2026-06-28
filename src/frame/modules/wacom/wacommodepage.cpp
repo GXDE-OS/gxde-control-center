@@ -45,7 +45,7 @@ WacomModePage::WacomModePage(QWidget *parent) : ContentWidget(parent)
     grp->appendItem(m_mouseMode);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
     vlayout->addSpacing(10);

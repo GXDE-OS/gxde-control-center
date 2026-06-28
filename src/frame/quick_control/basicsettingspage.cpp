@@ -192,7 +192,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent)
     //m_mprisWidget->setPictureSize({60, 60});
 
     QHBoxLayout *volumeLayout = new QHBoxLayout;
-    volumeLayout->setMargin(0);
+    volumeLayout->setContentsMargins(0, 0, 0, 0);
     volumeLayout->setSpacing(0);
     volumeLayout->addWidget(m_volumeLow);
     volumeLayout->addSpacing(5);
@@ -201,7 +201,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent)
     volumeLayout->addWidget(m_volumeHigh);
 
     QHBoxLayout *brightnessLayout = new QHBoxLayout;
-    brightnessLayout->setMargin(0);
+    brightnessLayout->setContentsMargins(0, 0, 0, 0);
     brightnessLayout->setSpacing(0);
     brightnessLayout->addWidget(m_brightnessLow);
     //brightnessLayout->addSpacing(10);

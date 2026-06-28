@@ -47,7 +47,7 @@ ResultItem::ResultItem(QFrame *parent)
     m_message->setWordWrap(true);
 
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     layout->addSpacing(15);

@@ -43,7 +43,7 @@ DisplayControlPage::DisplayControlPage(QWidget *parent) : SettingsItem(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addStretch();
     mainLayout->addWidget(m_baseListView);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
 

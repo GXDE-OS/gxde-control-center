@@ -86,7 +86,7 @@ NetworkDetailPage::NetworkDetailPage(QWidget *parent)
 {
     m_groupsLayout = new QVBoxLayout;
     m_groupsLayout->setSpacing(0);
-    m_groupsLayout->setMargin(0);
+    m_groupsLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *mainWidget = new TranslucentFrame;
     mainWidget->setLayout(m_groupsLayout);

@@ -42,7 +42,7 @@ SettingsGroup::SettingsGroup(QFrame *parent) :
     m_updateHeightTimer(new QTimer(this)),
     m_updateHeadTailTimer(new QTimer(this))
 {
-    m_layout->setMargin(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(1);
 
     m_updateHeightTimer->setSingleShot(true);

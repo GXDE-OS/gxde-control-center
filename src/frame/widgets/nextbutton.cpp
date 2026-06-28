@@ -37,7 +37,7 @@ NextButton::NextButton(QWidget *parent) :
 
     QVBoxLayout *centralLayout = new QVBoxLayout;
     centralLayout->addWidget(btn);
-    centralLayout->setMargin(0);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(centralLayout);
 

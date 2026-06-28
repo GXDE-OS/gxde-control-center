@@ -36,7 +36,7 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
-#include <QTextCodec>
+#include <QStringDecoder>
 
 namespace installer {
 
@@ -85,7 +85,7 @@ bool CopyFolder(const QString src_dir, const QString& dest_dir,
 
   // Walk through source folder.
   while (ok && iter.hasNext()) {
-    src_info = iter.next();
+    src_info = QFileInfo(iter.next());
     dest_filepath = iter.filePath().replace(src_dir, dest_dir);
     if (src_info.isDir()) {
       if (!QDir(dest_filepath).exists()) {
@@ -200,9 +200,9 @@ QString ReadGBKFile(const QString& path) {
       return "";
     }
     const QByteArray file_data = file.readAll();
-    QTextCodec* codec = QTextCodec::codecForName("GB18030");
+    auto decoder = QStringDecoder("GB18030");
     file.close();
-    return codec->toUnicode(file_data);
+    return decoder(file_data);
   } else {
     qWarning() << "ReadGBKFile() file not found:" << path;
     return "";

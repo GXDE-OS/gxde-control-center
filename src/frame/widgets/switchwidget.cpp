@@ -55,7 +55,7 @@ SwitchWidget::SwitchWidget(QWidget *widget, QFrame *parent):
     m_switchBtn(new DSwitchButton)
 {
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
     //set a vertical margin instead of a fixed height,

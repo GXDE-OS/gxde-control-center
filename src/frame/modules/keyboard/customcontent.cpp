@@ -51,7 +51,7 @@ CustomContent::CustomContent(ShortcutModel *model, QWidget *parent)
     setTitle(tr("Shortcuts"));
     TranslucentFrame *widget = new TranslucentFrame();
     QVBoxLayout *layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
     layout->addSpacing(10);
 

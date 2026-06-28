@@ -54,7 +54,7 @@ EthernetSection::EthernetSection(NetworkManager::WiredSetting::Ptr wiredSetting,
     m_macStrMap.insert(tr("Not Bind"), NotBindValue);
 
     // "^([0-9A-Fa-f]{2}[:-\\.]){5}([0-9A-Fa-f]{2})$"
-    m_macAddrRegExp = QRegExp("^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$");
+    m_macAddrRegExp = QRegularExpression("^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$");
 
     initUI();
     initConnection();
@@ -70,7 +70,7 @@ bool EthernetSection::allInputValid()
     if (clonedMacStr.isEmpty()) {
         return true;
     }
-    bool matched = m_macAddrRegExp.exactMatch(clonedMacStr);
+    bool matched = m_macAddrRegExp.match(clonedMacStr).hasMatch();
     m_clonedMac->setIsErr(!matched);
     return matched;
 }

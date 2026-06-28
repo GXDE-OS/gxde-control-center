@@ -413,7 +413,7 @@ void DisplayWorker::setNightMode(const bool nightmode)
         serverCmd = "disable";
     }
 
-    connect(process, static_cast<void (QProcess::*)(int exitCode)>(&QProcess::finished), this, [=] {
+    connect(process, static_cast<void (QProcess::*)(int exitCode, QProcess::ExitStatus)>(&QProcess::finished), this, [=] {
         process->close();
         process->deleteLater();
         // reload

@@ -49,7 +49,7 @@ QWidget *DefAppViewer::defappDetail()
     QVBoxLayout *mainlayout = new QVBoxLayout;
     QWidget     *mainwidget = new QWidget;
     mainwidget->setLayout(mainlayout);
-    mainlayout->setMargin(0);
+    mainlayout->setContentsMargins(0, 0, 0, 0);
     mainlayout->setSpacing(20);
 
     m_modBrowser = new DefCategoryWidget(tr("Webpage"), this);

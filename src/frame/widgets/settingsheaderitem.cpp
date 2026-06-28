@@ -43,7 +43,7 @@ SettingsHeaderItem::SettingsHeaderItem(QWidget *parent)
 
     setFixedHeight(24);
     m_mainLayout->setSpacing(0);
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_mainLayout);
 }

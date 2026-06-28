@@ -48,7 +48,7 @@ DetailPage::DetailPage(const Adapter *adapter, const Device *device) :
     dcc::widgets::TranslucentFrame *frame = new dcc::widgets::TranslucentFrame;
     QVBoxLayout *layout = new QVBoxLayout(frame);
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addSpacing(10);
     layout->addWidget(m_disconnectButton);
     layout->addSpacing(10);

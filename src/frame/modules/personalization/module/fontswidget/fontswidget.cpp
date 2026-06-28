@@ -45,7 +45,7 @@ FontsWidget::FontsWidget(QWidget *parent)
     m_mainlayout->addSpacing(10);
     m_mainlayout->addWidget(m_fontSizeWidget);
     m_mainlayout->addWidget(m_fontSettingsWidget);
-    m_mainlayout->setMargin(0);
+    m_mainlayout->setContentsMargins(0, 0, 0, 0);
     m_mainlayout->setSpacing(10);
 
     m_widget->setLayout(m_mainlayout);

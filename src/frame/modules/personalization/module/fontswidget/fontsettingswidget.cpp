@@ -52,7 +52,7 @@ FontSettingsWidget::FontSettingsWidget(QWidget *parent)
     m_fontWidget->appendItem(m_mono);
 
     m_mainlayout->addWidget(m_fontWidget);
-    m_mainlayout->setMargin(0);
+    m_mainlayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_mainlayout);
     setObjectName("FontSettingsWidget");

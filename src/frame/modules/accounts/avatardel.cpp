@@ -41,7 +41,7 @@ AvatarDel::AvatarDel(QWidget *parent) : DBlurEffectWidget(parent)
     close->setPressPic(":/accounts/themes/common/icons/avator_delete_press.svg");
 
     QVBoxLayout *mainlayout = new QVBoxLayout;
-    mainlayout->setMargin(0);
+    mainlayout->setContentsMargins(0, 0, 0, 0);
     mainlayout->setSpacing(0);
     mainlayout->addWidget(close, 0, Qt::AlignCenter);
     mainlayout->addSpacing(5);

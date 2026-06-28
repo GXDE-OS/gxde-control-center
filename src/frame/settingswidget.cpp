@@ -80,7 +80,7 @@ SettingsWidget::SettingsWidget(Frame *frame)
     m_resetBtn->setText(tr("Reset all settings"));
 
     m_settingsLayout->setSpacing(30);
-    m_settingsLayout->setMargin(0);
+    m_settingsLayout->setContentsMargins(0, 0, 0, 0);
     m_settingsLayout->addSpacing(10);
     m_settingsLayout->addSpacing(20);
 

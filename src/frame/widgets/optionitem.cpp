@@ -64,12 +64,12 @@ OptionItem::OptionItem(QString title, bool selected, QWidget *parent)
     m_titleFrame->setLayout(m_titleLayout);
 
     m_titleLayout->setSpacing(0);
-    m_titleLayout->setMargin(0);
+    m_titleLayout->setContentsMargins(0, 0, 0, 0);
     m_titleLayout->addWidget(m_titleWidget);
     m_titleLayout->addStretch();
     m_titleLayout->addWidget(m_selectedIcon);
 
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(0);
     m_mainLayout->addWidget(m_titleFrame);
 

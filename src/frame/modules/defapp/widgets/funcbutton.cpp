@@ -31,7 +31,7 @@ FuncButton::FuncButton(QWidget *parent)
 {
 }
 
-void FuncButton::enterEvent(QEvent *event)
+void FuncButton::enterEvent(QEnterEvent *event)
 {
     setCursor(Qt::PointingHandCursor);
     event->accept();

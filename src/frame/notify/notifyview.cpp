@@ -51,7 +51,7 @@ const QModelIndex &NotifyView::currentHoverIndex() const
     return m_indexCurrent;
 }
 
-void NotifyView::enterEvent(QEvent *event)
+void NotifyView::enterEvent(QEnterEvent *event)
 {
     if (m_indexCurrent.isValid()) {
         openPersistentEditor(m_indexCurrent);

@@ -37,7 +37,7 @@ BluetoothWidget::BluetoothWidget(BluetoothModel *model) :
 {
     setObjectName("Bluetooth");
     setModel(model);
-    m_centralLayout->setMargin(0);
+    m_centralLayout->setContentsMargins(0, 0, 0, 0);
     m_centralLayout->addWidget(m_mainGroup);
 
     QTimer::singleShot(1, this, &BluetoothWidget::setVisibleState);

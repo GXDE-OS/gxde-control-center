@@ -56,7 +56,7 @@ public Q_SLOTS:
 
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
-    void enterEvent(QEvent *e);
+    void enterEvent(QEnterEvent *e);
     void paintEvent(QPaintEvent *e);
 
 private:

@@ -43,7 +43,7 @@ FontListWidget::FontListWidget(const QString &title, QWidget *parent)
 
     m_mainLayout->addSpacing(10);
     m_mainLayout->addWidget(m_mainGroup);
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_widget->setLayout(m_mainLayout);
     setTitle(title);
     setContent(m_widget);

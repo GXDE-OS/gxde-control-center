@@ -24,6 +24,7 @@
  */
 
 #include "shortcutmodel.h"
+#include <algorithm>
 #include <QDBusInterface>
 #include <QDebug>
 #include <QJsonArray>
@@ -165,15 +166,15 @@ void ShortcutModel::onParseInfo(const QString &info)
         }
     }
 
-    qSort(m_systemInfos.begin(), m_systemInfos.end(), [=] (ShortcutInfo *s1, ShortcutInfo *s2) {
+    std::sort(m_systemInfos.begin(), m_systemInfos.end(), [=] (ShortcutInfo *s1, ShortcutInfo *s2) {
         return systemFilter.indexOf(s1->id) < systemFilter.indexOf(s2->id);
     });
 
-    qSort(m_windowInfos.begin(), m_windowInfos.end(), [=] (ShortcutInfo *s1, ShortcutInfo *s2) {
+    std::sort(m_windowInfos.begin(), m_windowInfos.end(), [=] (ShortcutInfo *s1, ShortcutInfo *s2) {
         return windowFilter.indexOf(s1->id) < windowFilter.indexOf(s2->id);
     });
 
-    qSort(m_workspaceInfos.begin(), m_workspaceInfos.end(),
+    std::sort(m_workspaceInfos.begin(), m_workspaceInfos.end(),
           [=] (ShortcutInfo *s1, ShortcutInfo *s2) {
               return workspaceFilter.indexOf(s1->id) < workspaceFilter.indexOf(s2->id);
           });

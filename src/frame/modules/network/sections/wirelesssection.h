@@ -28,6 +28,7 @@
 #include "widgets/switchwidget.h"
 #include "widgets/spinboxwidget.h"
 
+#include <QRegularExpression>
 #include <networkmanagerqt/wirelesssetting.h>
 #include <networkmanagerqt/wirelessdevice.h>
 
@@ -68,7 +69,7 @@ private:
 
     NetworkManager::WirelessSetting::Ptr m_wirelessSetting;
 
-    QRegExp m_macAddrRegExp;
+    QRegularExpression m_macAddrRegExp;
     QMap<QString, QString> m_macStrMap;
 };
 

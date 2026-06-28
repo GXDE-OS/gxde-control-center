@@ -62,7 +62,15 @@ bool MiracastDeviceModel::isConnected() const
 
 void dcc::display::MiracastDeviceModel::onSinkAdded(const SinkInfo &sinkinfo)
 {
-    if (m_sinkList.contains(sinkinfo))
+    bool found = false;
+    for (int i = 0; i < m_sinkList.size(); ++i) {
+        SinkInfo info = m_sinkList[i];
+        if (info == sinkinfo) {
+            found = true;
+            break;
+        }
+    }
+    if (found)
         return;
 
     m_sinkList.append(sinkinfo);
@@ -72,7 +80,13 @@ void dcc::display::MiracastDeviceModel::onSinkAdded(const SinkInfo &sinkinfo)
 
 void dcc::display::MiracastDeviceModel::onSinkRemoved(const SinkInfo &sinkinfo)
 {
-    m_sinkList.removeOne(sinkinfo);
+    for (int i = 0; i < m_sinkList.size(); ++i) {
+        SinkInfo info = m_sinkList[i];
+        if (info == sinkinfo) {
+            m_sinkList.removeAt(i);
+            break;
+        }
+    }
     Q_EMIT removeSink(sinkinfo);
 }
 

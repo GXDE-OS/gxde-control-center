@@ -65,7 +65,7 @@ dcc::personalization::VideoWallpaper::VideoWallpaper(QWidget *parent)
     m_mainlayout->addWidget(view);*/
 
     m_mainlayout->addSpacing(10);
-    m_mainlayout->setMargin(0);
+    m_mainlayout->setContentsMargins(0, 0, 0, 0);
     m_mainlayout->setSpacing(10);
 
     m_widget->setLayout(m_mainlayout);

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 
 project(gxde-control-center)
 
-find_package(DtkCMake REQUIRED)
+find_package(Dtk6CMake REQUIRED)
 
 # Install settings
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

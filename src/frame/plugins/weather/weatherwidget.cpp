@@ -172,13 +172,13 @@ void WeatherWidget::paintEvent(QPaintEvent *e)
             else
                 text = QString("%1°C").arg(temperature);
 
-            QRect textRect(iconRect.right()+10,rect.y(),fm.width(text)+2, rect.height());
+            QRect textRect(iconRect.right()+10,rect.y(),fm.horizontalAdvance(text)+2, rect.height());
             painter.drawText(textRect,Qt::AlignLeft|Qt::AlignVCenter, text);
             font.setPointSize(curFont.pointSize()*0.65);
             painter.setFont(font);
 
             fm=QFontMetrics(font);
-            int descWidth = fm.width(item.description()) > 101 ? 101 : fm.width(item.description());
+            int descWidth = fm.horizontalAdvance(item.description()) > 101 ? 101 : fm.horizontalAdvance(item.description());
             QRect descRect(textRect.right(), textRect.top()+2, descWidth, rect.height());
             painter.drawText(descRect, Qt::AlignLeft | Qt::AlignVCenter, item.description());
 
@@ -221,7 +221,7 @@ void WeatherWidget::paintEvent(QPaintEvent *e)
                         .arg((int)(item.temperature().first))
                         .arg((int)(item.temperature().second));
 
-            QRect textRect(iconRect.right()+10,rect.y(),fm.width(text)+2, rect.height());
+            QRect textRect(iconRect.right()+10,rect.y(),fm.horizontalAdvance(text)+2, rect.height());
             painter.drawText(textRect,Qt::AlignLeft | Qt::AlignVCenter, text);
 
             QRect weekArea(textRect.right(), rect.y(), rect.width() - textRect.right() - ItemRightMargin, rect.height());

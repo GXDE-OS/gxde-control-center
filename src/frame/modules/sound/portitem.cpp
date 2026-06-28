@@ -43,7 +43,7 @@ PortItem::PortItem(const Port *port) :
 
     QVBoxLayout *layout = new QVBoxLayout(m_frame);
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addStretch();
     layout->addWidget(m_portLabel);
     layout->addWidget(m_cardLabel);

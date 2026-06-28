@@ -110,7 +110,7 @@ void RecognizeDialog::paintMonitorMark(QPainter &painter, const QRect &rect, con
     QFont font;
     font.setPixelSize(fontSize);
     const QFontMetrics fm(font);
-    const int x = r.center().x() - fm.width(name) / 2;
+    const int x = r.center().x() - fm.horizontalAdvance(name) / 2;
     const int y = r.center().y() + fm.height() / 4;
 
     QPainterPath path;

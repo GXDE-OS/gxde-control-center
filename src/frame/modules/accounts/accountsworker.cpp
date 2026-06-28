@@ -108,7 +108,7 @@ void AccountsWorker::createAccount(const User *user)
         watcher->deleteLater();
     });
 
-    QFuture<CreationResult*> future = QtConcurrent::run(this, &AccountsWorker::createAccountInternal, user);
+    QFuture<CreationResult*> future = QtConcurrent::run([this, user]() -> CreationResult* { return createAccountInternal(user); });
     watcher->setFuture(future);
 }
 
@@ -307,7 +307,7 @@ void AccountsWorker::refreshADDomain()
         m_userModel->setIsJoinADDomain(match.hasMatch());
     });
 
-    connect(process, static_cast<void (QProcess::*)(int)>(&QProcess::finished), process, &QProcess::deleteLater);
+    connect(process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), process, &QProcess::deleteLater);
 }
 #endif
 

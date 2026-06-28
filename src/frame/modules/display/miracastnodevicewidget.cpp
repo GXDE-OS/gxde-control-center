@@ -49,7 +49,7 @@ MiracastNoDeviceWidget::MiracastNoDeviceWidget(QWidget *parent) : TranslucentFra
     m_refreshBtn->setObjectName("RefreshButton");
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addSpacing(30);
     layout->addWidget(m_loading, 0, Qt::AlignCenter);

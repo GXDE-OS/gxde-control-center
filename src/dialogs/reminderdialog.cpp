@@ -26,7 +26,6 @@
 #include "reminderdialog.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QScreen>
 
 #include <QDebug>
@@ -39,7 +38,7 @@ ReminderDialog::ReminderDialog(QRect screenGeometry)
     const qreal ratio = devicePixelRatioF();
     QPixmap icon(QIcon::fromTheme("system-updated").pixmap(QSize(48, 48) * ratio));
     icon.setDevicePixelRatio(ratio);
-    setIconPixmap(icon);
+    setIcon(icon);
 
     QStringList buttons;
     buttons << tr("Cancel") << tr("Shut down");

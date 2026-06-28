@@ -72,14 +72,14 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
 
     TranslucentFrame* widget = new TranslucentFrame();
     QVBoxLayout *layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
 
     m_checkGroup->setVisible(false);
     m_checkGroup->appendItem(m_checkUpdateItem);
 
     QHBoxLayout *refreshLayout = new QHBoxLayout;
-    refreshLayout->setMargin(0);
+    refreshLayout->setContentsMargins(0, 0, 0, 0);
     refreshLayout->addStretch();
     refreshLayout->addWidget(m_refreshButton);
 
@@ -102,7 +102,7 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     m_selectAllGroup->setVisible(false);
     m_selectAll->setChecked(true);
     QHBoxLayout *selectAllLayout = new QHBoxLayout;
-    selectAllLayout->setMargin(10);
+    selectAllLayout->setContentsMargins(10, 10, 10, 10);
     selectAllLayout->addWidget(m_selectAll);
     m_selectAllItem->setLayout(selectAllLayout);
     m_selectAllGroup->appendItem(m_selectAllItem);

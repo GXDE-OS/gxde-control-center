@@ -12,7 +12,7 @@ VideoWallpaperModel::VideoWallpaperModel()
 
 void VideoWallpaperModel::play(const QString path)
 {
-    if(path != NULL){
+    if(!path.isEmpty()){
         this->setFile(path);
     }
     QDBusMessage dbus = QDBusMessage::createMethodCall(m_videoDBusDestination,

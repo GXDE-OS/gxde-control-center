@@ -53,7 +53,7 @@ KeyLabel::KeyLabel(const QString &text, QWidget *parent)
     QFont font = qApp->font();
     QFontMetrics fm(font);
 
-    setFixedWidth(fm.width(t) + 8);
+    setFixedWidth(fm.horizontalAdvance(t) + 8);
 }
 
 void KeyLabel::setEnter(const bool enter)
@@ -68,7 +68,7 @@ void KeyLabel::paintEvent(QPaintEvent *event)
     QLabel::paintEvent(event);
 
     QPainter painter(this);
-    painter.setRenderHint(QPainter::HighQualityAntialiasing);
+    painter.setRenderHint(QPainter::Antialiasing);
 
     painter.setOpacity(m_isEnter ? 1.0 : 0.85);
 
@@ -80,5 +80,5 @@ void KeyLabel::paintEvent(QPaintEvent *event)
 
     int h = (height() - fm.height()) / 2 - 2;
 
-    painter.drawRoundRect(rect().marginsRemoved(QMargins(0, h, 0, h)), 30, 30);
+    painter.drawRoundedRect(rect().marginsRemoved(QMargins(0, h, 0, h)), 30, 30);
 }

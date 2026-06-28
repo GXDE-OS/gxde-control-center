@@ -43,7 +43,7 @@ PlainTextItem::PlainTextItem(QWidget *parent)
 
     mainLayout->addWidget(m_plainEdit);
     mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(mainLayout);
 }

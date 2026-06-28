@@ -26,6 +26,7 @@
 #include "pluginscontroller.h"
 #include "interfaces/plugininterface.h"
 
+#include <algorithm>
 #include <QDebug>
 #include <QDir>
 #include <QLibrary>
@@ -50,7 +51,7 @@ void PluginsController::loadPlugins()
 
     QStringList plugins = pluginsDir.entryList(QDir::Files);
     // pluginsDir.setSorting not working as expected on loongson.
-    qSort(plugins.begin(), plugins.end());
+    std::sort(plugins.begin(), plugins.end());
 
     for (const QString file : plugins)
     {

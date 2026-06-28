@@ -30,7 +30,7 @@
 #include <QFutureWatcher>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QDir>
 #include <QFile>
 #include <QLocale>
@@ -64,7 +64,7 @@ static int TestMirrorSpeedInternal(const QString &url)
 
 static QString RemoveAnsiEscapeCodes(QString text)
 {
-    const QRegExp ansi(QString("%1\\[[0-9;]*[A-Za-z]").arg(QChar(27)));
+    const QRegularExpression ansi(QString("%1\\[[0-9;]*[A-Za-z]").arg(QChar(27)));
     text.remove(ansi);
     return text;
 }
@@ -219,11 +219,11 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject *parent)
     connect(m_powerInter, &__Power::BatteryPercentageChanged, this, &UpdateWorker::setBatteryPercentage);
     connect(m_smartMirrorInter, &SmartMirrorInter::EnableChanged, m_model, &UpdateModel::setSmartMirrorSwitch);
     connect(m_smartMirrorInter, &SmartMirrorInter::serviceValidChanged, this, &UpdateWorker::onSmartMirrorServiceIsValid);
-    connect(m_smartMirrorInter, &SmartMirrorInter::serviceStartFinished, this, [=] {
+    /*connect(m_smartMirrorInter, &SmartMirrorInter::serviceStartFinished, this, [=] {
         QTimer::singleShot(100, this, [=] {
             m_model->setSmartMirrorSwitch(m_smartMirrorInter->enable());
         });
-    }, Qt::UniqueConnection);
+    }, Qt::UniqueConnection);*/
 
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
     connect(m_lastoresessionHelper, &LastoressionHelper::SourceCheckEnabledChanged, m_model, &UpdateModel::setSourceCheck);
@@ -501,7 +501,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     connect(m_aptssProcess, &QProcess::readyReadStandardOutput, this, [this] {
         const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
         m_aptssStdout += output;
-        for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
+        for (const QString &line : output.split('\n', Qt::SkipEmptyParts)) {
             if (line.startsWith('#')) {
                 const QString message = line.mid(1).trimmed();
                 if (message == QStringLiteral("Updates installed successfully")) {
@@ -526,9 +526,10 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
         }
 
         if (output.contains('%')) {
-            const QRegExp rx("(\\d+)%");
-            if (rx.indexIn(output) != -1) {
-                m_model->setUpgradeProgress(rx.cap(1).toDouble() / 100.0);
+            const QRegularExpression rx("(\\d+)%");
+            QRegularExpressionMatch match = rx.match(output);
+            if (match.hasMatch()) {
+                m_model->setUpgradeProgress(match.captured(1).toDouble() / 100.0);
             }
         }
     });
@@ -608,7 +609,7 @@ QString UpdateWorker::packageDisplayName(const QString &packageName) const
     const QStringList languageKeys = DesktopNameLanguageKeys();
     QString fallbackName;
     const QString output = QString::fromLocal8Bit(process.readAllStandardOutput());
-    for (const QString &path : output.split('\n', QString::SkipEmptyParts)) {
+    for (const QString &path : output.split('\n', Qt::SkipEmptyParts)) {
         const QString desktopPath = path.trimmed();
         if (!desktopPath.startsWith(QStringLiteral("/usr/share/applications/")) || !desktopPath.endsWith(QStringLiteral(".desktop"))) {
             continue;
@@ -644,7 +645,7 @@ void UpdateWorker::runAptssCheckList()
         m_updatablePackages.clear();
 
         const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput());
-        for (const QString &line : output.split('\n', QString::SkipEmptyParts)) {
+        for (const QString &line : output.split('\n', Qt::SkipEmptyParts)) {
             const QStringList fields = line.split('\t');
             if (fields.count() < 3) {
                 continue;
@@ -688,7 +689,7 @@ void UpdateWorker::runAptssDownloadSize(const QList<AppUpdateInfo> &infos, const
 
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             const QString output = QString::fromLocal8Bit(m_aptssProcess->readAllStandardOutput()).trimmed();
-            const QStringList lines = output.split('\n', QString::SkipEmptyParts);
+            const QStringList lines = output.split('\n', Qt::SkipEmptyParts);
             for (int i = lines.count() - 1; i >= 0; --i) {
                 bool ok = false;
                 const qlonglong size = lines.at(i).trimmed().toLongLong(&ok);

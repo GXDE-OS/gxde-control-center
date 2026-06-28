@@ -5,7 +5,7 @@ set(VERSION 4.0)
 set(BIN_NAME gxde-control-center)
 
 # set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -843,41 +843,37 @@ set(QRC
 
 # Find the library
 find_package(PkgConfig REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Concurrent REQUIRED)
-find_package(Qt5X11Extras REQUIRED)
-find_package(Qt5DBus REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(DtkWidget REQUIRED)
-find_package(Qt5Multimedia REQUIRED)
-find_package(KF5NetworkManagerQt REQUIRED)
-find_package(DtkCMake REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent DBus Network Multimedia)
+find_package(Dtk6Core REQUIRED)
+find_package(Dtk6Log REQUIRED)
+find_package(Dtk2widget REQUIRED)
+find_package(KF6NetworkManagerQt REQUIRED)
+find_package(DFrameworkdbusQt6 REQUIRED)
 
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh x11 xext)
-pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
-pkg_check_modules(QGSettings REQUIRED gsettings-qt)
-pkg_check_modules(DDE-Network-Utils REQUIRED gxde-network-utils)
+pkg_check_modules(QGSettings REQUIRED gsettings-qt6)
+pkg_check_modules(DDE-Network-Utils REQUIRED gxde-network-utils-qt6)
 pkg_check_modules(Gio-2.0 REQUIRED gio-2.0)
 pkg_check_modules(LibNM REQUIRED libnm)
 
-# KF5 network manager
-get_target_property(KF5_QT_INCLUDE_DIRS KF5::NetworkManagerQt INTERFACE_INCLUDE_DIRECTORIES)
+# KF6 network manager
+get_target_property(KF6_QT_INCLUDE_DIRS KF6::NetworkManagerQt INTERFACE_INCLUDE_DIRECTORIES)
 
-set(TRY_KF5_LIBRARIES
+set(TRY_KF6_LIBRARIES
 IMPORTED_LOCATION_DEBIAN
 IMPORTED_LOCATION_NOCONFIG
 )
 
-foreach(LETTER ${TRY_KF5_LIBRARIES})
-    if (NOT KF5_QT_LIBRARIES)
-        get_target_property(KF5_QT_LIBRARIES KF5::NetworkManagerQt ${LETTER})
+foreach(LETTER ${TRY_KF6_LIBRARIES})
+    if (NOT KF6_QT_LIBRARIES)
+        get_target_property(KF6_QT_LIBRARIES KF6::NetworkManagerQt ${LETTER})
     endif()
 endforeach()
 
-if (NOT KF5_QT_LIBRARIES)
-    find_library(KF5_QT_LIBRARIES libKF5NetworkManagerQt.so)
+if (NOT KF6_QT_LIBRARIES)
+    find_library(KF6_QT_LIBRARIES libKF6NetworkManagerQt.so)
 endif()
-# end KF5 network manager
+# end KF6 network manager
 
 function(add_build_macro macro)
     string(TOUPPER ${macro} macro)
@@ -963,34 +959,34 @@ endforeach()
 
 add_executable(${BIN_NAME} ${SRCS} ${QRC})
 target_include_directories(${BIN_NAME} PUBLIC
-    ${DtkWidget_INCLUDE_DIRS}
+    ${DTK2WIDGET_INCLUDE_DIR}
+    ${DtkCore_INCLUDE_DIRS}
     ${XCB_EWMH_INCLUDE_DIRS}
-    ${DFrameworkDBus_INCLUDE_DIRS}
-    ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
+    ${Qt6Gui_PRIVATE_INCLUDE_DIRS}
     ${PROJECT_BINARY_DIR}
     ${QGSettings_INCLUDE_DIRS}
     ${DDE-Network-Utils_INCLUDE_DIRS}
     ${Gio-2.0_INCLUDE_DIRS}
     ${LibNM_INCLUDE_DIRS}
-    ${Qt5X11Extras_INCLUDE_DIRS}
-    ${KF5_QT_INCLUDE_DIRS}
+    ${KF6_QT_INCLUDE_DIRS}
+    /usr/include/dtk6/DLog
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
     ${XCB_EWMH_LIBRARIES}
-    ${DFrameworkDBus_LIBRARIES}
-    ${DtkWidget_LIBRARIES}
-    ${Qt5Widgets_LIBRARIES}
-    ${Qt5Concurrent_LIBRARIES}
-    ${Qt5X11Extras_LIBRARIES}
-    ${Qt5DBus_LIBRARIES}
-    ${Qt5Network_LIBRARIES}
-    ${Qt5Multimedia_LIBRARIES}
+    DFrameworkdbusQt6::DFrameworkdbusQt6
+    ${Dtk2widget_LIBRARIES}
+    Dtk6::Core
+    Qt6::Widgets
+    Qt6::Concurrent
+    Qt6::DBus
+    Qt6::Network
+    Qt6::Multimedia
     ${QGSettings_LIBRARIES}
     ${DDE-Network-Utils_LIBRARIES}
     ${Gio-2.0_LIBRARIES}
     ${LibNM_LIBRARIES}
-    ${KF5_QT_LIBRARIES}
+    ${KF6_QT_LIBRARIES}
     crypt
 )
 

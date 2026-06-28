@@ -45,7 +45,7 @@ SummaryItem::SummaryItem(QFrame *parent)
     m_title->setObjectName("UpdateSummary");
 
     QVBoxLayout* layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     m_title->setAlignment(Qt::AlignHCenter);

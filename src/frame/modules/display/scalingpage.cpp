@@ -43,7 +43,7 @@ ScalingPage::ScalingPage(QWidget *parent)
     : ContentWidget(parent),
       m_centralLayout(new QVBoxLayout)
 {
-    m_centralLayout->setMargin(0);
+    m_centralLayout->setContentsMargins(0, 0, 0, 0);
     m_centralLayout->setSpacing(10);
     m_centralLayout->addSpacing(10);
 

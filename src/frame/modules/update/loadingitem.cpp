@@ -40,7 +40,7 @@ LoadingItem::LoadingItem(QFrame *parent)
     , m_progress(new QProgressBar(this))
 {
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
 
     m_progress->setRange(0, 100);

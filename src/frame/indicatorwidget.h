@@ -46,7 +46,7 @@ Q_SIGNALS:
     void requestNext();
 
 private:
-    void enterEvent(QEvent *e);
+    void enterEvent(QEnterEvent *e);
     void leaveEvent(QEvent *e);
     void wheelEvent(QWheelEvent *e);
 

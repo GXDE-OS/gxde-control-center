@@ -43,7 +43,7 @@ AdvancedPage::AdvancedPage(SoundModel *model)
     TranslucentFrame *frame = new TranslucentFrame;
     QVBoxLayout *layout = new QVBoxLayout(frame);
     layout->setSpacing(10);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addSpacing(10);
     layout->addWidget(m_outputGroup);
     layout->addWidget(m_inputGroup);

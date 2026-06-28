@@ -22,7 +22,7 @@ SyncWidget::SyncWidget()
     tipsLabel->setWordWrap(true);
     tipsLabel->setContentsMargins(20, 0, 0, 0);
 
-    m_centralLayout->setMargin(0);
+    m_centralLayout->setContentsMargins(0, 0, 0, 0);
     m_centralLayout->setSpacing(0);
 
     m_userButtonGrp = new SettingsGroup;

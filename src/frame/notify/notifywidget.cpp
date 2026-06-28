@@ -81,7 +81,7 @@ NotifyWidget::NotifyWidget(QWidget *parent) : QWidget(parent)
     //mainVBLayout->addLayout(m_controlLayout);
 
     mainVBLayout->setSpacing(1);
-    mainVBLayout->setMargin(0);
+    mainVBLayout->setContentsMargins(0, 0, 0, 0);
     mainVBLayout->setContentsMargins(0, 0, 0, 0);
 
     setStyleSheet("background-color: rgba(255, 255, 255, 7.65);");

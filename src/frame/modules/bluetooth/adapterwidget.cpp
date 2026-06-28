@@ -50,7 +50,7 @@ AdapterWidget::AdapterWidget(const Adapter *adapter) :
     setTitle(adapter->name());
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
 
     m_titleGroup->appendItem(m_switch);

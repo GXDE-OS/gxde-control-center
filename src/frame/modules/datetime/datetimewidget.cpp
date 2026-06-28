@@ -68,18 +68,18 @@ DateWidget::DateWidget(Type type, int minimum, int maximum, QFrame *parent)
     m_lineEdit->installEventFilter(this);
 
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     QHBoxLayout *lLayout = new QHBoxLayout;
-    lLayout->setMargin(0);
+    lLayout->setContentsMargins(0, 0, 0, 0);
     lLayout->setSpacing(0);
     lLayout->addWidget(m_reducedBtn);
     lLayout->addStretch();
     lLayout->addWidget(m_lineEdit);
 
     QHBoxLayout *rLayout = new QHBoxLayout;
-    rLayout->setMargin(0);
+    rLayout->setContentsMargins(0, 0, 0, 0);
     rLayout->setSpacing(0);
     rLayout->addWidget(m_label);
     rLayout->addStretch();
@@ -210,7 +210,7 @@ TimeWidget::TimeWidget(QFrame *parent)
     sep->setText(":");
 
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addStretch();
     layout->addWidget(m_hourEdit);

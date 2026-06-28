@@ -43,7 +43,7 @@ BrightnessPage::BrightnessPage(QWidget *parent)
       m_delayDisableALABTimer(new QTimer(this)),
       m_powerInter(new PowerInter("com.deepin.daemon.Power", "/com/deepin/daemon/Power", QDBusConnection::sessionBus(), this))
 {
-    m_centralLayout->setMargin(0);
+    m_centralLayout->setContentsMargins(0, 0, 0, 0);
     m_centralLayout->setSpacing(10);
     m_centralLayout->addSpacing(10);
 

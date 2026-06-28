@@ -123,13 +123,13 @@ ProxyPage::ProxyPage(QWidget *parent)
     manualLayout->addWidget(socksGroup);
     manualLayout->addWidget(ignoreGroup);
     manualLayout->addWidget(ignoreTips);
-    manualLayout->setMargin(0);
+    manualLayout->setContentsMargins(0, 0, 0, 0);
     manualLayout->setSpacing(10);
 
     QVBoxLayout *autoLayout = new QVBoxLayout;
     autoLayout->addWidget(autoGroup);
     autoLayout->setSpacing(10);
-    autoLayout->setMargin(0);
+    autoLayout->setContentsMargins(0, 0, 0, 0);
 
     m_manualWidget->setLayout(manualLayout);
     m_autoWidget->setLayout(autoLayout);
@@ -143,7 +143,7 @@ ProxyPage::ProxyPage(QWidget *parent)
     mainLayout->addSpacing(10);
     mainLayout->addWidget(m_buttonTuple);
     mainLayout->addStretch();
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
     QWidget *mainWidget = new TranslucentFrame;

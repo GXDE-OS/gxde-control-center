@@ -39,7 +39,7 @@ ButtonTuple::ButtonTuple(QWidget *parent) :
     m_rightButton(new RightButton)
 {
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addWidget(m_leftButton);
     layout->addSpacing(1);

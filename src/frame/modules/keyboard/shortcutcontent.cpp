@@ -43,7 +43,7 @@ ShortcutContent::ShortcutContent(ShortcutModel *model, QWidget *parent)
 {
     TranslucentFrame* widget = new TranslucentFrame();
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addSpacing(10);
 
     SettingsGroup* group = new SettingsGroup();

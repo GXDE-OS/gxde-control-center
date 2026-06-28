@@ -293,7 +293,7 @@ void VpnPage::createVPNSession()
 
         TranslucentFrame *widget = new TranslucentFrame;
         QVBoxLayout *mainLayout = new QVBoxLayout(widget);
-        mainLayout->setMargin(0);
+        mainLayout->setContentsMargins(0, 0, 0, 0);
 
         SettingsGroup *grp = new SettingsGroup;
         grp->appendItem(l2tp);

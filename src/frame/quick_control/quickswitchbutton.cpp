@@ -64,7 +64,7 @@ void QuickSwitchButton::mouseReleaseEvent(QMouseEvent *e)
     }
 }
 
-void QuickSwitchButton::enterEvent(QEvent *e)
+void QuickSwitchButton::enterEvent(QEnterEvent *e)
 {
     QLabel::enterEvent(e);
 

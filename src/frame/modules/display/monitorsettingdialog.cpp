@@ -114,7 +114,7 @@ void MonitorSettingDialog::init()
     resoLabel->setText(tr("Resolution"));
 
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->setMargin(0);
+    hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->setSpacing(0);
     hlayout->addSpacing(30);
     hlayout->addWidget(resoLabel);
@@ -142,7 +142,7 @@ void MonitorSettingDialog::init()
     m_btnsLayout->setContentsMargins(10, 0, 10, 0);
 
     m_mainLayout = new QVBoxLayout;
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(10);
 
     m_mainLayout->addSpacing(40);

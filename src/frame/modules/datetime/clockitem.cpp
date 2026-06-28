@@ -46,7 +46,7 @@ ClockItem::ClockItem(QWidget *parent) :
     updateDateTime();
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     layout->addSpacing(20 * 2);
@@ -77,7 +77,7 @@ void ClockItem::updateDateTime()
 {
     m_clock->setTimeZone(m_zoneInfo);
     m_clock->update();
-    m_label->setText(QDate::currentDate().toString(Qt::SystemLocaleLongDate));
+    m_label->setText(QLocale::system().toString(QDateTime::currentDateTime(), QLocale::LongFormat));
 }
 
 } // namespace datetime

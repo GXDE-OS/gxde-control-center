@@ -3,7 +3,7 @@
 
 #include <QVBoxLayout>
 #include <QDebug>
-#include <QSound>
+#include <QSoundEffect>
 #include <QEvent>
 #include <DHiDPIHelper>
 #include <QApplication>
@@ -54,7 +54,7 @@ SoundEffectPage::SoundEffectPage(SoundModel *model, QWidget *parent)
 
     TranslucentFrame *w = new TranslucentFrame;
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     SettingsGroup *allEffectGrp = new SettingsGroup;
@@ -104,7 +104,7 @@ SoundEffectPage::SoundEffectPage(SoundModel *model, QWidget *parent)
     setContent(w);
     connect(model, &SoundModel::soundEffectDataChanged, this, &SoundEffectPage::onEffectSwitchChanged);
     connect(m_hideIconTimer, &QTimer::timeout, this, [=] {
-        if (m_sound->isFinished()) {
+        if (!m_sound->isPlaying()) {
             m_playIcon->hide();
             m_iconAni->stop();
             m_currentPlayItem = nullptr;
@@ -153,7 +153,8 @@ void SoundEffectPage::readyPlay()
 {
     SwitchWidget *widget = static_cast<SwitchWidget*>(sender());
     if (widget != m_currentPlayItem) {
-        m_sound.reset(new QSound(m_model->soundEffectPathByType(m_effectSwitchList[widget])));
+        m_sound.reset(new QSoundEffect());
+        m_sound->setSource(QUrl::fromLocalFile(m_model->soundEffectPathByType(m_effectSwitchList[widget])));
 
         m_sound->stop();
         m_sound->play();

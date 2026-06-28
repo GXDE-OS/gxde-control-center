@@ -52,11 +52,11 @@ KeyboardLayoutWidget::KeyboardLayoutWidget(QWidget *parent)
 
     m_mainWidget = new TranslucentFrame();
     QVBoxLayout* layout = new QVBoxLayout();
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     QHBoxLayout* hlayout = new QHBoxLayout();
-    hlayout->setMargin(0);
+    hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->setSpacing(0);
 
     m_searchModel = new IndexModel();

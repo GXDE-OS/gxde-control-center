@@ -57,7 +57,7 @@ Q_SIGNALS:
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
-    void enterEvent(QEvent *);
+    void enterEvent(QEnterEvent *);
     void leaveEvent(QEvent *);
     void resizeEvent(QResizeEvent *event);
 

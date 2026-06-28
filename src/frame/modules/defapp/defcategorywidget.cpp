@@ -53,7 +53,7 @@ DefCategoryWidget::DefCategoryWidget(const QString &name, QWidget *parent)
     m_userGroup->insertItem(1, m_addWidget);
     m_centralLayout->addWidget(m_userGroup);
 
-    m_centralLayout->setMargin(0);
+    m_centralLayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_centralLayout);
     setObjectName("DefCategoryWidget");

@@ -24,6 +24,7 @@
 #include "widgets/contentwidget.h"
 
 #include <QDebug>
+#include <QFile>
 
 using namespace dcc::network;
 using namespace NetworkManager;

@@ -25,6 +25,7 @@
 
 #include "updatenotifier.h"
 
+#include <algorithm>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QIcon>
@@ -56,7 +57,7 @@ UpdateNotifier::UpdateNotifier(QWidget *parent)
 
     QVBoxLayout *contentLayout = new QVBoxLayout;
     contentLayout->setSpacing(0);
-    contentLayout->setMargin(0);
+    contentLayout->setContentsMargins(0, 0, 0, 0);
 
     contentLayout->addStretch();
     contentLayout->addWidget(m_title);
@@ -95,7 +96,7 @@ void UpdateNotifier::mouseReleaseEvent(QMouseEvent *event)
     Q_EMIT clicked();
 }
 
-void UpdateNotifier::enterEvent(QEvent *event)
+void UpdateNotifier::enterEvent(QEnterEvent *event)
 {
     QFrame::enterEvent(event);
 
@@ -105,7 +106,7 @@ void UpdateNotifier::enterEvent(QEvent *event)
 
 void UpdateNotifier::leaveEvent(QEvent *event)
 {
-    QFrame::enterEvent(event);
+    QFrame::leaveEvent(event);
 
     m_closeButton->setVisible(false);
 }
@@ -186,8 +187,8 @@ bool UpdateNotifier::comparePkgLists(QStringList val1, QStringList val2)
 {
     if (val1.length() != val2.length()) return false;
 
-    qSort(val1.begin(), val1.end());
-    qSort(val2.begin(), val2.end());
+    std::sort(val1.begin(), val1.end());
+    std::sort(val2.begin(), val2.end());
 
     return val1 == val2;
 }

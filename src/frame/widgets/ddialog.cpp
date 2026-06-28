@@ -22,10 +22,8 @@
 #include <QCloseEvent>
 #include <QApplication>
 #include <QSpacerItem>
-#include <QDesktopWidget>
 #include <QScreen>
 #include <QAction>
-#include <QRegExp>
 #include <QRegularExpression>
 
 #include <QStyle>
@@ -139,7 +137,7 @@ void DDialogPrivate::init()
 
     // MainLayout--ButtonLayout
     buttonLayout = new QHBoxLayout;
-    buttonLayout->setMargin(0);
+    buttonLayout->setContentsMargins(0, 0, 0, 0);
     buttonLayout->setSpacing(0);
     buttonLayout->setContentsMargins(DIALOG::BUTTON_LAYOUT_LEFT_MARGIN,
                                      DIALOG::BUTTON_LAYOUT_TOP_MARGIN,
@@ -166,12 +164,12 @@ const QScreen *DDialogPrivate::getScreen() const
 {
     D_QC(DDialog);
 
-    const QScreen *screen = qApp->screens()[qApp->desktop()->screenNumber(q)];
+    QScreen *screen = qApp->screenAt(q->geometry().center());
 
     if(screen)
         return screen;
 
-    screen = qApp->screens()[qApp->desktop()->screenNumber(QCursor::pos())];
+    screen = qApp->screenAt(QCursor::pos());
 
     return screen;
 }
@@ -185,13 +183,11 @@ QMap<int, QString> DDialogPrivate::scanTags(QString origin) const
 {
     QMap<int, QString> result;
 
-    QRegExp re("<.*?>");
-    int index = origin.indexOf(re, 0);
-    int matchLength = 0;
-    while (index >= 0) {
-        result[index] = re.cap();
-        matchLength = re.matchedLength();
-        index = origin.indexOf(re, index + matchLength);
+    QRegularExpression re("<.*?>");
+    QRegularExpressionMatchIterator it = re.globalMatch(origin);
+    while (it.hasNext()) {
+        QRegularExpressionMatch match = it.next();
+        result[match.capturedStart()] = match.captured();
     }
 
     return result;
@@ -202,7 +198,7 @@ QMap<int, QString> DDialogPrivate::scanTags(QString origin) const
 QString DDialogPrivate::elideString(QString str, const QFontMetrics &fm, int width) const
 {
     QString trimmed = trimTag(str);
-    if (fm.width(trimmed) > width) {
+    if (fm.horizontalAdvance(trimmed) > width) {
          QMap<int, QString> info = scanTags(str);
          QString elided = fm.elidedText(trimmed, Qt::ElideMiddle, width);
          int elideStart = elided.indexOf("…");
@@ -440,7 +436,7 @@ QPixmap DDialog::iconPixmap() const
 {
     D_DC(DDialog);
 
-    return *d->iconLabel->pixmap();
+    return d->iconLabel->pixmap();
 }
 
 Qt::TextFormat DDialog::textFormat() const

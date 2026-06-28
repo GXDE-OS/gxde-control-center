@@ -55,7 +55,7 @@ WirelessSection::WirelessSection(NetworkManager::WirelessSetting::Ptr wiredSetti
     m_macStrMap.insert(tr("Not Bind"), NotBindValue);
 
     // "^([0-9A-Fa-f]{2}[:-\\.]){5}([0-9A-Fa-f]{2})$"
-    m_macAddrRegExp = QRegExp("^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$");
+    m_macAddrRegExp = QRegularExpression("^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$");
 
     initUI();
     initConnection();

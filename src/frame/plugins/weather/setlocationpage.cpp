@@ -56,7 +56,7 @@ SetLocationPage::SetLocationPage(WeatherRequest *requestManager, QWidget *parent
     m_noResult->setStyleSheet("color: rgba(255, 255, 255, 0.3);");
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     layout->addSpacing(20);
@@ -71,7 +71,7 @@ SetLocationPage::SetLocationPage(WeatherRequest *requestManager, QWidget *parent
 
     QHBoxLayout *resultLayout = new QHBoxLayout;
     resultLayout->setSpacing(0);
-    resultLayout->setMargin(0);
+    resultLayout->setContentsMargins(0, 0, 0, 0);
 
     resultLayout->addStretch();
     resultLayout->addWidget(m_noResult);

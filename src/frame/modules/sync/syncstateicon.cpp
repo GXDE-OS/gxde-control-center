@@ -1,6 +1,5 @@
 #include "syncstateicon.h"
 
-#include <QMatrix>
 #include <QVBoxLayout>
 #include <QPainter>
 

@@ -56,7 +56,7 @@ MiracastPage::MiracastPage(const QString &title, QWidget *parent) : ContentWidge
     m_refreshBtn->setObjectName("RefreshBtn");
 
     QHBoxLayout *rightLayout = new QHBoxLayout;
-    rightLayout->setMargin(0);
+    rightLayout->setContentsMargins(0, 0, 0, 0);
     rightLayout->setSpacing(0);
     rightLayout->addWidget(m_refreshBtn);
     rightLayout->addSpacing(10);
@@ -72,7 +72,7 @@ MiracastPage::MiracastPage(const QString &title, QWidget *parent) : ContentWidge
     m_nodevice->setVisible(false);
 
     m_mainLayout = new QVBoxLayout;
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(10);
 
     m_mainLayout->addSpacing(10);

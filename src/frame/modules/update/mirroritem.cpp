@@ -46,7 +46,7 @@ MirrorItem::MirrorItem(QFrame *parent)
 
     m_layout = new QHBoxLayout;
     m_layout->setSpacing(0);
-    m_layout->setMargin(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setContentsMargins(20, 10, 20, 10);
     m_layout->addWidget(m_mirrorName);
     m_layout->addStretch();
@@ -102,7 +102,7 @@ void MirrorItem::resizeEvent(QResizeEvent *event)
 
     QFontMetricsF fm(m_mirrorSpeed->font());
     // 30 left for spacing and the checked icon.
-    m_mirrorName->setFixedWidth(event->size().width() - margins.left() - margins.right() - fm.width(m_mirrorSpeed->text()) - 30);
+    m_mirrorName->setFixedWidth(event->size().width() - margins.left() - margins.right() - fm.horizontalAdvance(m_mirrorSpeed->text()) - 30);
 
     m_selectedBtn->move(event->size().width() - margins.right() - calcSpeedTextWidth() - m_selectedBtn->width() - 10,
                         (event->size().height() - m_selectedBtn->height()) / 2);
@@ -125,11 +125,11 @@ int MirrorItem::speed() const
 int MirrorItem::calcSpeedTextWidth() const
 {
     QFontMetrics fm = m_mirrorSpeed->fontMetrics();
-    return qMax(fm.width(tr("Timeout")),
-                qMax(fm.width(tr("Slow")),
-                     qMax(fm.width(tr("Medium")),
-                          qMax(fm.width(tr("Fast")),
-                               fm.width(tr("Untested"))))));
+    return qMax(fm.horizontalAdvance(tr("Timeout")),
+                qMax(fm.horizontalAdvance(tr("Slow")),
+                     qMax(fm.horizontalAdvance(tr("Medium")),
+                          qMax(fm.horizontalAdvance(tr("Fast")),
+                               fm.horizontalAdvance(tr("Untested"))))));
 }
 
 }

@@ -69,7 +69,7 @@ void BluetoothDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
     }
 
     QFont f(painter->font());
-    f.setWeight(isHeader ? 440 : 300);
+    f.setWeight(isHeader ? QFont::Normal : QFont::Light);
     painter->setFont(f);
 
     painter->setPen(Qt::white);
@@ -90,7 +90,7 @@ void BluetoothDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
             painter->setPen(pen);
 
             QFont font(painter->font());
-            font.setWeight(400);
+            font.setWeight(QFont::Normal);
             font.setPixelSize(13);
             painter->setFont(font);
 

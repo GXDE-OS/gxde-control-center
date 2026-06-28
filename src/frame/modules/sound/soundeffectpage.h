@@ -9,7 +9,7 @@
 #include <QLabel>
 #include <QVariantAnimation>
 #include <DDesktopServices>
-#include <QSound>
+#include <QSoundEffect>
 #include <QScopedPointer>
 
 DWIDGET_USE_NAMESPACE
@@ -41,7 +41,7 @@ private:
     QVariantAnimation *m_iconAni;
     widgets::SwitchWidget *m_currentPlayItem;
     QMap<widgets::SwitchWidget*, DDesktopServices::SystemSoundEffect> m_effectSwitchList;
-    QScopedPointer<QSound> m_sound;
+    QScopedPointer<QSoundEffect> m_sound;
 };
 }
 }

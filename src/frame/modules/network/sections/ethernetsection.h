@@ -28,6 +28,7 @@
 #include "widgets/switchwidget.h"
 #include "widgets/spinboxwidget.h"
 
+#include <QRegularExpression>
 #include <networkmanagerqt/wiredsetting.h>
 #include <networkmanagerqt/wireddevice.h>
 
@@ -59,7 +60,7 @@ private:
 
     NetworkManager::WiredSetting::Ptr m_wiredSetting;
 
-    QRegExp m_macAddrRegExp;
+    QRegularExpression m_macAddrRegExp;
     QMap<QString, QString> m_macStrMap;
 };
 

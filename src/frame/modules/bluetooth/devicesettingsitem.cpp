@@ -57,7 +57,7 @@ DeviceSettingsItem::DeviceSettingsItem(const Device *device) :
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     layout->addSpacing(20);
     layout->addWidget(m_titleLabel);

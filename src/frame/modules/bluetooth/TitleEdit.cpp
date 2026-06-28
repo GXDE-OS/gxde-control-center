@@ -43,7 +43,7 @@ TitleEdit::TitleEdit(QWidget *parent)
     mainlayout->addSpacing(5);
     mainlayout->addWidget(m_editWidget);
     mainlayout->addStretch();
-    mainlayout->setMargin(0);
+    mainlayout->setContentsMargins(0, 0, 0, 0);
     mainlayout->setSpacing(0);
     setLayout(mainlayout);
 

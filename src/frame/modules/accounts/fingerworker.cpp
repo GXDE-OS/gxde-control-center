@@ -66,7 +66,7 @@ void FingerWorker::enrollStart(const QString &name, const QString &thumb)
         watcher->deleteLater();
     });
 
-    QFuture<bool> future = QtConcurrent::run(this, &FingerWorker::recordFinger, name, thumb);
+    QFuture<bool> future = QtConcurrent::run([this, name, thumb]() -> bool { return recordFinger(name, thumb); });
     watcher->setFuture(future);
 }
 
@@ -81,7 +81,7 @@ void FingerWorker::reEnrollStart(const QString &thumb)
         watcher->deleteLater();
     });
 
-    QFuture<bool> future = QtConcurrent::run(this, &FingerWorker::reRecordFinger, thumb);
+    QFuture<bool> future = QtConcurrent::run([this, thumb]() -> bool { return reRecordFinger(thumb); });
     watcher->setFuture(future);
 }
 
@@ -103,7 +103,7 @@ void FingerWorker::saveEnroll(const QString &name)
         watcher->deleteLater();
     });
 
-    QFuture<void> future = QtConcurrent::run(this, &FingerWorker::saveFinger);
+    QFuture<void> future = QtConcurrent::run([this]() { saveFinger(); });
     watcher->setFuture(future);
 }
 
@@ -111,7 +111,7 @@ void FingerWorker::stopEnroll()
 {
     QFutureWatcher<void> watcher(this);
 
-    QFuture<void> future = QtConcurrent::run(this, &FingerWorker::saveFinger);
+    QFuture<void> future = QtConcurrent::run([this]() { saveFinger(); });
     watcher.setFuture(future);
 }
 

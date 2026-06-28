@@ -154,7 +154,7 @@ bool NavigationBar::eventFilter(QObject *watched, QEvent *event)
         DImageButton *btn = static_cast<DImageButton*>(watched);
         const QPoint p { mapToGlobal(btn->geometry().topLeft()) };
         const QString str { transModuleName(m_navigationButtons.key(btn)) };
-        const int width { fontMetrics().width(str) };
+        const int width { fontMetrics().horizontalAdvance(str) };
         m_navLabel->setText(str);
         m_navLabel->setFixedWidth(width);
         m_arrowRectangle->setWidth(width);

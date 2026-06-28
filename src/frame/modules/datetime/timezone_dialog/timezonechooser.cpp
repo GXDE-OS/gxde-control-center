@@ -37,7 +37,6 @@
 #include <QScreen>
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QLabel>
 #include <QStyleFactory>
 #include <QAbstractItemView>
@@ -77,13 +76,13 @@ TimeZoneChooser::TimeZoneChooser()
     DWindowCloseButton *closeButton = new DWindowCloseButton;
 
     QHBoxLayout *wbLayout = new QHBoxLayout;
-    wbLayout->setMargin(6);
+    wbLayout->setContentsMargins(6, 6, 6, 6);
     wbLayout->setSpacing(0);
     wbLayout->addStretch();
     wbLayout->addWidget(closeButton);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
     layout->addLayout(wbLayout);
@@ -161,7 +160,7 @@ TimeZoneChooser::TimeZoneChooser()
 
         QHBoxLayout *layout = new QHBoxLayout;
         layout->setSpacing(0);
-        layout->setMargin(0);
+        layout->setContentsMargins(0, 0, 0, 0);
         layout->addWidget(blurEffect);
         m_popup->setLayout(layout);
 
@@ -224,8 +223,8 @@ void TimeZoneChooser::showEvent(QShowEvent *event)
 
 QSize TimeZoneChooser::getFitSize() const
 {
-    const QDesktopWidget *desktop = QApplication::desktop();
-    const QRect primaryRect = desktop->availableGeometry(desktop->primaryScreen());
+    const QScreen *primaryScreen = qApp->primaryScreen();
+    const QRect primaryRect = primaryScreen->availableGeometry();
 
     double width = primaryRect.width() - 360/* dcc */ - 20 * 2;
     double height = primaryRect.height() - 70/* dock */ - 20 * 2;

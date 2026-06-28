@@ -41,7 +41,7 @@ WeatherPlugin::WeatherPlugin(QObject *parent)
 
     QStackedLayout *layout = new QStackedLayout;
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     layout->addWidget(weatherWidget);
     layout->addWidget(locationPage);

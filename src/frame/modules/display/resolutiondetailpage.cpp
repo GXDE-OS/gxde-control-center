@@ -42,7 +42,7 @@ ResolutionDetailPage::ResolutionDetailPage(QWidget *parent)
 
     TranslucentFrame *widget = new TranslucentFrame;
     QVBoxLayout *mainLayout = new QVBoxLayout(widget);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addSpacing(10);
     mainLayout->addWidget(m_resolutions);
 

@@ -57,7 +57,7 @@ FingerPage::FingerPage(User *user, QWidget *parent)
     tip->setWordWrap(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
 
     layout->addWidget(m_listGrp);

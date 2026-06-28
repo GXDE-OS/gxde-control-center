@@ -118,7 +118,7 @@ NavigationModel::EdgeFlags NavigationModel::indexEdgeFlag(const QModelIndex &ind
     const int idx = index.row();
     const int r = idx % 3;
     const int h = m_items.size() / 3 - !(m_items.size() % 3);
-    EdgeFlags flag = 0;
+    EdgeFlags flag(EdgeFlag(0));
 
     if (idx < 3)
         flag |= Top;

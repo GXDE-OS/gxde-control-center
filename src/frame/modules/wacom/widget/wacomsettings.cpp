@@ -54,7 +54,7 @@ WacomSettings::WacomSettings(QWidget *parent):
     m_mainGroup->appendItem(m_pressureSlider);
 
     m_mainLayout->addWidget(m_mainGroup);
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(m_mainLayout);
     setObjectName("WacomSettings");
     m_preSlider = m_pressureSlider->slider();

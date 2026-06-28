@@ -66,7 +66,7 @@ ShortcutWidget::ShortcutWidget(ShortcutModel *model, QWidget *parent)
     m_customGroup->insertItem(0, m_head);
 
     m_layout = new QVBoxLayout();
-    m_layout->setMargin(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(10);
     m_layout->addSpacing(10);
     m_layout->addWidget(m_searchInput);

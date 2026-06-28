@@ -26,6 +26,7 @@
 #include "mirrorswidget.h"
 #include "widgets/translucentframe.h"
 
+#include <algorithm>
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -48,11 +49,11 @@ MirrorsWidget::MirrorsWidget(UpdateModel *model, QWidget *parent)
     TranslucentFrame* widget = new TranslucentFrame();
 
     QVBoxLayout *mainlayout = new QVBoxLayout;
-    mainlayout->setMargin(0);
+    mainlayout->setContentsMargins(0, 0, 0, 0);
     mainlayout->setSpacing(0);
     mainlayout->addSpacing(10);
 
-    m_layout->setMargin(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
     m_layout->addWidget(m_testButton);
     m_layout->addSpacing(5);
@@ -171,7 +172,7 @@ void MirrorsWidget::testButtonClicked()
 void MirrorsWidget::sortMirrorsBySpeed()
 {
     QList<MirrorItem*> items = findChildren<MirrorItem*>();
-    qSort(items.begin(), items.end(), [](const MirrorItem *one, const MirrorItem *two) {
+    std::sort(items.begin(), items.end(), [](const MirrorItem *one, const MirrorItem *two) {
         return one->speed() > two->speed();
     });
 

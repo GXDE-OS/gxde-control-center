@@ -56,7 +56,7 @@ BootWidget::BootWidget(QWidget *parent)
 
     QVBoxLayout *listLayout = new QVBoxLayout;
     listLayout->setSpacing(0);
-    listLayout->setMargin(0);
+    listLayout->setContentsMargins(0, 0, 0, 0);
 
     m_bootList = new QListWidget;
     m_bootList->setDragDropMode(QListWidget::DragDrop);
@@ -100,7 +100,7 @@ BootWidget::BootWidget(QWidget *parent)
         group->appendItem(m_liveCDEnabled);
     }
 
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addSpacing(10);
     layout->addWidget(group);

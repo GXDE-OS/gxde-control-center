@@ -68,7 +68,7 @@ ContentWidget::ContentWidget(QWidget *parent)
     m_title->setAlignment(Qt::AlignCenter);
 
     m_contentTopLayout = new QVBoxLayout;
-    m_contentTopLayout->setMargin(0);
+    m_contentTopLayout->setContentsMargins(0, 0, 0, 0);
     m_contentTopLayout->setSpacing(0);
 
     m_contentArea = new QScrollArea;
@@ -197,8 +197,10 @@ bool ContentWidget::eventFilter(QObject *watched, QEvent *event)
 
         // redirect all wheel events to this object so it can process the scroll animation, see
         // wheelEvent.
-        QWheelEvent *newEvent =  new QWheelEvent(wheel->pos(), wheel->delta(), wheel->buttons(),
-                                                 wheel->modifiers(), wheel->orientation());
+        QWheelEvent *newEvent =  new QWheelEvent(wheel->position(), wheel->globalPosition(),
+                                                 wheel->pixelDelta(), wheel->angleDelta(),
+                                                 wheel->buttons(), wheel->modifiers(), wheel->phase(),
+                                                 wheel->inverted());
         qApp->postEvent(this, newEvent);
 
         return true;
@@ -224,7 +226,7 @@ void ContentWidget::stopScroll()
 
 void ContentWidget::wheelEvent(QWheelEvent *e)
 {
-    int offset = - e->delta();
+    int offset = - e->angleDelta().y();
 
     if (m_wheelAni->state() == QPropertyAnimation::Running) {
         m_speedTime += 0.02;

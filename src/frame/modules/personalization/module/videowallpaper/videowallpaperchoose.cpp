@@ -18,7 +18,7 @@ dcc::personalization::VideoWallpaperChoose::VideoWallpaperChoose(QWidget *parent
     m_mainlayout->addWidget(m_mainWidget);
 
     m_mainlayout->setSpacing(0);
-    m_mainlayout->setMargin(0);
+    m_mainlayout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_mainlayout);
     //m_sizeWidget = new TitledSliderItem(tr("Size"));

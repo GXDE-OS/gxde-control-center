@@ -25,7 +25,7 @@
 #include "widgets/contentwidget.h"
 #include "../sections/abstractsection.h"
 
-#include <KF5/NetworkManagerQt/networkmanagerqt/connectionsettings.h>
+#include <KF6/NetworkManagerQt/networkmanagerqt/connectionsettings.h>
 
 #include <QWidget>
 
