@@ -58,12 +58,12 @@ using dcc::bluetooth::BluetoothModel;
 using dcc::bluetooth::BluetoothWorker;
 #endif
 
-// 修复在x11下从信息页快捷中心打开的软件无特效的问题
+// 修复从信息页快捷中心打开的软件无特效的问题
 void QuickControlPanel::startAppWithEffect(const QString &program, const QStringList &arguments)
 {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     
-    env.insert("QT_QPA_PLATFORM", "dxcb;xcb");
+    env.insert("QT_QPA_PLATFORM", "dxcb;xcb;dwayland;wayland");
 
     QProcess::startDetached(program, arguments, QString(), env);
 }
