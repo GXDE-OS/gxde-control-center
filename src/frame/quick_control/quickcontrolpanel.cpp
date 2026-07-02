@@ -42,6 +42,7 @@
 
 #include <QVBoxLayout>
 #include <QProcess>
+#include <QProcessEnvironment>
 #include <networkmodel.h>
 #include <networkworker.h>
 
@@ -56,6 +57,16 @@ using dcc::display::DisplayWorker;
 using dcc::bluetooth::BluetoothModel;
 using dcc::bluetooth::BluetoothWorker;
 #endif
+
+// 修复在x11下从信息页快捷中心打开的软件无特效的问题
+void QuickControlPanel::startAppWithEffect(const QString &program, const QStringList &arguments)
+{
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    
+    env.insert("QT_QPA_PLATFORM", "dxcb;xcb");
+
+    QProcess::startDetached(program, arguments, QString(), env);
+}
 
 QuickControlPanel::QuickControlPanel(QWidget *parent)
     : QWidget(parent),
@@ -207,25 +218,32 @@ QuickControlPanel::QuickControlPanel(QWidget *parent)
     //connect(m_vpnSwitch, &QuickSwitchButton::hovered, m_itemStack, &QStackedLayout::setCurrentIndex);
     //connect(m_wifiSwitch, &QuickSwitchButton::hovered, m_itemStack, &QStackedLayout::setCurrentIndex);
     connect(m_screenShotBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("deepin-screen-recorder --shot");
+        // QProcess::startDetached("deepin-screen-recorder --shot");
+        startAppWithEffect("deepin-screen-recorder", {"--shot"});
     });
     connect(m_screenRecordBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("deepin-screen-recorder --record");
+        // QProcess::startDetached("deepin-screen-recorder --record");
+        startAppWithEffect("deepin-screen-recorder", {"--record"});
     });
     connect(m_systemMonitorBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("deepin-system-monitor");
+        // QProcess::startDetached("deepin-system-monitor");
+        startAppWithEffect("deepin-system-monitor", {});
     });
     connect(m_grandSearchBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("dde-grand-search");
+        // QProcess::startDetached("dde-grand-search");
+        startAppWithEffect("dde-grand-search", {});
     });
     connect(m_powerBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("dde-shutdown");
+        // QProcess::startDetached("dde-shutdown");
+        startAppWithEffect("dde-shutdown", {});
     });
     connect(m_ocrBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("deepin-screen-recorder --ocr");
+        // QProcess::startDetached("deepin-screen-recorder --ocr");
+        startAppWithEffect("deepin-screen-recorder", {"--ocr"});
     });
     connect(m_scrollBtn, &DImageButton::clicked, this, [](){
-        QProcess::startDetached("deepin-screen-recorder --scroll");
+        // QProcess::startDetached("deepin-screen-recorder --scroll");
+        startAppWithEffect("deepin-screen-recorder", {"--scroll"});
     });
 
 
