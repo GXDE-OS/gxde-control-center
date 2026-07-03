@@ -65,7 +65,12 @@ void QuickControlPanel::startAppWithEffect(const QString &program, const QString
     
     env.insert("QT_QPA_PLATFORM", "dxcb;xcb;dwayland;wayland");
 
-    QProcess::startDetached(program, arguments, QString(), env);
+    // 修复编译错误
+    QProcess process;
+    process.setProcessEnvironment(env);
+    process.setProgram(program);
+    process.setArguments(arguments);
+    process.startDetached();
 }
 
 QuickControlPanel::QuickControlPanel(QWidget *parent)
