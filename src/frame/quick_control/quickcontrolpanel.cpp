@@ -217,31 +217,31 @@ QuickControlPanel::QuickControlPanel(QWidget *parent)
 #endif
     //connect(m_vpnSwitch, &QuickSwitchButton::hovered, m_itemStack, &QStackedLayout::setCurrentIndex);
     //connect(m_wifiSwitch, &QuickSwitchButton::hovered, m_itemStack, &QStackedLayout::setCurrentIndex);
-    connect(m_screenShotBtn, &DImageButton::clicked, this, [](){
+    connect(m_screenShotBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --shot");
         startAppWithEffect("deepin-screen-recorder", {"--shot"});
     });
-    connect(m_screenRecordBtn, &DImageButton::clicked, this, [](){
+    connect(m_screenRecordBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --record");
         startAppWithEffect("deepin-screen-recorder", {"--record"});
     });
-    connect(m_systemMonitorBtn, &DImageButton::clicked, this, [](){
+    connect(m_systemMonitorBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-system-monitor");
         startAppWithEffect("deepin-system-monitor", {});
     });
-    connect(m_grandSearchBtn, &DImageButton::clicked, this, [](){
+    connect(m_grandSearchBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("dde-grand-search");
         startAppWithEffect("dde-grand-search", {});
     });
-    connect(m_powerBtn, &DImageButton::clicked, this, [](){
+    connect(m_powerBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("dde-shutdown");
         startAppWithEffect("dde-shutdown", {});
     });
-    connect(m_ocrBtn, &DImageButton::clicked, this, [](){
+    connect(m_ocrBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --ocr");
         startAppWithEffect("deepin-screen-recorder", {"--ocr"});
     });
-    connect(m_scrollBtn, &DImageButton::clicked, this, [](){
+    connect(m_scrollBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --scroll");
         startAppWithEffect("deepin-screen-recorder", {"--scroll"});
     });

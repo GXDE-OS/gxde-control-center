@@ -102,6 +102,9 @@ private Q_SLOTS:
     void reconnectDisplaySwitch();
 
 private:
+    // 添加声明
+    void startAppWithEffect(const QString &program, const QStringList &arguments);
+
     QStackedLayout *m_itemStack;
     dde::network::NetworkModel *m_networkModel;
     dde::network::NetworkWorker *m_networkWorker;
