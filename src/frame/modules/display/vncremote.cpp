@@ -1,13 +1,15 @@
 #include "vncremote.h"
-#include "widgets/nextpagewidget.h"
 #include "widgets/labels/tipslabel.h"
-#include "widgets/dccslider.h"
 #include "widgets/settingsgroup.h"
 
-#include <QMessageBox>
 #include <QLineEdit>
 #include <QDir>
 #include <QProcess>
+#include <QDBusConnection>
+
+#define CHROOTDBUS_DESTINATION "com.gxde.daemon.system.info"
+#define CHROOTDBUS_PATH "/com/gxde/daemon/system/info"
+#define CHROOTDBUS_INTERFACE "com.gxde.daemon.system.info"
 
 using namespace dcc;
 using namespace dcc::widgets;
@@ -72,19 +74,37 @@ dcc::display::VNCRemote::VNCRemote(QWidget *parent)
     setTitle(tr("VNC Remote"));
     m_widget->setLayout(m_mainlayout);
     setContent(m_widget);
-
-
-
 }
 
 void VNCRemote::RestartX11VNC()
 {
     system("killall x11vnc -9");
+    QDBusMessage dbus = QDBusMessage::createMethodCall(CHROOTDBUS_DESTINATION,
+                                                       CHROOTDBUS_PATH,
+                                                       CHROOTDBUS_INTERFACE,
+                                                       "IsInChroot");
+    QDBusMessage res = QDBusConnection::sessionBus().call(dbus);
+    bool isChroot = false;
+    if (res.arguments().count() > 0) {
+        isChroot = res.arguments().first().toBool();
+    }
     if(QFile::exists(QDir::homePath() + "/.vnc/passwd")) {
-        system("setsid x11vnc --forever -rfbauth ~/.vnc/passwd &");
+        if (isChroot) {
+            // 小小电脑/Chroot 下因为环境限制，不支持 XShm
+            // 需要禁用该部分以正确启用 VNC
+            system("setsid x11vnc --forever -rfbauth -noshm ~/.vnc/passwd &");
+        }
+        else {
+            system("setsid x11vnc --forever -rfbauth ~/.vnc/passwd &");
+        }
     }
     else {
-        system("setsid x11vnc --forever &");
+        if (isChroot) {
+            system("setsid x11vnc --forever -noshm &");
+        }
+        else {
+            system("setsid x11vnc --forever &");
+        }
     }
 }
 
