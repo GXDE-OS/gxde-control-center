@@ -23,7 +23,7 @@ dcc::display::VNCRemote::VNCRemote(QWidget *parent)
 
     SettingsGroup *group = new SettingsGroup();
 
-    m_enableSwitch = new SwitchWidget("VNC Remote");
+    m_enableSwitch = new SwitchWidget(tr("VNC Remote"));
     group->appendItem(m_enableSwitch); 
 
     // 连接密码设置
@@ -40,7 +40,7 @@ dcc::display::VNCRemote::VNCRemote(QWidget *parent)
     passwordGroup->appendItem(passwordAgain);
 
     passwordFirst->setTitle(tr("New Password"));
-    passwordAgain->setTitle("Repeat Password");
+    passwordAgain->setTitle(tr("Repeat Password"));
     
     passwordControlLayout->addWidget(passwordTips);
     passwordControlLayout->addWidget(group); 
@@ -92,18 +92,18 @@ void VNCRemote::RestartX11VNC()
         if (isChroot) {
             // 小小电脑/Chroot 下因为环境限制，不支持 XShm
             // 需要禁用该部分以正确启用 VNC
-            system("setsid x11vnc --forever -rfbauth -noshm ~/.vnc/passwd &");
+            system("setsid x11vnc --forever -rfbauth -noshm -capslock ~/.vnc/passwd &");
         }
         else {
-            system("setsid x11vnc --forever -rfbauth ~/.vnc/passwd &");
+            system("setsid x11vnc --forever -rfbauth -capslock ~/.vnc/passwd &");
         }
     }
     else {
         if (isChroot) {
-            system("setsid x11vnc --forever -noshm &");
+            system("setsid x11vnc --forever -noshm -capslock &");
         }
         else {
-            system("setsid x11vnc --forever &");
+            system("setsid x11vnc --forever -capslock &");
         }
     }
 }
@@ -111,7 +111,7 @@ void VNCRemote::RestartX11VNC()
 void VNCRemote::RemovePassword()
 {
     QFile::remove(QDir::homePath() + "/.vnc/passwd");
-    passwordSettingStatus->setText("Removed");
+    passwordSettingStatus->setText(tr("Removed"));
     RestartX11VNC();
 }
 
@@ -153,10 +153,10 @@ void VNCRemote::SetVNCPassword()
     process.write((passwordFirst->text() + "\n" + passwordAgain->text() + "\ny\n").toUtf8());
     process.waitForFinished();
     if(process.exitCode() != 0) {
-        passwordSettingStatus->setText("Setting Error!");
+        passwordSettingStatus->setText(tr("Setting Error!"));
     }
     else {
-        passwordSettingStatus->setText("Done");
+        passwordSettingStatus->setText(tr("Done"));
         RestartX11VNC();
     }
     process.close();
