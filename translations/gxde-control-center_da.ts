@@ -290,22 +290,22 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
 <context>
     <name>UpdateNotifier</name>
     <message>
-        <location filename="../src/frame/updatenotifier.cpp" line="37"/>
+        <location filename="../src/frame/updatenotifier.cpp" line="38"/>
         <source>Updates</source>
         <translation>Opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/updatenotifier.cpp" line="162"/>
+        <location filename="../src/frame/updatenotifier.cpp" line="163"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>Afhængighedsfejl, kunne ikke registrere opdateringerne</translation>
     </message>
     <message>
-        <location filename="../src/frame/updatenotifier.cpp" line="165"/>
+        <location filename="../src/frame/updatenotifier.cpp" line="166"/>
         <source>Updates detecting failure</source>
         <translation>Fejl ved registrering af opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/updatenotifier.cpp" line="174"/>
+        <location filename="../src/frame/updatenotifier.cpp" line="175"/>
         <source>Updates detected, click to view</source>
         <translation>Opdateringer registreret, klik for at vise</translation>
     </message>
@@ -581,13 +581,13 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
         <translation>Adgangskode må ikke være tomt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/createpage.cpp" line="265"/>
+        <location filename="../src/frame/modules/accounts/createpage.cpp" line="267"/>
         <source>The password should be different from the username</source>
         <translation>Adgangskoden bør ikke det samme som brugernavnet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/createpage.cpp" line="271"/>
-        <location filename="../src/frame/modules/accounts/createpage.cpp" line="274"/>
+        <location filename="../src/frame/modules/accounts/createpage.cpp" line="273"/>
+        <location filename="../src/frame/modules/accounts/createpage.cpp" line="276"/>
         <source>The password must contain English letters (case-sensitive), numbers or special symbols (~!@#$%^&amp;*()[]{}\|/?,.&lt;&gt;)</source>
         <translation>Adgangskoden skal indeholde engelske bogstaver (der skelnes mellem store og små bogstaver), tal eller specialtegn (~!@#$%^&amp;*()[]{}\|/?,.&lt;&gt;)</translation>
     </message>
@@ -974,22 +974,22 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
 <context>
     <name>dcc::datetime::TimeZoneChooser</name>
     <message>
-        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="64"/>
+        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="63"/>
         <source>Cancel</source>
         <translation>Annuller</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="65"/>
+        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="64"/>
         <source>Confirm</source>
         <translation>Bekræft</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="176"/>
+        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="175"/>
         <source>Add Timezone</source>
         <translation>Tilføj tidszone</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="176"/>
+        <location filename="../src/frame/modules/datetime/timezone_dialog/timezonechooser.cpp" line="175"/>
         <source>Change Timezone</source>
         <translation>Skift tidszone</translation>
     </message>
@@ -1322,34 +1322,55 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
 <context>
     <name>dcc::display::VNCRemote</name>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="28"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="32"/>
         <source>Connect Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="32"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="42"/>
         <source>New Password</source>
         <translation type="unfinished">Ny adgangskode</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="35"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="43"/>
+        <source>Repeat Password</source>
+        <translation type="unfinished">Gentag adgangskode</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="49"/>
         <source>Remove Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="36"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="50"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="60"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="69"/>
         <source>You can use IP address and VNC View to connect.
 Port: 5900
 Power by x11vnc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/vncremote.cpp" line="66"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="114"/>
+        <source>Removed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="156"/>
+        <source>Setting Error!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="159"/>
+        <source>Done</source>
+        <translation type="unfinished">Færdig</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="26"/>
+        <location filename="../src/frame/modules/display/vncremote.cpp" line="74"/>
         <source>VNC Remote</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2413,164 +2434,164 @@ Power by x11vnc</source>
 <context>
     <name>dcc::network::Secret8021xSection</name>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="155"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="156"/>
         <source>TLS</source>
         <translation>TLS</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="156"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="157"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="157"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="158"/>
         <source>LEAP</source>
         <translation>LEAP</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="158"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="159"/>
         <source>FAST</source>
         <translation>FAST</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="159"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="160"/>
         <source>Tunneled TLS</source>
         <translation>Tunneled TLS</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="160"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="161"/>
         <source>Protected EAP</source>
         <translation>Beskyttet EAP</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="165"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="166"/>
         <source>Saved</source>
         <translation>Gemt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="166"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="167"/>
         <source>Ask</source>
         <translation>Spørg</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="171"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="172"/>
         <source>Disabled</source>
         <translation>Deaktiveret</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="172"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="173"/>
         <source>Anonymous</source>
         <translation>Anonym</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="173"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="174"/>
         <source>Authenticated</source>
         <translation>Autentificeret</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="174"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="175"/>
         <source>Both</source>
         <translation>Begge</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="190"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="191"/>
         <source>Automatic</source>
         <translation>Automatisk</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="220"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="221"/>
         <source>Pwd Options</source>
         <translation>Valgmuligheder for adgangskode</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="33"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="34"/>
         <source>Security</source>
         <translation>Sikkerhed</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="204"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="205"/>
         <source>EAP Auth</source>
         <translation>EAP-godkendelse</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="167"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="168"/>
         <source>Not Required</source>
         <translation>Ikke påkrævet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="191"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="192"/>
         <source>Version 0</source>
         <translation>Version 0</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="192"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="193"/>
         <source>Version 1</source>
         <translation>Version 1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="216"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="217"/>
         <source>Identity</source>
         <translation>Identitet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="218"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="226"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="219"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="227"/>
         <source>Required</source>
         <translation>Påkrævet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="304"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="305"/>
         <source>Private Key</source>
         <translation>Privat nøgle</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="308"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="389"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="425"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="309"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="390"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="426"/>
         <source>CA Cert</source>
         <translation>CA-certifikat</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="312"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="313"/>
         <source>User Cert</source>
         <translation>Brugercertifikat</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="334"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="385"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="421"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="335"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="386"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="422"/>
         <source>Anonymous ID</source>
         <translation>Anonym ID</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="338"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="339"/>
         <source>Provisioning</source>
         <translation>Provisioning</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="350"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="351"/>
         <source>PAC file</source>
         <translation>PAC-fil</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="354"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="393"/>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="440"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="355"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="394"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="441"/>
         <source>Inner Auth</source>
         <translation>Indre godkendelse</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="429"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="430"/>
         <source>PEAP Version</source>
         <translation>PEAP-version</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="525"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="526"/>
         <source>Private Pwd</source>
         <translation>Privat adgangskode</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="527"/>
+        <location filename="../src/frame/modules/network/sections/secret8021xsection.cpp" line="528"/>
         <source>Password</source>
         <translation>Adgangskode</translation>
     </message>
@@ -4275,17 +4296,17 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::MirrorsWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="42"/>
+        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="43"/>
         <source>Test Speed</source>
         <translation>Test hastighed</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="47"/>
         <source>Switch Mirror</source>
         <translation>Skift spejlserver</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="141"/>
+        <location filename="../src/frame/modules/update/mirrorswidget.cpp" line="142"/>
         <source>Retest</source>
         <translation>Test igen</translation>
     </message>
@@ -4306,80 +4327,94 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="216"/>
         <source>Update</source>
         <translation>Opdatering</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>Genstart venligst for at bruge systemet og programmerne ordentligt efter opdatering</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="56"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <source>Refresh</source>
+        <translation type="unfinished">Genopfrisk</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
+        <source>Select all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>Netværk deaktiveret. Prøv venligst når forbindelsen er oprettet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="176"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>Checking for updates, please wait...</source>
         <translation>Søger efter opdateringer, vent venligst...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="181"/>
         <source>Download and install updates</source>
-        <translation>Download og installer opdateringer</translation>
+        <translation type="vanished">Download og installer opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="190"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="294"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
+        <source>Download and install selected updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>%1% downloadet (klik for at pause)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="195"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>%1% downloadet (klik for at fortsætte)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="201"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
         <source>Install updates</source>
         <translation>Installer opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="208"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
         <source>Your system is up to date</source>
         <translation>Dit system er opdateret</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="213"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
         <source>Updating, please wait...</source>
         <translation>Opdaterer, vent venligst...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="227"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>Nyeste system installeret, genstart for at træde i kraft</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="237"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>Ikke tilstrækkelig diskplads, kan ikke opdatere system.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="242"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>Afhængighedsfejl, kunne ikke registrere opdateringerne</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="264"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>%n programopdatering registreret</numerusform>
@@ -4387,12 +4422,12 @@ Power by fantascene-dynamic-wallpaper</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="269"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
         <source>New system edition detected</source>
         <translation>Ny systemudgave registreret</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>Ny systemudgave og %n programopdatering registreret</numerusform>
@@ -4400,22 +4435,21 @@ Power by fantascene-dynamic-wallpaper</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="278"/>
         <source>Downloaded</source>
-        <translation>Downloadet</translation>
+        <translation type="vanished">Downloadet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
         <source>Download size: %1</source>
         <translation>Downloadstørrelse: %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="302"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>Dit batteri er under 50%, tilslut venligst strømforsyningen for at fortsætte</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="304"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>Sørg venligst for tilstrækkeligt med strøm til genstart, og sluk ikke eller frakobl strømforsyningen fra din maskine</translation>
     </message>
@@ -4423,7 +4457,7 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="124"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
         <source>Details</source>
         <translation>Detaljer</translation>
     </message>
@@ -4484,22 +4518,18 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="61"/>
-        <source>Check and perform system Upgrade</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="69"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
         <source>Internal Testing Group Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="76"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
         <source>Disabled Upgrade Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="86"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
         <source>Update</source>
         <translation>Opdatering</translation>
     </message>
@@ -4511,14 +4541,40 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="238"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
         <source>Patches</source>
         <translation>Rettelser</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="239"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
         <source>System patches</source>
         <translation>Systemrettelser</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <source>Downloading updates...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <source>Updates installed successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <source>Installing updates from cache...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <source>Downloading updates... %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <source>System package update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
