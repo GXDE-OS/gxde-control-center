@@ -32,6 +32,7 @@
 #include "widgets/switchwidget.h"
 #include "widgets/titledslideritem.h"
 #include "dwindowmanagerhelper.h"
+#include "dapplication.h"
 
 #include <QDebug>
 #include <QPushButton>
@@ -122,8 +123,7 @@ PersonalizationWidget::PersonalizationWidget()
         m_userGroup->appendItem(m_use20Launcher);
     }
     // 如果是 Wayland，则禁用以下内容
-    if(m_model->isWayland()) {
-        m_showTopPanel->setHidden(true);
+    if(DApplication::isWayland()) {
         m_showBottomPanel->setHidden(true);
         m_wmSwitch->setHidden(true);
         m_use20Launcher->setHidden(true);
