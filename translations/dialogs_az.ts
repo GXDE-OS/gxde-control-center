@@ -1,30 +1,31 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="az" version="2.1">
+<?xml version='1.0' encoding='utf-8'?>
+<TS language="az" version="2.1">
 <context>
     <name>ReminderDialog</name>
     <message>
-        <location filename="../src/dialogs/reminderdialog.cpp" line="35"/>
+        <location filename="../src/dialogs/reminderdialog.cpp" line="35" />
         <source>Updates installed! A restart is required, restart now?</source>
-        <translation type="unfinished"/>
+        <translation>Yüklənib! Yenidən başlama tələb olunur, indi yenidən başlasın?</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reminderdialog.cpp" line="36"/>
+        <location filename="../src/dialogs/reminderdialog.cpp" line="36" />
         <source>Make sure all data has been saved before proceeding</source>
-        <translation type="unfinished"/>
+        <translation>Bütün məlumatların saxlanıldığından əmin olun, sonra davam edin</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reminderdialog.cpp" line="45"/>
+        <location filename="../src/dialogs/reminderdialog.cpp" line="45" />
         <source>Cancel</source>
         <translation>İmtina</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reminderdialog.cpp" line="45"/>
+        <location filename="../src/dialogs/reminderdialog.cpp" line="45" />
         <source>Shut down</source>
         <translation>Sistemi söndür</translation>
     </message>
     <message>
-        <location filename="../src/dialogs/reminderdialog.cpp" line="48"/>
+        <location filename="../src/dialogs/reminderdialog.cpp" line="48" />
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Yenidən başlat</translation>
     </message>
 </context>
 </TS>
