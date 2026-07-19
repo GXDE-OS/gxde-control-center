@@ -450,11 +450,13 @@ void Frame::show()
         });
     }
 
-    // register global mouse area
-    m_mouseAreaInter->registerRegion();
+    if (!DApplication::isWayland()) {
+        // register global mouse area
+        m_mouseAreaInter->registerRegion();
 
-    // connect signal
-    connect(m_mouseAreaInter, &DRegionMonitor::buttonRelease, this, &Frame::onMouseButtonReleased, Qt::UniqueConnection);
+        // connect signal
+        connect(m_mouseAreaInter, &DRegionMonitor::buttonRelease, this, &Frame::onMouseButtonReleased, Qt::UniqueConnection);
+    }
 
     // prepare all settings page
     m_delayKillerTimer->stop();
