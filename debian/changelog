@@ -1,4 +1,4 @@
-gxde-control-center (6.0.6) UNRELEASED; urgency=medium
+gxde-control-center (6.0.7) UNRELEASED; urgency=medium
 
   * 暂时禁用更新后的重启提示对话框
   * 修复屏幕缩放调整条不对准刻度的问题
@@ -44,8 +44,9 @@ gxde-control-center (6.0.6) UNRELEASED; urgency=medium
   * 完善翻译
   * 控制中心 Wayland 下不再禁用顶栏选项
   * 屏蔽接口提升 Wayland 下启动速度
+  * 修复 Wayland 下半透明异常的问题
 
- -- gfdgd_xi <3025613752@qq.com>  Sun, 19 Jul 2026 14:09:39 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Tue, 21 Jul 2026 11:53:27 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 

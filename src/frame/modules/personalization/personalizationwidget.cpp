@@ -253,7 +253,11 @@ void PersonalizationWidget::onOpacityChanged(std::pair<int, double> value)
 
 void PersonalizationWidget::onBlurWindowChanged()
 {
-    m_trGrp->setVisible(DWindowManagerHelper::instance()->hasBlurWindow());
+    if (DApplication::isWayland()) {
+        m_trGrp->setVisible(true);
+    } else {
+        m_trGrp->setVisible(DWindowManagerHelper::instance()->hasBlurWindow());
+    }
 }
 
 void PersonalizationWidget::initRadiusSlider()

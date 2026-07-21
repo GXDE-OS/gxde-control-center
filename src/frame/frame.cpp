@@ -36,6 +36,7 @@
 #include <QKeyEvent>
 #include <QScreen>
 #include <QGSettings>
+#include <QPainter>
 #include <qpa/qplatformwindow.h>
 #include <DPlatformWindowHandle>
 #include <DForeignWindow>
@@ -62,7 +63,8 @@ Frame::Frame(QWidget *parent)
 
       m_shown(false),
       m_autoHide(true),
-      m_debugAutoHide(true)
+      m_debugAutoHide(true),
+      m_opacity(0.4)
 {
     // use original coordinate
     m_mouseAreaInter->setCoordinateType(DRegionMonitor::Original);
@@ -111,6 +113,7 @@ Frame::Frame(QWidget *parent)
     resize(0, height());
 
     auto setOpacity = [=] (double opacity) {
+        m_opacity = opacity;
         setMaskAlpha(opacity * 255);
     };
 
@@ -183,6 +186,14 @@ void Frame::init()
     onScreenRectChanged(m_primaryRect);
 
     QTimer::singleShot(1, this, &Frame::adjustShadowMask);
+
+    if (Wayland::BlurHelper::isWayland()) {
+        QTimer::singleShot(100, this, [this] {
+            if (windowHandle()) {
+                Wayland::BlurHelper::applyBlur(windowHandle());
+            }
+        });
+    }
 
 #ifdef QT_DEBUG
 //    showSettingsPage("network", QString());
@@ -410,6 +421,17 @@ void Frame::moveEvent(QMoveEvent *e)
     Q_EMIT rectChanged(geometry());
 }
 
+void Frame::paintEvent(QPaintEvent *e)
+{
+    if (Wayland::BlurHelper::isWayland()) {
+        QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.fillRect(rect(), QColor(0, 0, 0, static_cast<int>(m_opacity * 255)));
+        return;
+    }
+    DBlurEffectWidget::paintEvent(e);
+}
+
 void Frame::show()
 {
     if (m_appearAnimation.state() == QPropertyAnimation::Running)
@@ -438,6 +460,10 @@ void Frame::show()
     // show frame
     DBlurEffectWidget::show();
     DBlurEffectWidget::activateWindow();
+
+    if (Wayland::BlurHelper::isWayland() && windowHandle()) {
+        Wayland::BlurHelper::applyBlur(windowHandle());
+    }
 
     // notify top widget appear
     if (m_frameWidgetStack.last())

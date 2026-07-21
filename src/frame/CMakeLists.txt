@@ -73,6 +73,11 @@ set(FRAME_FILES
                 framecontentwrapper.h
                 navigationdelegate.h
                 navigationview.h
+                wayland/waylandhelper.h
+                wayland/waylandblurhelper.h
+                wayland/waylandblurhelper.cpp
+                wayland/protocols/blur-client-protocol.c
+                wayland/protocols/dde-shell-client-protocol.c
                 quick_control/bluetooth/bluetoothdelegate.cpp
                 quick_control/bluetooth/bluetoothdelegate.h
                 quick_control/bluetooth/bluetoothlist.cpp
@@ -849,12 +854,14 @@ find_package(Dtk6Log REQUIRED)
 find_package(Dtk2widget REQUIRED)
 find_package(KF6NetworkManagerQt REQUIRED)
 find_package(DFrameworkdbusQt6 REQUIRED)
+find_package(LayerShellQt QUIET)
 
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh x11 xext)
 pkg_check_modules(QGSettings REQUIRED gsettings-qt6)
 pkg_check_modules(DDE-Network-Utils REQUIRED gxde-network-utils-qt6)
 pkg_check_modules(Gio-2.0 REQUIRED gio-2.0)
 pkg_check_modules(LibNM REQUIRED libnm)
+pkg_check_modules(WaylandClient REQUIRED wayland-client)
 
 # KF6 network manager
 get_target_property(KF6_QT_INCLUDE_DIRS KF6::NetworkManagerQt INTERFACE_INCLUDE_DIRECTORIES)
@@ -969,7 +976,9 @@ target_include_directories(${BIN_NAME} PUBLIC
     ${Gio-2.0_INCLUDE_DIRS}
     ${LibNM_INCLUDE_DIRS}
     ${KF6_QT_INCLUDE_DIRS}
+    ${WaylandClient_INCLUDE_DIRS}
     /usr/include/dtk6/DLog
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(${BIN_NAME} PRIVATE
@@ -987,6 +996,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
     ${Gio-2.0_LIBRARIES}
     ${LibNM_LIBRARIES}
     ${KF6_QT_LIBRARIES}
+    wayland-client
     crypt
 )
 

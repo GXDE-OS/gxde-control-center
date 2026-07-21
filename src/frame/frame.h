@@ -41,6 +41,9 @@
 #include <DWindowManagerHelper>
 #include <dregionmonitor.h>
 
+#include "wayland/waylandhelper.h"
+#include "wayland/waylandblurhelper.h"
+
 #define BUTTON_LEFT     1
 #define BUTTON_RIGHT    3
 #define FRAME_WIDTH     408
@@ -111,6 +114,7 @@ private:
     void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
     void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
     void moveEvent(QMoveEvent *e) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
     bool event(QEvent *event) Q_DECL_OVERRIDE;
     void show();
     void hide();
@@ -142,6 +146,7 @@ private:
     bool m_shown;
     bool m_autoHide;
     bool m_debugAutoHide;
+    double m_opacity;
 };
 
 #endif // FRAME_H
