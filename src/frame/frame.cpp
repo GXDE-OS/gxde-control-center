@@ -681,5 +681,13 @@ bool Frame::event(QEvent *event)
         Q_EMIT fontSizeChanged();
     }
 
+#ifdef HAS_LAYER_SHELL
+    if (Wayland::BlurHelper::isWayland() && event->type() == QEvent::WindowDeactivate) {
+        if (isVisible() && m_autoHide && m_debugAutoHide) {
+            hide();
+        }
+    }
+#endif
+
     return DBlurEffectWidget::event(event);
 }
