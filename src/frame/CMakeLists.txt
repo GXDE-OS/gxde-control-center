@@ -1000,5 +1000,10 @@ target_link_libraries(${BIN_NAME} PRIVATE
     crypt
 )
 
+if (LayerShellQt_FOUND)
+    target_link_libraries(${BIN_NAME} PRIVATE LayerShellQt::Interface)
+    target_compile_definitions(${BIN_NAME} PRIVATE HAS_LAYER_SHELL)
+endif()
+
 # bin
 install(TARGETS ${BIN_NAME} DESTINATION bin)

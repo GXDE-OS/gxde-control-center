@@ -44,6 +44,10 @@
 #include "wayland/waylandhelper.h"
 #include "wayland/waylandblurhelper.h"
 
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/window.h>
+#endif
+
 #define BUTTON_LEFT     1
 #define BUTTON_RIGHT    3
 #define FRAME_WIDTH     408
@@ -142,6 +146,11 @@ private:
 
     DPlatformWindowHandle m_platformWindowHandle;
     DWindowManagerHelper *m_wmHelper;
+
+#ifdef HAS_LAYER_SHELL
+    LayerShellQt::Window *m_layerShellWindow = nullptr;
+    void ensureLayerShellConfigured();
+#endif
 
     bool m_shown;
     bool m_autoHide;

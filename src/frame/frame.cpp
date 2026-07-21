@@ -41,6 +41,10 @@
 #include <DPlatformWindowHandle>
 #include <DForeignWindow>
 
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/window.h>
+#endif
+
 DWIDGET_USE_NAMESPACE
 
 Frame::Frame(QWidget *parent)
@@ -203,6 +207,25 @@ void Frame::init()
     prepareAllSettingsPage();
 #endif
 }
+
+#ifdef HAS_LAYER_SHELL
+void Frame::ensureLayerShellConfigured()
+{
+    if (!Wayland::BlurHelper::isWayland() || !windowHandle())
+        return;
+
+    if (!m_layerShellWindow) {
+        m_layerShellWindow = LayerShellQt::Window::get(windowHandle());
+    }
+
+    if (m_layerShellWindow) {
+        m_layerShellWindow->setAnchors(LayerShellQt::Window::Anchors(
+            LayerShellQt::Window::AnchorTop | LayerShellQt::Window::AnchorLeft));
+        m_layerShellWindow->setLayer(LayerShellQt::Window::LayerOverlay);
+        m_layerShellWindow->setExclusiveZone(-1);
+    }
+}
+#endif
 
 void Frame::adjustShadowMask()
 {
@@ -368,9 +391,28 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
             rect.moveTop(m_primaryRect.top());
 
             native_window->setGeometry(rect);
+
+#ifdef HAS_LAYER_SHELL
+            if (Wayland::BlurHelper::isWayland()) {
+                ensureLayerShellConfigured();
+                if (m_layerShellWindow) {
+                    m_layerShellWindow->setMargins(QMargins(
+                        rect.x() / ratio, rect.y() / ratio, 0, 0));
+                }
+            }
+#endif
+
             Q_EMIT rectChanged(rect);
         } else {
-            DBlurEffectWidget::move(m_primaryRect.x() + m_primaryRect.width() / ratio - (m_shown ? (width() - 1) : 0), m_primaryRect.y());
+            int x = m_primaryRect.x() + m_primaryRect.width() / ratio - (m_shown ? (width() - 1) : 0);
+            int y = m_primaryRect.y();
+            DBlurEffectWidget::move(x, y);
+
+#ifdef HAS_LAYER_SHELL
+            if (Wayland::BlurHelper::isWayland() && m_layerShellWindow) {
+                m_layerShellWindow->setMargins(QMargins(x, y, 0, 0));
+            }
+#endif
         }
     });
 }
@@ -418,6 +460,15 @@ void Frame::moveEvent(QMoveEvent *e)
 {
     DBlurEffectWidget::moveEvent(e);
 
+#ifdef HAS_LAYER_SHELL
+    if (Wayland::BlurHelper::isWayland() && windowHandle()) {
+        ensureLayerShellConfigured();
+        if (m_layerShellWindow) {
+            m_layerShellWindow->setMargins(QMargins(e->pos().x(), e->pos().y(), 0, 0));
+        }
+    }
+#endif
+
     Q_EMIT rectChanged(geometry());
 }
 
@@ -462,6 +513,13 @@ void Frame::show()
     DBlurEffectWidget::activateWindow();
 
     if (Wayland::BlurHelper::isWayland() && windowHandle()) {
+#ifdef HAS_LAYER_SHELL
+        ensureLayerShellConfigured();
+        if (m_layerShellWindow) {
+            QRect startGeo = m_appearAnimation.startValue().toRect();
+            m_layerShellWindow->setMargins(QMargins(startGeo.x(), startGeo.y(), 0, 0));
+        }
+#endif
         Wayland::BlurHelper::applyBlur(windowHandle());
     }
 

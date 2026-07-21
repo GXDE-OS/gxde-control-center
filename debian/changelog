@@ -45,6 +45,7 @@ gxde-control-center (6.0.7) UNRELEASED; urgency=medium
   * 控制中心 Wayland 下不再禁用顶栏选项
   * 屏蔽接口提升 Wayland 下启动速度
   * 修复 Wayland 下半透明异常的问题
+  * 修复 Wayland 下控制中心位置异常的问题
 
  -- gfdgd_xi <3025613752@qq.com>  Tue, 21 Jul 2026 11:53:27 +0800
 
