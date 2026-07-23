@@ -1,95 +1,114 @@
-# GXDE Control Center
+![HEADER](./docs/img/header.png)
+<div align="center"> <a href="https://gitee.com/GXDE-OS/gxde-control-center"> <img src="docs/img/icon.svg" alt="Logo" width="80" height="80"> </a>
+
+<h3 align="center">GXDE Control Center</h3>
+
+<p align="center"> The control panel for the GXDE Desktop Environment <br /> <a href="https://www.gxde.top/en/"><strong>About GXDE »</strong></a> <br /> <br /> <a href="https://github.com/GXDE-OS/gxde-control-center/tags">View Previous Releases</a> &middot; <a href="https://gitee.com/GXDE-OS/gxde-control-center/issues">Report a Bug</a> &middot; <a href="https://gitee.com/GXDE-OS/gxde-control-center/issues">Request a Feature</a> </p> </div>
+
+  ## About the Project
 
 GXDE Control Center is the control panel of GXDE Desktop Environment.
 
 GXDE has forked and maintained GCC V4.x and used as control panel of GXDE. You should NOT install this package on Deepin.
 
-## Dependencies
+  ### Dependencies
 
-### Build dependencies
-* pkg-config
-* cmake
-* Qt5(>= 5.6) with modules:
-  - qt5-default
-  - qt5declarative5-dev
-  - qt5svg5-dev
-  - qttools5-dev-tools
-  - qtdeclarative5-dev
-* Deepin-tool-kit(>=2.0) with modules:
-  - dtkcore-dev
-  - dtkwidget-dev
-  - dtkcore-bin
-* geoip-dev
-* dde-qt-dbus-factory
-* gsettings-qt-dev
-* gxde-network-utils-dev
-* kf5networkmanagerqt-dev
-* xrandr-dev
-* mtdev-dev
-* fontconfig1-dev
-* freetype6-dev
-* egl1-mesa-dev
-* xcb-ewmh-dev
+  #### Build Dependencies
 
-### Runtime dependencies
+  - pkg-config
+  - dpkg-dev
+  - cmake (>= 3.7)
+  - Qt6 (>= 6.0) with the following modules:
+    - qt6-base-private-dev
+    - libqt6svg6-dev
+    - qt6-tools-dev-tools
+    - qt6-multimedia-dev
+  - DTK6 + DTK2 with the following modules:
+    - libdtk6core-dev
+    - libdtk2widget6-dev
+    - libdtk6core-bin
+  - libdframeworkdbus-qt6-dev
+  - libgsettings-qt6-dev
+  - libgxde-network-utils-qt6-dev (>= 1.0.0)
+  - libkf6networkmanagerqt-dev
+  - libx11-dev
+  - libxrandr-dev
+  - libmtdev-dev
+  - libfontconfig1-dev
+  - libfreetype6-dev
+  - libegl1-mesa-dev
+  - libxcb-ewmh-dev
+  - libwayland-dev
+  - liblayershellqtinterface-dev
 
-* [deepin-tool-kit](https://github.com/linuxdeepin/deepin-tool-kit)
-* [gxde-api](https://github.com/linuxdeepin/gxde-api)
-* [dde-daemon](https://github.com/linuxdeepin/dde-daemon)
-* [startdde](https://github.com/linuxdeepin/startdde)
-* [dde-qt-dbus-factory](https://github.com/linuxdeepin/dde-qt-dbus-factory)
-* [qt5integration](https://github.com/linuxdeepin/qt5integration)
-* geoip-database
-* Qt5(>= 5.6)
-  * Qt5-DBus
-  * Qt5-Multimedia
-  * Qt5-MultimediaWidgets
-  * Qt5-Svg
+  #### Runtime Dependencies
 
-## Installation
+  - Qt6 (>= 6.0)
+    - Qt6-DBus
+    - Qt6-Multimedia
+    - Qt6-MultimediaWidgets
+    - Qt6-Svg
+  - libdtk6core
+  - libdtk2widget6
+  - libdframeworkdbus-qt6
+  - libkf6networkmanagerqt6
+  - libgxde-network-utils-qt6
+  - libgsettings-qt6
+  - [gxde-api](https://github.com/GXDE-OS/gxde-api)
+  - [deepin-daemon](https://github.com/linuxdeepin/dde-daemon)
+  - [startdde](https://github.com/linuxdeepin/startdde)
+  - geoip-database
 
-### Build from source code
+  ## Getting Started
 
-1. Make sure you have installed all dependencies.
+  ### Building
 
-2. Build:
-```
-$ cd gxde-control-center
-$ mkdir Build
-$ cd Build
-$ cmake ..
-$ make
-```
+  #### Manual Build (Command Line)
 
-3. Install:
-```
-$ sudo make install
-```
+  Make sure that all the dependencies listed above are installed, and then run the following commands:
 
-The executable binary file could be found at `/usr/bin/gxde-control-center` after the installation is finished, and plugins will be placed into `/usr/lib/gxde-control-center/modules/`.
+  ```bash
+  $ cd gxde-control-center
+  $ mkdir Build
+  $ cd Build
+  $ cmake ..
+  $ make
+  ```
 
-## Usage
+  Install the application with the following command:
 
-Execute `gxde-control-center -h` to get more details.
+  ```bash
+  $ sudo make install
+  ```
 
-## Getting help
+  After installation, the executable binary can be found at
+  `/usr/bin/gxde-control-center`, and the plugins will be installed in
+  `/usr/lib/gxde-control-center/modules/`.
 
-You can press `F1` to start [deepin-manual](https://github.com/linuxdeepin/deepin-manual) when you focus on DDE Control Center window.
+  ### Usage
 
-You may also find these channels useful if you encounter any other issues:
+  Run `gxde-control-center -h` to display the available help options.
 
-* [Gitter](https://gitter.im/orgs/linuxdeepin/rooms)
-* [IRC Channel](https://webchat.freenode.net/?channels=deepin)
-* [Official Forum](https://bbs.deepin.org/)
-* [Wiki](https://wiki.deepin.org/)
+  ## Milestones
 
-## Getting involved
+  -  Add Wayland support
 
-We encourage you to report issues and contribute changes
+  ## Contributing
 
-* [Contribution guide for developers](https://github.com/linuxdeepin/developer-center/wiki/Contribution-Guidelines-for-Developers-en). (English)
-* [开发者代码贡献指南](https://github.com/linuxdeepin/developer-center/wiki/Contribution-Guidelines-for-Developers) (中文)
+  Please refer to the [CONTRIBUTING](CONTRIBUTING.md) file for information about contributing to this project.
 
-## License
+  ### GXDE Control Center Contributors
 
-DDE Control Center is licensed under [GPLv3](LICENSE).
+  *(**Note:** Contributor information for the original Deepin Control Center can be found [here](https://github.com/linuxdeepin/dde-control-center/graphs/contributors).)*
+
+  ## License
+
+  This project is licensed under the `GPL-3.0` license. See
+  [LICENSE](https://chatgpt.com/c/LICENSE) for details.
+
+  ## Acknowledgements
+
+  Thanks to the following projects for providing code and template references:
+
+  - **Deepin Control Center**: https://github.com/linuxdeepin/dde-control-center
+  - **Best README Template**: https://github.com/othneildrew/Best-README-Template
