@@ -1,8 +1,8 @@
-![HEADER](/home/char/Desktop/Repository/GXDE/Software/gxde-control-center/docs/img/header.png)
+![HEADER](./docs/img/header.png)
 
 <div align="center"> 
 <a href="https://gitee.com/GXDE-OS/gxde-control-center">
-<img src="./docs/img/icon.svg" alt="Logo" width="80" height="80"> 
+<img src="./docs/img/icon.png" alt="Logo" width="80" height="80"> 
 </a>
 <h3 align="center">GXDE控制中心</h3>
 <p align="center"> GXDE桌面环境的控制面板 <br />
@@ -81,6 +81,58 @@ $ make
 $ sudo make install
 ```
 可执行二进制文件可以在安装后在`/usr/bin/gxde-control-center`找到，插件将位于 `/usr/lib/gxde-control-center/modules/`.
+
+
+#### 手动编辑 (构建脚本)
+
+构建脚本位于[./build-deb](./build-deb), 这是个shell脚本，用于在调试时生成安装包，便于在调试机器上轻松部署与卸载。
+
+
+
+首先先修改脚本权限: 
+
+```bash
+$ chmod a+x ./build-deb
+```
+
+
+
+然后以下上参数帮助:
+
+```bash
+用法: ./build-deb <选项>
+
+选项:
+  -b, --binary          仅构建二进制包（默认行为）
+    -d, --install-deps    先安装构建依赖(读 debian/control)，再构建
+    -c, --clean           仅清理构建产物后退出
+    -h, --help            打印帮助信息
+```
+
+
+
+初次编译建议执行:
+
+```bash
+$ ./build-deb -d    # 安装依赖并构建
+```
+
+
+以后就可以不用安装依赖了:
+
+```bash
+$ ./build-deb    # 直接构建
+```
+
+
+
+构建完成后清理中间产物: 
+
+```bash
+$ ./build-deb -c
+```
+注意产物会被一并清理。
+
 
 
 

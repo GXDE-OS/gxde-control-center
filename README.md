@@ -1,5 +1,5 @@
 ![HEADER](./docs/img/header.png)
-<div align="center"> <a href="https://gitee.com/GXDE-OS/gxde-control-center"> <img src="./docs/img/icon.svg" alt="Logo" width="80" height="80"> </a>
+<div align="center"> <a href="https://gitee.com/GXDE-OS/gxde-control-center"> <img src="./docs/img/icon.png" alt="Logo" width="80" height="80"> </a>
 
 <h3 align="center">GXDE Control Center</h3>
 
@@ -84,6 +84,57 @@ GXDE has forked and maintained GCC V4.x and used as control panel of GXDE. You s
   After installation, the executable binary can be found at
   `/usr/bin/gxde-control-center`, and the plugins will be installed in
   `/usr/lib/gxde-control-center/modules/`.
+
+
+  #### Manual Build (DEB build script)
+
+Building script may be found at [./build-deb](./build-deb), this is a shell script that helps you generate the `.deb` package while you debug to install on test machine.
+
+
+
+First fix the permission issue:
+
+```bash
+$ chmod a+x ./build-deb
+```
+
+
+
+Then you may learn the script's parameter:
+
+```bash
+./build-deb <Options>
+
+Options:
+  -b, --binary            Build binary package only (default)
+    -d, --install-deps    Build after installing dependencies
+    -c, --clean           Clear artifacts
+    -h, --help            Print help info
+```
+
+
+
+It is recommend to run this command for your first build:
+
+```bash
+$ ./build-deb -d    # Auto-install dependencies and build
+```
+
+
+From now on, you'll no longer need to install any dependency for this package:
+
+```bash
+$ ./build-deb    # Build directly
+```
+
+
+Do a cleanup as you're done: 
+
+```bash
+$ ./build-deb -c
+```
+You should also note that the artifacts will also be cleared.
+
 
   ### Usage
 
