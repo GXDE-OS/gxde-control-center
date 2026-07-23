@@ -37,8 +37,6 @@ configure_file(files/gxde-control-center.conf.in files/gxde-control-center.conf 
 add_subdirectory("src/frame")
 add_subdirectory("src/dialogs")
 
-file(GLOB DOCS_FILES "docs/*")
-
 ## qm files
 file(GLOB QM_FILES "translations/*.qm")
 install(FILES ${QM_FILES} DESTINATION share/gxde-control-center/translations)
@@ -48,9 +46,6 @@ install(FILES gxde-control-center.desktop DESTINATION share/applications)
 
 #service
 install(FILES com.deepin.dde.ControlCenter.service DESTINATION share/dbus-1/services)
-
-#docs
-install(FILES ${DOCS_FILES} DESTINATION share/dman/gxde-control-center)
 
 #datebases
 install(FILES data/timezone.db DESTINATION share/gxde-control-center)

@@ -1,5 +1,5 @@
 ![HEADER](./docs/img/header.png)
-<div align="center"> <a href="https://gitee.com/GXDE-OS/gxde-control-center"> <img src="docs/img/icon.svg" alt="Logo" width="80" height="80"> </a>
+<div align="center"> <a href="https://gitee.com/GXDE-OS/gxde-control-center"> <img src="./docs/img/icon.svg" alt="Logo" width="80" height="80"> </a>
 
 <h3 align="center">GXDE Control Center</h3>
 

@@ -2,7 +2,7 @@
 
 <div align="center"> 
 <a href="https://gitee.com/GXDE-OS/gxde-control-center">
-<img src="docs/img/icon.svg" alt="Logo" width="80" height="80"> 
+<img src="./docs/img/icon.svg" alt="Logo" width="80" height="80"> 
 </a>
 <h3 align="center">GXDE控制中心</h3>
 <p align="center"> GXDE桌面环境的控制面板 <br />
