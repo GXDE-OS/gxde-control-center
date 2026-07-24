@@ -23,7 +23,12 @@
 #define TIMEOUTDIALOG_H
 
 #include <QTimer>
+#include <QPoint>
 #include <ddialog.h>
+
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/window.h>
+#endif
 
 DWIDGET_USE_NAMESPACE
 
@@ -44,6 +49,12 @@ private Q_SLOTS:
     void onRefreshTimeout();
 
 private:
+#ifdef HAS_LAYER_SHELL
+    void configureLayerShell();
+    void setLayerShellPosition(const QPoint& position);
+    LayerShellQt::Window *m_layerShellWindow = nullptr;
+#endif
+
     QTimer *m_timeoutRefreshTimer;
 
     int m_timeout;

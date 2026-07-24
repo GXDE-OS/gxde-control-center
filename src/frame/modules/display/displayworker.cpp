@@ -30,6 +30,7 @@
 #include "widgets/utils.h"
 
 #include <QDebug>
+#include <limits>
 
 using namespace dcc;
 using namespace dcc::display;
@@ -88,6 +89,108 @@ DisplayWorker::~DisplayWorker()
 {
     qDeleteAll(m_monitors.keys());
     qDeleteAll(m_monitors.values());
+}
+
+int DisplayWorker::currentMonitorModeId(Monitor* monitor) const {
+    if (!monitor) {
+        return -1;
+    }
+
+    for (const GxdeScreen::Output& output : GxdeScreen::outputs()) {
+        if (output.name != monitor->name()) {
+            continue;
+        }
+
+        int bestMode = -1;
+        int bestRefreshDelta = std::numeric_limits<int>::max();
+        for (const Resolution &mode : monitor->modeList()) {
+            if (mode.width() != output.width || mode.height() != output.height) {
+                continue;
+            }
+
+            const int refreshDelta =
+                qAbs(qRound(mode.rate() * 1000.0) - output.refresh);
+            if (refreshDelta < bestRefreshDelta) {
+                bestRefreshDelta = refreshDelta;
+                bestMode = mode.id();
+            }
+        }
+
+        if (bestMode >= 0) {
+            return bestMode;
+        }
+
+        break;
+    }
+
+    return monitor->currentMode().id();
+}
+
+DisplayWorker::OutputModeState DisplayWorker::currentOutputMode(
+        Monitor* monitor) const {
+    OutputModeState state;
+    if (!monitor) {
+        return state;
+    }
+
+    for (const GxdeScreen::Output& output : GxdeScreen::outputs()) {
+        if (output.name != monitor->name()) {
+            continue;
+        }
+
+        state.output = output.name;
+        state.width = output.width;
+        state.height = output.height;
+        state.refresh = output.refresh;
+        state.valid = output.enabled && output.width > 0 && output.height > 0
+            && output.refresh > 0;
+        break;
+    }
+    return state;
+}
+
+bool DisplayWorker::restoreOutputMode(Monitor* monitor,
+        const OutputModeState &state) {
+    if (!state.valid) {
+        return false;
+    }
+
+    // wlcom exposes refresh in mHz, DBus sets in Hz.
+    const int refreshHz = qMax(1, qRound(state.refresh / 1000.0));
+    const bool restored = GxdeScreen::setResolution(
+        state.output, state.width, state.height, refreshHz);
+    qInfo() << "(Display) Output: Restore output mode"
+        << state.output << state.width << state.height << state.refresh
+        << "| result ->" << restored;
+
+    if (!restored) {
+        return false;
+    }
+
+    if (monitor) {
+        int bestRefreshDelta = std::numeric_limits<int>::max();
+        Resolution restoredMode;
+        bool foundMode = false;
+        for (const Resolution &mode : monitor->modeList()) {
+            if (mode.width() != state.width || mode.height() != state.height) {
+                continue;
+            }
+
+            const int refreshDelta =
+                qAbs(qRound(mode.rate() * 1000.0) - state.refresh);
+            if (refreshDelta < bestRefreshDelta) {
+                bestRefreshDelta = refreshDelta;
+                restoredMode = mode;
+                foundMode = true;
+            }
+        }
+        if (foundMode) {
+            monitor->setCurrentMode(restoredMode);
+        }
+    }
+
+    refreshGxdeState();
+    return true;
 }
 
 void DisplayWorker::active()
@@ -667,6 +770,26 @@ void DisplayWorker::refreshGxdeState()
             monitor->setScale(output.scale);
             monitor->setRotate(GxdeScreen::transformToRotation(output.transform));
             monitor->setBrightness(output.brightness / 100.0);
+
+            int bestRefreshDelta = std::numeric_limits<int>::max();
+            Resolution currentMode;
+            bool foundCurrentMode = false;
+            for (const Resolution &mode : monitor->modeList()) {
+                if (mode.width() != output.width ||
+                        mode.height() != output.height) {
+                    continue;
+                }
+
+                const int refreshDelta =
+                    qAbs(qRound(mode.rate() * 1000.0) - output.refresh);
+                if (refreshDelta < bestRefreshDelta) {
+                    bestRefreshDelta = refreshDelta;
+                    currentMode = mode;
+                    foundCurrentMode = true;
+                }
+            }
+            if (foundCurrentMode)
+                monitor->setCurrentMode(currentMode);
             break;
         }
     }

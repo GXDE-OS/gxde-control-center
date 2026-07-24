@@ -278,6 +278,13 @@ void DisplayModule::showMiracastPage(const QDBusObjectPath &path)
 
 void DisplayModule::onDetailPageRequestSetResolution(Monitor *mon, const int mode)
 {
+    const DisplayWorker::OutputModeState previousOutput =
+        m_displayWorker->currentOutputMode(mon);
+    const int previousMode = m_displayWorker->currentMonitorModeId(mon);
+    qInfo() << "(Display) Change: Resolution has been changed w/"
+            << "output ->" << previousOutput.output
+            << "| old ->" << previousOutput.width << previousOutput.height
+            << previousOutput.refresh << "| targetMode ->" << mode;
     m_displayWorker->setMonitorResolution(mon, mode);
 
     if (showTimeoutDialog(mon) == QDialog::Accepted) {
@@ -285,11 +292,16 @@ void DisplayModule::onDetailPageRequestSetResolution(Monitor *mon, const int mod
         return;
     }
 
-    m_displayWorker->restore();
+    // Restore the wlcom snapshot directly instead of using dde daemon.
+    if (!m_displayWorker->restoreOutputMode(mon, previousOutput))
+        m_displayWorker->setMonitorResolution(mon, previousMode);
 }
 
 void DisplayModule::onCustomPageRequestSetResolution(Monitor *mon, const int mode)
 {
+    const DisplayWorker::OutputModeState previousOutput =
+        m_displayWorker->currentOutputMode(mon);
+    const int previousMode = m_displayWorker->currentMonitorModeId(mon);
     m_displayWorker->setMonitorResolution(mon, mode);
 
     if (m_displayModel->isMerge()) {
@@ -297,13 +309,17 @@ void DisplayModule::onCustomPageRequestSetResolution(Monitor *mon, const int mod
     }
 
     if (showTimeoutDialog(mon) != QDialog::Accepted) {
-        m_displayWorker->restore();
+        if (!m_displayWorker->restoreOutputMode(mon, previousOutput))
+            m_displayWorker->setMonitorResolution(mon, previousMode);
     }
 }
 
 int DisplayModule::showTimeoutDialog(Monitor *mon)
 {
     TimeoutDialog *timeoutDialog = new TimeoutDialog(15);
+
+    // Keep the control-center layer visible behind its modal confirmation.
+    m_frameProxy->setFrameAutoHide(this, false);
 
     qreal radio = qApp->devicePixelRatio();
     connect(mon, &Monitor::geometryChanged, timeoutDialog, [=] {
@@ -313,5 +329,7 @@ int DisplayModule::showTimeoutDialog(Monitor *mon)
     }, Qt::QueuedConnection);
     connect(timeoutDialog, &TimeoutDialog::closed, timeoutDialog, &TimeoutDialog::deleteLater);
 
-    return timeoutDialog->exec();
+    const int result = timeoutDialog->exec();
+    m_frameProxy->setFrameAutoHide(this, true);
+    return result;
 }

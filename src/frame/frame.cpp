@@ -112,14 +112,11 @@ Frame::Frame(QWidget *parent)
 
     if (DApplication::isWayland()) {
         setWindowFlag(Qt::FramelessWindowHint, true);
-        // DBlurEffectWidget's translucent top-level path relies on the X11
-        // window-manager blur implementation. On a layer surface it produces
-        // a fully transparent ARGB buffer, so paint a real Wayland background
-        // and let the protocol blur helper enhance it when available.
-        setAttribute(Qt::WA_TranslucentBackground, false);
-        setAttribute(Qt::WA_OpaquePaintEvent, true);
+        // Fix blur issue under Wayland
+        setAttribute(Qt::WA_TranslucentBackground, true);
+        setAttribute(Qt::WA_OpaquePaintEvent, false);
         setAutoFillBackground(false);
-        m_platformWindowHandle.setTranslucentBackground(false);
+        m_platformWindowHandle.setTranslucentBackground(true);
     }
 
     resize(0, height());
@@ -519,7 +516,8 @@ void Frame::paintEvent(QPaintEvent *e)
     if (Wayland::BlurHelper::isWayland()) {
         QPainter p(this);
         p.setRenderHint(QPainter::Antialiasing);
-        p.fillRect(rect(), QColor(38, 38, 38));
+        p.fillRect(rect(), QColor(0, 0, 0,
+                                  static_cast<int>(m_opacity * 255)));
         return;
     }
     DBlurEffectWidget::paintEvent(e);

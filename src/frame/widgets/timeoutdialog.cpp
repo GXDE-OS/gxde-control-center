@@ -20,6 +20,11 @@
  */
 
 #include "timeoutdialog.h"
+#include "wayland/waylandhelper.h"
+
+#include <QGuiApplication>
+#include <QScreen>
+#include <QWindow>
 
 TimeoutDialog::TimeoutDialog(const int timeout, QString messageModel, QWidget *parent)
     : DDialog(parent)
@@ -49,6 +54,10 @@ int TimeoutDialog::exec()
 {
     m_timeoutRefreshTimer->start();
 
+#ifdef HAS_LAYER_SHELL
+    configureLayerShell();
+#endif
+
     return DDialog::exec();
 }
 
@@ -58,8 +67,73 @@ void TimeoutDialog::open()
         m_timeoutRefreshTimer->start();
     }
 
+#ifdef HAS_LAYER_SHELL
+    configureLayerShell();
+#endif
+
     DDialog::open();
 }
+
+#ifdef HAS_LAYER_SHELL
+void TimeoutDialog::configureLayerShell() {
+    if (!Wayland::isWaylandSession()) {
+        return;
+    }
+
+    adjustSize();
+    setAttribute(Qt::WA_NativeWindow, true);
+    createWinId();
+
+    QWindow* window = windowHandle();
+    if (!window) {
+        return;
+    }
+
+    if (QGuiApplication::primaryScreen()) {
+        window->setScreen(QGuiApplication::primaryScreen());
+    }
+
+    if (!m_layerShellWindow) {
+        m_layerShellWindow = LayerShellQt::Window::get(window);
+    }
+
+    if (!m_layerShellWindow) {
+        return;
+    }
+
+    m_layerShellWindow->setScope(
+        QStringLiteral("control-center-display-confirmation"));
+    m_layerShellWindow->setScreenConfiguration(
+        LayerShellQt::Window::ScreenFromQWindow);
+    m_layerShellWindow->setLayer(LayerShellQt::Window::LayerOverlay);
+    m_layerShellWindow->setAnchors(LayerShellQt::Window::Anchors(
+        LayerShellQt::Window::AnchorTop
+        | LayerShellQt::Window::AnchorLeft));
+    m_layerShellWindow->setExclusiveZone(-1);
+    m_layerShellWindow->setKeyboardInteractivity(
+        LayerShellQt::Window::KeyboardInteractivityOnDemand);
+    m_layerShellWindow->setCloseOnDismissed(false);
+
+    const QRect screenRect = window->screen()->geometry();
+    const QPoint centered(
+        qMax(0, (screenRect.width() - width()) / 2),
+        qMax(0, (screenRect.height() - height()) / 2));
+    setLayerShellPosition(centered);
+}
+
+void TimeoutDialog::setLayerShellPosition(const QPoint& position) {
+    if (!m_layerShellWindow || !windowHandle() || !windowHandle()->screen()) {
+        return;
+    }
+
+    const QSize screenSize = windowHandle()->screen()->geometry().size();
+    const QPoint boundedPosition(
+        qBound(0, position.x(), qMax(0, screenSize.width() - width())),
+        qBound(0, position.y(), qMax(0, screenSize.height() - height())));
+    m_layerShellWindow->setMargins(QMargins(
+        boundedPosition.x(), boundedPosition.y(), 0, 0));
+}
+#endif
 
 void TimeoutDialog::onRefreshTimeout()
 {

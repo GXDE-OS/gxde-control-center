@@ -53,10 +53,21 @@ class DisplayWorker : public QObject
     Q_OBJECT
 
 public:
+    struct OutputModeState {
+        QString output;
+        int width = 0;
+        int height = 0;
+        int refresh = 0;
+        bool valid = false;
+    };
+
     explicit DisplayWorker(DisplayModel *model, QObject *parent = 0);
     ~DisplayWorker();
 
     void active();
+    int currentMonitorModeId(Monitor* monitor) const;
+    OutputModeState currentOutputMode(Monitor* monitor) const;
+    bool restoreOutputMode(Monitor* monitor, const OutputModeState& state);
 
 public Q_SLOTS:
     void saveChanges();
