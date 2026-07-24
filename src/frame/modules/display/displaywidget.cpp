@@ -232,6 +232,12 @@ void DisplayWidget::onMonitorListChanged() const
 {
     const auto mons = m_model->monitorList();
 
+    for (Monitor* monitor : mons) {
+        connect(monitor, &Monitor::currentModeChanged,
+            this, &DisplayWidget::onScreenSizeChanged,
+            Qt::UniqueConnection);
+    }
+
     if (mons.size() <= 1) {
         m_customConfigButton->hide();
 
@@ -259,12 +265,24 @@ void DisplayWidget::onMonitorListChanged() const
         m_rotate->hide();
 #endif
     }
+
+    onScreenSizeChanged();
 }
 
 void DisplayWidget::onScreenSizeChanged() const
 {
-    const QString resolution =
-        QString("%1×%2").arg(m_model->screenWidth()).arg(m_model->screenHeight());
+    int width = m_model->screenWidth();
+    int height = m_model->screenHeight();
+    const QList<Monitor *> monitors = m_model->monitorList();
+    if (monitors.size() == 1) {
+        const Resolution currentMode = monitors.first()->currentMode();
+        if (currentMode.width() > 0 && currentMode.height() > 0) {
+            width = currentMode.width();
+            height = currentMode.height();
+        }
+    }
+
+    const QString resolution = QString("%1×%2").arg(width).arg(height);
     m_resolution->setValue(resolution);
 }
 
