@@ -30,10 +30,6 @@
 #include "user.h"
 #include "fingermodel.h"
 
-#include <com_deepin_daemon_fprintd_device.h>
-
-using com::deepin::daemon::fprintd::Device;
-
 namespace dcc {
 
 namespace widgets {

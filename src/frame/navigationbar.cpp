@@ -29,6 +29,11 @@
 #include <QDebug>
 #include <QSignalMapper>
 #include <QCoreApplication>
+#include <QGuiApplication>
+#include <QScreen>
+#include <QWindow>
+
+#include "wayland/waylandhelper.h"
 
 static const QStringList ModuleList = {
 #ifndef DISABLE_ACCOUNT
@@ -133,6 +138,48 @@ QString NavigationBar::currentModuleName() const
     return QString();
 }
 
+#ifdef HAS_LAYER_SHELL
+void NavigationBar::configureArrowLayerShell(const QPoint &anchorPoint)
+{
+    if (!Wayland::isWaylandSession())
+        return;
+
+    QScreen *screen = QGuiApplication::screenAt(anchorPoint);
+    if (!screen)
+        screen = QGuiApplication::primaryScreen();
+
+    m_arrowRectangle->setAttribute(Qt::WA_NativeWindow, true);
+    m_arrowRectangle->createWinId();
+
+    QWindow *window = m_arrowRectangle->windowHandle();
+    if (!window)
+        return;
+
+    if (screen)
+        window->setScreen(screen);
+
+    if (!m_arrowLayerShellWindow)
+        m_arrowLayerShellWindow = LayerShellQt::Window::get(window);
+
+    if (!m_arrowLayerShellWindow)
+        return;
+
+    m_arrowLayerShellWindow->setScope(
+        QStringLiteral("control-center-category-tooltip"));
+    m_arrowLayerShellWindow->setScreenConfiguration(
+        LayerShellQt::Window::ScreenFromQWindow);
+    m_arrowLayerShellWindow->setLayer(LayerShellQt::Window::LayerOverlay);
+    m_arrowLayerShellWindow->setAnchors(LayerShellQt::Window::Anchors(
+        LayerShellQt::Window::AnchorTop
+        | LayerShellQt::Window::AnchorLeft));
+    m_arrowLayerShellWindow->setExclusiveZone(-1);
+    m_arrowLayerShellWindow->setKeyboardInteractivity(
+        LayerShellQt::Window::KeyboardInteractivityNone);
+    m_arrowLayerShellWindow->setCloseOnDismissed(false);
+    m_arrowLayerShellWindow->setMargins(QMargins());
+}
+#endif
+
 void NavigationBar::setModuleVisible(const QString &module, bool visible)
 {
     if (m_navigationButtons.contains(module))
@@ -158,7 +205,24 @@ bool NavigationBar::eventFilter(QObject *watched, QEvent *event)
         m_navLabel->setText(str);
         m_navLabel->setFixedWidth(width);
         m_arrowRectangle->setWidth(width);
+
+#ifdef HAS_LAYER_SHELL
+        configureArrowLayerShell(p);
+#endif
+
         m_arrowRectangle->show(p.x(), p.y() + btn->height() / 2);
+
+#ifdef HAS_LAYER_SHELL
+        if (m_arrowLayerShellWindow) {
+            QScreen *screen = m_arrowRectangle->windowHandle()->screen();
+            const QPoint outputOrigin =
+                screen ? screen->geometry().topLeft() : QPoint();
+            const QPoint popupPos =
+                m_arrowRectangle->geometry().topLeft() - outputOrigin;
+            m_arrowLayerShellWindow->setMargins(QMargins(
+                qMax(0, popupPos.x()), qMax(0, popupPos.y()), 0, 0));
+        }
+#endif
     }
 
     if (event->type() == QEvent::Leave || event->type() == QEvent::Hide) {

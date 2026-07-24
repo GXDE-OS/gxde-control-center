@@ -33,6 +33,10 @@
 #include <QDBusMetaType>
 #include <QMap>
 
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/Shell>
+#endif
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -150,7 +154,17 @@ int main(int argc, char *argv[])
     // 修复点击键盘与语言和鼠标子页设置崩溃的问题
     qDBusRegisterMetaType<QMap<QString, QString>>();
 
-    DApplication::loadDXcbPlugin();
+    const bool waylandSession = !qgetenv("WAYLAND_DISPLAY").isEmpty();
+    if (waylandSession) {
+        qunsetenv("DTK2_XWAYLAND");
+        qputenv("QT_QPA_PLATFORM", "wayland");
+#ifdef HAS_LAYER_SHELL
+        LayerShellQt::Shell::useLayerShell();
+#endif
+    } else {
+        DApplication::loadDXcbPlugin();
+    }
+
     DApplication app(argc, argv);
     app.setOrganizationName("GXDE");
     app.setApplicationName("gxde-control-center");

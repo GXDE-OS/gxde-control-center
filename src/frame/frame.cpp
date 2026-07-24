@@ -112,13 +112,29 @@ Frame::Frame(QWidget *parent)
 
     if (DApplication::isWayland()) {
         setWindowFlag(Qt::FramelessWindowHint, true);
+        // DBlurEffectWidget's translucent top-level path relies on the X11
+        // window-manager blur implementation. On a layer surface it produces
+        // a fully transparent ARGB buffer, so paint a real Wayland background
+        // and let the protocol blur helper enhance it when available.
+        setAttribute(Qt::WA_TranslucentBackground, false);
+        setAttribute(Qt::WA_OpaquePaintEvent, true);
+        setAutoFillBackground(false);
+        m_platformWindowHandle.setTranslucentBackground(false);
     }
 
     resize(0, height());
 
     auto setOpacity = [=] (double opacity) {
-        m_opacity = opacity;
-        setMaskAlpha(opacity * 255);
+        // The legacy Appearance service may be unavailable on a native GXDE
+        // Wayland session. Its generated D-Bus proxy then returns 0, which
+        // used to make the complete layer surface fully transparent.
+        const double effectiveOpacity =
+            (opacity > 0.05 && opacity <= 1.0) ? opacity : 0.4;
+        m_opacity = effectiveOpacity;
+        if (!Wayland::BlurHelper::isWayland())
+            setMaskAlpha(effectiveOpacity * 255);
+        else
+            update();
     };
 
     connect(m_navigationBar, &NavigationBar::requestModule, this, [=](const QString &module) { showSettingsPage(module, QString(), true); });
@@ -211,18 +227,50 @@ void Frame::init()
 #ifdef HAS_LAYER_SHELL
 void Frame::ensureLayerShellConfigured()
 {
-    if (!Wayland::BlurHelper::isWayland() || !windowHandle())
+    if (!Wayland::BlurHelper::isWayland()) {
+        qWarning() << "(ControlCenter LayerShell) skipped on platform"
+                   << QGuiApplication::platformName();
         return;
+    }
+
+    // The layer-shell role must be assigned before the first surface commit.
+    // Creating the native window here mirrors the setup used by GXDE's panel
+    // and dock.
+    setAttribute(Qt::WA_NativeWindow, true);
+    winId();
+
+    QWindow *window = windowHandle();
+    if (!window) {
+        qWarning() << "(ControlCenter LayerShell) no QWindow";
+        return;
+    }
+
+    if (qApp->primaryScreen())
+        window->setScreen(qApp->primaryScreen());
 
     if (!m_layerShellWindow) {
-        m_layerShellWindow = LayerShellQt::Window::get(windowHandle());
+        m_layerShellWindow = LayerShellQt::Window::get(window);
     }
 
     if (m_layerShellWindow) {
+        m_layerShellWindow->setScope(QStringLiteral("control-center"));
+        m_layerShellWindow->setScreenConfiguration(
+            LayerShellQt::Window::ScreenFromQWindow);
         m_layerShellWindow->setAnchors(LayerShellQt::Window::Anchors(
-            LayerShellQt::Window::AnchorTop | LayerShellQt::Window::AnchorLeft));
+            LayerShellQt::Window::AnchorTop
+            | LayerShellQt::Window::AnchorBottom
+            | LayerShellQt::Window::AnchorRight));
         m_layerShellWindow->setLayer(LayerShellQt::Window::LayerOverlay);
         m_layerShellWindow->setExclusiveZone(-1);
+        m_layerShellWindow->setMargins(QMargins());
+        m_layerShellWindow->setKeyboardInteractivity(
+            LayerShellQt::Window::KeyboardInteractivityOnDemand);
+        m_layerShellWindow->setCloseOnDismissed(false);
+        qInfo() << "(ControlCenter LayerShell) configured"
+                << "screen=" << window->screen()->name()
+                << "size=" << size();
+    } else {
+        qWarning() << "(ControlCenter LayerShell) failed to get layer window";
     }
 }
 #endif
@@ -368,12 +416,31 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
 
     // 假定控制中心一直在主屏
     const qreal ratio = qApp->primaryScreen()->devicePixelRatio();
-    const auto h = m_primaryRect.height() / ratio;
+    const auto h = Wayland::BlurHelper::isWayland()
+        ? qApp->primaryScreen()->geometry().height()
+        : m_primaryRect.height() / ratio;
 
     setFixedHeight(h);
     m_frameWrapper->setFixedHeight(h);
 
     QTimer::singleShot(500, this, [=] {
+        if (Wayland::BlurHelper::isWayland()) {
+            const QRect screenRect = qApp->primaryScreen()->geometry();
+            setFixedSize(FRAME_WIDTH, screenRect.height());
+            m_frameWrapper->setFixedSize(FRAME_WIDTH, screenRect.height());
+
+#ifdef HAS_LAYER_SHELL
+            ensureLayerShellConfigured();
+#endif
+
+            const QRect frameRect(screenRect.right() - FRAME_WIDTH + 1,
+                                  screenRect.top(),
+                                  FRAME_WIDTH,
+                                  screenRect.height());
+            Q_EMIT rectChanged(frameRect);
+            return;
+        }
+
         // FIXME: The signal is too fast and the screen is not adjusted
         // ###(zccrs): 窗口改变所在屏幕之后，新屏幕的缩放比可能和之前的屏幕不一致。
         // 假定以下情况，屏幕A： 100x100，缩放=1.0，屏幕B：200x200，缩放=2.0
@@ -392,27 +459,11 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
 
             native_window->setGeometry(rect);
 
-#ifdef HAS_LAYER_SHELL
-            if (Wayland::BlurHelper::isWayland()) {
-                ensureLayerShellConfigured();
-                if (m_layerShellWindow) {
-                    m_layerShellWindow->setMargins(QMargins(
-                        rect.x() / ratio, rect.y() / ratio, 0, 0));
-                }
-            }
-#endif
-
             Q_EMIT rectChanged(rect);
         } else {
             int x = m_primaryRect.x() + m_primaryRect.width() / ratio - (m_shown ? (width() - 1) : 0);
             int y = m_primaryRect.y();
             DBlurEffectWidget::move(x, y);
-
-#ifdef HAS_LAYER_SHELL
-            if (Wayland::BlurHelper::isWayland() && m_layerShellWindow) {
-                m_layerShellWindow->setMargins(QMargins(x, y, 0, 0));
-            }
-#endif
         }
     });
 }
@@ -460,15 +511,6 @@ void Frame::moveEvent(QMoveEvent *e)
 {
     DBlurEffectWidget::moveEvent(e);
 
-#ifdef HAS_LAYER_SHELL
-    if (Wayland::BlurHelper::isWayland() && windowHandle()) {
-        ensureLayerShellConfigured();
-        if (m_layerShellWindow) {
-            m_layerShellWindow->setMargins(QMargins(e->pos().x(), e->pos().y(), 0, 0));
-        }
-    }
-#endif
-
     Q_EMIT rectChanged(geometry());
 }
 
@@ -477,7 +519,7 @@ void Frame::paintEvent(QPaintEvent *e)
     if (Wayland::BlurHelper::isWayland()) {
         QPainter p(this);
         p.setRenderHint(QPainter::Antialiasing);
-        p.fillRect(rect(), QColor(0, 0, 0, static_cast<int>(m_opacity * 255)));
+        p.fillRect(rect(), QColor(38, 38, 38));
         return;
     }
     DBlurEffectWidget::paintEvent(e);
@@ -485,12 +527,39 @@ void Frame::paintEvent(QPaintEvent *e)
 
 void Frame::show()
 {
+    qInfo() << "(ControlCenter) show requested"
+            << "platform=" << QGuiApplication::platformName()
+            << "size=" << size()
+            << "stack=" << m_frameWidgetStack.size();
+
     if (m_appearAnimation.state() == QPropertyAnimation::Running)
         return;
 
     // show
     m_shown = true;
 
+    if (Wayland::BlurHelper::isWayland()) {
+        const QRect screenRect = qApp->primaryScreen()->geometry();
+        setFixedSize(FRAME_WIDTH, screenRect.height());
+        m_frameWrapper->setFixedSize(FRAME_WIDTH, screenRect.height());
+
+#ifdef HAS_LAYER_SHELL
+        // Configure the role before show(), otherwise the first commit creates
+        // a regular xdg-toplevel and it can no longer become a layer surface.
+        ensureLayerShellConfigured();
+#endif
+
+        const QRect frameRect(screenRect.right() - FRAME_WIDTH + 1,
+                              screenRect.top(),
+                              FRAME_WIDTH,
+                              screenRect.height());
+        Q_EMIT destRectChanged(frameRect);
+
+        DBlurEffectWidget::show();
+        DBlurEffectWidget::raise();
+        DBlurEffectWidget::activateWindow();
+        Wayland::BlurHelper::applyBlur(windowHandle());
+    } else {
     QRect r = qApp->primaryScreen()->geometry();
 
     const QScreen *screen = screenForGeometry(r);
@@ -511,16 +580,6 @@ void Frame::show()
     // show frame
     DBlurEffectWidget::show();
     DBlurEffectWidget::activateWindow();
-
-    if (Wayland::BlurHelper::isWayland() && windowHandle()) {
-#ifdef HAS_LAYER_SHELL
-        ensureLayerShellConfigured();
-        if (m_layerShellWindow) {
-            QRect startGeo = m_appearAnimation.startValue().toRect();
-            m_layerShellWindow->setMargins(QMargins(startGeo.x(), startGeo.y(), 0, 0));
-        }
-#endif
-        Wayland::BlurHelper::applyBlur(windowHandle());
     }
 
     // notify top widget appear
@@ -558,24 +617,28 @@ void Frame::hide()
     // reset auto-hide
     m_autoHide = true;
 
-    QRect r = qApp->primaryScreen()->geometry();
+    if (Wayland::BlurHelper::isWayland()) {
+        DBlurEffectWidget::hide();
+    } else {
+        QRect r = qApp->primaryScreen()->geometry();
 
-    const QScreen *screen = screenForGeometry(r);
-    if (screen) {
-        const qreal dpr = screen->devicePixelRatio();
-        const QRect screenGeo = screen->geometry();
-        r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
+        const QScreen *screen = screenForGeometry(r);
+        if (screen) {
+            const qreal dpr = screen->devicePixelRatio();
+            const QRect screenGeo = screen->geometry();
+            r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
+        }
+
+        // animation
+        r.setLeft(r.x() + r.width() - FRAME_WIDTH);
+        m_appearAnimation.setStartValue(r);
+        r.setLeft(r.x() + r.width());
+        Q_EMIT destRectChanged(r);
+        m_appearAnimation.setEndValue(r);
+        m_appearAnimation.start();
+
+        QTimer::singleShot(m_appearAnimation.duration(), this, &QFrame::hide);
     }
-
-    // animation
-    r.setLeft(r.x() + r.width() - FRAME_WIDTH);
-    m_appearAnimation.setStartValue(r);
-    r.setLeft(r.x() + r.width());
-    Q_EMIT destRectChanged(r);
-    m_appearAnimation.setEndValue(r);
-    m_appearAnimation.start();
-
-    QTimer::singleShot(m_appearAnimation.duration(), this, &QFrame::hide);
 
     // notify top widget disappear
     if (m_frameWidgetStack.last()) {
@@ -618,18 +681,20 @@ void Frame::hideImmediately()
     // reset auto-hide
     m_autoHide = true;
 
-    // reset position
-    QRect r = qApp->primaryScreen()->geometry();
+    if (!Wayland::BlurHelper::isWayland()) {
+        // reset position
+        QRect r = qApp->primaryScreen()->geometry();
 
-    const QScreen *screen = screenForGeometry(r);
-    if (screen) {
-        const qreal dpr = screen->devicePixelRatio();
-        const QRect screenGeo = screen->geometry();
-        r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
+        const QScreen *screen = screenForGeometry(r);
+        if (screen) {
+            const qreal dpr = screen->devicePixelRatio();
+            const QRect screenGeo = screen->geometry();
+            r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
+        }
+        r.setLeft(r.x() + r.width());
+        Q_EMIT destRectChanged(r);
+        move(r.topLeft());
     }
-    r.setLeft(r.x() + r.width());
-    Q_EMIT destRectChanged(r);
-    move(r.topLeft());
 
     DBlurEffectWidget::hide();
 

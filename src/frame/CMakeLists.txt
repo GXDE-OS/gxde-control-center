@@ -73,6 +73,7 @@ set(FRAME_FILES
                 framecontentwrapper.h
                 navigationdelegate.h
                 navigationview.h
+                wayland/gxdescreen.h
                 wayland/waylandhelper.h
                 wayland/waylandblurhelper.h
                 wayland/waylandblurhelper.cpp

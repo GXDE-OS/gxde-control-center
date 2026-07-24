@@ -42,8 +42,8 @@ public:
 
 Q_SIGNALS:
     void mouseLeaveView() const;
-    void requestConnect(const Device *device) const;
-    void requestDisConnect(const Device *device) const;
+    void requestConnect(const dcc::bluetooth::Device *device) const;
+    void requestDisConnect(const dcc::bluetooth::Device *device) const;
     void requestDetailPage(const QString &module, const QString &page, bool animation) const;
     void requestAdapterDiscoverable(const QString &id) const;
 

@@ -26,6 +26,7 @@
 #include "displayworker.h"
 #include "displaymodel.h"
 #include "monitorsettingdialog.h"
+#include "wayland/gxdescreen.h"
 #include "widgets/utils.h"
 
 #include <QDebug>
@@ -72,6 +73,7 @@ DisplayWorker::DisplayWorker(DisplayModel *model, QObject *parent)
     model->setCurrentConfig(m_displayInter.currentCustomId());
 //    model->setHasConfig(m_displayInter.hasCustomConfig());
     model->setDisplayMode(m_displayInter.displayMode());
+    refreshGxdeState();
 
     const bool isRedshiftValid = QProcess::execute("which", QStringList() << "redshift") == 0;
 
@@ -124,6 +126,11 @@ void DisplayWorker::mergeScreens()
 
     m_model->setIsMerge(true);
 
+    if (GxdeScreen::setMode(0)) {
+        refreshGxdeState();
+        return;
+    }
+
     // TODO: make asynchronous
     const QList<Resolution> commonModes = m_displayInter.ListOutputsCommonModes();
     Q_ASSERT(!commonModes.isEmpty());
@@ -156,6 +163,11 @@ void DisplayWorker::splitScreens()
     qDebug() << Q_FUNC_INFO;
 
     m_model->setIsMerge(false);
+
+    if (GxdeScreen::setMode(1)) {
+        refreshGxdeState();
+        return;
+    }
 
     const auto mList = m_model->monitorList();
     Q_ASSERT(mList.size() == 2);
@@ -227,6 +239,28 @@ void DisplayWorker::modifyConfigName(const QString &oldName, const QString &newN
 void DisplayWorker::switchMode(const int mode, const QString &name)
 {
     qDebug() << Q_FUNC_INFO << mode << name;
+
+    uint gxdeMode = 0;
+    bool supportedByGxde = true;
+    switch (mode) {
+    case MERGE_MODE:
+        gxdeMode = 0;
+        break;
+    case EXTEND_MODE:
+        gxdeMode = 1;
+        break;
+    case SINGLE_MODE:
+        gxdeMode = 2;
+        break;
+    default:
+        supportedByGxde = false;
+        break;
+    }
+    if (supportedByGxde && GxdeScreen::setMode(gxdeMode, name)) {
+        m_model->setDisplayMode(mode);
+        refreshGxdeState();
+        return;
+    }
 
     m_displayInter.SwitchMode(mode, name).waitForFinished();
 }
@@ -300,6 +334,15 @@ void DisplayWorker::onCreateConfigFinshed(QDBusPendingCallWatcher *w)
 #ifndef DCC_DISABLE_ROTATE
 void DisplayWorker::setMonitorRotate(Monitor *mon, const quint16 rotate)
 {
+    const int angle = GxdeScreen::rotationToAngle(rotate);
+    const bool gxdeRotated =
+        angle >= 0 && (GxdeScreen::setRotation(mon->name(), angle) ||
+                       (mon == m_model->primaryMonitor() && GxdeScreen::setRotation(angle)));
+    if (gxdeRotated) {
+        mon->setRotate(rotate);
+        return;
+    }
+
     MonitorInter *inter = m_monitors.value(mon);
     Q_ASSERT(inter);
 
@@ -309,6 +352,22 @@ void DisplayWorker::setMonitorRotate(Monitor *mon, const quint16 rotate)
 
 void DisplayWorker::setMonitorRotateAll(const quint16 rotate)
 {
+    const int angle = GxdeScreen::rotationToAngle(rotate);
+    bool allRotated = angle >= 0 && !m_model->monitorList().isEmpty();
+    if (allRotated) {
+        for (Monitor *monitor : m_model->monitorList())
+            allRotated = GxdeScreen::setRotation(monitor->name(), angle) && allRotated;
+    }
+    if (allRotated) {
+        for (Monitor *monitor : m_model->monitorList())
+            monitor->setRotate(rotate);
+        return;
+    }
+    if (angle >= 0 && GxdeScreen::setRotation(angle)) {
+        if (Monitor *primary = m_model->primaryMonitor())
+            primary->setRotate(rotate);
+    }
+
     for (auto *mi : m_monitors)
         mi->SetRotation(rotate).waitForFinished();
 
@@ -318,11 +377,23 @@ void DisplayWorker::setMonitorRotateAll(const quint16 rotate)
 
 void DisplayWorker::setPrimary(const int index)
 {
-    m_displayInter.SetPrimary(m_model->monitorList()[index]->name());
+    Monitor *monitor = m_model->monitorList()[index];
+    if (GxdeScreen::setPrimary(monitor->name())) {
+        m_model->setPrimary(monitor->name());
+        for (Monitor *item : m_model->monitorList())
+            item->setPrimary(monitor->name());
+        return;
+    }
+    m_displayInter.SetPrimary(monitor->name());
 }
 
 void DisplayWorker::setMonitorEnable(Monitor *mon, const bool enabled)
 {
+    if (GxdeScreen::setEnabled(mon->name(), enabled)) {
+        refreshGxdeState();
+        return;
+    }
+
     MonitorInter *inter = m_monitors.value(mon);
     Q_ASSERT(inter);
 
@@ -337,6 +408,23 @@ void DisplayWorker::applyChanges()
 
 void DisplayWorker::setMonitorResolution(Monitor *mon, const int mode)
 {
+    const QList<Resolution> modes = mon->modeList();
+    for (const Resolution &resolution : modes) {
+        if (resolution.id() != mode)
+            continue;
+
+        const bool gxdeConfigured =
+            GxdeScreen::setResolution(mon->name(), resolution.width(), resolution.height(),
+                                      qRound(resolution.rate())) ||
+            (mon == m_model->primaryMonitor() &&
+             GxdeScreen::setResolution(resolution.width(), resolution.height(),
+                                       qRound(resolution.rate())));
+        if (gxdeConfigured) {
+            mon->setCurrentMode(resolution);
+            return;
+        }
+    }
+
     MonitorInter *inter = m_monitors.value(mon);
     Q_ASSERT(inter);
 
@@ -346,11 +434,23 @@ void DisplayWorker::setMonitorResolution(Monitor *mon, const int mode)
 
 void DisplayWorker::setMonitorBrightness(Monitor *mon, const double brightness)
 {
-    m_displayInter.SetAndSaveBrightness(mon->name(), std::max(brightness, m_model->minimumBrightnessScale())).waitForFinished();
+    const double value = std::max(brightness, m_model->minimumBrightnessScale());
+    if (GxdeScreen::setBrightness(mon->name(), value)) {
+        mon->setBrightness(value);
+        return;
+    }
+
+    m_displayInter.SetAndSaveBrightness(mon->name(), value).waitForFinished();
 }
 
 void DisplayWorker::setMonitorPosition(Monitor *mon, const int x, const int y)
 {
+    if (GxdeScreen::setPosition(mon->name(), x, y)) {
+        mon->setX(x);
+        mon->setY(y);
+        return;
+    }
+
     MonitorInter *inter = m_monitors.value(mon);
     Q_ASSERT(inter);
 
@@ -362,6 +462,8 @@ void DisplayWorker::setUiScale(const double value)
 {
     double rv=value;
     if (rv < 0) rv = m_model->uiScale();
+
+    GxdeScreen::setScale(rv);
 
     for (auto &mm : m_model->monitorList()) {
         mm->setScale(-1);
@@ -382,9 +484,11 @@ void DisplayWorker::setIndividualScaling(Monitor *m, const double scaling)
 {
     if (m && scaling > 0) {
         m->setScale(scaling);
+        GxdeScreen::setScale(m->name(), scaling);
     }
 
     double primaryscale = m_model->primaryMonitor()->scale();
+    GxdeScreen::setScale(primaryscale);
     m_appearanceInter->SetScaleFactor(primaryscale);
 
     QMap<QString, double> scalemap;
@@ -520,6 +624,73 @@ void DisplayWorker::monitorRemoved(const QString &path)
     m_monitors.remove(monitor);
 
     monitor->deleteLater();
+}
+
+void DisplayWorker::refreshGxdeState()
+{
+    const QList<GxdeScreen::Output> outputs = GxdeScreen::outputs();
+    if (outputs.isEmpty())
+        return;
+
+    BrightnessMap brightness;
+    QString primary;
+    int minX = 0;
+    int minY = 0;
+    int maxX = 0;
+    int maxY = 0;
+    int enabledCount = 0;
+    bool merged = true;
+
+    for (const GxdeScreen::Output &output : outputs) {
+        if (output.primary)
+            primary = output.name;
+        brightness.insert(output.name, output.brightness / 100.0);
+        if (output.enabled) {
+            ++enabledCount;
+            merged = merged && output.x == 0 && output.y == 0;
+            const double scale = output.scale > 0.0 ? output.scale : 1.0;
+            const int logicalWidth = qRound(output.width / scale);
+            const int logicalHeight = qRound(output.height / scale);
+            minX = qMin(minX, output.x);
+            minY = qMin(minY, output.y);
+            maxX = qMax(maxX, output.x + logicalWidth);
+            maxY = qMax(maxY, output.y + logicalHeight);
+        }
+
+        for (Monitor *monitor : m_model->monitorList()) {
+            if (monitor->name() != output.name)
+                continue;
+            monitor->setX(output.x);
+            monitor->setY(output.y);
+            monitor->setW(output.width);
+            monitor->setH(output.height);
+            monitor->setScale(output.scale);
+            monitor->setRotate(GxdeScreen::transformToRotation(output.transform));
+            monitor->setBrightness(output.brightness / 100.0);
+            break;
+        }
+    }
+
+    if (primary.isEmpty()) {
+        for (const GxdeScreen::Output &output : outputs) {
+            if (output.enabled) {
+                primary = output.name;
+                break;
+            }
+        }
+    }
+    if (!primary.isEmpty()) {
+        m_model->setPrimary(primary);
+        for (Monitor *monitor : m_model->monitorList())
+            monitor->setPrimary(primary);
+    }
+
+    m_model->setBrightnessMap(brightness);
+    m_model->setScreenWidth(maxX - minX);
+    m_model->setScreenHeight(maxY - minY);
+    m_model->setIsMerge(enabledCount > 1 && merged);
+    m_model->setDisplayMode(enabledCount <= 1 ? SINGLE_MODE
+                                             : (merged ? MERGE_MODE : EXTEND_MODE));
 }
 
 void DisplayWorker::updateNightModeStatus()

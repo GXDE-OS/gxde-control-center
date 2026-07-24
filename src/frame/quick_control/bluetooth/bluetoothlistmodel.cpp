@@ -28,6 +28,8 @@
 #include <QSize>
 #include <QTimer>
 
+using dcc::bluetooth::Device;
+
 BluetoothListModel::BluetoothListModel(BluetoothModel *model, QObject *parent)
     : QAbstractListModel(parent),
       m_bluetoothModel(model),

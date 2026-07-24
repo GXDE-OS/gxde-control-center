@@ -24,6 +24,7 @@
  */
 
 #include "basicsettingspage.h"
+#include "wayland/gxdescreen.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -88,6 +89,10 @@ BasicSettingsWorker::BasicSettingsWorker(BasicSettingsModel *model, QObject *par
 
     m_audioInter->defaultSink();
     m_displayInter->brightness();
+
+    const QMap<QString, double> gxdeBrightness = GxdeScreen::brightness();
+    if (!gxdeBrightness.isEmpty())
+        onBrightnessChanged(gxdeBrightness);
 }
 
 void BasicSettingsWorker::setMute(const bool &mute)
@@ -110,7 +115,9 @@ void BasicSettingsWorker::setVolume(const double &volume)
 void BasicSettingsWorker::setBrightness(const double brightness)
 {
     for (QString monitor : m_monitors) {
-        m_displayInter->SetAndSaveBrightness(monitor, std::max(brightness / 100.0, 0.2)).waitForFinished();
+        const double value = std::max(brightness / 100.0, 0.2);
+        if (!GxdeScreen::setBrightness(monitor, value))
+            m_displayInter->SetAndSaveBrightness(monitor, value).waitForFinished();
     }
 }
 

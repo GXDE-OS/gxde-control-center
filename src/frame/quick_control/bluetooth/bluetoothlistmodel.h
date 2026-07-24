@@ -38,12 +38,11 @@
 
 using dcc::bluetooth::BluetoothModel;
 using dcc::bluetooth::Adapter;
-using dcc::bluetooth::Device;
 
 struct BluetoothItemInfo
 {
     const dcc::bluetooth::Adapter *adapter = nullptr;
-    const Device *device = nullptr;
+    const dcc::bluetooth::Device *device = nullptr;
 };
 
 class BluetoothListModel : public QAbstractListModel
@@ -94,7 +93,7 @@ private:
 
 private:
     BluetoothModel *m_bluetoothModel;
-    QMap<const Adapter*, QList<const Device*>> m_adapterList;
+    QMap<const Adapter*, QList<const dcc::bluetooth::Device*>> m_adapterList;
     QModelIndex m_currentIndex;
     QTimer *m_connectTimer;
     QModelIndex m_activeIndex;

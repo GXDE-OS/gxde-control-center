@@ -1,4 +1,5 @@
 #include "brightnessmodel.h"
+#include "wayland/gxdescreen.h"
 #include <QDebug>
 
 BrightnessModel::BrightnessModel()
@@ -9,14 +10,17 @@ BrightnessModel::BrightnessModel()
 // TODO: Bad, empty
 double BrightnessModel::GetFirstDisplayBrightness()
 {
-    // 先返回个 1 先吧
-    return 1;
-    return GetBrightness().end().value();
+    const QMap<QString, double> brightness = GetBrightness();
+    return brightness.isEmpty() ? 1.0 : brightness.constBegin().value();
 }
 
 // TODO: Bad, empty
 QMap<QString, double> BrightnessModel::GetBrightness()
 {
+    const QMap<QString, double> gxdeBrightness = GxdeScreen::brightness();
+    if (!gxdeBrightness.isEmpty())
+        return gxdeBrightness;
+
     auto firstMap = DBusDictMethodWithoutArg(SERVICE,
                          PATH,
                          INTERFACES,
@@ -36,6 +40,10 @@ QMap<QString, double> BrightnessModel::GetBrightness()
 
 QStringList BrightnessModel::ListOutputNames()
 {
+    const QStringList gxdeOutputs = GxdeScreen::outputNames();
+    if (!gxdeOutputs.isEmpty())
+        return gxdeOutputs;
+
     auto list = DBusMethodWithoutArg(SERVICE,
                       PATH,
                       INTERFACES,
@@ -57,6 +65,9 @@ void BrightnessModel::SetAllScreenBrightness(double brightness)
 void BrightnessModel::SetBrightness(QString display,
                        double brightness)
 {
+    if (GxdeScreen::setBrightness(display, brightness))
+        return;
+
     DBusMethodWithArg(SERVICE,
                       PATH,
                       INTERFACES,

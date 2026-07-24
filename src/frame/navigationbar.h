@@ -34,6 +34,10 @@
 #include <dimagebutton.h>
 #include <darrowrectangle.h>
 
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/window.h>
+#endif
+
 DWIDGET_USE_NAMESPACE
 
 class NavigationBar : public QWidget
@@ -65,6 +69,11 @@ private:
     QPointer<DImageButton> m_checkedButton;
     DArrowRectangle *m_arrowRectangle;
     QLabel *m_navLabel;
+
+#ifdef HAS_LAYER_SHELL
+    LayerShellQt::Window *m_arrowLayerShellWindow = nullptr;
+    void configureArrowLayerShell(const QPoint &anchorPoint);
+#endif
 };
 
 #endif // NAVIGATIONBAR_H

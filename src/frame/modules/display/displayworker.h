@@ -104,6 +104,7 @@ private:
 //    void loadModesFinished(Monitor * const mon, QDBusPendingCallWatcher *watcher);
     void monitorAdded(const QString &path);
     void monitorRemoved(const QString &path);
+    void refreshGxdeState();
 
 private:
     DisplayModel *m_model;
