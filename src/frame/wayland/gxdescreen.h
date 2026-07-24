@@ -38,15 +38,26 @@ struct Output
     double scale = 1.0;
 };
 
-inline bool isAvailable()
+struct Mode
 {
-    QDBusConnectionInterface *busInterface = QDBusConnection::sessionBus().interface();
-    if (!busInterface)
-        return false;
+    int width = 0;
+    int height = 0;
+    int refresh = 0;
+    bool preferred = false;
+    bool current = false;
+};
 
-    const QDBusReply<bool> reply = busInterface->isServiceRegistered(Service);
-    return reply.isValid() && reply.value();
-}
+struct Layout
+{
+    QString name;
+    int x = 0;
+    int y = 0;
+};
+
+QDBusArgument &operator<<(QDBusArgument &argument, const Layout &layout);
+const QDBusArgument &operator>>(const QDBusArgument &argument, Layout &layout);
+
+bool isAvailable();
 
 inline bool call(const QString &method, const QVariantList &arguments = QVariantList())
 {
@@ -62,6 +73,9 @@ inline bool call(const QString &method, const QVariantList &arguments = QVariant
 inline QList<Output> outputs()
 {
     QList<Output> result;
+    if (!isAvailable())
+        return result;
+
     QDBusMessage message =
         QDBusMessage::createMethodCall(LegacyService, LegacyPath, LegacyInterface,
                                        QStringLiteral("ListAllOutputs"));
@@ -96,6 +110,9 @@ inline QList<Output> outputs()
     array.endArray();
     return result;
 }
+
+QList<Mode> outputModes(const QString &output);
+bool setLayout(const QList<Layout> &layout);
 
 inline QStringList outputNames()
 {
@@ -206,5 +223,8 @@ inline quint16 transformToRotation(int transform)
 }
 
 } // namespace GxdeScreen
+
+Q_DECLARE_METATYPE(GxdeScreen::Layout)
+Q_DECLARE_METATYPE(QList<GxdeScreen::Layout>)
 
 #endif // GXDESCREEN_H

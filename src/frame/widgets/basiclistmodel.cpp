@@ -63,9 +63,18 @@ QVariant BasicListModel::data(const QModelIndex &index, int role) const
 
 void BasicListModel::clear()
 {
-    beginRemoveRows(QModelIndex(), 0, m_options.size());
+    if (m_options.isEmpty()) {
+        m_values.clear();
+        m_selectedIndex = QModelIndex();
+        m_hoveredIndex = QModelIndex();
+        return;
+    }
+
+    beginRemoveRows(QModelIndex(), 0, m_options.size() - 1);
     m_options.clear();
     m_values.clear();
+    m_selectedIndex = QModelIndex();
+    m_hoveredIndex = QModelIndex();
     endRemoveRows();
 }
 

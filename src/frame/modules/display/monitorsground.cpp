@@ -85,7 +85,13 @@ void MonitorsGround::resetMonitorsView()
 {
     qDebug() << Q_FUNC_INFO;
 
+    if (m_monitors.isEmpty() || !m_model)
+        return;
+
     reloadViewPortSize();
+    if (m_viewPortWidth <= 0 || m_viewPortHeight <= 0)
+        return;
+
     for (auto pw : m_monitors.keys())
         adjust(pw);
 
@@ -138,8 +144,7 @@ void MonitorsGround::monitorMoved(MonitorProxyWidget *pw)
     }
 
     applySettings();
-    qApp->processEvents();
-    QTimer::singleShot(1, this, &MonitorsGround::resetMonitorsView);
+    QTimer::singleShot(100, this, &MonitorsGround::resetMonitorsView);
 }
 
 void MonitorsGround::adjust(MonitorProxyWidget *pw)
@@ -229,6 +234,9 @@ bool MonitorsGround::isScreenPerfect() const
 
 double MonitorsGround::screenScale() const
 {
+    if (m_viewPortWidth <= 0 || m_viewPortHeight <= 0)
+        return 1.0;
+
     const double scaleW = VIEW_WIDTH / m_viewPortWidth;
     const double scaleH = VIEW_HEIGHT / m_viewPortHeight;
 

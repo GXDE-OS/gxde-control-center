@@ -74,6 +74,7 @@ set(FRAME_FILES
                 navigationdelegate.h
                 navigationview.h
                 wayland/gxdescreen.h
+                wayland/gxdescreen.cpp
                 wayland/waylandhelper.h
                 wayland/waylandblurhelper.h
                 wayland/waylandblurhelper.cpp
@@ -152,6 +153,31 @@ set(FRAME_FILES
                 updatenotifier.h
 
 
+)
+
+set(KYWC_OUTPUT_PROTOCOL
+    ${CMAKE_CURRENT_SOURCE_DIR}/wayland/protocols/kywc-output-v1.xml)
+set(KYWC_OUTPUT_PROTOCOL_CODE
+    ${PROJECT_BINARY_DIR}/kywc-output-v1-protocol.c)
+set(KYWC_OUTPUT_PROTOCOL_HEADER
+    ${PROJECT_BINARY_DIR}/kywc-output-v1-client-protocol.h)
+add_custom_command(
+    OUTPUT ${KYWC_OUTPUT_PROTOCOL_CODE} ${KYWC_OUTPUT_PROTOCOL_HEADER}
+    COMMAND wayland-scanner private-code
+            ${KYWC_OUTPUT_PROTOCOL} ${KYWC_OUTPUT_PROTOCOL_CODE}
+    COMMAND wayland-scanner client-header
+            ${KYWC_OUTPUT_PROTOCOL} ${KYWC_OUTPUT_PROTOCOL_HEADER}
+    DEPENDS ${KYWC_OUTPUT_PROTOCOL}
+    VERBATIM
+)
+set_source_files_properties(
+    ${KYWC_OUTPUT_PROTOCOL_CODE}
+    ${KYWC_OUTPUT_PROTOCOL_HEADER}
+    PROPERTIES SKIP_AUTOMOC ON
+)
+list(APPEND FRAME_FILES
+    ${KYWC_OUTPUT_PROTOCOL_CODE}
+    ${KYWC_OUTPUT_PROTOCOL_HEADER}
 )
 
 # load interfaces

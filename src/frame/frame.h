@@ -125,6 +125,7 @@ private:
     void toggle();
     void hideImmediately();
     const QScreen *screenForGeometry(const QRect &rect) const;
+    QScreen* targetScreen() const;
     bool checkOnBoard(const QPoint &point);
 
 private:

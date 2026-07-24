@@ -56,6 +56,12 @@ int TimeoutDialog::exec()
 
 #ifdef HAS_LAYER_SHELL
     configureLayerShell();
+#else
+    if (m_placementScreen) {
+        QRect area = m_placementScreen->geometry();
+        area.setRight(area.right() - m_rightInset);
+        moveToCenterByRect(area);
+    }
 #endif
 
     return DDialog::exec();
@@ -89,9 +95,11 @@ void TimeoutDialog::configureLayerShell() {
         return;
     }
 
-    if (QGuiApplication::primaryScreen()) {
-        window->setScreen(QGuiApplication::primaryScreen());
-    }
+    QScreen *screen = m_placementScreen
+        ? m_placementScreen.data()
+        : QGuiApplication::primaryScreen();
+    if (screen)
+        window->setScreen(screen);
 
     if (!m_layerShellWindow) {
         m_layerShellWindow = LayerShellQt::Window::get(window);
@@ -115,8 +123,9 @@ void TimeoutDialog::configureLayerShell() {
     m_layerShellWindow->setCloseOnDismissed(false);
 
     const QRect screenRect = window->screen()->geometry();
+    const int usableWidth = qMax(0, screenRect.width() - m_rightInset);
     const QPoint centered(
-        qMax(0, (screenRect.width() - width()) / 2),
+        qMax(0, (usableWidth - width()) / 2),
         qMax(0, (screenRect.height() - height()) / 2));
     setLayerShellPosition(centered);
 }
@@ -154,4 +163,10 @@ void TimeoutDialog::setMessageModel(const QString &messageModel)
 {
     m_messageModel = messageModel;
     setMessage(m_messageModel.arg(m_timeout));
+}
+
+void TimeoutDialog::setPlacementScreen(QScreen *screen, int rightInset)
+{
+    m_placementScreen = screen;
+    m_rightInset = qMax(0, rightInset);
 }

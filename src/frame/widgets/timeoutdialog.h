@@ -24,6 +24,7 @@
 
 #include <QTimer>
 #include <QPoint>
+#include <QPointer>
 #include <ddialog.h>
 
 #ifdef HAS_LAYER_SHELL
@@ -31,6 +32,8 @@
 #endif
 
 DWIDGET_USE_NAMESPACE
+
+class QScreen;
 
 class TimeoutDialog : public DDialog
 {
@@ -40,6 +43,7 @@ public:
 
     QString messageModel() const;
     void setMessageModel(const QString &messageModel);
+    void setPlacementScreen(QScreen *screen, int rightInset);
 
 public Q_SLOTS:
     int exec() override;
@@ -59,6 +63,8 @@ private:
 
     int m_timeout;
     QString m_messageModel;
+    QPointer<QScreen> m_placementScreen;
+    int m_rightInset = 0;
 };
 
 #endif // TIMEOUTDIALOG_H

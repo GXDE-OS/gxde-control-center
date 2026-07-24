@@ -66,8 +66,10 @@ private Q_SLOTS:
     void showMiracastPage(const QDBusObjectPath &path);
 #endif
 
-    void onDetailPageRequestSetResolution(Monitor *mon, const int mode);
-    void onCustomPageRequestSetResolution(Monitor *mon, const int mode);
+    void onDetailPageRequestSetResolution(Monitor* mon, int mode, int width,
+        int height, int refresh);
+    void onCustomPageRequestSetResolution(Monitor* mon, int mode, int width,
+        int height, int refresh);
     int showTimeoutDialog(Monitor *mon);
 
 private:

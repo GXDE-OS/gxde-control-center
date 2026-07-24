@@ -27,6 +27,7 @@
 #define DISPLAYWORKER_H
 
 #include "monitor.h"
+#include "wayland/gxdescreen.h"
 
 #include <QObject>
 
@@ -68,6 +69,8 @@ public:
     int currentMonitorModeId(Monitor* monitor) const;
     OutputModeState currentOutputMode(Monitor* monitor) const;
     bool restoreOutputMode(Monitor* monitor, const OutputModeState& state);
+    bool setMonitorResolutionBySize(Monitor* mon, int mode, int width,
+        int height, int refresh);
 
 public Q_SLOTS:
     void saveChanges();
@@ -116,6 +119,8 @@ private:
     void monitorAdded(const QString &path);
     void monitorRemoved(const QString &path);
     void refreshGxdeState();
+    void applyGxdeLayout();
+    bool restoreGxdeSnapshot();
 
 private:
     DisplayModel *m_model;
@@ -123,6 +128,9 @@ private:
     QGSettings *m_dccSettings;
     AppearanceInter *m_appearanceInter;
     QMap<Monitor *, MonitorInter *> m_monitors;
+    bool m_isGxde;
+    bool m_layoutUpdatePending = false;
+    QList<GxdeScreen::Output> m_gxdeSnapshot;
 };
 
 } // namespace display

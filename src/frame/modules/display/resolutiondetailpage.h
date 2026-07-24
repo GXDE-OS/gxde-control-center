@@ -51,18 +51,26 @@ public:
     void setModel(DisplayModel *model);
 
 Q_SIGNALS:
-    void requestSetResolution(Monitor *mon, const int mode) const;
+    void requestSetResolution(Monitor *mon, int mode, int width,
+                              int height, int refresh) const;
 
 private Q_SLOTS:
     void onItemClicked();
     void refreshCurrentResolution();
 
 private:
+    struct ResolutionOption {
+        int mode = -1;
+        int width = 0;
+        int height = 0;
+        int refresh = 0;
+    };
+
     DisplayModel *m_model;
     dcc::widgets::SettingsGroup *m_resolutions;
     dcc::widgets::OptionItem *m_currentItem;
 
-    QMap<dcc::widgets::OptionItem *, int> m_options;
+    QMap<dcc::widgets::OptionItem *, ResolutionOption> m_options;
 };
 
 }   // namespace dcc

@@ -30,6 +30,7 @@
 #include "widgets/utils.h"
 
 #include <QDebug>
+#include <QTimer>
 #include <limits>
 
 using namespace dcc;
@@ -47,7 +48,8 @@ DisplayWorker::DisplayWorker(DisplayModel *model, QObject *parent)
       m_dccSettings(new QGSettings("com.deepin.dde.control-center", QByteArray(), this)),
       m_appearanceInter(new AppearanceInter("com.deepin.daemon.Appearance",
                                       "/com/deepin/daemon/Appearance",
-                                      QDBusConnection::sessionBus(), this))
+                                      QDBusConnection::sessionBus(), this)),
+      m_isGxde(GxdeScreen::isAvailable())
 {
     // TODO:
     model->setPrimary(m_displayInter.primary());
@@ -213,6 +215,10 @@ void DisplayWorker::saveChanges()
 {
     qDebug() << Q_FUNC_INFO;
 
+    if (m_isGxde) {
+        m_gxdeSnapshot.clear();
+        return;
+    }
     m_displayInter.Save().waitForFinished();
 }
 
@@ -220,6 +226,10 @@ void DisplayWorker::discardChanges()
 {
     qDebug() << Q_FUNC_INFO;
 
+    if (m_isGxde) {
+        restoreGxdeSnapshot();
+        return;
+    }
     m_displayInter.ResetChanges().waitForFinished();
 }
 
@@ -229,7 +239,11 @@ void DisplayWorker::mergeScreens()
 
     m_model->setIsMerge(true);
 
-    if (GxdeScreen::setMode(0)) {
+    if (m_isGxde) {
+        if (!GxdeScreen::setMode(0)) {
+            qWarning() << "(GXDE) Display: Failed to set duplicate mode!!";
+        }
+
         refreshGxdeState();
         return;
     }
@@ -267,7 +281,9 @@ void DisplayWorker::splitScreens()
 
     m_model->setIsMerge(false);
 
-    if (GxdeScreen::setMode(1)) {
+    if (m_isGxde) {
+        if (!GxdeScreen::setMode(1))
+            qWarning() << "(GXDE) Display: Failed to set extend mode!!";
         refreshGxdeState();
         return;
     }
@@ -359,8 +375,12 @@ void DisplayWorker::switchMode(const int mode, const QString &name)
         supportedByGxde = false;
         break;
     }
-    if (supportedByGxde && GxdeScreen::setMode(gxdeMode, name)) {
-        m_model->setDisplayMode(mode);
+    if (supportedByGxde && m_isGxde) {
+        if (!GxdeScreen::setMode(gxdeMode, name)) {
+            qWarning() << "(Display) Switcher: Failed to switch mode"
+                << gxdeMode << name;
+            return;
+        }
         refreshGxdeState();
         return;
     }
@@ -375,17 +395,22 @@ void DisplayWorker::onMonitorListChanged(const QList<QDBusObjectPath> &mons)
         ops << mon->path();
 
     QList<QString> pathList;
-    for (const auto op : mons)
-    {
+    for (const QDBusObjectPath& op : mons) {
         const QString path = op.path();
+        if (pathList.contains(path))
+            continue;
         pathList << path;
-        if (!ops.contains(path))
+        if (!ops.contains(path)) {
             monitorAdded(path);
+            ops << path;
+        }
     }
 
-    for (const auto op : ops)
-        if (!pathList.contains(op))
+    for (const QString& op : ops) {
+        if (!pathList.contains(op)) {
             monitorRemoved(op);
+        }
+    }
 }
 
 void DisplayWorker::onMonitorsBrightnessChanged(const BrightnessMap &brightness)
@@ -478,13 +503,19 @@ void DisplayWorker::setMonitorRotateAll(const quint16 rotate)
 }
 #endif
 
-void DisplayWorker::setPrimary(const int index)
-{
-    Monitor *monitor = m_model->monitorList()[index];
-    if (GxdeScreen::setPrimary(monitor->name())) {
-        m_model->setPrimary(monitor->name());
-        for (Monitor *item : m_model->monitorList())
-            item->setPrimary(monitor->name());
+void DisplayWorker::setPrimary(const int index) {
+    if (index < 0 || index >= m_model->monitorList().size()) {
+        return;
+    }
+
+    Monitor* monitor = m_model->monitorList()[index];
+    if (m_isGxde) {
+        if (GxdeScreen::setPrimary(monitor->name())) {
+            refreshGxdeState();
+        } else {
+            qWarning() << "(Display) PriScr: Failed to set primary"
+                << monitor->name();
+        }
         return;
     }
     m_displayInter.SetPrimary(monitor->name());
@@ -492,7 +523,13 @@ void DisplayWorker::setPrimary(const int index)
 
 void DisplayWorker::setMonitorEnable(Monitor *mon, const bool enabled)
 {
-    if (GxdeScreen::setEnabled(mon->name(), enabled)) {
+    if (!mon)
+        return;
+
+    if (m_isGxde) {
+        if (!GxdeScreen::setEnabled(mon->name(), enabled))
+            qWarning() << "(GXDE display) failed to set output enabled"
+                       << mon->name() << enabled;
         refreshGxdeState();
         return;
     }
@@ -516,16 +553,11 @@ void DisplayWorker::setMonitorResolution(Monitor *mon, const int mode)
         if (resolution.id() != mode)
             continue;
 
-        const bool gxdeConfigured =
-            GxdeScreen::setResolution(mon->name(), resolution.width(), resolution.height(),
-                                      qRound(resolution.rate())) ||
-            (mon == m_model->primaryMonitor() &&
-             GxdeScreen::setResolution(resolution.width(), resolution.height(),
-                                       qRound(resolution.rate())));
-        if (gxdeConfigured) {
-            mon->setCurrentMode(resolution);
+        if (setMonitorResolutionBySize(
+                mon, mode, resolution.width(), resolution.height(),
+                qRound(resolution.rate() * 1000.0)))
             return;
-        }
+        break;
     }
 
     MonitorInter *inter = m_monitors.value(mon);
@@ -535,18 +567,54 @@ void DisplayWorker::setMonitorResolution(Monitor *mon, const int mode)
     m_displayInter.ApplyChanges().waitForFinished();
 }
 
+bool DisplayWorker::setMonitorResolutionBySize(Monitor *mon, int mode,
+        int width, int height, int refresh)
+{
+    if (!mon || width <= 0 || height <= 0 || refresh <= 0)
+        return false;
+
+    // libkywc and ListAllOutputs expose refresh in mHz; the convenience
+    // D-Bus API accepts Hz and resolves it to the closest physical mode.
+    const int refreshHz = qMax(1, qRound(refresh / 1000.0));
+    if (m_isGxde) {
+        const bool configured = GxdeScreen::setResolution(
+            mon->name(), width, height, refreshHz);
+        if (configured)
+            refreshGxdeState();
+        else
+            qWarning() << "(GXDE display) failed to set resolution"
+                       << mon->name() << width << height << refreshHz;
+        return configured;
+    }
+
+    if (mode < 0)
+        return false;
+
+    MonitorInter *inter = m_monitors.value(mon);
+    if (!inter)
+        return false;
+    QDBusPendingReply<> reply = inter->SetMode(mode);
+    reply.waitForFinished();
+    if (reply.isError())
+        return false;
+    QDBusPendingReply<> applyReply = m_displayInter.ApplyChanges();
+    applyReply.waitForFinished();
+    return !applyReply.isError();
+}
+
 void DisplayWorker::setMonitorBrightness(Monitor *mon, const double brightness)
 {
     if (!mon)
         return;
 
     const double value = std::max(brightness, m_model->minimumBrightnessScale());
-    const bool gxdeConfigured = GxdeScreen::setBrightness(mon->name(), value);
-    qInfo() << "(GXDE display) set brightness"
-            << mon->name() << qRound(value * 100.0)
-            << "result=" << gxdeConfigured;
-    if (gxdeConfigured) {
-        mon->setBrightness(value);
+    if (m_isGxde) {
+        const bool configured = GxdeScreen::setBrightness(mon->name(), value);
+        qInfo() << "(GXDE display) set brightness"
+                << mon->name() << qRound(value * 100.0)
+                << "result=" << configured;
+        if (configured)
+            mon->setBrightness(value);
         return;
     }
 
@@ -555,9 +623,19 @@ void DisplayWorker::setMonitorBrightness(Monitor *mon, const double brightness)
 
 void DisplayWorker::setMonitorPosition(Monitor *mon, const int x, const int y)
 {
-    if (GxdeScreen::setPosition(mon->name(), x, y)) {
+    if (!mon)
+        return;
+
+    if (m_isGxde) {
         mon->setX(x);
         mon->setY(y);
+        if (!m_layoutUpdatePending) {
+            m_layoutUpdatePending = true;
+            QTimer::singleShot(0, this, [this] {
+                m_layoutUpdatePending = false;
+                applyGxdeLayout();
+            });
+        }
         return;
     }
 
@@ -693,6 +771,34 @@ void DisplayWorker::monitorAdded(const QString &path)
     Q_ASSERT(inter->isValid());
     mon->setName(inter->name());
 
+    if (m_isGxde) {
+        bool presentInWlcom = false;
+        for (const GxdeScreen::Output &output : GxdeScreen::outputs()) {
+            if (output.name == mon->name()) {
+                presentInWlcom = true;
+                break;
+            }
+        }
+
+        bool duplicateName = false;
+        for (Monitor *existing : m_monitors.keys()) {
+            if (existing->name() == mon->name()) {
+                duplicateName = true;
+                break;
+            }
+        }
+
+        if (!presentInWlcom || duplicateName) {
+            qWarning() << "(Display) MON: Ignoring stale monitor object"
+                << path << mon->name()
+                << "present=" << presentInWlcom
+                << "duplicate=" << duplicateName;
+            delete inter;
+            delete mon;
+            return;
+        }
+    }
+
     inter->setSync(false);
 
     mon->setPath(path);
@@ -770,10 +876,16 @@ void DisplayWorker::refreshGxdeState()
         for (Monitor *monitor : m_model->monitorList()) {
             if (monitor->name() != output.name)
                 continue;
+            const double scale = output.scale > 0.0 ? output.scale : 1.0;
+            const bool rotated = output.transform % 2 != 0;
+            const int logicalWidth = qRound(
+                (rotated ? output.height : output.width) / scale);
+            const int logicalHeight = qRound(
+                (rotated ? output.width : output.height) / scale);
             monitor->setX(output.x);
             monitor->setY(output.y);
-            monitor->setW(output.width);
-            monitor->setH(output.height);
+            monitor->setW(logicalWidth);
+            monitor->setH(logicalHeight);
             monitor->setScale(output.scale);
             monitor->setRotate(GxdeScreen::transformToRotation(output.transform));
             monitor->setBrightness(output.brightness / 100.0);
@@ -846,6 +958,11 @@ void DisplayWorker::onGSettingsChanged(const QString &key)
 }
 
 void DisplayWorker::record() {
+    if (m_isGxde) {
+        m_gxdeSnapshot = GxdeScreen::outputs();
+        return;
+    }
+
     const int displayMode { m_model->displayMode() };
     const QString config { displayMode == CUSTOM_MODE ? m_model->config() : m_model->primary() };
 
@@ -853,6 +970,11 @@ void DisplayWorker::record() {
 }
 
 void DisplayWorker::restore() {
+    if (m_isGxde) {
+        restoreGxdeSnapshot();
+        return;
+    }
+
     const std::pair<int, QString> lastConfig { m_model->lastConfig() };
 
     switch (lastConfig.first)
@@ -875,4 +997,80 @@ void DisplayWorker::restore() {
         default:
             break;
     }
+}
+
+void DisplayWorker::applyGxdeLayout() {
+    if (!m_isGxde) {
+        return;
+    }
+
+    QList<GxdeScreen::Layout> layout;
+    const QList<GxdeScreen::Output> outputs = GxdeScreen::outputs();
+    for (const GxdeScreen::Output& output : outputs) {
+        if (!output.enabled)
+            continue;
+
+        for (Monitor *monitor : m_model->monitorList()) {
+            if (monitor->name() != output.name)
+                continue;
+            layout.append({output.name, monitor->x(), monitor->y()});
+            break;
+        }
+    }
+
+    if (!GxdeScreen::setLayout(layout)) {
+        qWarning() << "(Display) Layout: Failed to apply screen layout";
+        refreshGxdeState();
+        return;
+    }
+    refreshGxdeState();
+}
+
+bool DisplayWorker::restoreGxdeSnapshot() {
+    if (!m_isGxde || m_gxdeSnapshot.isEmpty())
+        return false;
+
+    bool restored = true;
+
+    // Enable the saved active outputs before disabling any others, so the
+    // compositor is never asked to turn off its last active screen.
+    for (const GxdeScreen::Output &output : m_gxdeSnapshot) {
+        if (output.enabled)
+            restored = GxdeScreen::setEnabled(output.name, true) && restored;
+    }
+    for (const GxdeScreen::Output &output : m_gxdeSnapshot) {
+        if (!output.enabled)
+            restored = GxdeScreen::setEnabled(output.name, false) && restored;
+    }
+
+    QList<GxdeScreen::Layout> layout;
+    QString primary;
+    for (const GxdeScreen::Output &output : m_gxdeSnapshot) {
+        if (!output.enabled)
+            continue;
+
+        const int refreshHz = qMax(1, qRound(output.refresh / 1000.0));
+        restored = GxdeScreen::setResolution(
+                       output.name, output.width, output.height, refreshHz)
+                   && restored;
+        restored = GxdeScreen::setScale(output.name, output.scale) && restored;
+        restored = GxdeScreen::setRotation(
+                       output.name,
+                       GxdeScreen::rotationToAngle(
+                           GxdeScreen::transformToRotation(output.transform)))
+                   && restored;
+        layout.append({output.name, output.x, output.y});
+        if (output.primary)
+            primary = output.name;
+    }
+
+    restored = GxdeScreen::setLayout(layout) && restored;
+    if (!primary.isEmpty())
+        restored = GxdeScreen::setPrimary(primary) && restored;
+
+    m_gxdeSnapshot.clear();
+    refreshGxdeState();
+    if (!restored)
+        qWarning() << "(Display) Snapshot: Failed to restore complete output snapshot";
+    return restored;
 }

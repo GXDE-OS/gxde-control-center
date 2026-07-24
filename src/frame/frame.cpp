@@ -31,6 +31,7 @@
 #include "settingswidget.h"
 #include "mainwidget.h"
 #include "navigationbar.h"
+#include "wayland/gxdescreen.h"
 
 #include <QApplication>
 #include <QKeyEvent>
@@ -242,8 +243,9 @@ void Frame::ensureLayerShellConfigured()
         return;
     }
 
-    if (qApp->primaryScreen())
-        window->setScreen(qApp->primaryScreen());
+    if (QScreen *screen = targetScreen()) {
+        window->setScreen(screen);
+    }
 
     if (!m_layerShellWindow) {
         m_layerShellWindow = LayerShellQt::Window::get(window);
@@ -406,15 +408,20 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
     }
 
     // 控制中心一直在主屏显示
-    if (windowHandle())
-        windowHandle()->setScreen(qApp->primaryScreen());
+    QScreen* screen = targetScreen();
+    if (!screen) {
+        return;
+    }
+    if (windowHandle()) {
+        windowHandle()->setScreen(screen);
+    }
 
     m_primaryRect = primaryRect;
 
     // 假定控制中心一直在主屏
-    const qreal ratio = qApp->primaryScreen()->devicePixelRatio();
+    const qreal ratio = screen->devicePixelRatio();
     const auto h = Wayland::BlurHelper::isWayland()
-        ? qApp->primaryScreen()->geometry().height()
+        ? screen->geometry().height()
         : m_primaryRect.height() / ratio;
 
     setFixedHeight(h);
@@ -422,7 +429,10 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
 
     QTimer::singleShot(500, this, [=] {
         if (Wayland::BlurHelper::isWayland()) {
-            const QRect screenRect = qApp->primaryScreen()->geometry();
+            QScreen *screen = targetScreen();
+            if (!screen)
+                return;
+            const QRect screenRect = screen->geometry();
             setFixedSize(FRAME_WIDTH, screenRect.height());
             m_frameWrapper->setFixedSize(FRAME_WIDTH, screenRect.height());
 
@@ -537,7 +547,15 @@ void Frame::show()
     m_shown = true;
 
     if (Wayland::BlurHelper::isWayland()) {
-        const QRect screenRect = qApp->primaryScreen()->geometry();
+        QScreen* screen = targetScreen();
+        if (!screen) {
+            return;
+        }
+
+        const QRect screenRect = screen->geometry();
+        if (windowHandle()) {
+            windowHandle()->setScreen(screen);
+        }
         setFixedSize(FRAME_WIDTH, screenRect.height());
         m_frameWrapper->setFixedSize(FRAME_WIDTH, screenRect.height());
 
@@ -602,6 +620,26 @@ void Frame::show()
     // prepare all settings page
     m_delayKillerTimer->stop();
     QTimer::singleShot(m_frameWidgetStack.last()->animationDuration(), this, &Frame::prepareAllSettingsPage);
+}
+
+QScreen* Frame::targetScreen() const {
+    if (Wayland::BlurHelper::isWayland() && GxdeScreen::isAvailable()) {
+        QString primaryOutput;
+        for (const GxdeScreen::Output &output : GxdeScreen::outputs()) {
+            if (output.enabled && output.primary) {
+                primaryOutput = output.name;
+                break;
+            }
+        }
+        if (!primaryOutput.isEmpty()) {
+            for (QScreen *screen : qApp->screens()) {
+                if (screen->name() == primaryOutput) {
+                    return screen;
+                }
+            }
+        }
+    }
+    return qApp->primaryScreen();
 }
 
 void Frame::hide()

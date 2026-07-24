@@ -37,7 +37,13 @@
 #include <dimagebutton.h>
 #include <memory>
 
+#ifdef HAS_LAYER_SHELL
+#include <LayerShellQt/window.h>
+#endif
+
 DWIDGET_USE_NAMESPACE
+
+class QScreen;
 
 namespace dcc {
 
@@ -70,7 +76,8 @@ Q_SIGNALS:
 #ifndef DCC_DISABLE_ROTATE
     void requestMonitorRotate(Monitor *mon) const;
 #endif
-    void requestSetMonitorResolution(Monitor *mon, const int mode) const;
+    void requestSetMonitorResolution(Monitor* mon, int mode, int width,
+        int height, int refresh) const;
     void requestSetMonitorPosition(Monitor *mon, const int x, const int y) const;
     void requestApplySave() const;
 
@@ -83,7 +90,23 @@ private:
     void reloadMonitorObject(Monitor *monitor);
     void reloadOtherScreensDialog();
 
-    void updateModeList(const QList<Resolution> &modeList);
+    struct ResolutionOption {
+        int mode = -1;
+        int width = 0;
+        int height = 0;
+        int refresh = 0;
+        bool preferred = false;
+        bool current = false;
+    };
+
+    QList<ResolutionOption> availableModes(Monitor* monitor) const;
+    QList<ResolutionOption> commonModes() const;
+    void updateModeList(const QList<ResolutionOption>& modeList);
+    QScreen* monitorScreen() const;
+    QRect popupArea() const;
+#ifdef HAS_LAYER_SHELL
+    void configureLayerShell();
+#endif
 
 private Q_SLOTS:
     void updateScreensRelation();
@@ -104,6 +127,8 @@ private:
     Monitor *m_monitor;
 
     widgets::BasicListModel *m_resolutionsModel;
+    widgets::BasicListView* m_resolutionView;
+    QList<ResolutionOption> m_modeOptions;
 
 #ifndef DCC_DISABLE_ROTATE
     Dtk::Widget::DImageButton *m_rotateBtn;
@@ -117,6 +142,9 @@ private:
     QTimer *m_positionWatcher;
 
     QList<MonitorSettingDialog *> m_otherDialogs;
+#ifdef HAS_LAYER_SHELL
+    LayerShellQt::Window* m_layerShellWindow = nullptr;
+#endif
 };
 
 } // namespace display

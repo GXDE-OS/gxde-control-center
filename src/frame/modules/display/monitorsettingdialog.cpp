@@ -26,7 +26,9 @@
 #include "monitorsettingdialog.h"
 #include "monitorcontrolwidget.h"
 #include "displaymodel.h"
+#include "frame.h"
 #include "settingslistwidget.h"
+#include "wayland/gxdescreen.h"
 #include "widgets/basiclistmodel.h"
 #include "widgets/basiclistview.h"
 #include "widgets/basiclistdelegate.h"
@@ -34,7 +36,11 @@
 #include <QVBoxLayout>
 #include <QTimer>
 #include <QMouseEvent>
+#include <QScreen>
+#include <QWindow>
 #include <DSuggestButton>
+#include <algorithm>
+#include <limits>
 
 DWIDGET_USE_NAMESPACE
 
@@ -55,8 +61,14 @@ MonitorSettingDialog::MonitorSettingDialog(DisplayModel *model, QWidget *parent)
       m_positionWatcher(new QTimer(this))
 {
     init();
-    reloadMonitorObject(model->primaryMonitor());
+    Monitor* primary = model->primaryMonitor();
+    if (!primary && !model->monitorList().isEmpty())
+        primary = model->monitorList().first();
+    reloadMonitorObject(primary);
     initPrimary();
+#ifdef HAS_LAYER_SHELL
+    configureLayerShell();
+#endif
 }
 
 MonitorSettingDialog::MonitorSettingDialog(Monitor *monitor, QWidget *parent)
@@ -69,6 +81,9 @@ MonitorSettingDialog::MonitorSettingDialog(Monitor *monitor, QWidget *parent)
 {
     init();
     reloadMonitorObject(monitor);
+#ifdef HAS_LAYER_SHELL
+    configureLayerShell();
+#endif
 }
 
 MonitorSettingDialog::~MonitorSettingDialog()
@@ -95,19 +110,20 @@ void MonitorSettingDialog::init()
 
     m_resolutionsModel = new BasicListModel;
 
-    BasicListView *resolutionView = new BasicListView;
-    resolutionView->setModel(m_resolutionsModel);
-    resolutionView->setItemDelegate(new BasicListDelegate);
+    m_resolutionView = new BasicListView;
+    m_resolutionView->setModel(m_resolutionsModel);
+    m_resolutionView->setItemDelegate(new BasicListDelegate);
 
-    connect(resolutionView, &BasicListView::entered, m_resolutionsModel, &BasicListModel::setHoveredIndex);
+    connect(m_resolutionView, &BasicListView::entered,
+            m_resolutionsModel, &BasicListModel::setHoveredIndex);
 
     if (m_primary)
     {
-        resolutionView->setAutoFitHeight(false);
-        resolutionView->setFixedHeight(36 * 3);
+        m_resolutionView->setAutoFitHeight(false);
+        m_resolutionView->setFixedHeight(36 * 3);
     }
 
-    resolutionView->setMinimumWidth(448);
+    m_resolutionView->setMinimumWidth(448);
 
     QLabel *resoLabel = new QLabel;
     resoLabel->setObjectName("Resolution");
@@ -121,7 +137,7 @@ void MonitorSettingDialog::init()
 
     QVBoxLayout *resoLayout = new QVBoxLayout;
     resoLayout->addLayout(hlayout);
-    resoLayout->addWidget(resolutionView);
+    resoLayout->addWidget(m_resolutionView);
     resoLayout->setSpacing(5);
     resoLayout->setContentsMargins(10, 0, 10, 0);
 
@@ -151,9 +167,6 @@ void MonitorSettingDialog::init()
     m_mainLayout->addLayout(m_btnsLayout);
     m_mainLayout->addSpacing(10);
 
-    QWidget *widget = new QWidget;
-    widget->setLayout(m_mainLayout);
-
     setContentsMargins(0, 0, 0, 0);
 
     setLayout(m_mainLayout);
@@ -162,7 +175,10 @@ void MonitorSettingDialog::init()
     m_positionWatcher->setInterval(1000);
     m_positionWatcher->start();
 
-    connect(resolutionView, &BasicListView::clicked, [=](const QModelIndex &index) { onMonitorResolutionSelected(index.row()); });
+    connect(m_resolutionView, &BasicListView::clicked,
+            [=](const QModelIndex &index) {
+                onMonitorResolutionSelected(index.row());
+            });
 #ifndef DCC_DISABLE_ROTATE
     connect(m_rotateBtn, &DImageButton::clicked, this, &MonitorSettingDialog::onRotateBtnClicked);
 #endif
@@ -230,6 +246,11 @@ void MonitorSettingDialog::reloadMonitorObject(Monitor *monitor)
     }
 
     m_monitor = monitor;
+    if (!m_monitor) {
+        setWindowTitle(tr("Display"));
+        updateModeList({});
+        return;
+    }
 
     connect(m_monitor, &Monitor::currentModeChanged, this, &MonitorSettingDialog::onMonitorModeChanged, Qt::QueuedConnection);
     connect(m_monitor, &Monitor::geometryChanged, m_positionWatcher, static_cast<void (QTimer::*)()>(&QTimer::start));
@@ -251,7 +272,10 @@ void MonitorSettingDialog::reloadOtherScreensDialog()
         if (mon == m_monitor)
             continue;
 
-        MonitorSettingDialog *dialog = new MonitorSettingDialog(mon, this);
+        // A layer-shell surface must be independent for each output. Giving
+        // the secondary dialog this dialog as its transient parent can make
+        // the compositor place both surfaces on the primary output.
+        MonitorSettingDialog *dialog = new MonitorSettingDialog(mon);
 
         connect(dialog, &MonitorSettingDialog::requestSetPrimary, this, &MonitorSettingDialog::requestSetPrimary);
         connect(dialog, &MonitorSettingDialog::requestSetMonitorResolution, this, &MonitorSettingDialog::requestSetMonitorResolution);
@@ -283,20 +307,26 @@ void MonitorSettingDialog::onPrimaryChanged()
     Q_ASSERT(m_primary);
 
     // update current index
-    const QString primary = m_model->primary();
+    const QString primaryName = m_model->primary();
     for (int i(0); i != m_model->monitorList().size(); ++i)
     {
-        if (m_model->monitorList()[i]->name() == primary)
+        if (m_model->monitorList()[i]->name() == primaryName)
         {
             m_primarySettingsWidget->setSelectedIndex(i);
             break;
         }
     }
 
-    if (m_monitor == m_model->primaryMonitor())
+    Monitor* primary = m_model->primaryMonitor();
+    if (!primary) {
         return;
+    }
 
-    reloadMonitorObject(m_model->primaryMonitor());
+    if (m_monitor == primary) {
+        return;
+    }
+
+    reloadMonitorObject(primary);
     reloadOtherScreensDialog();
 }
 
@@ -305,85 +335,266 @@ void MonitorSettingDialog::onMonitorRectChanged()
     if (!m_monitor)
         return;
 
-    const qreal ratio = devicePixelRatioF();
-    const QRect r(m_monitor->rect().topLeft(),
-                  m_monitor->rect().size() / ratio);
+#ifdef HAS_LAYER_SHELL
+    configureLayerShell();
+    if (m_layerShellWindow) {
+        return;
+    }
+#endif
 
-    DAbstractDialog::move(r.center() - rect().center());
+    const QRect area = popupArea();
+    DAbstractDialog::move(area.center() - rect().center());
 }
 
-void MonitorSettingDialog::onMonitorModeChanged()
-{
-    const bool intersect = m_primary && m_model->monitorsIsIntersect();
-    if (intersect)
-        updateModeList(m_model->monitorsSameModeList());
-    else
-        updateModeList(m_monitor->modeList());
-
-    if (!intersect)
-    {
-        m_resolutionsModel->setSelectedIndex(m_resolutionsModel->index(m_monitor->modeList().indexOf(m_monitor->currentMode())));
-    }
-    else
-    {
-        const ResolutionList list = m_model->monitorsSameModeList();
-        const Resolution mode = m_model->monitorList().first()->currentMode();
-
-        for (auto it = list.cbegin(); it != list.cend(); ++it) {
-            if (it->id() == mode.id()) {
-                m_resolutionsModel->setSelectedIndex(m_resolutionsModel->index(it - list.cbegin()));
-                break;
+QScreen* MonitorSettingDialog::monitorScreen() const {
+    if (m_monitor) {
+        for (QScreen* screen : qApp->screens()) {
+            if (screen->name() == m_monitor->name()) {
+                return screen;
             }
         }
     }
+    return qApp->primaryScreen();
 }
 
-void MonitorSettingDialog::updateModeList(const QList<Resolution> &modeList)
+QRect MonitorSettingDialog::popupArea() const {
+    QScreen* screen = monitorScreen();
+    if (!screen) {
+        return m_monitor ? m_monitor->rect() : QRect();
+    }
+
+    QRect area = screen->geometry();
+    if (m_monitor && m_monitor->isPrimary()) {
+        area.setRight(area.right() - FRAME_WIDTH);
+    }
+
+    return area;
+}
+
+#ifdef HAS_LAYER_SHELL
+void MonitorSettingDialog::configureLayerShell() {
+    if (!Wayland::isWaylandSession() || !m_monitor)
+        return;
+
+    QScreen* screen = monitorScreen();
+    if (!screen) {
+        return;
+    }
+
+    adjustSize();
+    const QRect area = popupArea();
+    const QRect screenRect = screen->geometry();
+    const QPoint globalTopLeft = area.center() - rect().center();
+
+    if (!m_layerShellWindow) {
+        // QT_WAYLAND_SHELL_INTEGRATION creates the layer surface together
+        // with the native window. Put the widget inside the target screen
+        // first so Qt selects that screen's wl_output at creation time.
+        DAbstractDialog::move(globalTopLeft);
+        setAttribute(Qt::WA_NativeWindow, true);
+        createWinId();
+    }
+
+    QWindow* window = windowHandle();
+    if (!window) {
+        return;
+    }
+
+    if (!m_layerShellWindow) {
+        m_layerShellWindow = LayerShellQt::Window::get(window);
+    }
+
+    if (!m_layerShellWindow) {
+        return;
+    }
+
+    m_layerShellWindow->setScope(
+        QStringLiteral("control-center-monitor-settings"));
+    m_layerShellWindow->setScreenConfiguration(
+        LayerShellQt::Window::ScreenFromQWindow);
+    m_layerShellWindow->setLayer(LayerShellQt::Window::LayerOverlay);
+    m_layerShellWindow->setAnchors(LayerShellQt::Window::Anchors(
+        LayerShellQt::Window::AnchorTop |
+        LayerShellQt::Window::AnchorLeft));
+    m_layerShellWindow->setExclusiveZone(-1);
+    m_layerShellWindow->setKeyboardInteractivity(
+        LayerShellQt::Window::KeyboardInteractivityOnDemand);
+    m_layerShellWindow->setCloseOnDismissed(false);
+
+    const QPoint localCenter =
+        area.center() - screenRect.topLeft() - rect().center();
+    m_layerShellWindow->setMargins(QMargins(
+        qMax(0, localCenter.x()),
+        qMax(0, localCenter.y()),
+        0,
+        0));
+    qInfo() << "(Display popup) configured"
+            << m_monitor->name()
+            << "screen=" << window->screen()->name()
+            << "geometry=" << screenRect
+            << "margins=" << m_layerShellWindow->margins();
+}
+#endif
+
+void MonitorSettingDialog::onMonitorModeChanged() {
+    const bool intersect = m_primary && m_model->monitorsIsIntersect();
+    if (intersect) {
+        updateModeList(commonModes());
+    } else {
+        updateModeList(availableModes(m_monitor));
+    }
+
+    for (int index = 0; index < m_modeOptions.size(); ++index) {
+        if (m_modeOptions.at(index).current) {
+            const QModelIndex currentIndex =
+                m_resolutionsModel->index(index);
+            m_resolutionsModel->setSelectedIndex(currentIndex);
+            QTimer::singleShot(0, m_resolutionView,
+                               [this, currentIndex] {
+                m_resolutionView->scrollTo(
+                    currentIndex,
+                    QAbstractItemView::PositionAtCenter);
+            });
+            break;
+        }
+    }
+}
+
+QList<MonitorSettingDialog::ResolutionOption>
+MonitorSettingDialog::availableModes(Monitor* monitor) const {
+    QList<ResolutionOption> result;
+    if (!monitor) {
+        return result;
+    }
+
+    const ResolutionList legacyModes = monitor->modeList();
+    const QList<GxdeScreen::Mode> gxdeModes =
+        GxdeScreen::outputModes(monitor->name());
+    if (gxdeModes.isEmpty()) {
+        bool first = true;
+        for (const Resolution &mode : legacyModes) {
+            ResolutionOption option;
+            option.mode = mode.id();
+            option.width = mode.width();
+            option.height = mode.height();
+            option.refresh = qRound(mode.rate() * 1000.0);
+            option.preferred = first;
+            option.current = mode == monitor->currentMode();
+            result.append(option);
+            first = false;
+        }
+        return result;
+    }
+
+    for (const GxdeScreen::Mode &mode : gxdeModes) {
+        ResolutionOption option;
+        option.width = mode.width;
+        option.height = mode.height;
+        option.refresh = mode.refresh;
+        option.preferred = mode.preferred;
+        option.current = mode.current;
+
+        int bestRefreshDelta = std::numeric_limits<int>::max();
+        for (const Resolution &legacyMode : legacyModes) {
+            if (legacyMode.width() != mode.width ||
+                    legacyMode.height() != mode.height) {
+                continue;
+            }
+            const int refreshDelta =
+                qAbs(qRound(legacyMode.rate() * 1000.0) - mode.refresh);
+            if (refreshDelta < bestRefreshDelta) {
+                bestRefreshDelta = refreshDelta;
+                option.mode = legacyMode.id();
+            }
+        }
+        result.append(option);
+    }
+    return result;
+}
+
+QList<MonitorSettingDialog::ResolutionOption>
+MonitorSettingDialog::commonModes() const {
+    if (!m_model || m_model->monitorList().isEmpty())
+        return {};
+
+    QList<ResolutionOption> result =
+        availableModes(m_model->monitorList().first());
+    for (int index = 1; index < m_model->monitorList().size(); ++index) {
+        const QList<ResolutionOption> modes =
+            availableModes(m_model->monitorList().at(index));
+        for (auto it = result.begin(); it != result.end();) {
+            const auto match = std::find_if(
+                modes.cbegin(), modes.cend(),
+                [it](const ResolutionOption &mode) {
+                    return mode.width == it->width &&
+                           mode.height == it->height;
+                });
+            if (match == modes.cend())
+                it = result.erase(it);
+            else
+                ++it;
+        }
+    }
+    return result;
+}
+
+void MonitorSettingDialog::updateModeList(
+        const QList<ResolutionOption> &modeList)
 {
     m_resolutionsModel->clear();
+    m_modeOptions = modeList;
 
-    bool first = true;
-    for (auto r : modeList)
-    {
-        const QString option = QString::number(r.width()) + "×" + QString::number(r.height()) + "+" + QString::number(round(r.rate())) + "Hz";
+    for (const ResolutionOption& mode : modeList) {
+        const QString option = QString::number(mode.width) + "×" +
+            QString::number(mode.height) + "+" +
+            QString::number(qRound(mode.refresh / 1000.0)) + "Hz";
 
-        if (first)
-        {
-            first = false;
+        if (mode.preferred)
             m_resolutionsModel->appendOption(option + tr(" (Recommended)"));
-        } else {
+        else
             m_resolutionsModel->appendOption(option);
-        }
     }
 
     Q_EMIT m_resolutionsModel->layoutChanged();
+    adjustSize();
+#ifdef HAS_LAYER_SHELL
+    if (m_layerShellWindow)
+        configureLayerShell();
+#endif
 }
 
 void MonitorSettingDialog::onMonitorResolutionSelected(const int index)
 {
+    if (index < 0 || index >= m_modeOptions.size() || !m_monitor)
+        return;
+
     const bool intersect = m_primary && m_model->monitorsIsIntersect();
 
     if (intersect)
     {
-        const ResolutionList modeList = m_model->monitorsSameModeList();
-        Q_ASSERT(modeList.size() > index);
-        const Resolution mode = modeList[index];
+        const ResolutionOption selected = m_modeOptions.at(index);
 
         for (Monitor* mon : m_model->monitorList()) {
-            const ResolutionList& list = mon->modeList();
-            for (auto it = list.cbegin(); it != list.cend(); ++it) {
-                if (it->width() == mode.width() && it->height() == mode.height()) {
-                    Q_EMIT requestSetMonitorResolution(mon, it->id());
-                    break;
-                }
+            const QList<ResolutionOption> modes = availableModes(mon);
+            const auto match = std::find_if(
+                modes.cbegin(), modes.cend(),
+                [&selected](const ResolutionOption &mode) {
+                    return mode.width == selected.width &&
+                           mode.height == selected.height;
+                });
+            if (match != modes.cend()) {
+                Q_EMIT requestSetMonitorResolution(
+                    mon, match->mode, match->width, match->height,
+                    match->refresh);
             }
         }
     } else {
-        const auto modeList = m_monitor->modeList();
-        Q_ASSERT(modeList.size() > index);
-
-        Q_EMIT requestSetMonitorResolution(m_monitor, modeList[index].id());
+        const ResolutionOption selected = m_modeOptions.at(index);
+        Q_EMIT requestSetMonitorResolution(
+            m_monitor, selected.mode, selected.width, selected.height,
+            selected.refresh);
     }
+    onMonitorModeChanged();
 }
 
 #ifndef DCC_DISABLE_ROTATE
@@ -398,8 +609,11 @@ void MonitorSettingDialog::onRotateBtnClicked()
 }
 #endif
 
-void MonitorSettingDialog::onMonitorPress(Monitor *mon)
-{
+void MonitorSettingDialog::onMonitorPress(Monitor* mon) {
+    if (Wayland::isWaylandSession()) {
+        return;
+    }
+
     m_fullIndication->setGeometry(mon->rect());
     m_fullIndication->show();
 }

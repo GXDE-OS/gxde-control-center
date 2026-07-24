@@ -54,7 +54,13 @@ void MonitorIndicator::resizeEvent(QResizeEvent *e)
     rectangle.height = e->size().height();
 
     // need to restore the cut area, if not,cut out will be repeated.
-    Display *xdisplay = qApp->nativeInterface<QNativeInterface::QX11Application>()->display();
+    auto* x11Application =
+        qApp->nativeInterface<QNativeInterface::QX11Application>();
+    if (!x11Application || !x11Application->display()) {
+        return;
+    }
+
+    Display* xdisplay = x11Application->display();
     XShapeCombineRectangles(xdisplay, winId(), ShapeBounding, 0, 0, &rectangle, 1, ShapeSet, YXBanded);
 
     rectangle.x = 10;

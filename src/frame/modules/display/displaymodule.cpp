@@ -35,6 +35,7 @@
 #include "brightnesspage.h"
 #include "scalingpage.h"
 #include "customconfigpage.h"
+#include "frame.h"
 #include "vncremote.h"
 #include "widgets/timeoutdialog.h"
 
@@ -45,9 +46,25 @@
 #endif
 
 #include <QApplication>
+#include <QScreen>
 
 using namespace dcc;
 using namespace dcc::display;
+
+namespace {
+
+QScreen* screenForMonitor(Monitor* monitor) {
+    if (monitor) {
+        for (QScreen* screen : qApp->screens()) {
+            if (screen->name() == monitor->name()) {
+                return screen;
+            }
+        }
+    }
+    return qApp->primaryScreen();
+}
+
+}  // namespace
 
 DisplayModule::DisplayModule(FrameProxyInterface *frame, QObject *parent)
     : QObject(parent),
@@ -202,7 +219,16 @@ ModuleWidget *DisplayModule::moduleWidget()
 void DisplayModule::showCustomSettings()
 {
     const int displayMode = m_displayModel->displayMode();
-    Q_ASSERT(displayMode == CUSTOM_MODE);
+    if (!GxdeScreen::isAvailable() && displayMode != CUSTOM_MODE) {
+        return;
+    }
+
+    if (m_displayModel->monitorList().isEmpty() ||
+            !m_displayModel->primaryMonitor()) {
+        qWarning() << "(Display) Init: Cannot open custom settings w/o"
+            << "an available primary monitor, aborted!!";
+        return;
+    }
 
     // open all monitors
     for (auto mon : m_displayModel->monitorList())
@@ -276,16 +302,21 @@ void DisplayModule::showMiracastPage(const QDBusObjectPath &path)
 }
 #endif
 
-void DisplayModule::onDetailPageRequestSetResolution(Monitor *mon, const int mode)
-{
+void DisplayModule::onDetailPageRequestSetResolution(Monitor* mon, int mode,
+        int width, int height, int refresh) {
     const DisplayWorker::OutputModeState previousOutput =
         m_displayWorker->currentOutputMode(mon);
     const int previousMode = m_displayWorker->currentMonitorModeId(mon);
     qInfo() << "(Display) Change: Resolution has been changed w/"
-            << "output ->" << previousOutput.output
-            << "| old ->" << previousOutput.width << previousOutput.height
-            << previousOutput.refresh << "| targetMode ->" << mode;
-    m_displayWorker->setMonitorResolution(mon, mode);
+        << "output ->" << previousOutput.output
+        << "| old ->" << previousOutput.width << previousOutput.height
+        << previousOutput.refresh << "| target ->"
+        << width << height << refresh << "| legacyMode ->" << mode;
+    if (!m_displayWorker->setMonitorResolutionBySize(
+            mon, mode, width, height, refresh)) {
+        qWarning() << "(Display) Change: Failed to set output mode";
+        return;
+    }
 
     if (showTimeoutDialog(mon) == QDialog::Accepted) {
         m_displayWorker->saveChanges();
@@ -297,12 +328,15 @@ void DisplayModule::onDetailPageRequestSetResolution(Monitor *mon, const int mod
         m_displayWorker->setMonitorResolution(mon, previousMode);
 }
 
-void DisplayModule::onCustomPageRequestSetResolution(Monitor *mon, const int mode)
-{
+void DisplayModule::onCustomPageRequestSetResolution(Monitor* mon, int mode,
+        int width, int height, int refresh) {
     const DisplayWorker::OutputModeState previousOutput =
         m_displayWorker->currentOutputMode(mon);
     const int previousMode = m_displayWorker->currentMonitorModeId(mon);
-    m_displayWorker->setMonitorResolution(mon, mode);
+    if (!m_displayWorker->setMonitorResolutionBySize(
+            mon, mode, width, height, refresh)) {
+        return;
+    }
 
     if (m_displayModel->isMerge()) {
         return;
@@ -317,16 +351,13 @@ void DisplayModule::onCustomPageRequestSetResolution(Monitor *mon, const int mod
 int DisplayModule::showTimeoutDialog(Monitor *mon)
 {
     TimeoutDialog *timeoutDialog = new TimeoutDialog(15);
+    timeoutDialog->setPlacementScreen(
+        screenForMonitor(mon),
+        mon && mon->isPrimary() ? FRAME_WIDTH : 0);
 
     // Keep the control-center layer visible behind its modal confirmation.
     m_frameProxy->setFrameAutoHide(this, false);
 
-    qreal radio = qApp->devicePixelRatio();
-    connect(mon, &Monitor::geometryChanged, timeoutDialog, [=] {
-        if (timeoutDialog) {
-            timeoutDialog->moveToCenterByRect(QRect(mon->x(), mon->y(), mon->w() / radio, mon->h() / radio));
-        }
-    }, Qt::QueuedConnection);
     connect(timeoutDialog, &TimeoutDialog::closed, timeoutDialog, &TimeoutDialog::deleteLater);
 
     const int result = timeoutDialog->exec();

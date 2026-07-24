@@ -29,6 +29,7 @@
 #include "displaycontrolpage.h"
 #include "displaymodel.h"
 #include "displayworker.h"
+#include "wayland/gxdescreen.h"
 #include "widgets/editablenextpagewidget.h"
 #include "widgets/nextpagewidget.h"
 #include "widgets/settingsgroup.h"
@@ -142,6 +143,11 @@ DisplayWidget::DisplayWidget()
 
         // save/record current mode/config state in order to restore later
         Q_EMIT requestRecordCurrentState();
+
+        if (GxdeScreen::isAvailable()) {
+            Q_EMIT requestModifyConfig();
+            return;
+        }
 
         if (m_model->displayMode() == CUSTOM_MODE && m_model->config() == m_model->DDE_Display_Config) {
             Q_EMIT requestModifyConfig();
@@ -275,10 +281,19 @@ void DisplayWidget::onScreenSizeChanged() const
     int height = m_model->screenHeight();
     const QList<Monitor *> monitors = m_model->monitorList();
     if (monitors.size() == 1) {
-        const Resolution currentMode = monitors.first()->currentMode();
-        if (currentMode.width() > 0 && currentMode.height() > 0) {
-            width = currentMode.width();
-            height = currentMode.height();
+        const Monitor* monitor = monitors.first();
+        bool foundOutput = false;
+        for (const GxdeScreen::Output &output : GxdeScreen::outputs()) {
+            if (output.name == monitor->name() && output.enabled) {
+                width = output.width;
+                height = output.height;
+                foundOutput = true;
+                break;
+            }
+        }
+        if (!foundOutput && monitor->w() > 0 && monitor->h() > 0) {
+            width = monitor->w();
+            height = monitor->h();
         }
     }
 

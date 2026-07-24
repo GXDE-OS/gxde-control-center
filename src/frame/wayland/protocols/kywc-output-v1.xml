@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="kywc_output_v1">
+  <copyright><![CDATA[
+    SPDX-FileCopyrightText: 2024 KylinSoft Co., Ltd.
+    SPDX-License-Identifier: MulanPSL-2.0
+  ]]></copyright>
+
+  <interface name="kywc_output_manager_v1" version="1">
+    <request name="stop"/>
+    <event name="output">
+      <arg name="output" type="new_id" interface="kywc_output_v1"/>
+      <arg name="uuid" type="string"/>
+    </event>
+    <event name="primary">
+      <arg name="output" type="object" interface="kywc_output_v1"/>
+    </event>
+    <event name="done"/>
+    <event name="finished" type="destructor"/>
+  </interface>
+
+  <interface name="kywc_output_v1" version="1">
+    <request name="destroy" type="destructor"/>
+    <event name="name"><arg name="name" type="string"/></event>
+    <event name="make"><arg name="make" type="string"/></event>
+    <event name="model"><arg name="model" type="string"/></event>
+    <event name="serial_number">
+      <arg name="serial_number" type="string"/>
+    </event>
+    <event name="description">
+      <arg name="description" type="string"/>
+    </event>
+    <event name="physical_size">
+      <arg name="width" type="int"/>
+      <arg name="height" type="int"/>
+    </event>
+    <event name="mode">
+      <arg name="mode" type="new_id" interface="kywc_output_mode_v1"/>
+    </event>
+    <event name="capabilities"><arg name="flags" type="uint"/></event>
+    <event name="enabled"><arg name="enabled" type="int"/></event>
+    <event name="current_mode">
+      <arg name="mode" type="object" interface="kywc_output_mode_v1"/>
+    </event>
+    <event name="position">
+      <arg name="x" type="int"/>
+      <arg name="y" type="int"/>
+    </event>
+    <event name="transform"><arg name="transform" type="int"/></event>
+    <event name="scale"><arg name="scale" type="fixed"/></event>
+    <event name="power"><arg name="power" type="uint"/></event>
+    <event name="brightness"><arg name="brightness" type="uint"/></event>
+    <event name="color_temp"><arg name="color_temp" type="uint"/></event>
+    <event name="finished"/>
+  </interface>
+
+  <interface name="kywc_output_mode_v1" version="1">
+    <request name="destroy" type="destructor"/>
+    <event name="size">
+      <arg name="width" type="int"/>
+      <arg name="height" type="int"/>
+    </event>
+    <event name="refresh"><arg name="refresh" type="int"/></event>
+    <event name="preferred"/>
+    <event name="finished"/>
+  </interface>
+</protocol>

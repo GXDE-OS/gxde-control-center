@@ -27,6 +27,9 @@
 #include "widgets/settingsgroup.h"
 #include "monitor.h"
 #include "displaymodel.h"
+#include "wayland/gxdescreen.h"
+
+#include <limits>
 
 using namespace dcc;
 using namespace dcc::widgets;
@@ -60,32 +63,80 @@ void ResolutionDetailPage::setModel(DisplayModel *model)
         item->deleteLater();
     }
     m_options.clear();
+    m_currentItem = nullptr;
+
+    if (!model || model->monitorList().isEmpty())
+        return;
 
     const Monitor *mon = model->monitorList().first();
-    const auto modes = mon->modeList();
-    const auto currentMode = mon->currentMode();
+    const QList<GxdeScreen::Mode> gxdeModes =
+        GxdeScreen::outputModes(mon->name());
+    const ResolutionList legacyModes = mon->modeList();
+    const Resolution currentMode = mon->currentMode();
 
-    bool first = true;
-    for (auto m : modes)
+    QList<ResolutionOption> modes;
+    QList<bool> preferredModes;
+    QList<bool> currentModes;
+    if (!gxdeModes.isEmpty()) {
+        for (const GxdeScreen::Mode &mode : gxdeModes) {
+            ResolutionOption option;
+            option.width = mode.width;
+            option.height = mode.height;
+            option.refresh = mode.refresh;
+
+            int bestRefreshDelta = std::numeric_limits<int>::max();
+            for (const Resolution &legacyMode : legacyModes) {
+                if (legacyMode.width() != mode.width ||
+                        legacyMode.height() != mode.height) {
+                    continue;
+                }
+                const int refreshDelta =
+                    qAbs(qRound(legacyMode.rate() * 1000.0) - mode.refresh);
+                if (refreshDelta < bestRefreshDelta) {
+                    bestRefreshDelta = refreshDelta;
+                    option.mode = legacyMode.id();
+                }
+            }
+
+            modes.append(option);
+            preferredModes.append(mode.preferred);
+            currentModes.append(mode.current);
+        }
+    } else {
+        bool first = true;
+        for (const Resolution &mode : legacyModes) {
+            ResolutionOption option;
+            option.mode = mode.id();
+            option.width = mode.width();
+            option.height = mode.height();
+            option.refresh = qRound(mode.rate() * 1000.0);
+            modes.append(option);
+            preferredModes.append(first);
+            currentModes.append(mode == currentMode);
+            first = false;
+        }
+    }
+
+    for (int index = 0; index < modes.size(); ++index)
     {
-        const QString res = QString::number(m.width()) + "×" + QString::number(m.height()) + "+" + QString::number(round(m.rate())) + "Hz";
+        const ResolutionOption &mode = modes.at(index);
+        const QString res = QString::number(mode.width) + "×" +
+            QString::number(mode.height) + "+" +
+            QString::number(qRound(mode.refresh / 1000.0)) + "Hz";
         OptionItem *item = new OptionItem;
         item->setContentsMargins(20, 0, 10, 0);
 
         connect(item, &OptionItem::selectedChanged, this, &ResolutionDetailPage::onItemClicked);
 
-        if (first)
-        {
-            first = false;
+        if (preferredModes.at(index))
             item->setTitle(res + tr(" (Recommended)"));
-        } else {
+        else
             item->setTitle(res);
-        }
 
-        if (m == currentMode)
+        if (currentModes.at(index))
             m_currentItem = item;
 
-        m_options[item] = m.id();
+        m_options[item] = mode;
         m_resolutions->appendItem(item);
     }
 
@@ -103,7 +154,9 @@ void ResolutionDetailPage::setModel(DisplayModel *model)
 void ResolutionDetailPage::onItemClicked()
 {
     OptionItem *item = qobject_cast<OptionItem *>(sender());
-    Q_ASSERT(m_options.contains(item));
+    if (!item || !m_options.contains(item) || !m_model ||
+            m_model->monitorList().isEmpty())
+        return;
 
     if (item == m_currentItem)
         return;
@@ -117,12 +170,16 @@ void ResolutionDetailPage::onItemClicked()
 
     m_currentItem = item;
 
-    Q_EMIT requestSetResolution(m_model->monitorList().first(), m_options[item]);
+    const ResolutionOption option = m_options.value(item);
+    Q_EMIT requestSetResolution(m_model->monitorList().first(), option.mode,
+                                option.width, option.height, option.refresh);
+    refreshCurrentResolution();
 }
 
 void ResolutionDetailPage::refreshCurrentResolution()
 {
-    if (!m_model || m_options.isEmpty()) {
+    if (!m_model || m_model->monitorList().isEmpty() ||
+            m_options.isEmpty()) {
         return;
     }
 
@@ -131,12 +188,47 @@ void ResolutionDetailPage::refreshCurrentResolution()
         return;
     }
 
-    if (m_currentItem) {
+    int width = 0;
+    int height = 0;
+    int refresh = 0;
+    for (const GxdeScreen::Output &output : GxdeScreen::outputs()) {
+        if (output.name == mon->name()) {
+            width = output.width;
+            height = output.height;
+            refresh = output.refresh;
+            break;
+        }
+    }
+
+    OptionItem *currentItem = nullptr;
+    int bestRefreshDelta = std::numeric_limits<int>::max();
+    if (width > 0 && height > 0) {
+        for (auto it = m_options.cbegin(); it != m_options.cend(); ++it) {
+            const ResolutionOption &option = it.value();
+            if (option.width != width || option.height != height)
+                continue;
+            const int refreshDelta = qAbs(option.refresh - refresh);
+            if (refreshDelta < bestRefreshDelta) {
+                bestRefreshDelta = refreshDelta;
+                currentItem = it.key();
+            }
+        }
+    } else {
+        const int currentModeId = mon->currentMode().id();
+        for (auto it = m_options.cbegin(); it != m_options.cend(); ++it) {
+            if (it.value().mode == currentModeId) {
+                currentItem = it.key();
+                break;
+            }
+        }
+    }
+
+    if (m_currentItem && m_currentItem != currentItem) {
         m_currentItem->blockSignals(true);
         m_currentItem->setSelected(false);
         m_currentItem->blockSignals(false);
     }
-    m_currentItem = m_options.key(m_model->monitorList().first()->currentMode().id(), nullptr);
+    m_currentItem = currentItem;
     if (m_currentItem) {
         m_currentItem->blockSignals(true);
         m_currentItem->setSelected(true);

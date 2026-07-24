@@ -82,10 +82,13 @@ bool DisplayModel::monitorsIsIntersect() const
     if (m_monitors.size() < 2)
         return false;
 
-    // only support 2 screens
-    Q_ASSERT(m_monitors.size() == 2);
-
-    return m_monitors.first()->rect().intersects(m_monitors.last()->rect());
+    const QRect reference = m_monitors.first()->rect();
+    for (int index = 1; index < m_monitors.size(); ++index) {
+        if (!reference.intersects(m_monitors.at(index)->rect())) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void DisplayModel::setScreenRate(const int r)
