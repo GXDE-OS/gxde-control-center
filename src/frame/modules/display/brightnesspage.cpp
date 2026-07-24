@@ -53,7 +53,9 @@ BrightnessPage::BrightnessPage(QWidget *parent)
     m_delayDisableALABTimer->setSingleShot(true);
     m_delayDisableALABTimer->setInterval(500);
 
-    m_powerInter->setSync(true);
+    // The legacy Power service is not present in a native GXDE session.
+    // Never let its property reads block the brightness page or slider.
+    m_powerInter->setSync(false);
 
     setTitle(tr("Brightness"));
     setContent(w);
@@ -93,13 +95,15 @@ void BrightnessPage::initUI()
     // add auto ambient light
     m_autoLightMode = new SwitchWidget;
     m_autoLightMode->setTitle(tr("Auto Brightness"));
-    m_autoLightMode->setChecked(m_powerInter->ambientLightAdjustBrightness());
+    const bool powerServiceAvailable = m_powerInter->isValid();
+    m_autoLightMode->setChecked(
+        powerServiceAvailable && m_powerInter->ambientLightAdjustBrightness());
 
     SettingsGroup *autoLightGrp = new SettingsGroup;
     autoLightGrp->appendItem(m_autoLightMode);
     m_centralLayout->addWidget(autoLightGrp);
 
-    if (!m_powerInter->hasAmbientLightSensor()) {
+    if (!powerServiceAvailable || !m_powerInter->hasAmbientLightSensor()) {
         m_autoLightMode->setVisible(false);
     }
 
@@ -147,6 +151,9 @@ void BrightnessPage::initConnect()
 
 void BrightnessPage::disableALABrightness()
 {
+    if (!m_powerInter->isValid())
+        return;
+
     if (m_powerInter->ambientLightAdjustBrightness()) {
         m_powerInter->setAmbientLightAdjustBrightness(false);
     }

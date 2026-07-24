@@ -537,8 +537,15 @@ void DisplayWorker::setMonitorResolution(Monitor *mon, const int mode)
 
 void DisplayWorker::setMonitorBrightness(Monitor *mon, const double brightness)
 {
+    if (!mon)
+        return;
+
     const double value = std::max(brightness, m_model->minimumBrightnessScale());
-    if (GxdeScreen::setBrightness(mon->name(), value)) {
+    const bool gxdeConfigured = GxdeScreen::setBrightness(mon->name(), value);
+    qInfo() << "(GXDE display) set brightness"
+            << mon->name() << qRound(value * 100.0)
+            << "result=" << gxdeConfigured;
+    if (gxdeConfigured) {
         mon->setBrightness(value);
         return;
     }
