@@ -1,4 +1,4 @@
-gxde-control-center (6.0.10) UNRELEASED; urgency=medium
+gxde-control-center (6.0.11) UNRELEASED; urgency=medium
 
   * 暂时禁用更新后的重启提示对话框
   * 修复屏幕缩放调整条不对准刻度的问题
@@ -48,8 +48,11 @@ gxde-control-center (6.0.10) UNRELEASED; urgency=medium
   * 修复 Wayland 下控制中心位置异常的问题
   * 修复 Wayland 下启动器无法自动隐藏的问题
   * Wayland 下支持设置分辨率与亮度
+  * Wayland下暂时屏蔽键盘相关dbus接口避免突然卡死
+  * 修复使用 dbus 冷启动控制中心会崩溃的问题
+  * 禁用滚动条
 
- -- gfdgd_xi <3025613752@qq.com>  Sat, 25 Jul 2026 14:14:06 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Tue, 28 Jul 2026 17:23:38 +0800
 
 gxde-control-center (4.10.29.1) UNRELEASED; urgency=medium
 
