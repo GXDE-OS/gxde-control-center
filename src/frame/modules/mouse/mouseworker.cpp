@@ -23,6 +23,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "dapplication.h"
 #include "mouseworker.h"
 using namespace dcc;
 using namespace dcc::mouse;
@@ -36,6 +37,13 @@ MouseWorker::MouseWorker(MouseModel *model, QObject *parent)
     , m_dbusDevices(new InputDevices(Service, "/com/deepin/daemon/InputDevices", QDBusConnection::sessionBus(), this))
     , m_model(model)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        m_dbusMouse->setTimeout(1);
+        m_dbusTouchPad->setTimeout(1);
+        m_dbusTrackPoint->setTimeout(1);
+        m_dbusDevices->setTimeout(1);
+    }
+
     connect(m_dbusMouse, &Mouse::ExistChanged, m_model, &MouseModel::setMouseExist);
     connect(m_dbusMouse, &Mouse::LeftHandedChanged, this, &MouseWorker::setLeftHandState);
     connect(m_dbusMouse, &Mouse::NaturalScrollChanged, this, &MouseWorker::setMouseNaturalScrollState);
