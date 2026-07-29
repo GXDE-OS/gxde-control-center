@@ -154,7 +154,6 @@ private:
 #endif
 
     bool m_shown;
-    bool m_initialized;
     bool m_autoHide;
     bool m_debugAutoHide;
     double m_opacity;

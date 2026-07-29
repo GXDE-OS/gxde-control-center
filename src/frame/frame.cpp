@@ -67,7 +67,6 @@ Frame::Frame(QWidget *parent)
       m_wmHelper(DWindowManagerHelper::instance()),
 
       m_shown(false),
-      m_initialized(false),
       m_autoHide(true),
       m_debugAutoHide(true),
       m_opacity(0.4)
@@ -221,7 +220,6 @@ void Frame::init()
 #ifdef DCC_PREPARE_INIT
     prepareAllSettingsPage();
 #endif
-    m_initialized = true;
 }
 
 #ifdef HAS_LAYER_SHELL
@@ -541,12 +539,6 @@ void Frame::show()
             << "platform=" << QGuiApplication::platformName()
             << "size=" << size()
             << "stack=" << m_frameWidgetStack.size();
-
-    // 如未执行 init() 延迟调用 show()
-    if (!m_initialized) {
-        QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
-        return;
-    }
 
     if (m_appearAnimation.state() == QPropertyAnimation::Running)
         return;
