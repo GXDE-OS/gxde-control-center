@@ -32,6 +32,7 @@
 #include <QStyle>
 #include <QDBusMetaType>
 #include <QMap>
+#include <wayland-client.h>
 
 #ifdef HAS_LAYER_SHELL
 #include <LayerShellQt/Shell>
@@ -149,19 +150,33 @@ static void onFontSizeChanged(const float pointSizeF) {
     }
 }
 
+static bool checkWaylandReallyWorks() {
+    const char *display = getenv("WAYLAND_DISPLAY");
+    if (!display) return false;
+    
+    // 尝试连接 Wayland socket
+    struct wl_display *d = wl_display_connect(display);
+    if (d) {
+        wl_display_disconnect(d);
+        return true; // 真的用 Wayland
+    }
+    return false; // 假的，用 X11
+}
+
+
 int main(int argc, char *argv[])
 {
     // 修复点击键盘与语言和鼠标子页设置崩溃的问题
     qDBusRegisterMetaType<QMap<QString, QString>>();
 
-    const bool waylandSession = !qgetenv("WAYLAND_DISPLAY").isEmpty();
-    if (waylandSession) {
+    if (checkWaylandReallyWorks()) {
         qunsetenv("DTK2_XWAYLAND");
         qputenv("QT_QPA_PLATFORM", "wayland");
 #ifdef HAS_LAYER_SHELL
         LayerShellQt::Shell::useLayerShell();
 #endif
     } else {
+        qunsetenv("WAYLAND_DISPLAY");
         DApplication::loadDXcbPlugin();
     }
 
