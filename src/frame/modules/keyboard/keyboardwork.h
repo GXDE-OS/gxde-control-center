@@ -135,6 +135,9 @@ public Q_SLOTS:
     void onShortcutCleanFinished(QDBusPendingCallWatcher *watch);
     void onCustomConflictCleanFinished(QDBusPendingCallWatcher *w);
 
+    // key capture result delivered by gxde-wlcom under Wayland
+    void onWlcomKeyEvent(bool pressed, const QString &shortcut);
+
 private:
     int converToDBusDelay(int value);
     int converToModelDelay(int value);

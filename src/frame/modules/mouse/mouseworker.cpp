@@ -25,9 +25,22 @@
 
 #include "dapplication.h"
 #include "mouseworker.h"
+#include "wayland/gxdeinput.h"
 using namespace dcc;
 using namespace dcc::mouse;
 const QString Service = "com.deepin.daemon.InputDevices";
+
+// gxde-wlcom uses libinput pointer accel speed in [-1, 1] while the control
+// center uses a "motion factor" in [0.2, 2.8]; translate between the two.
+static double factorFromWlcomSpeed(double speed)
+{
+    return 1.0 + speed * 1.8;
+}
+
+static double wlcomSpeedFromFactor(double factor)
+{
+    return qBound(-1.0, (factor - 1.0) / 1.8, 1.0);
+}
 
 MouseWorker::MouseWorker(MouseModel *model, QObject *parent)
     : QObject(parent)
@@ -91,6 +104,47 @@ void MouseWorker::deactive()
 
 void MouseWorker::init()
 {
+    // Under Wayland the X11 based com.deepin.daemon.InputDevices is disabled,
+    // so read the values straight from gxde-wlcom instead.
+    if (Dtk::Widget::DApplication::isWayland()) {
+        const QStringList mice = GxdeInput::mouseDevices();
+        const QStringList tpads = GxdeInput::touchpadDevices();
+
+        m_model->setMouseExist(!mice.isEmpty());
+        m_model->setTpadExist(!tpads.isEmpty());
+        m_model->setRedPointExist(false);
+
+        bool v = false;
+        if (GxdeInput::getLeftHanded(mice + tpads, &v))
+            setLeftHandState(v);
+        if (GxdeInput::getNaturalScroll(mice, &v))
+            setMouseNaturalScrollState(v);
+        if (GxdeInput::getNaturalScroll(tpads, &v))
+            setTouchNaturalScrollState(v);
+        if (GxdeInput::getDisableWhileTyping(tpads, &v))
+            setDisTyping(v);
+        if (GxdeInput::getTapToClick(tpads, &v))
+            setTapClick(v);
+
+        quint32 time = 0;
+        if (GxdeInput::getDoubleClickTime(mice + tpads, &time))
+            setDouClick(static_cast<int>(time));
+
+        double speed = 0.0;
+        if (GxdeInput::getPointerSpeed(mice, &speed))
+            setMouseMotionAcceleration(factorFromWlcomSpeed(speed));
+        if (GxdeInput::getPointerSpeed(tpads, &speed))
+            setTouchpadMotionAcceleration(factorFromWlcomSpeed(speed));
+
+        if (GxdeInput::getAccelProfileAdaptive(mice, &v))
+            setAccelProfile(v);
+
+        quint32 sendEventsMode = 0;
+        if (GxdeInput::getTouchpadSendEvents(tpads, &sendEventsMode))
+            setDisTouchPad(sendEventsMode == 2); // DISABLED_ON_EXTERNAL_MOUSE
+        return;
+    }
+
     setLeftHandState(m_dbusMouse->leftHanded());
     setMouseNaturalScrollState(m_dbusMouse->naturalScroll());
     setTouchNaturalScrollState(m_dbusTouchPad->naturalScroll());
@@ -198,6 +252,10 @@ void MouseWorker::onDefaultReset()
 
 void MouseWorker::onLeftHandStateChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setLeftHanded(GxdeInput::mouseDevices() + GxdeInput::touchpadDevices(), state);
+        return;
+    }
     m_dbusMouse->setLeftHanded(state);
     m_dbusTouchPad->setLeftHanded(state);
     m_dbusTrackPoint->setLeftHanded(state);
@@ -205,52 +263,97 @@ void MouseWorker::onLeftHandStateChanged(const bool state)
 
 void MouseWorker::onMouseNaturalScrollStateChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setNaturalScroll(GxdeInput::mouseDevices(), state);
+        return;
+    }
     m_dbusMouse->setNaturalScroll(state);
 }
 
 void MouseWorker::onTouchNaturalScrollStateChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setNaturalScroll(GxdeInput::touchpadDevices(), state);
+        return;
+    }
     m_dbusTouchPad->setNaturalScroll(state);
 }
 
 void MouseWorker::onDisTypingChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setDisableWhileTyping(GxdeInput::touchpadDevices(), state);
+        return;
+    }
     m_dbusTouchPad->setDisableIfTyping(state);
 }
 
 void MouseWorker::onDisTouchPadChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        // 2 = LIBINPUT_CONFIG_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE
+        GxdeInput::setTouchpadSendEvents(GxdeInput::touchpadDevices(), state ? 2 : 0);
+        return;
+    }
     m_dbusMouse->setDisableTpad(state);
 }
 
 void MouseWorker::onTapClick(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setTapToClick(GxdeInput::touchpadDevices(), state);
+        return;
+    }
     m_dbusTouchPad->setTapClick(state);
 }
 
 void MouseWorker::onDouClickChanged(const int &value)
 {
-    m_dbusMouse->setDoubleClick(converToDouble(value));
-    m_dbusTouchPad->setDoubleClick(converToDouble(value));
+    const int time = converToDouble(value);
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setDoubleClickTime(GxdeInput::mouseDevices() + GxdeInput::touchpadDevices(),
+                                      static_cast<quint32>(time));
+        return;
+    }
+    m_dbusMouse->setDoubleClick(time);
+    m_dbusTouchPad->setDoubleClick(time);
 }
 
 void MouseWorker::onMouseMotionAccelerationChanged(const int &value)
 {
-    m_dbusMouse->setMotionAcceleration(converToMotionAcceleration(value));
+    const double factor = converToMotionAcceleration(value);
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setPointerSpeed(GxdeInput::mouseDevices(), wlcomSpeedFromFactor(factor));
+        return;
+    }
+    m_dbusMouse->setMotionAcceleration(factor);
 }
 
 void MouseWorker::onAccelProfileChanged(const bool state)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setAccelProfileAdaptive(GxdeInput::mouseDevices(), state);
+        return;
+    }
     m_dbusMouse->setAdaptiveAccelProfile(state);
 }
 
 void MouseWorker::onTouchpadMotionAccelerationChanged(const int &value)
 {
-    m_dbusTouchPad->setMotionAcceleration(converToMotionAcceleration(value));
+    const double factor = converToMotionAcceleration(value);
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setPointerSpeed(GxdeInput::touchpadDevices(), wlcomSpeedFromFactor(factor));
+        return;
+    }
+    m_dbusTouchPad->setMotionAcceleration(factor);
 }
 
 void MouseWorker::onTrackPointMotionAccelerationChanged(const int &value)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        // gxde-wlcom does not expose trackpoints separately; skip.
+        return;
+    }
     m_dbusTrackPoint->setMotionAcceleration(converToMotionAcceleration(value));
 }
 

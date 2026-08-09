@@ -26,11 +26,17 @@
 #include "keyboardwork.h"
 #include "shortcutitem.h"
 #include "keyboardmodel.h"
+#include "dapplication.h"
+#include "wayland/gxdeinput.h"
 #include <algorithm>
 #include <QTime>
 #include <QDebug>
 #include <QLocale>
 #include <QCollator>
+#include <QDBusConnection>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 
 namespace dcc {
@@ -38,6 +44,98 @@ namespace keyboard{
 
 
 bool caseInsensitiveLessThan(const MetaData &s1, const MetaData &s2);
+
+// Convert a gxde-wlcom binding string ("Ctrl+Alt+a:no") to the display
+// format used by the deepin shortcut UI ("<Control><Alt>a").
+static QString wlcomBindingToDisplay(const QString &binding)
+{
+    QString b = binding;
+    if (b.endsWith(QStringLiteral(":no")))
+        b.chop(3);
+
+    QString modifiers;
+    QString key;
+    const QStringList parts = b.split(QLatin1Char('+'));
+    for (const QString &part : parts) {
+        const QString up = part.toUpper();
+        if (up == QLatin1String("CTRL") || up == QLatin1String("CONTROL"))
+            modifiers += QStringLiteral("<Control>");
+        else if (up == QLatin1String("ALT"))
+            modifiers += QStringLiteral("<Alt>");
+        else if (up == QLatin1String("WIN") || up == QLatin1String("SUPER") ||
+                 up == QLatin1String("META"))
+            modifiers += QStringLiteral("<Super>");
+        else if (up == QLatin1String("SHIFT"))
+            modifiers += QStringLiteral("<Shift>");
+        else
+            key = part;
+    }
+    return modifiers + key;
+}
+
+// Convert the shortcut display format to a gxde-wlcom binding string.
+static QString displayToWlcomBinding(const QString &accels)
+{
+    QString a = accels;
+    QStringList parts;
+    if (a.contains(QLatin1Char('<'))) {
+        // "<Control><Alt>a"
+        a.replace(QLatin1Char('>'), QLatin1Char('+'));
+        a.replace(QLatin1Char('<'), QLatin1Char(' '));
+        a = a.simplified();
+        a.replace(QLatin1Char(' '), QLatin1Char('+'));
+        parts = a.split(QLatin1Char('+'));
+    } else if (a.contains(QLatin1Char('+'))) {
+        parts = a.split(QLatin1Char('+'));
+    } else {
+        parts = a.split(QLatin1Char('-'));
+    }
+
+    QStringList wlcom;
+    for (const QString &part : parts) {
+        const QString up = part.toUpper();
+        if (up == QLatin1String("CONTROL") || up == QLatin1String("CTRL"))
+            wlcom << QStringLiteral("Ctrl");
+        else if (up == QLatin1String("ALT"))
+            wlcom << QStringLiteral("Alt");
+        else if (up == QLatin1String("SUPER") || up == QLatin1String("WIN") ||
+                 up == QLatin1String("META"))
+            wlcom << QStringLiteral("Win");
+        else if (up == QLatin1String("SHIFT"))
+            wlcom << QStringLiteral("Shift");
+        else
+            wlcom << part.toLower();
+    }
+    return wlcom.join(QLatin1Char('+')) + QStringLiteral(":no");
+}
+
+// Convert a gxde-wlcom action config (JSON) to the comma separated "bus
+// string" accepted by com.kylin.Wlcom.InputAction.AddAction.
+static QString actionJsonToBusString(const QJsonObject &obj)
+{
+    const QString type = obj.value(QStringLiteral("actiontype")).toString();
+    if (type == QLatin1String("dbus")) {
+        return QStringLiteral("dbus,%1,%2,%3,%4,%5")
+            .arg(obj.value(QStringLiteral("bustype")).toString(),
+                 obj.value(QStringLiteral("service")).toString(),
+                 obj.value(QStringLiteral("path")).toString(),
+                 obj.value(QStringLiteral("interface")).toString(),
+                 obj.value(QStringLiteral("method")).toString());
+    }
+    if (type == QLatin1String("button"))
+        return QStringLiteral("button,%1").arg(obj.value(QStringLiteral("button")).toString());
+    if (type == QLatin1String("key"))
+        return QStringLiteral("key,%1,%2").arg(obj.value(QStringLiteral("modifiers")).toString(),
+                                                obj.value(QStringLiteral("keys")).toString());
+    // command (default)
+    return QStringLiteral("command,%1").arg(obj.value(QStringLiteral("command")).toString());
+}
+
+static QString actionJsonToBindingType(const QJsonObject &obj)
+{
+    const QString type = obj.value(QStringLiteral("type")).toString();
+    return type.isEmpty() ? QStringLiteral("WLCOM_CUSTOM_DEF") : type;
+}
 
 KeyboardWorker::KeyboardWorker(KeyboardModel *model, QObject *parent)
     : QObject(parent),
@@ -97,10 +195,56 @@ void KeyboardWorker::setShortcutModel(ShortcutModel *model)
     m_shortcutModel = model;
 
     connect(m_keybindInter, &KeybingdingInter::KeyEvent, model, &ShortcutModel::keyEvent);
+
+    // Under Wayland the key capture is provided by gxde-wlcom's GrabNextKey,
+    // deliver its KeyEvent signal in the format the shortcut UI expects.
+    if (Dtk::Widget::DApplication::isWayland()) {
+        QDBusConnection::sessionBus().connect(
+            GxdeInput::Service, GxdeInput::ShortcutPath, GxdeInput::ShortcutInterface,
+            QStringLiteral("KeyEvent"), this,
+            SLOT(onWlcomKeyEvent(bool, QString)));
+    }
+}
+
+void KeyboardWorker::onWlcomKeyEvent(bool pressed, const QString &shortcut)
+{
+    if (m_shortcutModel)
+        m_shortcutModel->keyEvent(pressed, wlcomBindingToDisplay(shortcut));
 }
 
 void KeyboardWorker::refreshShortcut()
 {
+    // Under Wayland the X11 based com.deepin.daemon.Keybinding is disabled,
+    // so enumerate the shortcuts held by gxde-wlcom instead.
+    if (Dtk::Widget::DApplication::isWayland()) {
+        QJsonArray array;
+        const QList<QPair<QString, QString>> actions = GxdeInput::listShortcuts();
+        for (const auto &action : actions) {
+            const QString &bindings = action.first;
+            // skip gesture actions, only keyboard shortcuts are shown here
+            if (bindings.startsWith(QLatin1String("hold:")) ||
+                bindings.startsWith(QLatin1String("swipe:")) ||
+                bindings.startsWith(QLatin1String("pinch:")))
+                continue;
+
+            const QJsonObject obj = QJsonDocument::fromJson(action.second.toUtf8()).object();
+            if (obj.isEmpty() || !obj.value(QStringLiteral("enable")).toBool(true))
+                continue;
+
+            QJsonObject item;
+            item[QStringLiteral("Type")] = 1; // custom
+            item[QStringLiteral("Id")] = bindings;
+            item[QStringLiteral("Name")] = obj.value(QStringLiteral("desc")).toString(bindings);
+            item[QStringLiteral("Exec")] = obj.value(QStringLiteral("command")).toString();
+            QJsonArray accels;
+            accels.append(wlcomBindingToDisplay(bindings));
+            item[QStringLiteral("Accels")] = accels;
+            array.append(item);
+        }
+        m_shortcutModel->onParseInfo(QString::fromUtf8(QJsonDocument(array).toJson()));
+        return;
+    }
+
     QDBusPendingCallWatcher *result = new QDBusPendingCallWatcher(m_keybindInter->ListAllShortcuts(), this);
     connect(result, SIGNAL(finished(QDBusPendingCallWatcher*)), this,
             SLOT(onRequestShortcut(QDBusPendingCallWatcher*)));
@@ -122,8 +266,16 @@ void KeyboardWorker::active()
     m_keyboardInter->blockSignals(false);
     m_keybindInter->blockSignals(false);
 
-    setModelRepeatDelay(m_keyboardInter->repeatDelay());
-    setModelRepeatInterval(m_keyboardInter->repeatInterval());
+    if (Dtk::Widget::DApplication::isWayland()) {
+        int rate = 0, delay = 0;
+        if (GxdeInput::getRepeatInfo(GxdeInput::keyboardDevices(), &rate, &delay)) {
+            setModelRepeatDelay(delay);
+            setModelRepeatInterval(rate > 0 ? qMax(1, 1000 / rate) : 50);
+        }
+    } else {
+        setModelRepeatDelay(m_keyboardInter->repeatDelay());
+        setModelRepeatInterval(m_keyboardInter->repeatInterval());
+    }
 
     m_metaDatas.clear();
     m_letters.clear();
@@ -196,6 +348,28 @@ void KeyboardWorker::modifyShortcutEdit(ShortcutInfo *info)
     if (!info)
         return;
 
+    if (Dtk::Widget::DApplication::isWayland()) {
+        // gxde-wlcom has no "clear keystrokes" op; replace the action by
+        // removing the old binding and registering the new one.
+        QJsonObject old;
+        const QList<QPair<QString, QString>> actions = GxdeInput::listShortcuts();
+        for (const auto &action : actions) {
+            if (action.first == info->id) {
+                old = QJsonDocument::fromJson(action.second.toUtf8()).object();
+                break;
+            }
+        }
+        if (old.isEmpty()) {
+            refreshShortcut();
+            return;
+        }
+        GxdeInput::controlShortcut(QStringLiteral("delete"), info->id);
+        GxdeInput::addShortcut(displayToWlcomBinding(info->accels), info->name,
+                               actionJsonToBusString(old), actionJsonToBindingType(old));
+        refreshShortcut();
+        return;
+    }
+
     if (info->replace) {
         onDisableShortcut(info->replace);
     }
@@ -220,11 +394,29 @@ void KeyboardWorker::modifyShortcutEdit(ShortcutInfo *info)
 
 void KeyboardWorker::addCustomShortcut(const QString &name, const QString &command, const QString &accels)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::addShortcut(displayToWlcomBinding(accels), name,
+                               QStringLiteral("command,") + command,
+                               QStringLiteral("WLCOM_CUSTOM_DEF"));
+        refreshShortcut();
+        return;
+    }
     m_keybindInter->AddCustomShortcut(name, command, accels);
 }
 
 void KeyboardWorker::modifyCustomShortcut(ShortcutInfo *info)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        // Replace the custom shortcut in gxde-wlcom: remove the old binding
+        // and add it back with the new keystroke/name/command.
+        GxdeInput::controlShortcut(QStringLiteral("delete"), info->id);
+        GxdeInput::addShortcut(displayToWlcomBinding(info->accels), info->name,
+                               QStringLiteral("command,") + info->command,
+                               QStringLiteral("WLCOM_CUSTOM_DEF"));
+        refreshShortcut();
+        return;
+    }
+
     if (info->replace) {
         onDisableShortcut(info->replace);
     }
@@ -252,6 +444,10 @@ void KeyboardWorker::modifyCustomShortcut(ShortcutInfo *info)
 
 void KeyboardWorker::grabScreen()
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::grabNextKey();
+        return;
+    }
     m_keybindInter->GrabScreen();
 }
 
@@ -264,17 +460,35 @@ bool KeyboardWorker::checkAvaliable(const QString &key)
 
 void KeyboardWorker::delShortcut(ShortcutInfo* info)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::controlShortcut(QStringLiteral("delete"), info->id);
+        m_shortcutModel->delInfo(info);
+        return;
+    }
     m_keybindInter->DeleteCustomShortcut(info->id);
     m_shortcutModel->delInfo(info);
 }
 
 void KeyboardWorker::setRepeatDelay(int value)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        int rate = 0, delay = 0;
+        GxdeInput::getRepeatInfo(GxdeInput::keyboardDevices(), &rate, &delay);
+        GxdeInput::setRepeatInfo(GxdeInput::keyboardDevices(), rate, converToDBusDelay(value));
+        return;
+    }
     m_keyboardInter->setRepeatDelay(converToDBusDelay(value));
 }
 
 void KeyboardWorker::setRepeatInterval(int value)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        int rate = 0, delay = 0;
+        GxdeInput::getRepeatInfo(GxdeInput::keyboardDevices(), &rate, &delay);
+        const int interval = converToDBusInterval(value);
+        GxdeInput::setRepeatInfo(GxdeInput::keyboardDevices(), interval > 0 ? qMax(1, 1000 / interval) : 25, delay);
+        return;
+    }
     m_keyboardInter->setRepeatInterval(converToDBusInterval(value));
 }
 
@@ -568,6 +782,10 @@ void KeyboardWorker::updateKey(ShortcutInfo *info)
 {
     m_shortcutModel->setCurrentInfo(info);
 
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::grabNextKey();
+        return;
+    }
     m_keybindInter->SelectKeystroke();
 }
 

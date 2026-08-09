@@ -75,6 +75,8 @@ set(FRAME_FILES
                 navigationview.h
                 wayland/gxdescreen.h
                 wayland/gxdescreen.cpp
+                wayland/gxdeinput.h
+                wayland/gxdeinput.cpp
                 wayland/waylandhelper.h
                 wayland/waylandblurhelper.h
                 wayland/waylandblurhelper.cpp
