@@ -75,6 +75,8 @@ set(FRAME_FILES
                 navigationview.h
                 wayland/gxdescreen.h
                 wayland/gxdescreen.cpp
+                wayland/gxdecursor.h
+                wayland/gxdecursor.cpp
                 wayland/gxdeinput.h
                 wayland/gxdeinput.cpp
                 wayland/waylandhelper.h
@@ -180,6 +182,31 @@ set_source_files_properties(
 list(APPEND FRAME_FILES
     ${KYWC_OUTPUT_PROTOCOL_CODE}
     ${KYWC_OUTPUT_PROTOCOL_HEADER}
+)
+
+set(UKUI_SHELL_PROTOCOL
+    ${CMAKE_CURRENT_SOURCE_DIR}/wayland/protocols/ukui-shell.xml)
+set(UKUI_SHELL_PROTOCOL_CODE
+    ${PROJECT_BINARY_DIR}/ukui-shell-protocol.c)
+set(UKUI_SHELL_PROTOCOL_HEADER
+    ${PROJECT_BINARY_DIR}/ukui-shell-client-protocol.h)
+add_custom_command(
+    OUTPUT ${UKUI_SHELL_PROTOCOL_CODE} ${UKUI_SHELL_PROTOCOL_HEADER}
+    COMMAND wayland-scanner private-code
+            ${UKUI_SHELL_PROTOCOL} ${UKUI_SHELL_PROTOCOL_CODE}
+    COMMAND wayland-scanner client-header
+            ${UKUI_SHELL_PROTOCOL} ${UKUI_SHELL_PROTOCOL_HEADER}
+    DEPENDS ${UKUI_SHELL_PROTOCOL}
+    VERBATIM
+)
+set_source_files_properties(
+    ${UKUI_SHELL_PROTOCOL_CODE}
+    ${UKUI_SHELL_PROTOCOL_HEADER}
+    PROPERTIES SKIP_AUTOMOC ON
+)
+list(APPEND FRAME_FILES
+    ${UKUI_SHELL_PROTOCOL_CODE}
+    ${UKUI_SHELL_PROTOCOL_HEADER}
 )
 
 # load interfaces

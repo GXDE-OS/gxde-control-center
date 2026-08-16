@@ -237,7 +237,7 @@ void WifiListModel::onDeviceListChanged(const QList<NetworkDevice *> &devices)
         connect(d, &WirelessDevice::apInfoChanged, this, &WifiListModel::onDeviceApInfoChanged, Qt::UniqueConnection);
         connect(d, &WirelessDevice::apInfoChanged, this, &WifiListModel::onDeviceActiveApChanged, Qt::UniqueConnection);
         connect(d, static_cast<void (WirelessDevice::*)(const NetworkDevice::DeviceStatus) const>(&WirelessDevice::statusChanged), this, &WifiListModel::onDeviceStateChanged, Qt::UniqueConnection);
-        connect(d, &WirelessDevice::apRemoved, d, [=](const QJsonObject &apInfo) { onDeviceApRemoved(d, apInfo); }, Qt::UniqueConnection);
+        connect(d, &WirelessDevice::apRemoved, d, [=](const QJsonObject &apInfo) { onDeviceApRemoved(d, apInfo); });
 
         Q_EMIT requestDeviceApList(d->path());
     }

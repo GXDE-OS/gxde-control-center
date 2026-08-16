@@ -177,9 +177,9 @@ void BluetoothListModel::onDeviceAdded(const dcc::bluetooth::Device *device)
 {
     const Adapter *adapter = adapterById(device->id());
 
-    connect(device, &Device::stateChanged, this, [=]{onDeviceChanged(adapter, device);}, Qt::UniqueConnection);
+    connect(device, &Device::stateChanged, this, [=]{onDeviceChanged(adapter, device);});
     connect(device, &Device::pairedChanged, this, &BluetoothListModel::onDevicePairedChanged, Qt::UniqueConnection);
-    connect(device, &Device::nameChanged, this, [=]{onDeviceChanged(adapter, device);}, Qt::UniqueConnection);
+    connect(device, &Device::nameChanged, this, [=]{onDeviceChanged(adapter, device);});
 
     if (!device->paired())
         return;

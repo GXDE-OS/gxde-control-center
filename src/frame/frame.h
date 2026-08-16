@@ -77,6 +77,7 @@ using dcc::ContentWidget;
 class Frame : public DBlurEffectWidget
 {
     Q_OBJECT
+    Q_PROPERTY(int waylandSlideOffset READ waylandSlideOffset WRITE setWaylandSlideOffset)
 
     friend class DBusControlCenterService;
 
@@ -88,6 +89,10 @@ public:
     void backToNav();
     void setDebugAutoHide(const bool autoHide);
     QString currentModuleName() const;
+
+    int waylandSlideOffset() const;
+    void setWaylandSlideOffset(int offset);
+    QRect waylandFrameRect() const;
 
 public Q_SLOTS:
     void startup();
@@ -126,6 +131,10 @@ private:
     void hideImmediately();
     const QScreen *screenForGeometry(const QRect &rect) const;
     QScreen* targetScreen() const;
+    QScreen* currentScreen() const;
+    bool waylandSlideEnabled() const;
+    void updateFrameMargins();
+    void updateFramePosition();
     bool checkOnBoard(const QPoint &point);
 
 private:
@@ -144,6 +153,10 @@ private:
 
     QRect m_primaryRect;
     QPropertyAnimation m_appearAnimation;
+
+    int m_waylandSlideOffset;
+    QPropertyAnimation *m_waylandSlideAnimation;
+    QString m_currentOutputName;
 
     DPlatformWindowHandle m_platformWindowHandle;
     DWindowManagerHelper *m_wmHelper;

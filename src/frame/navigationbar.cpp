@@ -24,6 +24,7 @@
  */
 
 #include "navigationbar.h"
+#include "frame.h"
 
 #include <QVBoxLayout>
 #include <QDebug>
@@ -90,6 +91,12 @@ NavigationBar::NavigationBar(QWidget *parent)
 {
     m_arrowRectangle->setWindowFlags(m_arrowRectangle->windowFlags() | Qt::WindowDoesNotAcceptFocus);
     m_arrowRectangle->setContent(m_navLabel);
+
+    // Wayland 下没有 DXcb 的 blur 背景（DArrowRectangle 默认白底），
+    // 手动设置成深色半透明，与 X11 的 DarkColor 观感一致
+    if (Wayland::isWaylandSession()) {
+        m_arrowRectangle->setBackgroundColor(QColor(0, 0, 0, 255 * 0.8));
+    }
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout;
     buttonsLayout->setContentsMargins(0, 0, 0, 0);
@@ -199,7 +206,16 @@ bool NavigationBar::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::Enter) {
         DImageButton *btn = static_cast<DImageButton*>(watched);
-        const QPoint p { mapToGlobal(btn->geometry().topLeft()) };
+        QPoint p { mapToGlobal(btn->geometry().topLeft()) };
+#ifdef HAS_LAYER_SHELL
+        if (Wayland::isWaylandSession()) {
+            auto *frame = qobject_cast<Frame *>(window());
+            if (frame) {
+                p = frame->waylandFrameRect().topLeft()
+                    + btn->mapTo(frame, QPoint(0, 0));
+            }
+        }
+#endif
         const QString str { transModuleName(m_navigationButtons.key(btn)) };
         const int width { fontMetrics().horizontalAdvance(str) };
         m_navLabel->setText(str);
