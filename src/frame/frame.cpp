@@ -93,9 +93,11 @@ Frame::Frame(QWidget *parent)
     m_waylandSlideAnimation->setEasingCurve(QEasingCurve::OutCubic);
     connect(m_waylandSlideAnimation, &QPropertyAnimation::finished, this, [this] {
         if (!m_shown) {
-            // 滑出动画结束后才真正隐藏窗口
+            // 滑出动画结束后才真正隐藏窗口，并把边距复位到停靠位置，
+            // 否则下次以非滑动方式显示时表面会停在屏幕外
             DBlurEffectWidget::hide();
             m_waylandSlideOffset = 0;
+            updateFrameMargins();
         }
     });
 
@@ -504,9 +506,10 @@ void Frame::updateFramePosition()
 void Frame::updateFrameMargins()
 {
 #ifdef HAS_LAYER_SHELL
-    // LayerShellQt 的 margin 是 surface 的锚定边距，改变它即可横向滑动
+    // 锚定右侧时合成器只用右边距定位（box.x = bounds.right - width - margin.right），
+    // 左边距会被忽略。负右边距把表面推到屏幕右缘之外，滑到 0 即回到停靠位置。
     if (m_layerShellWindow)
-        m_layerShellWindow->setMargins(QMargins(m_waylandSlideOffset, 0, 0, 0));
+        m_layerShellWindow->setMargins(QMargins(0, 0, -m_waylandSlideOffset, 0));
 #endif
     Q_EMIT rectChanged(waylandFrameRect());
 }
@@ -523,6 +526,12 @@ void Frame::setWaylandSlideOffset(int offset)
 
     m_waylandSlideOffset = offset;
     updateFrameMargins();
+
+    // set_margin 只是写入 surface 的 pending state，合成器要等
+    // wl_surface.commit 才会应用。滑动期间面板内容不变，Qt 不会自发
+    // 产生新帧，位置更新会攒到偶发重绘时一次性提交，动画一顿一顿。
+    // 强制重绘保证每个 tick 都提交一帧。
+    update();
 }
 
 bool Frame::waylandSlideEnabled() const
