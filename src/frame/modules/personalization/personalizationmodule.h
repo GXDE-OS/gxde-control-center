@@ -56,6 +56,7 @@ private:
     void showThemeWidget();
     void showFontsWidget();
     void showVideoWallpaperWidget();
+    void showGxwmWidget();
     void showStanardFontsListWidget();
     void showMonoFontsListWidget();
 

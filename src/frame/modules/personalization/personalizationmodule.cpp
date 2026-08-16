@@ -31,6 +31,7 @@
 #include "module/fontswidget/fontswidget.h"
 #include "module/fontswidget/fontlistwidget.h"
 #include "module/videowallpaper/videowallpaper.h"
+#include "module/gxwm/gxwmwidget.h"
 
 #include <QElapsedTimer>
 
@@ -79,6 +80,7 @@ ModuleWidget *PersonalizationModule::moduleWidget()
         connect(m_personalizationWidget, &PersonalizationWidget::showThemeWidget, this, &PersonalizationModule::showThemeWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showFontsWidget, this, &PersonalizationModule::showFontsWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showVideoWallpaperWidget, this, &PersonalizationModule::showVideoWallpaperWidget);
+        connect(m_personalizationWidget, &PersonalizationWidget::showGxwmWidget, this, &PersonalizationModule::showGxwmWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSwitchWM, m_work, &PersonalizationWork::switchWM);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetOpacity, m_work, &PersonalizationWork::setOpacity);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetTopPanel, m_work, &PersonalizationWork::setTopPanel);
@@ -127,6 +129,12 @@ void PersonalizationModule::showVideoWallpaperWidget()
     VideoWallpaper *videoWallpaperWidget = new VideoWallpaper;
     videoWallpaperWidget->setModel(m_model);
     m_frameProxy->pushWidget(this, videoWallpaperWidget);
+}
+
+void PersonalizationModule::showGxwmWidget()
+{
+    GxwmWidget *gxwmWidget = new GxwmWidget;
+    m_frameProxy->pushWidget(this, gxwmWidget);
 }
 
 void PersonalizationModule::showStanardFontsListWidget()

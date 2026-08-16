@@ -33,6 +33,7 @@
 #include "widgets/titledslideritem.h"
 #include "dwindowmanagerhelper.h"
 #include "dapplication.h"
+#include "wayland/gxdescreen.h"
 
 #include <QDebug>
 #include <QPushButton>
@@ -110,6 +111,11 @@ PersonalizationWidget::PersonalizationWidget()
     if(m_model->isInstallVideoWallpaper()) {
         m_userGroup->appendItem(videoWallpaper);
     }
+    // 仅 Wayland 会话且 WM 广播 gxde-identifier-v1 时显示
+    NextPageWidget *gxwm = new NextPageWidget;
+    gxwm->setTitle(tr("窗口管理器"));
+    gxwm->setHidden(!(DApplication::isWayland() && GxdeScreen::isAvailable()));
+    m_userGroup->appendItem(gxwm);
     m_userGroup->appendItem(m_wmSwitch);
     // 判断指定程序是否存在，如果不存在则不显示
     if(m_model->isInstallTopPanel()) {
@@ -139,6 +145,8 @@ PersonalizationWidget::PersonalizationWidget()
             &PersonalizationWidget::showFontsWidget);
     connect(videoWallpaper, &NextPageWidget::clicked, this,
             &PersonalizationWidget::showVideoWallpaperWidget);
+    connect(gxwm, &NextPageWidget::clicked, this,
+            &PersonalizationWidget::showGxwmWidget);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this,
             &PersonalizationWidget::requestSwitchWM);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this, [=] {

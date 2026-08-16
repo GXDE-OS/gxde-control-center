@@ -717,6 +717,8 @@ set(PERSONALIZATION_FILES
                 modules/personalization/module/themewidget/themewidget.h
                 modules/personalization/module/videowallpaper/videowallpaper.cpp
                 modules/personalization/module/videowallpaper/videowallpaper.h
+                modules/personalization/module/gxwm/gxwmwidget.cpp
+                modules/personalization/module/gxwm/gxwmwidget.h
                 modules/personalization/module/videowallpaper/videowallpaperchoose.h
                 modules/personalization/module/videowallpaper/videowallpaperchoose.cpp
                 modules/personalization/module/videowallpaper/videowallpapermodel.h

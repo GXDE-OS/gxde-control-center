@@ -51,6 +51,7 @@ Q_SIGNALS:
     void showThemeWidget();
     void showFontsWidget();
     void showVideoWallpaperWidget();
+    void showGxwmWidget();
     void requestSwitchWM();
     void requestSetOpacity(int value);
     void requestSetTopPanel(int value);
