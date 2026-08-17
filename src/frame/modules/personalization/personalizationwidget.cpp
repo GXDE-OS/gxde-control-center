@@ -34,6 +34,7 @@
 #include "dwindowmanagerhelper.h"
 #include "dapplication.h"
 #include "wayland/gxdescreen.h"
+#include "module/gxdm/gxdmwidget.h"
 
 #include <QDebug>
 #include <QPushButton>
@@ -116,6 +117,11 @@ PersonalizationWidget::PersonalizationWidget()
     gxwm->setTitle(tr("窗口管理器"));
     gxwm->setHidden(!(DApplication::isWayland() && GxdeScreen::isAvailable()));
     m_userGroup->appendItem(gxwm);
+    // 仅当 gxdm 的 LkScrStat 可被调用时显示
+    NextPageWidget *displayManager = new NextPageWidget;
+    displayManager->setTitle(tr("显示管理器"));
+    displayManager->setHidden(!GxdmWidget::isAvailable());
+    m_userGroup->appendItem(displayManager);
     m_userGroup->appendItem(m_wmSwitch);
     // 判断指定程序是否存在，如果不存在则不显示
     if(m_model->isInstallTopPanel()) {
@@ -147,6 +153,8 @@ PersonalizationWidget::PersonalizationWidget()
             &PersonalizationWidget::showVideoWallpaperWidget);
     connect(gxwm, &NextPageWidget::clicked, this,
             &PersonalizationWidget::showGxwmWidget);
+    connect(displayManager, &NextPageWidget::clicked, this,
+            &PersonalizationWidget::showDisplayManagerWidget);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this,
             &PersonalizationWidget::requestSwitchWM);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this, [=] {

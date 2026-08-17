@@ -32,6 +32,7 @@
 #include "module/fontswidget/fontlistwidget.h"
 #include "module/videowallpaper/videowallpaper.h"
 #include "module/gxwm/gxwmwidget.h"
+#include "module/gxdm/gxdmwidget.h"
 
 #include <QElapsedTimer>
 
@@ -81,6 +82,7 @@ ModuleWidget *PersonalizationModule::moduleWidget()
         connect(m_personalizationWidget, &PersonalizationWidget::showFontsWidget, this, &PersonalizationModule::showFontsWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showVideoWallpaperWidget, this, &PersonalizationModule::showVideoWallpaperWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showGxwmWidget, this, &PersonalizationModule::showGxwmWidget);
+        connect(m_personalizationWidget, &PersonalizationWidget::showDisplayManagerWidget, this, &PersonalizationModule::showDisplayManagerWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSwitchWM, m_work, &PersonalizationWork::switchWM);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetOpacity, m_work, &PersonalizationWork::setOpacity);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetTopPanel, m_work, &PersonalizationWork::setTopPanel);
@@ -135,6 +137,22 @@ void PersonalizationModule::showGxwmWidget()
 {
     GxwmWidget *gxwmWidget = new GxwmWidget;
     m_frameProxy->pushWidget(this, gxwmWidget);
+}
+
+void PersonalizationModule::showDisplayManagerWidget()
+{
+    // 鼠标指针网格复用个性化主题页的数据源，先刷新列表
+    m_work->refreshTheme();
+
+    GxdmWidget *gxdmWidget = new GxdmWidget(m_model->getMouseModel());
+    connect(gxdmWidget, &GxdmWidget::requestFrameKeepAutoHide, this,
+            &PersonalizationModule::onSetFrameAutoHide);
+    m_frameProxy->pushWidget(this, gxdmWidget);
+}
+
+void PersonalizationModule::onSetFrameAutoHide(const bool autoHide)
+{
+    m_frameProxy->setFrameAutoHide(this, autoHide);
 }
 
 void PersonalizationModule::showStanardFontsListWidget()

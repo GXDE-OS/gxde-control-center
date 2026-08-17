@@ -57,8 +57,10 @@ private:
     void showFontsWidget();
     void showVideoWallpaperWidget();
     void showGxwmWidget();
+    void showDisplayManagerWidget();
     void showStanardFontsListWidget();
     void showMonoFontsListWidget();
+    void onSetFrameAutoHide(const bool autoHide);
 
 private:
     void contentPopped(ContentWidget *const w);

@@ -60,7 +60,7 @@ public:
             , m_label(new TipsLabel) {
         m_label->setWordWrap(true);
         auto *layout = new QHBoxLayout(this);
-        layout->setContentsMargins(10, 10, 10, 10);
+        layout->setContentsMargins(4, 4, 4, 4);
         layout->addWidget(m_label);
     }
 
