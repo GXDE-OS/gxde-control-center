@@ -27,7 +27,11 @@
 #include "modulewidgetheader.h"
 
 #include <QEvent>
-#include <QDebug>
+#include <QIcon>
+#include <QPainter>
+#include <QStyle>
+#include <QStyleOption>
+#include <QSvgRenderer>
 
 using namespace dcc::widgets;
 
@@ -36,12 +40,90 @@ namespace dcc {
 static const char *ObjectNameTitle = "ModuleHeaderTitle";
 static const char *ObjectNameTemplateIcon = "ModuleHeaderIcon%1";
 
+// 设置页模块头部图标。不缓存按 DPR 预渲染的位图，而是在 paintEvent 里
+// 按当前绘制设备的像素密度重新渲染 SVG，保证任何 DPR 下都是 1:1 清晰。
+//
+// 用 DImageButton 时的问题：wlcom 上 wl_output.scale 上报的是 1.25 取整后的
+// 2，fractional-scale 事件才把窗口 DPR 修正为 1.25。窗口 DPR 变化后，按旧
+// DPR 缓存的位图在绘制时被缩放，产生锯齿；模块在 DPR 事件之后才创建的
+// 情况（模块是延迟加载的）则完全收不到该事件，缓存位图永远按 2x 渲染。
+class ModuleHeaderIconWidget : public QWidget
+{
+public:
+    explicit ModuleHeaderIconWidget(QWidget *parent = nullptr)
+        : QWidget(parent)
+    {
+        setFixedSize(24, 24);
+        setDisabled(true);
+        setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
+
+    void setIconPath(const QString &path)
+    {
+        if (m_path == path)
+            return;
+
+        m_path = path;
+        m_renderer.load(path);
+        update();
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        if (!m_renderer.isValid())
+            return;
+
+        QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing);
+
+        // 仅在尺寸或绘制 DPR 变化时重新渲染，避免滚动时反复光栅化
+        const qreal dpr = p.device()->devicePixelRatioF();
+        if (m_cachedPixmap.isNull()
+            || !qFuzzyCompare(m_cachedPixmap.devicePixelRatio(), dpr)
+            || m_cachedPixmap.size() != size() * dpr) {
+            m_cachedPixmap = renderIcon(dpr);
+        }
+
+        QStyleOption opt;
+        opt.initFrom(this);
+        style()->drawItemPixmap(&p, rect(), Qt::AlignCenter, m_cachedPixmap);
+    }
+
+private:
+    QPixmap renderIcon(qreal dpr)
+    {
+        QPixmap pm(qRound(width() * dpr), qRound(height() * dpr));
+        pm.setDevicePixelRatio(dpr);
+        pm.fill(Qt::transparent);
+
+        {
+            QPainter p(&pm);
+            p.setRenderHint(QPainter::Antialiasing);
+            m_renderer.render(&p, QRectF(QPointF(0, 0), QSizeF(width(), height())));
+        }
+
+        // 与 QLabel/DImageButton 对禁用位图的处理保持一致（置灰），
+        // generatedIconPixmap 内部 toImage() 会丢掉 DPR，这里补回去
+        if (!isEnabled()) {
+            QStyleOption opt;
+            opt.initFrom(this);
+            pm = style()->generatedIconPixmap(QIcon::Disabled, pm, &opt);
+            pm.setDevicePixelRatio(dpr);
+        }
+
+        return pm;
+    }
+
+    QString m_path;
+    QSvgRenderer m_renderer;
+    QPixmap m_cachedPixmap;
+};
+
 ModuleWidget::ModuleWidget()
     : QWidget(nullptr)
 {
-    m_moduleIcon = new DTK_WIDGET_NAMESPACE::DImageButton;
-    m_moduleIcon->setFixedSize(24, 24);
-    m_moduleIcon->setDisabled(true);
+    m_moduleIcon = new ModuleHeaderIconWidget;
 
     m_moduleTitle = new LargeLabel;
     m_moduleTitle->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -66,13 +148,13 @@ ModuleWidget::ModuleWidget()
     setLayout(m_centralLayout);
 
     connect(this, &ModuleWidget::objectNameChanged, [this] {
-        //m_moduleIcon->setObjectName(QString(ObjectNameTemplateIcon).arg(objectName()));
+        m_moduleIcon->setObjectName(QString(ObjectNameTemplateIcon).arg(objectName()));
         QString moduleName = objectName().toLower();
         if (moduleName == "sysinfo") {
             moduleName = "systeminfo";
         }
-        m_moduleIcon->setNormalPic(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
-        m_moduleIcon->setDisabledPic(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
+        m_moduleIcon->setIconPath(
+            QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
     });
 }
 

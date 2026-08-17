@@ -24,9 +24,9 @@
 
 #include <QPainter>
 #include <QPainterPath>
-#include <QImageReader>
 #include <QApplication>
 #include <QScreen>
+#include <QSvgRenderer>
 
 NavDelegate::NavDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
@@ -58,7 +58,10 @@ void NavDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
 
         painter->setRenderHints(renderHints);
 
-        QPixmap modulePm = loadPixmap(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
+        // 图标直接按绘制设备分辨率渲染矢量，不用 qApp->devicePixelRatio() 预渲染
+        // 位图：合成器上报分数缩放（wl_output.scale 取整 2，窗口实际 1.25）时，
+        // 应用级 DPR 与绘制 DPR 不一致，预渲染位图被缩放后产生锯齿。
+        QSvgRenderer renderer(QString(":/%1/themes/dark/icons/nav_%1.svg").arg(moduleName));
 
         // Keep and offset from the top left corner, base is 1080P
         const double Sh = qApp->primaryScreen()->geometry().height();
@@ -67,18 +70,24 @@ void NavDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
             keepRatio = Sh / 1080;
         }
 
+        const QSize iconSize(24, 24);
+
         QPoint p(rect.x() + 20 * keepRatio, rect.y() + 26 * keepRatio);
-        painter->drawPixmap(p, modulePm);
+        if (renderer.isValid()) {
+            painter->setRenderHint(QPainter::Antialiasing);
+            renderer.render(painter, QRectF(p, QSizeF(iconSize)));
+            painter->setRenderHints(renderHints);
+        }
 
         const QString &displayText = index.data(NavModel::NavDisplayRole).toString();
 
         QFontMetrics fontMetrics(displayText);
 
-        if (rect.height() < static_cast<int>(modulePm.height() / qApp->devicePixelRatio() + fontMetrics.height() + 40 * keepRatio)) {
-            p = QPoint(p.x() + modulePm.width() / qApp->devicePixelRatio() + 20 * keepRatio, p.y());
+        if (rect.height() < static_cast<int>(iconSize.height() + fontMetrics.height() + 40 * keepRatio)) {
+            p = QPoint(p.x() + iconSize.width() + 20 * keepRatio, p.y());
         }
         else {
-            p = QPoint(p.x(), p.y() + modulePm.height() / qApp->devicePixelRatio() + 14 * keepRatio);
+            p = QPoint(p.x(), p.y() + iconSize.height() + 14 * keepRatio);
         }
 
         QTextOption option;
@@ -90,26 +99,4 @@ void NavDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, c
     }
 
     QStyledItemDelegate::paint(painter, option, index);
-}
-
-QPixmap NavDelegate::loadPixmap(const QString &path) const
-{
-    qreal ratio = 1.0;
-    QPixmap pixmap;
-
-    const qreal devicePR = qApp->devicePixelRatio();
-
-    if (!qFuzzyCompare(ratio, devicePR)) {
-        QImageReader reader;
-        reader.setFileName(qt_findAtNxFile(path, devicePR, &ratio));
-        if (reader.canRead()) {
-            reader.setScaledSize(reader.size() * (devicePR / ratio));
-            pixmap = QPixmap::fromImage(reader.read());
-            pixmap.setDevicePixelRatio(devicePR);
-        }
-    } else {
-        pixmap.load(path);
-    }
-
-    return pixmap;
 }

@@ -31,12 +31,13 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <DImageButton>
 
 namespace dcc {
 namespace widgets {
 class LargeLabel;
 }
+
+class ModuleHeaderIconWidget;
 }
 
 namespace dcc {
@@ -57,7 +58,7 @@ private:
     bool event(QEvent *event);
 
 protected:
-    DTK_WIDGET_NAMESPACE::DImageButton *m_moduleIcon;
+    ModuleHeaderIconWidget *m_moduleIcon;
     dcc::widgets::LargeLabel *m_moduleTitle;
     QVBoxLayout *m_centralLayout;
 };

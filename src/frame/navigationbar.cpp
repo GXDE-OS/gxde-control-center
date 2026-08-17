@@ -204,6 +204,15 @@ void NavigationBar::setModuleChecked(const QString &module)
 
 bool NavigationBar::eventFilter(QObject *watched, QEvent *event)
 {
+    if (event->type() == QEvent::DevicePixelRatioChange) {
+        DImageButton *btn = static_cast<DImageButton *>(watched);
+        const QString module = m_navigationButtons.key(btn);
+        btn->setNormalPic(
+            QString(":/%1/themes/dark/icons/nav_%1_normal.svg").arg(module));
+        btn->setCheckedPic(
+            QString(":/%1/themes/dark/icons/nav_%1.svg").arg(module));
+    }
+
     if (event->type() == QEvent::Enter) {
         DImageButton *btn = static_cast<DImageButton*>(watched);
         QPoint p { mapToGlobal(btn->geometry().topLeft()) };
