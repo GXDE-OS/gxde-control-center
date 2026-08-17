@@ -1,3 +1,15 @@
+gxde-control-center (6.0.13) unstable; urgency=medium
+
+  * 新增多屏支持，设置页面会在鼠标所在屏幕展示
+  * 新增Wayland下的设置页面动画
+  * 修复Wayland下页面名称popup飞到屏幕左侧的问题
+  * 修复Wayland下图标抗锯齿问题
+  * 为GXWM新增了一批设置项
+  * 为GXDM新增了一批设置项
+  * 更新了翻译文件
+
+ -- CharOfString <root@charofstring.cc>  Mon, 17 Aug 2026 16:24:12 +0800
+
 gxde-control-center (6.0.12) unstable; urgency=medium
 
   * Wayland 下鼠标/触摸板/键盘设置直连 gxde-wlcom
