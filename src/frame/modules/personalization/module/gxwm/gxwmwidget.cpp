@@ -80,20 +80,20 @@ GxwmWidget::GxwmWidget(QWidget *parent)
         , m_windowCornerIface(new QDBusInterface(
             WindowCornerService, WindowCornerPath, WindowCornerInterface,
             QDBusConnection::sessionBus(), this))
-        , m_minBtnSwitch(new SwitchWidget(tr("最小化按钮")))
-        , m_maxBtnSwitch(new SwitchWidget(tr("最大化按钮")))
-        , m_closeBtnSwitch(new SwitchWidget(tr("关闭按钮")))
-        , m_forceRoundCornerSwitch(new SwitchWidget(tr("强制裁剪圆角（不稳定）")))
+        , m_minBtnSwitch(new SwitchWidget(tr("Minimize button")))
+        , m_maxBtnSwitch(new SwitchWidget(tr("Maximize button")))
+        , m_closeBtnSwitch(new SwitchWidget(tr("Close button")))
+        , m_forceRoundCornerSwitch(new SwitchWidget(tr("Force clipping of rounded corners (unstable)")))
         , m_excludeLayerShellSwitch(new SwitchWidget(
-            tr("排除 layer-shell 表面（顶栏、Dock、控制中心等）"))) {
-    auto *gtkGroup = new SettingsGroup(tr("GTK标题栏按钮"));
+            tr("Exclude layer-shell surfaces (top bar, Dock, control center, etc.)"))) {
+    auto *gtkGroup = new SettingsGroup(tr("GTK title bar buttons"));
     gtkGroup->appendItem(m_minBtnSwitch);
     gtkGroup->appendItem(m_maxBtnSwitch);
     gtkGroup->appendItem(m_closeBtnSwitch);
 
-    auto *expGroup = new SettingsGroup(tr("实验性功能"));
+    auto *expGroup = new SettingsGroup(tr("Experimental features"));
     auto *warningItem = new WarningItem;
-    warningItem->setText(tr("除非您知道自己在做什么，否则不要操作以下设置"));
+    warningItem->setText(tr("Do not touch the settings below unless you know what you are doing"));
     expGroup->appendItem(warningItem);
     expGroup->appendItem(m_forceRoundCornerSwitch);
     expGroup->appendItem(m_excludeLayerShellSwitch);
@@ -106,7 +106,7 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     layout->addWidget(expGroup);
     layout->addStretch();
 
-    setTitle(tr("窗口管理器"));
+    setTitle(tr("Window manager"));
     setContent(frame);
 
     connect(m_minBtnSwitch, &SwitchWidget::checkedChanged, this,

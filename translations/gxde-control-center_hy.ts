@@ -12,12 +12,12 @@
 <context>
     <name>BluetoothListModel</name>
     <message>
-        <location filename="../src/frame/quick_control/bluetooth/bluetoothlistmodel.cpp" line="84"/>
+        <location filename="../src/frame/quick_control/bluetooth/bluetoothlistmodel.cpp" line="86"/>
         <source>Click icon to enable bluetooth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/quick_control/bluetooth/bluetoothlistmodel.cpp" line="89"/>
+        <location filename="../src/frame/quick_control/bluetooth/bluetoothlistmodel.cpp" line="91"/>
         <source>Connect to other devices</source>
         <translation type="unfinished"></translation>
     </message>
@@ -95,7 +95,7 @@
 <context>
     <name>NavigationBar</name>
     <message>
-        <location filename="../src/frame/navigationbar.cpp" line="242"/>
+        <location filename="../src/frame/navigationbar.cpp" line="331"/>
         <source>Navigation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -266,22 +266,22 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>TimeoutDialog</name>
     <message>
-        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="31"/>
+        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="36"/>
         <source>Do you want to save the display settings?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="33"/>
+        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="38"/>
         <source>If no operation, the display will be restored after %1s.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="38"/>
+        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="43"/>
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="39"/>
+        <location filename="../src/frame/widgets/timeoutdialog.cpp" line="44"/>
         <source>Save</source>
         <translation>Պահել</translation>
     </message>
@@ -434,7 +434,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/accounts/accountswidget.cpp" line="57"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="115"/>
-        <location filename="../src/frame/navigationbar.cpp" line="201"/>
+        <location filename="../src/frame/navigationbar.cpp" line="290"/>
         <source>Accounts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -743,7 +743,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/bluetooth/bluetoothmodule.cpp" line="159"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="121"/>
-        <location filename="../src/frame/navigationbar.cpp" line="208"/>
+        <location filename="../src/frame/navigationbar.cpp" line="297"/>
         <source>Bluetooth</source>
         <translation type="unfinished"></translation>
     </message>
@@ -940,7 +940,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/datetime/datetime.cpp" line="57"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="123"/>
-        <location filename="../src/frame/navigationbar.cpp" line="210"/>
+        <location filename="../src/frame/navigationbar.cpp" line="299"/>
         <source>Time and Date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1026,7 +1026,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="41"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="118"/>
-        <location filename="../src/frame/navigationbar.cpp" line="204"/>
+        <location filename="../src/frame/navigationbar.cpp" line="293"/>
         <source>Default Applications</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1091,22 +1091,22 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::BrightnessPage</name>
     <message>
-        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="58"/>
+        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="60"/>
         <source>Brightness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="81"/>
+        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="83"/>
         <source>Night Shift</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="86"/>
+        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="88"/>
         <source>The screen tone will be auto adjusted by help of figuring out your location to protect eyes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="95"/>
+        <location filename="../src/frame/modules/display/brightnesspage.cpp" line="97"/>
         <source>Auto Brightness</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1137,7 +1137,7 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::DisplayModule</name>
     <message>
-        <location filename="../src/frame/modules/display/displaymodule.cpp" line="267"/>
+        <location filename="../src/frame/modules/display/displaymodule.cpp" line="293"/>
         <source>Wireless Screen Projection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1145,24 +1145,24 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::DisplayWidget</name>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="126"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="130"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="117"/>
-        <location filename="../src/frame/navigationbar.cpp" line="203"/>
+        <location filename="../src/frame/navigationbar.cpp" line="292"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ցուցադրում</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="54"/>
         <source>Display Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="62"/>
         <source>Rotate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="62"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="64"/>
         <source>Custom Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1171,27 +1171,27 @@ If no operation, the display will be restored after %1s.</source>
         <translation type="vanished">Թույլտվություն</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="65"/>
         <source>Resolution/Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="64"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="66"/>
         <source>Brightness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="67"/>
         <source>Scaling Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="68"/>
         <source>VNC Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="274"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="310"/>
         <source>Wireless Screen Projection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1253,27 +1253,32 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::MonitorSettingDialog</name>
     <message>
-        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="114"/>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="130"/>
         <source>Resolution</source>
         <translation>Թույլտվություն</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="177"/>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="193"/>
         <source>Cancel</source>
         <translation>Չեղարկել</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="179"/>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="195"/>
         <source>Save</source>
         <translation>Պահել</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="186"/>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="202"/>
         <source>Primary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="353"/>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="250"/>
+        <source>Display</source>
+        <translation>Ցուցադրում</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="553"/>
         <source> (Recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1285,12 +1290,12 @@ If no operation, the display will be restored after %1s.</source>
         <translation type="vanished">Թույլտվություն</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/resolutiondetailpage.cpp" line="41"/>
+        <location filename="../src/frame/modules/display/resolutiondetailpage.cpp" line="44"/>
         <source>Resolution/Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/resolutiondetailpage.cpp" line="80"/>
+        <location filename="../src/frame/modules/display/resolutiondetailpage.cpp" line="132"/>
         <source> (Recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1507,7 +1512,7 @@ Power by x11vnc</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="49"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="126"/>
-        <location filename="../src/frame/navigationbar.cpp" line="213"/>
+        <location filename="../src/frame/navigationbar.cpp" line="302"/>
         <source>Keyboard and Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1667,7 +1672,7 @@ Power by x11vnc</source>
     <message>
         <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
-        <location filename="../src/frame/navigationbar.cpp" line="212"/>
+        <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2159,7 +2164,7 @@ Power by x11vnc</source>
     <message>
         <location filename="../src/frame/modules/network/networkmodulewidget.cpp" line="97"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="120"/>
-        <location filename="../src/frame/navigationbar.cpp" line="207"/>
+        <location filename="../src/frame/navigationbar.cpp" line="296"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3789,14 +3794,126 @@ Power by x11vnc</source>
     </message>
 </context>
 <context>
+    <name>dcc::personalization::GxdmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <source>Switch to the X11 welcome screen frontend (restart required)</source>
+        <translation>Անցնել X11 ողջույնի էկրանի ֆրոնտենդին (պահանջվում է վերագործարկում)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <source>Welcome screen wallpaper (global)</source>
+        <translation>Ողջույնի էկրանի պաստառ (գլոբալ)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <source>Change wallpaper</source>
+        <translation>Փոխել պաստառը</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="112"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation>Պատկերներ (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <source>Restore default wallpaper</source>
+        <translation>Վերականգնել լռելյայն պաստառը</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation>Ողջույնի էկրանի մկնիկի կուրսորը (գլոբալ)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <source>Lock screen manager</source>
+        <translation>Կողպման էկրանի կառավարիչ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation>Ընտրել կողպման էկրանի պաստառ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation>Վերականգնել կողպման էկրանի լռելյայն պաստառը</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <source>Experimental features</source>
+        <translation>Փորձարարական գործառույթներ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>Մի փոխեք ստորև նշված կարգավորումները, եթե չգիտեք, թե ինչ եք անում</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <source>Display manager</source>
+        <translation>Ցուցադրման կառավարիչ</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxwmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <source>Minimize button</source>
+        <translation>Փոքրացման կոճակ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <source>Maximize button</source>
+        <translation>Մեծացման կոճակ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <source>Close button</source>
+        <translation>Փակման կոճակ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <source>Force clipping of rounded corners (unstable)</source>
+        <translation>Ստիպել կլորացված անկյունների կտրումը (անկայուն)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
+        <translation>Բացառել layer-shell մակերեսները (վերևի վահանակ, Dock, կառավարման կենտրոն և այլն)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <source>GTK title bar buttons</source>
+        <translation>GTK վերնագրի գոտու կոճակներ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Experimental features</source>
+        <translation>Փորձարարական գործառույթներ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>Մի փոխեք ստորև նշված կարգավորումները, եթե չգիտեք, թե ինչ եք անում</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <source>Window manager</source>
+        <translation>Պատուհանների կառավարիչ</translation>
+    </message>
+</context>
+<context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="134"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="160"/>
         <source>Standard Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="143"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
         <source>Monospaced Font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3804,76 +3921,86 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
-        <location filename="../src/frame/navigationbar.cpp" line="205"/>
+        <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
         <source>Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Radius (Logout to apply)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="87"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
         <source>Window Effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Top Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="91"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel Global Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Bottom Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Use deepin 20 style launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Hide DDE Dock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Font</source>
         <translation>Տառատեսակ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Video Wallpaper</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <source>Window manager</source>
+        <translation>Պատուհանների կառավարիչ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <source>Display manager</source>
+        <translation>Ցուցադրման կառավարիչ</translation>
     </message>
 </context>
 <context>
@@ -3951,7 +4078,7 @@ Power by fantascene-dynamic-wallpaper</source>
     <message>
         <location filename="../src/frame/modules/power/powerwidget.cpp" line="120"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="124"/>
-        <location filename="../src/frame/navigationbar.cpp" line="211"/>
+        <location filename="../src/frame/navigationbar.cpp" line="300"/>
         <source>Power Management</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4064,7 +4191,7 @@ Power by fantascene-dynamic-wallpaper</source>
     <message>
         <location filename="../src/frame/modules/sound/soundwidget.cpp" line="58"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="122"/>
-        <location filename="../src/frame/navigationbar.cpp" line="209"/>
+        <location filename="../src/frame/navigationbar.cpp" line="298"/>
         <source>Sound</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4112,7 +4239,7 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::sync::SyncWidget</name>
     <message>
-        <location filename="../src/frame/navigationbar.cpp" line="202"/>
+        <location filename="../src/frame/navigationbar.cpp" line="291"/>
         <source>Cloud Sync</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4163,7 +4290,7 @@ Power by fantascene-dynamic-wallpaper</source>
     <message>
         <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="85"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="129"/>
-        <location filename="../src/frame/navigationbar.cpp" line="217"/>
+        <location filename="../src/frame/navigationbar.cpp" line="306"/>
         <source>System Information</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4320,7 +4447,7 @@ Power by fantascene-dynamic-wallpaper</source>
     <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
-        <location filename="../src/frame/navigationbar.cpp" line="216"/>
+        <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4592,7 +4719,7 @@ Power by fantascene-dynamic-wallpaper</source>
     <message>
         <location filename="../src/frame/modules/wacom/wacomwidget.cpp" line="57"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="127"/>
-        <location filename="../src/frame/navigationbar.cpp" line="215"/>
+        <location filename="../src/frame/navigationbar.cpp" line="304"/>
         <source>Wacom</source>
         <translation type="unfinished"></translation>
     </message>

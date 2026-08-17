@@ -1263,6 +1263,11 @@ If no operation, the display will be restored after %1s.</source>
         <source> (Recommended)</source>
         <translation> (Aconséyase)</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="250"/>
+        <source>Display</source>
+        <translation>Pantalla</translation>
+    </message>
 </context>
 <context>
     <name>dcc::display::ResolutionDetailPage</name>
@@ -3756,6 +3761,16 @@ If no operation, the display will be restored after %1s.</source>
         <source>Font</source>
         <translation>Fonte</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <source>Window manager</source>
+        <translation>Xestor de ventanes</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <source>Display manager</source>
+        <translation>Xestor de pantalla</translation>
+    </message>
 </context>
 <context>
     <name>dcc::personalization::Theme</name>
@@ -4403,6 +4418,117 @@ If no operation, the display will be restored after %1s.</source>
         <location filename="../src/frame/modules/display/connectwidget.cpp" line="38"/>
         <source>Connected</source>
         <translation>Coneutáu</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxdmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <source>Switch to the X11 welcome screen frontend (restart required)</source>
+        <translation>Cambiar al frontend X11 de la pantalla de bienvenida (requier reiniciu)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <source>Welcome screen wallpaper (global)</source>
+        <translation>Fondu de pantalla de la pantalla de bienvenida (global)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <source>Change wallpaper</source>
+        <translation>Camudar fondu de pantalla</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation>Imáxenes (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <source>Restore default wallpaper</source>
+        <translation>Restaurar fondu de pantalla predetermináu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation>Punteru del mur de la pantalla de bienvenida (global)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <source>Lock screen manager</source>
+        <translation>Xestor de la pantalla de bloquéu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation>Escoyer fondu de pantalla de bloquéu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation>Restaurar fondu de pantalla de bloquéu predetermináu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <source>Experimental features</source>
+        <translation>Funciones esperimentales</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>Nun remanes les opciones d'abaxo nun siendo que sepas lo que faes</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <source>Display manager</source>
+        <translation>Xestor de pantalla</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxwmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <source>Minimize button</source>
+        <translation>Botón de minimizar</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <source>Maximize button</source>
+        <translation>Botón de maximizar</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <source>Close button</source>
+        <translation>Botón de zarrar</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <source>Force clipping of rounded corners (unstable)</source>
+        <translation>Forzar el recorte de les esquines arrondaes (inestable)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
+        <translation>Escluyir superficies layer-shell (barra cimera, Dock, centru de control, etc.)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <source>GTK title bar buttons</source>
+        <translation>Botones de la barra de títulu GTK</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Experimental features</source>
+        <translation>Funciones esperimentales</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>Nun remanes les opciones d'abaxo nun siendo que sepas lo que faes</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <source>Window manager</source>
+        <translation>Xestor de ventanes</translation>
     </message>
 </context>
 </TS>

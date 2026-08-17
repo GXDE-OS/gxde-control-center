@@ -114,7 +114,10 @@
     <message numerus="yes">
         <location filename="../src/frame/notify/notifydelegate.cpp" line="202" />
         <source>%n day(s) ago</source>
-        <translation>%n pam<numerusform /><numerusform /></translation>
+        <translation>
+            <numerusform>%n aldo ing milabas</numerusform>
+            <numerusform>%n aldo ing milabas</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1265,6 +1268,11 @@ Pangasinan: Eskala a Settings</translation>
         <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="352" />
         <source> (Recommended)</source>
         <translation>(Recomendado)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/display/monitorsettingdialog.cpp" line="250"/>
+        <source>Display</source>
+        <translation>Display</translation>
     </message>
 </context>
 <context>
@@ -3763,6 +3771,16 @@ Pangasinan: Eskala a Settings</translation>
         <source>Font</source>
         <translation>Font</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <source>Window manager</source>
+        <translation>Window manager</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <source>Display manager</source>
+        <translation>Display manager</translation>
+    </message>
 </context>
 <context>
     <name>dcc::personalization::Theme</name>
@@ -4234,7 +4252,10 @@ Power Management</translation>
     <message numerus="yes">
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="264" />
         <source>%n application update(s) detected</source>
-        <translation>%n aplikasi pembaruan terdeteksi<numerusform /><numerusform /></translation>
+        <translation>
+            <numerusform>%n aplikasi pembaruan terdeteksi</numerusform>
+            <numerusform>%n aplikasi pembaruan terdeteksi</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="269" />
@@ -4244,7 +4265,10 @@ Power Management</translation>
     <message numerus="yes">
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271" />
         <source>New system edition and %n application update(s) detected</source>
-        <translation>Nuevu sistem edishon i %n aplikasyon aktualizashon(es) detektá<numerusform /><numerusform /></translation>
+        <translation>
+            <numerusform>Nuevu sistem edishon i %n aplikasyon aktualizashon(es) detektá</numerusform>
+            <numerusform>Nuevu sistem edishon i %n aplikasyon aktualizashon(es) detektá</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="278" />
@@ -4417,6 +4441,117 @@ Power Management</translation>
         <location filename="../src/frame/modules/display/connectwidget.cpp" line="38" />
         <source>Connected</source>
         <translation>Konektad</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxdmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <source>Switch to the X11 welcome screen frontend (restart required)</source>
+        <translation>Lumipat king X11 welcome screen frontend (kailangan ing restart)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <source>Welcome screen wallpaper (global)</source>
+        <translation>Wallpaper ning welcome screen (global)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <source>Change wallpaper</source>
+        <translation>Alilan ya ing wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation>Larawan (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <source>Restore default wallpaper</source>
+        <translation>Ibalik ya ing default a wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation>Mouse cursor ning welcome screen (global)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <source>Lock screen manager</source>
+        <translation>Lock screen manager</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation>Pamili ya ing lock screen wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation>Ibalik ya ing default a lock screen wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <source>Experimental features</source>
+        <translation>Experimental a features</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>E mu apindan deng setting king baba nung e mu balu ing gagawan mu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <source>Display manager</source>
+        <translation>Display manager</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxwmWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <source>Minimize button</source>
+        <translation>Pindutan a minimize</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <source>Maximize button</source>
+        <translation>Pindutan a maximize</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <source>Close button</source>
+        <translation>Pindutan a sara</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <source>Force clipping of rounded corners (unstable)</source>
+        <translation>Sapilitan ing pamutut kareng rounded corners (ali stable)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
+        <translation>Ibukud la reng layer-shell surfaces (top bar, Dock, control center, at aliwa pa)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <source>GTK title bar buttons</source>
+        <translation>GTK title bar buttons</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Experimental features</source>
+        <translation>Experimental a features</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <source>Do not touch the settings below unless you know what you are doing</source>
+        <translation>E mu apindan deng setting king baba nung e mu balu ing gagawan mu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <source>Window manager</source>
+        <translation>Window manager</translation>
     </message>
 </context>
 </TS>

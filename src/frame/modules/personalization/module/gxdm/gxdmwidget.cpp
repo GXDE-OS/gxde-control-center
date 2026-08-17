@@ -88,37 +88,37 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
             DisplayManagerService, DisplayManagerPath, DisplayManagerInterface,
             QDBusConnection::sessionBus(), this))
         , m_x11GreeterSwitch(new SwitchWidget(tr(
-            "切换到X11欢迎界面前端（需重启）"))) {
-    auto *loginGroup = new SettingsGroup(tr("欢迎界面壁纸（全局）"));
+            "Switch to the X11 welcome screen frontend (restart required)"))) {
+    auto *loginGroup = new SettingsGroup(tr("Welcome screen wallpaper (global)"));
 
     auto *wallpaperChooser = new FileChooseWidget;
-    wallpaperChooser->setTitle(tr("修改壁纸"));
+    wallpaperChooser->setTitle(tr("Change wallpaper"));
     wallpaperChooser->setType(tr("Images (*.png *.jpg *.jpeg *.bmp)"));
     loginGroup->appendItem(wallpaperChooser);
 
     NextPageWidget *defaultWallpaper = new NextPageWidget;
-    defaultWallpaper->setTitle(tr("恢复默认壁纸"));
+    defaultWallpaper->setTitle(tr("Restore default wallpaper"));
     loginGroup->appendItem(defaultWallpaper);
 
-    auto *cursorTheme = new Theme(tr("欢迎界面鼠标指针（全局）"));
+    auto *cursorTheme = new Theme(tr("Welcome screen mouse cursor (global)"));
     if (cursorModel) {
         cursorTheme->setModel(cursorModel);
     }
 
-    auto *lockGroup = new SettingsGroup(tr("锁屏管理器"));
+    auto *lockGroup = new SettingsGroup(tr("Lock screen manager"));
 
     auto *lockWallpaperChooser = new FileChooseWidget;
-    lockWallpaperChooser->setTitle(tr("选择锁屏壁纸"));
+    lockWallpaperChooser->setTitle(tr("Choose lock screen wallpaper"));
     lockWallpaperChooser->setType(tr("Images (*.png *.jpg *.jpeg *.bmp)"));
     lockGroup->appendItem(lockWallpaperChooser);
 
     NextPageWidget *defaultLockWallpaper = new NextPageWidget;
-    defaultLockWallpaper->setTitle(tr("恢复默认锁屏壁纸"));
+    defaultLockWallpaper->setTitle(tr("Restore default lock screen wallpaper"));
     lockGroup->appendItem(defaultLockWallpaper);
 
-    auto *expGroup = new SettingsGroup(tr("实验性功能"));
+    auto *expGroup = new SettingsGroup(tr("Experimental features"));
     auto *warningItem = new WarningItem;
-    warningItem->setText(tr("除非您知道自己在做什么，否则不要操作以下设置"));
+    warningItem->setText(tr("Do not touch the settings below unless you know what you are doing"));
     expGroup->appendItem(warningItem);
     expGroup->appendItem(m_x11GreeterSwitch);
 
@@ -132,7 +132,7 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     layout->addWidget(expGroup);
     layout->addStretch();
 
-    setTitle(tr("显示管理器"));
+    setTitle(tr("Display manager"));
     setContent(frame);
 
     connect(wallpaperChooser->edit(), &QLineEdit::textChanged, this,

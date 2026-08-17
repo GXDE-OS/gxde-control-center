@@ -114,12 +114,12 @@ PersonalizationWidget::PersonalizationWidget()
     }
     // 仅 Wayland 会话且 WM 广播 gxde-identifier-v1 时显示
     NextPageWidget *gxwm = new NextPageWidget;
-    gxwm->setTitle(tr("窗口管理器"));
+    gxwm->setTitle(tr("Window manager"));
     gxwm->setHidden(!(DApplication::isWayland() && GxdeScreen::isAvailable()));
     m_userGroup->appendItem(gxwm);
     // 仅当 gxdm 的 LkScrStat 可被调用时显示
     NextPageWidget *displayManager = new NextPageWidget;
-    displayManager->setTitle(tr("显示管理器"));
+    displayManager->setTitle(tr("Display manager"));
     displayManager->setHidden(!GxdmWidget::isAvailable());
     m_userGroup->appendItem(displayManager);
     m_userGroup->appendItem(m_wmSwitch);
