@@ -89,7 +89,7 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
             QDBusConnection::sessionBus(), this))
         , m_x11GreeterSwitch(new SwitchWidget(tr(
             "切换到X11欢迎界面前端（需重启）"))) {
-    auto *loginGroup = new SettingsGroup(tr("登录管理器（全局）"));
+    auto *loginGroup = new SettingsGroup(tr("欢迎界面壁纸（全局）"));
 
     auto *wallpaperChooser = new FileChooseWidget;
     wallpaperChooser->setTitle(tr("修改壁纸"));
@@ -100,7 +100,7 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     defaultWallpaper->setTitle(tr("恢复默认壁纸"));
     loginGroup->appendItem(defaultWallpaper);
 
-    auto *cursorTheme = new Theme(tr("鼠标指针"));
+    auto *cursorTheme = new Theme(tr("欢迎界面鼠标指针（全局）"));
     if (cursorModel) {
         cursorTheme->setModel(cursorModel);
     }
