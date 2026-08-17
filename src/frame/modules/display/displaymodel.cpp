@@ -241,6 +241,7 @@ void DisplayModel::setAllowEnableMultiScaleRatio(bool allowEnableMultiScaleRatio
     if (m_allowEnableMultiScaleRatio == allowEnableMultiScaleRatio) return;
 
     m_allowEnableMultiScaleRatio = allowEnableMultiScaleRatio;
+    Q_EMIT allowEnableMultiScaleRatioChanged(m_allowEnableMultiScaleRatio);
 }
 
 void DisplayModel::setIsMerge(bool isMerge) {

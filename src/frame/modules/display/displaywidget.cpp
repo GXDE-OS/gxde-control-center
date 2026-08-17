@@ -205,6 +205,7 @@ void DisplayWidget::setModel(DisplayModel *model)
     m_model = model;
 
     connect(m_model, &DisplayModel::monitorListChanged, this, &DisplayWidget::onMonitorListChanged);
+    connect(m_model, &DisplayModel::allowEnableMultiScaleRatioChanged, this, &DisplayWidget::onMonitorListChanged);
     connect(m_model, &DisplayModel::configListChanged, this, &DisplayWidget::onMonitorListChanged);
     connect(m_model, &DisplayModel::screenHeightChanged, this, &DisplayWidget::onScreenSizeChanged,
             Qt::QueuedConnection);

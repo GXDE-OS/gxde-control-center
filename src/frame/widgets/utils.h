@@ -8,6 +8,7 @@
 
 static const QStringList DCC_CONFIG_FILES {
     "/etc/deepin/gxde-control-center.conf",
+    "/usr/share/gxde-control-center/gxde-control-center.conf",
     "/usr/share/gxde-control-center.conf"
 };
 

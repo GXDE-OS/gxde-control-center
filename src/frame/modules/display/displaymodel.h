@@ -95,6 +95,7 @@ Q_SIGNALS:
     void configCreated(const QString &config) const;
     void configListChanged(const QStringList &configs) const;
     void monitorListChanged() const;
+    void allowEnableMultiScaleRatioChanged(const bool allow) const;
     void nightModeChanged(const bool nightmode) const;
     void redshiftVaildChanged(const bool isvalid) const;
     void redshiftSettingChanged(const bool setting) const;

@@ -675,18 +675,9 @@ void DisplayWorker::setIndividualScaling(Monitor *m, const double scaling)
         GxdeScreen::setScale(m->name(), scaling);
     }
 
-    double primaryscale = m_model->primaryMonitor()->scale();
-    GxdeScreen::setScale(primaryscale);
-    m_appearanceInter->SetScaleFactor(primaryscale);
-
     QMap<QString, double> scalemap;
-    for (auto& m : m_model->monitorList()){
-        if (m->scale() > 0) {
-            scalemap[m->name()]=m->scale();
-        }
-        else {
-            scalemap[m->name()]=1;
-        }
+    for (auto& m : m_model->monitorList()) {
+        scalemap[m->name()] = m->scale() > 0 ? m->scale() : 1.0;
     }
     m_appearanceInter->SetScreenScaleFactors(scalemap);
 }

@@ -108,15 +108,18 @@ void ScalingPage::addSlider(int monitorID)
     m_slidersgrp->appendItem(slideritem);
 
     connect(slider, &DCCSlider::valueChanged, this, [=](const int value) {
-        Q_EMIT requestIndividualScaling(m_displayModel->monitorList()[monitorID],
-                                        DisplayWidget::convertToScale(value));
+        const double scale = 1.0 + (value - 1) * 0.25;
+        Q_EMIT requestIndividualScaling(m_displayModel->monitorList()[monitorID], scale);
 
-        slideritem->setValueLiteral(QString::number(DisplayWidget::convertToScale(value)));
+        slideritem->setValueLiteral(QString::number(scale));
     });
 
     double scaling = m_displayModel->monitorList()[monitorID]->scale();
-    if(scaling < 0)scaling = 1.0;
-    slider->setValue(DisplayWidget::convertToSlider(scaling));
+    if (scaling < 1.0)
+        scaling = 1.0;
+    // scale 1.0/1.25/.../3.0 映射到滑块 1..9
+    const int sliderValue = qBound(1, qRound((scaling - 1.0) / 0.25) + 1, 9);
+    slider->setValue(sliderValue);
     slideritem->setValueLiteral(QString::number(scaling));
 }
 
