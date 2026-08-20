@@ -152,34 +152,39 @@ KeyboardWorker::KeyboardWorker(KeyboardModel *model, QObject *parent)
                                           "/com/deepin/daemon/Keybinding",
                                           QDBusConnection::sessionBus(), this))
 {
-    connect(m_keybindInter, SIGNAL(Added(QString,int)), this,SLOT(onAdded(QString,int)));
-    connect(m_keybindInter, &KeybingdingInter::Deleted, this, &KeyboardWorker::removed);
+    const bool wayland = Dtk::Widget::DApplication::isWayland();
+    if (!wayland) {
+        connect(m_keybindInter, SIGNAL(Added(QString,int)), this,SLOT(onAdded(QString,int)));
+        connect(m_keybindInter, &KeybingdingInter::Deleted, this, &KeyboardWorker::removed);
 #ifndef DCC_DISABLE_KBLAYOUT
-    connect(m_keyboardInter, &KeyboardInter::UserLayoutListChanged, this, &KeyboardWorker::onUserLayout);
-    connect(m_keyboardInter, &KeyboardInter::CurrentLayoutChanged, this, &KeyboardWorker::onCurrentLayout);
+        connect(m_keyboardInter, &KeyboardInter::UserLayoutListChanged, this, &KeyboardWorker::onUserLayout);
+        connect(m_keyboardInter, &KeyboardInter::CurrentLayoutChanged, this, &KeyboardWorker::onCurrentLayout);
 #endif
-    connect(m_keyboardInter, SIGNAL(CapslockToggleChanged(bool)), m_model, SLOT(setCapsLock(bool)));
-    connect(m_keybindInter, &KeybingdingInter::NumLockStateChanged, m_model, &KeyboardModel::setNumLock);
+        connect(m_keyboardInter, SIGNAL(CapslockToggleChanged(bool)), m_model, SLOT(setCapsLock(bool)));
+        connect(m_keybindInter, &KeybingdingInter::NumLockStateChanged, m_model, &KeyboardModel::setNumLock);
+        connect(m_keyboardInter, &KeyboardInter::RepeatDelayChanged, this, &KeyboardWorker::setModelRepeatDelay);
+        connect(m_keyboardInter, &KeyboardInter::RepeatIntervalChanged, this, &KeyboardWorker::setModelRepeatInterval);
+        connect(m_keybindInter, &KeybingdingInter::ShortcutSwitchLayoutChanged, m_model, &KeyboardModel::setKbSwitch);
+        connect(m_keybindInter, &KeybingdingInter::Changed, this, &KeyboardWorker::onShortcutChanged);
+
+        m_keyboardInter->setSync(false);
+        m_keybindInter->setSync(false);
+    }
 #ifndef DCC_DISABLE_LANGUAGE
     connect(m_langSelector, &LangSelector::CurrentLocaleChanged, m_model, &KeyboardModel::setLang);
     connect(m_langSelector, &LangSelector::serviceStartFinished, this, [=] {
         QTimer::singleShot(100, this, &KeyboardWorker::onLangSelectorServiceFinished);
     });
 #endif
-    connect(m_keyboardInter, &KeyboardInter::RepeatDelayChanged, this, &KeyboardWorker::setModelRepeatDelay);
-    connect(m_keyboardInter, &KeyboardInter::RepeatIntervalChanged, this, &KeyboardWorker::setModelRepeatInterval);
-    connect(m_keybindInter, &KeybingdingInter::ShortcutSwitchLayoutChanged, m_model, &KeyboardModel::setKbSwitch);
-
-    connect(m_keybindInter, &KeybingdingInter::Changed, this, &KeyboardWorker::onShortcutChanged);
-
-    m_keyboardInter->setSync(false);
-    m_keybindInter->setSync(false);
 #ifndef DCC_DISABLE_LANGUAGE
     m_langSelector->setSync(false, false);
 #endif
 }
 
 void KeyboardWorker::resetAll() {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
+
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(m_keybindInter->Reset(), this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [=] (QDBusPendingCallWatcher *reply) {
         watcher->deleteLater();
@@ -263,16 +268,16 @@ void KeyboardWorker::refreshLang()
 
 void KeyboardWorker::active()
 {
-    m_keyboardInter->blockSignals(false);
-    m_keybindInter->blockSignals(false);
-
-    if (Dtk::Widget::DApplication::isWayland()) {
+    const bool wayland = Dtk::Widget::DApplication::isWayland();
+    if (wayland) {
         int rate = 0, delay = 0;
         if (GxdeInput::getRepeatInfo(GxdeInput::keyboardDevices(), &rate, &delay)) {
             setModelRepeatDelay(delay);
             setModelRepeatInterval(rate > 0 ? qMax(1, 1000 / rate) : 50);
         }
     } else {
+        m_keyboardInter->blockSignals(false);
+        m_keybindInter->blockSignals(false);
         setModelRepeatDelay(m_keyboardInter->repeatDelay());
         setModelRepeatInterval(m_keyboardInter->repeatInterval());
     }
@@ -283,12 +288,13 @@ void KeyboardWorker::active()
     Q_EMIT onDatasChanged(m_metaDatas);
     Q_EMIT onLettersChanged(m_letters);
 
-    m_model->setCapsLock(m_keyboardInter->capslockToggle());
-    m_model->setNumLock(m_keybindInter->numLockState());
-
+    if (!wayland) {
+        m_model->setCapsLock(m_keyboardInter->capslockToggle());
+        m_model->setNumLock(m_keybindInter->numLockState());
 #ifndef DCC_DISABLE_KBLAYOUT
-    onRefreshKBLayout();
+        onRefreshKBLayout();
 #endif
+    }
 #ifndef DCC_DISABLE_LANGUAGE
     refreshLang();
 #endif
@@ -296,11 +302,13 @@ void KeyboardWorker::active()
 
 void KeyboardWorker::deactive()
 {
-    m_keyboardInter->blockSignals(true);
+    if (!Dtk::Widget::DApplication::isWayland()) {
+        m_keyboardInter->blockSignals(true);
+        m_keybindInter->blockSignals(true);
+    }
 #ifndef DCC_DISABLE_LANGUAGE
     m_langSelector->blockSignals(true);
 #endif
-    m_keybindInter->blockSignals(true);
 }
 
 bool KeyboardWorker::keyOccupy(const QStringList &list)
@@ -333,6 +341,9 @@ bool KeyboardWorker::keyOccupy(const QStringList &list)
 #ifndef DCC_DISABLE_KBLAYOUT
 void KeyboardWorker::onRefreshKBLayout()
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
+
     m_model->setKbSwitch(m_keybindInter->shortcutSwitchLayout());
 
     QDBusPendingCallWatcher *layoutResult = new QDBusPendingCallWatcher(m_keyboardInter->LayoutList(), this);
@@ -363,6 +374,8 @@ void KeyboardWorker::modifyShortcutEdit(ShortcutInfo *info)
             refreshShortcut();
             return;
         }
+        if (info->replace)
+            onDisableShortcut(info->replace);
         GxdeInput::controlShortcut(QStringLiteral("delete"), info->id);
         GxdeInput::addShortcut(displayToWlcomBinding(info->accels), info->name,
                                actionJsonToBusString(old), actionJsonToBindingType(old));
@@ -409,6 +422,9 @@ void KeyboardWorker::modifyCustomShortcut(ShortcutInfo *info)
     if (Dtk::Widget::DApplication::isWayland()) {
         // Replace the custom shortcut in gxde-wlcom: remove the old binding
         // and add it back with the new keystroke/name/command.
+        if (info->replace)
+            onDisableShortcut(info->replace);
+        info->replace = nullptr;
         GxdeInput::controlShortcut(QStringLiteral("delete"), info->id);
         GxdeInput::addShortcut(displayToWlcomBinding(info->accels), info->name,
                                QStringLiteral("command,") + info->command,
@@ -453,6 +469,14 @@ void KeyboardWorker::grabScreen()
 
 bool KeyboardWorker::checkAvaliable(const QString &key)
 {
+   if (Dtk::Widget::DApplication::isWayland()) {
+       const QString binding = displayToWlcomBinding(key);
+       const QList<QPair<QString, QString>> actions = GxdeInput::listShortcuts();
+       return std::none_of(actions.cbegin(), actions.cend(), [&binding](const auto &action) {
+           return action.first == binding;
+       });
+   }
+
    const QString &value = m_keybindInter->LookupConflictingShortcut(key);
 
    return value.isEmpty();
@@ -504,21 +528,29 @@ void KeyboardWorker::setModelRepeatInterval(int value)
 
 void KeyboardWorker::setNumLock(bool value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keybindInter->SetNumLockState(value);
 }
 
 void KeyboardWorker::setCapsLock(bool value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keyboardInter->setCapslockToggle(value);
 }
 
 void KeyboardWorker::addUserLayout(const QString &value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keyboardInter->AddUserLayout(m_model->kbLayout().key(value));
 }
 
 void KeyboardWorker::delUserLayout(const QString &value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keyboardInter->DeleteUserLayout(m_model->userLayout().key(value));
 }
 
@@ -593,6 +625,12 @@ void KeyboardWorker::onAdded(const QString &in0, int in1)
 
 void KeyboardWorker::onDisableShortcut(ShortcutInfo *info)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::controlShortcut(QStringLiteral("disable"), info->id);
+        info->accels.clear();
+        return;
+    }
+
     // disable shortcut need wait!
     m_keybindInter->ClearShortcutKeystrokes(info->id, info->type).waitForFinished();
     info->accels.clear();
@@ -644,6 +682,8 @@ void KeyboardWorker::onLocalListsFinished(QDBusPendingCallWatcher *watch)
 
 void KeyboardWorker::onSetSwitchKBLayout(int value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keybindInter->setShortcutSwitchLayout(value);
 }
 
@@ -931,6 +971,8 @@ int KeyboardWorker::converToModelInterval(int value)
 
 void KeyboardWorker::setLayout(const QString &value)
 {
+    if (Dtk::Widget::DApplication::isWayland())
+        return;
     m_keyboardInter->setCurrentLayout(value);
 }
 

@@ -30,6 +30,7 @@
 #include "widgets/dccslider.h"
 #include "widgets/searchinput.h"
 #include "keyboardmodel.h"
+#include "dapplication.h"
 #include <QDebug>
 
 using namespace dcc;
@@ -43,6 +44,8 @@ KeyboardWidget::KeyboardWidget(KeyboardModel *model)
       m_bDelay(false),
       m_model(model)
 {
+    const bool wayland = Dtk::Widget::DApplication::isWayland();
+
     setObjectName("Keyboard");
 
     this->installEventFilter(parent());
@@ -92,10 +95,12 @@ KeyboardWidget::KeyboardWidget(KeyboardModel *model)
     m_numLock = new SwitchWidget;
     m_numLock->setTitle(tr("Enable Numeric Keyboard"));
     keyTest->appendItem(m_numLock);
+    m_numLock->setVisible(!wayland);
 
     m_upper = new SwitchWidget();
     m_upper->setTitle(tr("Caps Lock Prompt"));
     keyTest->appendItem(m_upper);
+    m_upper->setVisible(!wayland);
 
 #ifndef DCC_DISABLE_KBLAYOUT
     SettingsGroup* keyGroup = new SettingsGroup();
@@ -103,6 +108,7 @@ KeyboardWidget::KeyboardWidget(KeyboardModel *model)
     m_keyItem->setTitle(tr("Keyboard Layout"));
     m_keyItem->setValue(tr(""));
     keyGroup->appendItem(m_keyItem);
+    keyGroup->setVisible(!wayland);
 #endif
 
 #ifndef DCC_DISABLE_LANGUAGE

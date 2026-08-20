@@ -29,6 +29,7 @@
 #include "shortcutmodel.h"
 #include "widgets/translucentframe.h"
 #include "widgets/settingsheaderitem.h"
+#include "dapplication.h"
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
@@ -78,6 +79,7 @@ ShortcutWidget::ShortcutWidget(ShortcutModel *model, QWidget *parent)
     m_addCustom = new QPushButton(tr("Add Custom Shortcut"));
 
     QPushButton* resetBtn = new QPushButton(tr("Restore Defaults"));
+    resetBtn->setVisible(!Dtk::Widget::DApplication::isWayland());
 
     m_layout->addWidget(m_addCustom);
     m_layout->addSpacing(10);
