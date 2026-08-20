@@ -32,8 +32,8 @@ using namespace dcc::wacom;
 
 WacomModel::WacomModel(QObject *parent)
     : QObject(parent),
-
-      m_exist(false)
+      m_exist(false),
+      m_cursorMode(false)
 {
     m_wacomModelBase = new WacomModelBase;
 }

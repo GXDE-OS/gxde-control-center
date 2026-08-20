@@ -26,6 +26,8 @@
 #include "wacomworker.h"
 #include "wacommodel.h"
 #include "model/wacommodelbase.h"
+#include "dapplication.h"
+#include "wayland/gxdeinput.h"
 
 using namespace dcc;
 using namespace dcc::wacom;
@@ -41,6 +43,11 @@ WacomWorker::WacomWorker(WacomModel *model, QObject *parent) :
     connect(m_dbusWacom, &Wacom::ExistChanged, m_model, &WacomModel::setExist);
     connect(m_dbusWacom, &Wacom::CursorModeChanged, this, &WacomWorker::onCursorModeChanged);
 
+    if (Dtk::Widget::DApplication::isWayland()) {
+        m_model->setExist(!GxdeInput::tabletDevices().isEmpty());
+        return;
+    }
+
     //get real data
     m_model->setExist(m_dbusWacom->exist());
     m_dbusWacom->setSync(false);
@@ -48,6 +55,11 @@ WacomWorker::WacomWorker(WacomModel *model, QObject *parent) :
 
 void WacomWorker::active()
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        m_model->setExist(!GxdeInput::tabletDevices().isEmpty());
+        return;
+    }
+
     m_dbusWacom->blockSignals(false);
 
     WacomModelBase *ModelBase = m_model->getWacomModelBase();
@@ -58,6 +70,10 @@ void WacomWorker::active()
 
 void WacomWorker::deactive()
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        return;
+    }
+
     m_dbusWacom->blockSignals(true);
 }
 
@@ -69,11 +85,19 @@ void WacomWorker::setPressureSensitive(const int value)
 
 void WacomWorker::setCursorMode(const bool value)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        return;
+    }
+
     m_dbusWacom->setCursorMode(value);
 }
 
 void WacomWorker::onPressureSensitiveChanged(const int value)
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        return;
+    }
+
     m_dbusWacom->setStylusPressureSensitive(value);
     m_dbusWacom->setEraserPressureSensitive(value);
 }
@@ -85,5 +109,9 @@ void WacomWorker::onCursorModeChanged(const bool value)
 
 bool WacomWorker::exist()
 {
+    if (Dtk::Widget::DApplication::isWayland()) {
+        return !GxdeInput::tabletDevices().isEmpty();
+    }
+
     return m_dbusWacom->exist();
 }

@@ -80,6 +80,7 @@ QList<Device> devices();
 QStringList keyboardDevices();
 QStringList mouseDevices();
 QStringList touchpadDevices();
+QStringList tabletDevices();
 
 // --- per device value accessors (operate on the first matching device) ---
 bool getNaturalScroll(const QStringList &names, bool *value);

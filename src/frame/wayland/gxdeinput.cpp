@@ -119,6 +119,18 @@ QStringList touchpadDevices()
     return result;
 }
 
+QStringList tabletDevices() {
+    QStringList result;
+    const QList<Device> list = devices();
+    for (const Device &device : list) {
+        if (device.type == DeviceTabletTool ||
+                device.type == DeviceTabletPad) {
+            result.append(device.name);
+        }
+    }
+    return result;
+}
+
 namespace {
 
 // Get the "current" part of a "(bb)" reply (current, default).
