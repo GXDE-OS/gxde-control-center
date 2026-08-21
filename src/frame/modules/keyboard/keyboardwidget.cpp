@@ -108,7 +108,6 @@ KeyboardWidget::KeyboardWidget(KeyboardModel *model)
     m_keyItem->setTitle(tr("Keyboard Layout"));
     m_keyItem->setValue(tr(""));
     keyGroup->appendItem(m_keyItem);
-    keyGroup->setVisible(!wayland);
 #endif
 
 #ifndef DCC_DISABLE_LANGUAGE

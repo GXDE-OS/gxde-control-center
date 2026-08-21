@@ -37,6 +37,10 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFile>
+#include <QSettings>
+#include <QXmlStreamReader>
+#include <utility>
 
 
 namespace dcc {
@@ -135,6 +139,85 @@ static QString actionJsonToBindingType(const QJsonObject &obj)
 {
     const QString type = obj.value(QStringLiteral("type")).toString();
     return type.isEmpty() ? QStringLiteral("WLCOM_CUSTOM_DEF") : type;
+}
+
+static QMap<QString, QString> systemXkbLayouts()
+{
+    QMap<QString, QString> layouts;
+    QFile file(QStringLiteral("/usr/share/X11/xkb/rules/base.xml"));
+    if (!file.open(QIODevice::ReadOnly))
+        return layouts;
+
+    QXmlStreamReader xml(&file);
+    bool inLayout = false;
+    bool inVariant = false;
+    QString layoutName;
+    QString layoutDescription;
+    QString variantName;
+    QString variantDescription;
+
+    while (!xml.atEnd()) {
+        xml.readNext();
+        if (xml.isStartElement()) {
+            const QStringView name = xml.name();
+            if (name == QLatin1String("layout")) {
+                inLayout = true;
+                layoutName.clear();
+                layoutDescription.clear();
+            } else if (inLayout && name == QLatin1String("variant")) {
+                inVariant = true;
+                variantName.clear();
+                variantDescription.clear();
+            } else if (inLayout && name == QLatin1String("name")) {
+                if (inVariant)
+                    variantName = xml.readElementText();
+                else if (layoutName.isEmpty())
+                    layoutName = xml.readElementText();
+            } else if (inLayout && name == QLatin1String("description")) {
+                if (inVariant)
+                    variantDescription = xml.readElementText();
+                else if (layoutDescription.isEmpty())
+                    layoutDescription = xml.readElementText();
+            }
+        } else if (xml.isEndElement()) {
+            if (xml.name() == QLatin1String("variant")) {
+                if (!layoutName.isEmpty() && !variantName.isEmpty() &&
+                    !variantDescription.isEmpty()) {
+                    layouts.insert(layoutName + QLatin1Char(';') + variantName,
+                                   variantDescription);
+                }
+                inVariant = false;
+            } else if (xml.name() == QLatin1String("layout")) {
+                if (!layoutName.isEmpty() && !layoutDescription.isEmpty())
+                    layouts.insert(layoutName, layoutDescription);
+                inLayout = false;
+            }
+        }
+    }
+    return layouts;
+}
+
+static int switchMaskFromOptions(const QString &options)
+{
+    int mask = 0;
+    const QStringList values = options.split(QLatin1Char(','), Qt::SkipEmptyParts);
+    if (values.contains(QStringLiteral("grp:ctrl_shift_toggle")))
+        mask |= 1;
+    if (values.contains(QStringLiteral("grp:alt_shift_toggle")))
+        mask |= 2;
+    if (values.contains(QStringLiteral("grp:win_space_toggle")))
+        mask |= 4;
+    return mask;
+}
+
+static QString withoutGroupOptions(const QString &options)
+{
+    QStringList values;
+    for (const QString &option : options.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
+        if (!option.startsWith(QLatin1String("grp:")))
+            values.append(option);
+    }
+    return values.join(QLatin1Char(','));
 }
 
 KeyboardWorker::KeyboardWorker(KeyboardModel *model, QObject *parent)
@@ -291,10 +374,10 @@ void KeyboardWorker::active()
     if (!wayland) {
         m_model->setCapsLock(m_keyboardInter->capslockToggle());
         m_model->setNumLock(m_keybindInter->numLockState());
-#ifndef DCC_DISABLE_KBLAYOUT
-        onRefreshKBLayout();
-#endif
     }
+#ifndef DCC_DISABLE_KBLAYOUT
+    onRefreshKBLayout();
+#endif
 #ifndef DCC_DISABLE_LANGUAGE
     refreshLang();
 #endif
@@ -341,8 +424,10 @@ bool KeyboardWorker::keyOccupy(const QStringList &list)
 #ifndef DCC_DISABLE_KBLAYOUT
 void KeyboardWorker::onRefreshKBLayout()
 {
-    if (Dtk::Widget::DApplication::isWayland())
+    if (Dtk::Widget::DApplication::isWayland()) {
+        refreshWaylandLayouts();
         return;
+    }
 
     m_model->setKbSwitch(m_keybindInter->shortcutSwitchLayout());
 
@@ -542,15 +627,40 @@ void KeyboardWorker::setCapsLock(bool value)
 
 void KeyboardWorker::addUserLayout(const QString &value)
 {
-    if (Dtk::Widget::DApplication::isWayland())
+    if (Dtk::Widget::DApplication::isWayland()) {
+        const QString id = m_model->kbLayout().key(value);
+        if (id.isEmpty() || m_waylandLayouts.contains(id))
+            return;
+        m_waylandLayouts.append(id);
+        m_model->addUserLayout(id, value);
+        saveWaylandLayouts();
+        applyWaylandLayouts();
         return;
+    }
     m_keyboardInter->AddUserLayout(m_model->kbLayout().key(value));
 }
 
 void KeyboardWorker::delUserLayout(const QString &value)
 {
-    if (Dtk::Widget::DApplication::isWayland())
+    if (Dtk::Widget::DApplication::isWayland()) {
+        const QString id = m_model->userLayout().key(value);
+        if (id.isEmpty() || m_waylandLayouts.size() <= 1)
+            return;
+        const bool currentRemoved = m_waylandLayouts.first() == id;
+        m_waylandLayouts.removeAll(id);
+        saveWaylandLayouts();
+        applyWaylandLayouts();
+        QTimer::singleShot(0, this, [this, currentRemoved] {
+            m_model->cleanUserLayout();
+            for (const QString &layout : std::as_const(m_waylandLayouts))
+                m_model->addUserLayout(layout, m_model->kbLayout().value(layout, layout));
+            if (currentRemoved) {
+                m_model->setLayout(m_model->kbLayout().value(m_waylandLayouts.first(),
+                                                             m_waylandLayouts.first()));
+            }
+        });
         return;
+    }
     m_keyboardInter->DeleteUserLayout(m_model->userLayout().key(value));
 }
 
@@ -682,8 +792,13 @@ void KeyboardWorker::onLocalListsFinished(QDBusPendingCallWatcher *watch)
 
 void KeyboardWorker::onSetSwitchKBLayout(int value)
 {
-    if (Dtk::Widget::DApplication::isWayland())
+    if (Dtk::Widget::DApplication::isWayland()) {
+        m_waylandSwitch = value;
+        m_model->setKbSwitch(value);
+        saveWaylandLayouts();
+        applyWaylandLayouts();
         return;
+    }
     m_keybindInter->setShortcutSwitchLayout(value);
 }
 
@@ -971,9 +1086,114 @@ int KeyboardWorker::converToModelInterval(int value)
 
 void KeyboardWorker::setLayout(const QString &value)
 {
-    if (Dtk::Widget::DApplication::isWayland())
+    if (Dtk::Widget::DApplication::isWayland()) {
+        if (!m_waylandLayouts.contains(value))
+            return;
+        m_waylandLayouts.removeAll(value);
+        m_waylandLayouts.prepend(value);
+        m_model->setLayout(m_model->kbLayout().value(value, value));
+        saveWaylandLayouts();
+        applyWaylandLayouts();
         return;
+    }
     m_keyboardInter->setCurrentLayout(value);
+}
+
+void KeyboardWorker::refreshWaylandLayouts()
+{
+    const QMap<QString, QString> layouts = systemXkbLayouts();
+    m_model->setLayoutLists(layouts);
+
+    const bool hasKeymap =
+        GxdeInput::getKeymap(GxdeInput::keyboardDevices(), &m_waylandKeymap);
+    if (!hasKeymap)
+        m_waylandKeymap = GxdeInput::Keymap();
+
+    QSettings settings;
+    settings.beginGroup(QStringLiteral("WaylandKeyboard"));
+    m_waylandLayouts = settings.value(QStringLiteral("layouts")).toStringList();
+
+    if (m_waylandLayouts.isEmpty() && !m_waylandKeymap.layout.isEmpty()) {
+        const QStringList names = m_waylandKeymap.layout.split(QLatin1Char(','));
+        const QStringList variants = m_waylandKeymap.variant.split(QLatin1Char(','));
+        for (int i = 0; i < names.size(); ++i) {
+            QString id = names.at(i);
+            if (i < variants.size() && !variants.at(i).isEmpty())
+                id += QLatin1Char(';') + variants.at(i);
+            if (layouts.contains(id) && !m_waylandLayouts.contains(id))
+                m_waylandLayouts.append(id);
+        }
+    }
+
+    for (auto it = m_waylandLayouts.begin(); it != m_waylandLayouts.end();) {
+        if (!layouts.contains(*it))
+            it = m_waylandLayouts.erase(it);
+        else
+            ++it;
+    }
+    if (m_waylandLayouts.isEmpty()) {
+        m_waylandLayouts.append(layouts.isEmpty() || layouts.contains(QStringLiteral("us"))
+                                    ? QStringLiteral("us")
+                                    : layouts.firstKey());
+    }
+
+    const QString current = settings.value(QStringLiteral("current")).toString();
+    if (m_waylandLayouts.contains(current)) {
+        m_waylandLayouts.removeAll(current);
+        m_waylandLayouts.prepend(current);
+    }
+    m_waylandSwitch = settings.contains(QStringLiteral("switchMask"))
+                          ? settings.value(QStringLiteral("switchMask")).toInt()
+                          : switchMaskFromOptions(m_waylandKeymap.options);
+    settings.endGroup();
+
+    m_waylandKeymap.options = withoutGroupOptions(m_waylandKeymap.options);
+    m_model->cleanUserLayout();
+    for (const QString &layout : std::as_const(m_waylandLayouts))
+        m_model->addUserLayout(layout, layouts.value(layout, layout));
+    m_model->setLayout(layouts.value(m_waylandLayouts.first(), m_waylandLayouts.first()));
+    m_model->setKbSwitch(m_waylandSwitch);
+    saveWaylandLayouts();
+}
+
+void KeyboardWorker::applyWaylandLayouts()
+{
+    if (m_waylandLayouts.isEmpty())
+        return;
+
+    QStringList names;
+    QStringList variants;
+    for (const QString &id : std::as_const(m_waylandLayouts)) {
+        const int separator = id.indexOf(QLatin1Char(';'));
+        names.append(separator < 0 ? id : id.left(separator));
+        variants.append(separator < 0 ? QString() : id.mid(separator + 1));
+    }
+
+    GxdeInput::Keymap keymap = m_waylandKeymap;
+    keymap.layout = names.join(QLatin1Char(','));
+    keymap.variant = variants.join(QLatin1Char(','));
+    QStringList options = keymap.options.split(QLatin1Char(','), Qt::SkipEmptyParts);
+    if (m_waylandSwitch & 1)
+        options.append(QStringLiteral("grp:ctrl_shift_toggle"));
+    if (m_waylandSwitch & 2)
+        options.append(QStringLiteral("grp:alt_shift_toggle"));
+    if (m_waylandSwitch & 4)
+        options.append(QStringLiteral("grp:win_space_toggle"));
+    keymap.options = options.join(QLatin1Char(','));
+
+    if (!GxdeInput::setKeymap(GxdeInput::keyboardDevices(), keymap))
+        qWarning() << "Failed to apply the Wayland keyboard layout" << keymap.layout;
+}
+
+void KeyboardWorker::saveWaylandLayouts()
+{
+    QSettings settings;
+    settings.beginGroup(QStringLiteral("WaylandKeyboard"));
+    settings.setValue(QStringLiteral("layouts"), m_waylandLayouts);
+    settings.setValue(QStringLiteral("current"),
+                      m_waylandLayouts.isEmpty() ? QString() : m_waylandLayouts.first());
+    settings.setValue(QStringLiteral("switchMask"), m_waylandSwitch);
+    settings.endGroup();
 }
 
 #ifndef DCC_DISABLE_LANGUAGE

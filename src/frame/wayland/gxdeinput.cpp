@@ -327,6 +327,39 @@ bool setRepeatInfo(const QStringList &names, int rate, int delay)
     return ok;
 }
 
+bool getKeymap(const QStringList &names, Keymap *keymap)
+{
+    if (!keymap)
+        return false;
+
+    for (const QString &name : names) {
+        const QDBusMessage reply = call(Path, Interface, QStringLiteral("GetKeymap"),
+                                        QVariantList() << name);
+        if (reply.type() != QDBusMessage::ReplyMessage || reply.arguments().size() < 5)
+            continue;
+        keymap->rules = reply.arguments().at(0).toString();
+        keymap->model = reply.arguments().at(1).toString();
+        keymap->layout = reply.arguments().at(2).toString();
+        keymap->variant = reply.arguments().at(3).toString();
+        keymap->options = reply.arguments().at(4).toString();
+        return true;
+    }
+    return false;
+}
+
+bool setKeymap(const QStringList &names, const Keymap &keymap)
+{
+    bool ok = false;
+    for (const QString &name : names) {
+        const QDBusMessage reply =
+            call(Path, Interface, QStringLiteral("SetKeymap"),
+                 QVariantList() << name << keymap.rules << keymap.model << keymap.layout
+                                << keymap.variant << keymap.options);
+        ok = reply.type() == QDBusMessage::ReplyMessage || ok;
+    }
+    return ok;
+}
+
 QList<QPair<QString, QString>> listShortcuts()
 {
     QList<QPair<QString, QString>> result;

@@ -30,6 +30,7 @@
 #include "indexmodel.h"
 #include "shortcutmodel.h"
 #include "keyboardmodel.h"
+#include "wayland/gxdeinput.h"
 #include <com_deepin_daemon_inputdevice_keyboard.h>
 #include <com_deepin_daemon_langselector.h>
 #include <com_deepin_daemon_keybinding.h>
@@ -139,6 +140,10 @@ public Q_SLOTS:
     void onWlcomKeyEvent(bool pressed, const QString &shortcut);
 
 private:
+    void refreshWaylandLayouts();
+    void applyWaylandLayouts();
+    void saveWaylandLayouts();
+
     int converToDBusDelay(int value);
     int converToModelDelay(int value);
     int converToDBusInterval(int value);
@@ -157,6 +162,9 @@ private:
 #endif
     KeybingdingInter* m_keybindInter;
     ShortcutModel *m_shortcutModel;
+    QStringList m_waylandLayouts;
+    GxdeInput::Keymap m_waylandKeymap;
+    int m_waylandSwitch = 0;
 };
 }
 }

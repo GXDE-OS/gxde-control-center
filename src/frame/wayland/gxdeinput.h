@@ -72,6 +72,15 @@ struct Device
     bool hasSendEvents() const { return (prop >> 12) & 0x7; }
 };
 
+struct Keymap
+{
+    QString rules;
+    QString model;
+    QString layout;
+    QString variant;
+    QString options;
+};
+
 // True when running under a gxde-wlcom Wayland session.
 bool isAvailable();
 
@@ -106,6 +115,8 @@ bool setTouchpadSendEvents(const QStringList &names, quint32 mode);
 // --- keyboard repeat ---
 bool getRepeatInfo(const QStringList &names, int *rate, int *delay);
 bool setRepeatInfo(const QStringList &names, int rate, int delay);
+bool getKeymap(const QStringList &names, Keymap *keymap);
+bool setKeymap(const QStringList &names, const Keymap &keymap);
 
 // --- shortcuts (com.kylin.Wlcom.InputAction) ---
 // Each pair is (bindings, action-config-json); see gxde-wlcom data/config.json.
