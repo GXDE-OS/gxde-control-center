@@ -33,6 +33,8 @@
 #include "widgets/settingsgroup.h"
 #include "widgets/labels/tipslabel.h"
 
+#include <DApplication>
+
 using namespace dcc::widgets;
 
 namespace dcc {
@@ -99,27 +101,42 @@ void ScalingPage::addSlider(int monitorID)
               << "3.0";
     TitledSliderItem *slideritem=m_sliders.back();
     DCCSlider *slider = slideritem->slider();
-    slider->setRange(1, 9);
+    slider->setRange(100, 300);
     slider->setType(DCCSlider::Vernier);
     slider->setTickPosition(QSlider::TicksBelow);
-    slider->setTickInterval(1);
-    slider->setPageStep(1);
+    slider->setTickInterval(25);
+    slider->setPageStep(25);
+    slider->setSingleStep(25);
     slideritem->setAnnotations(scaleList);
     m_slidersgrp->appendItem(slideritem);
 
-    connect(slider, &DCCSlider::valueChanged, this, [=](const int value) {
-        const double scale = 1.0 + (value - 1) * 0.25;
-        Q_EMIT requestIndividualScaling(m_displayModel->monitorList()[monitorID], scale);
-
+    Monitor *monitor = m_displayModel->monitorList()[monitorID];
+    const auto updateScale = [this, slideritem, monitor](
+            const int value, const bool apply) {
+        const double scale = DisplayWidget::convertToScale(value);
         slideritem->setValueLiteral(QString::number(scale));
-    });
+        if (apply) {
+            Q_EMIT requestIndividualScaling(monitor, scale);
+        }
+    };
 
-    double scaling = m_displayModel->monitorList()[monitorID]->scale();
+    connect(slider, &DCCSlider::valueChanged, this, [=](const int value) {
+        updateScale(value,
+            !Dtk::Widget::DApplication::isWayland()
+                || !slider->isMousePressed());
+    });
+    if (Dtk::Widget::DApplication::isWayland()) {
+        connect(slider, &DCCSlider::mouseReleased, this, [=] {
+            updateScale(slider->value(), true);
+        });
+    }
+
+    double scaling = monitor->scale();
     if (scaling < 1.0)
         scaling = 1.0;
-    // scale 1.0/1.25/.../3.0 映射到滑块 1..9
-    const int sliderValue = qBound(1, qRound((scaling - 1.0) / 0.25) + 1, 9);
-    slider->setValue(sliderValue);
+    slider->blockSignals(true);
+    slider->setValue(DisplayWidget::convertToSlider(scaling));
+    slider->blockSignals(false);
     slideritem->setValueLiteral(QString::number(scaling));
 }
 

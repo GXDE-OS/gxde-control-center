@@ -155,7 +155,7 @@ DisplayWidget::DisplayWidget()
             Q_EMIT requestNewConfig(m_model->DDE_Display_Config);
         }
     });
-    connect(slider, &DCCSlider::valueChanged, this, [=](const int value) {
+    const auto updateScale = [this, slider](const int value, const bool apply) {
         QDateTime currentTime = QDateTime::currentDateTime();
 
         /*if (m_lastEmittedValue != -1) { // 检查是否已发送过信号
@@ -168,22 +168,32 @@ DisplayWidget::DisplayWidget()
         }*/
 
         // 将值调整为离当前值最近的 25 的倍数
-        int adjustedValue = (value + 12) / 25 * 25;;
-        if (value % 25 >= 12) {
-            adjustedValue += 25;
-        }
+        const int adjustedValue = qBound(slider->minimum(),
+            ((value + 12) / 25) * 25, slider->maximum());
         if (value != adjustedValue) {
             slider->setValue(adjustedValue);
             return;
         }
 
         double scale = convertToScale(adjustedValue);
-        Q_EMIT requestUiScaleChanged(scale);
+        if (apply) {
+            Q_EMIT requestUiScaleChanged(scale);
+        }
         m_scaleWidget->setValueLiteral(QString::number(scale));
         // 更新最后发送时间和值
         m_lastEmissionTime = currentTime;
         m_lastEmittedValue = value;
+    };
+
+    connect(slider, &DCCSlider::valueChanged, this, [=](const int value) {
+        updateScale(value,
+            !DApplication::isWayland() || !slider->isMousePressed());
     });
+    if (DApplication::isWayland()) {
+        connect(slider, &DCCSlider::mouseReleased, this, [=] {
+            updateScale(slider->value(), true);
+        });
+    }
 
     connect(m_displayControlPage, &DisplayControlPage::requestDuplicateMode, this,
             &DisplayWidget::requestDuplicateMode);

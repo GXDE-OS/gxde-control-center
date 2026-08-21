@@ -25,6 +25,7 @@
 
 #include "widgets/dccslider.h"
 
+#include <QMouseEvent>
 #include <QWheelEvent>
 
 namespace dcc {
@@ -46,6 +47,24 @@ void DCCSlider::setType(DCCSlider::SliderType type)
     case Progress: setProperty("handleType", "None"); break;
     default: setProperty("handleType", "Normal"); break;
     }
+}
+
+bool DCCSlider::isMousePressed() const
+{
+    return m_mousePressed;
+}
+
+void DCCSlider::mousePressEvent(QMouseEvent *event)
+{
+    m_mousePressed = true;
+    QSlider::mousePressEvent(event);
+}
+
+void DCCSlider::mouseReleaseEvent(QMouseEvent *event)
+{
+    QSlider::mouseReleaseEvent(event);
+    m_mousePressed = false;
+    Q_EMIT mouseReleased();
 }
 
 void DCCSlider::wheelEvent(QWheelEvent *e)

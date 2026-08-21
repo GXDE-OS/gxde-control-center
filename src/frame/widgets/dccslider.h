@@ -44,9 +44,18 @@ public:
     explicit DCCSlider(SliderType type = Normal, QWidget *parent = 0);
 
     void setType(SliderType type);
+    bool isMousePressed() const;
+
+Q_SIGNALS:
+    void mouseReleased();
 
 protected:
-    void wheelEvent(QWheelEvent *e);
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *e) override;
+
+private:
+    bool m_mousePressed = false;
 };
 
 }
