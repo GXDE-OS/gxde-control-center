@@ -360,6 +360,33 @@ bool setKeymap(const QStringList &names, const Keymap &keymap)
     return ok;
 }
 
+bool getKeymapGroup(const QStringList &names, quint32 *group)
+{
+    if (!group)
+        return false;
+
+    for (const QString &name : names) {
+        const QDBusMessage reply = call(Path, Interface, QStringLiteral("GetKeymapGroup"),
+                                        QVariantList() << name);
+        if (reply.type() != QDBusMessage::ReplyMessage || reply.arguments().isEmpty())
+            continue;
+        *group = reply.arguments().first().toUInt();
+        return true;
+    }
+    return false;
+}
+
+bool setKeymapGroup(const QStringList &names, quint32 group)
+{
+    bool ok = false;
+    for (const QString &name : names) {
+        const QDBusMessage reply = call(Path, Interface, QStringLiteral("SetKeymapGroup"),
+                                        QVariantList() << name << group);
+        ok = reply.type() == QDBusMessage::ReplyMessage || ok;
+    }
+    return ok;
+}
+
 QList<QPair<QString, QString>> listShortcuts()
 {
     QList<QPair<QString, QString>> result;
@@ -377,6 +404,27 @@ QList<QPair<QString, QString>> listShortcuts()
         array >> bindings >> config;
         array.endStructure();
         result.append(qMakePair(bindings, config));
+    }
+    array.endArray();
+    return result;
+}
+
+QList<KeyBinding> listKeyBindings()
+{
+    QList<KeyBinding> result;
+    const QDBusMessage reply =
+        call(ShortcutPath, ShortcutInterface, QStringLiteral("ListKeyBindings"));
+    if (reply.type() != QDBusMessage::ReplyMessage || reply.arguments().isEmpty())
+        return result;
+
+    const QDBusArgument array = qvariant_cast<QDBusArgument>(reply.arguments().first());
+    array.beginArray();
+    while (!array.atEnd()) {
+        KeyBinding binding;
+        array.beginStructure();
+        array >> binding.bindings >> binding.description >> binding.type;
+        array.endStructure();
+        result.append(binding);
     }
     array.endArray();
     return result;

@@ -81,6 +81,13 @@ struct Keymap
     QString options;
 };
 
+struct KeyBinding
+{
+    QString bindings;
+    QString description;
+    QString type;
+};
+
 // True when running under a gxde-wlcom Wayland session.
 bool isAvailable();
 
@@ -117,10 +124,13 @@ bool getRepeatInfo(const QStringList &names, int *rate, int *delay);
 bool setRepeatInfo(const QStringList &names, int rate, int delay);
 bool getKeymap(const QStringList &names, Keymap *keymap);
 bool setKeymap(const QStringList &names, const Keymap &keymap);
+bool getKeymapGroup(const QStringList &names, quint32 *group);
+bool setKeymapGroup(const QStringList &names, quint32 group);
 
 // --- shortcuts (com.kylin.Wlcom.InputAction) ---
 // Each pair is (bindings, action-config-json); see gxde-wlcom data/config.json.
 QList<QPair<QString, QString>> listShortcuts();
+QList<KeyBinding> listKeyBindings();
 // actionData is the comma separated "bus string" accepted by gxde-wlcom's
 // AddAction, e.g. "command,/usr/bin/xterm" or "dbus,session,svc,path,iface,method".
 bool addShortcut(const QString &bindings, const QString &desc, const QString &actionData,

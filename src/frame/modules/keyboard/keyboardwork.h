@@ -138,6 +138,7 @@ public Q_SLOTS:
 
     // key capture result delivered by gxde-wlcom under Wayland
     void onWlcomKeyEvent(bool pressed, const QString &shortcut);
+    void onWlcomKeymapGroupChanged(const QString &device, uint group);
 
 private:
     void refreshWaylandLayouts();
@@ -165,6 +166,7 @@ private:
     QStringList m_waylandLayouts;
     GxdeInput::Keymap m_waylandKeymap;
     int m_waylandSwitch = 0;
+    int m_waylandGroup = 0;
 };
 }
 }

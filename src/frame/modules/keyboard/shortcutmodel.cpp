@@ -147,6 +147,24 @@ void ShortcutModel::onParseInfo(const QString &info)
         m_infos << info;
 
         if (type != MEDIAKEY) {
+            const QString category = obj["Category"].toString();
+            if (category == QLatin1String("System")) {
+                m_systemInfos << info;
+                continue;
+            }
+            if (category == QLatin1String("Window")) {
+                m_windowInfos << info;
+                continue;
+            }
+            if (category == QLatin1String("Workspace")) {
+                m_workspaceInfos << info;
+                continue;
+            }
+            if (category == QLatin1String("Custom")) {
+                m_customInfos << info;
+                continue;
+            }
+
             if (systemFilter.contains(info->id)) {
                 m_systemInfos << info;
                 continue;

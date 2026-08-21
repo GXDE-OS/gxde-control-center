@@ -39,6 +39,7 @@
 #include <QJsonObject>
 #include <QFile>
 #include <QSettings>
+#include <QSet>
 #include <QXmlStreamReader>
 #include <utility>
 
@@ -139,6 +140,60 @@ static QString actionJsonToBindingType(const QJsonObject &obj)
 {
     const QString type = obj.value(QStringLiteral("type")).toString();
     return type.isEmpty() ? QStringLiteral("WLCOM_CUSTOM_DEF") : type;
+}
+
+static QString wlcomShortcutCategory(const QString &type)
+{
+    if (type == QLatin1String("WLCOM_CUSTOM_DEF"))
+        return QStringLiteral("Custom");
+    if (type == QLatin1String("WLCOM_SWITCH_WORKSPACE"))
+        return QStringLiteral("Workspace");
+    if (type.startsWith(QLatin1String("WLCOM_WINDOW_ACTION_")) ||
+        type == QLatin1String("WLCOM_WINDOW_SWITCHER") ||
+        type == QLatin1String("WLCOM_MAXIMIZED_VIEWS")) {
+        return QStringLiteral("Window");
+    }
+
+    // System defaults predate the binding type field.  User-created
+    // shortcuts are always persisted explicitly as WLCOM_CUSTOM_DEF.
+    return QStringLiteral("System");
+}
+
+static QSet<QString> wlcomSystemActionBindings(bool *loaded)
+{
+    QSet<QString> bindings;
+    QFile file(QStringLiteral("/etc/gxde-wlcom/config.json"));
+    if (!file.open(QIODevice::ReadOnly)) {
+        *loaded = false;
+        return bindings;
+    }
+
+    const QJsonObject keyboard =
+        QJsonDocument::fromJson(file.readAll())
+            .object()
+            .value(QStringLiteral("InputAction"))
+            .toObject()
+            .value(QStringLiteral("keyboard"))
+            .toObject();
+    *loaded = !keyboard.isEmpty();
+    for (auto it = keyboard.constBegin(); it != keyboard.constEnd(); ++it)
+        bindings.insert(it.key().toLower());
+    return bindings;
+}
+
+static QJsonObject wlcomShortcutItem(const QString &bindings, const QString &name,
+                                    const QString &command, const QString &category)
+{
+    QJsonObject item;
+    item[QStringLiteral("Type")] = category == QLatin1String("Custom") ? 1 : 0;
+    item[QStringLiteral("Category")] = category;
+    item[QStringLiteral("Id")] = bindings;
+    item[QStringLiteral("Name")] = name;
+    item[QStringLiteral("Exec")] = command;
+    QJsonArray accels;
+    accels.append(wlcomBindingToDisplay(bindings));
+    item[QStringLiteral("Accels")] = accels;
+    return item;
 }
 
 static QMap<QString, QString> systemXkbLayouts()
@@ -291,7 +346,25 @@ void KeyboardWorker::setShortcutModel(ShortcutModel *model)
             GxdeInput::Service, GxdeInput::ShortcutPath, GxdeInput::ShortcutInterface,
             QStringLiteral("KeyEvent"), this,
             SLOT(onWlcomKeyEvent(bool, QString)));
+        QDBusConnection::sessionBus().connect(
+            GxdeInput::Service, GxdeInput::Path, GxdeInput::Interface,
+            QStringLiteral("KeymapGroupChanged"), this,
+            SLOT(onWlcomKeymapGroupChanged(QString, uint)));
     }
+}
+
+void KeyboardWorker::onWlcomKeymapGroupChanged(const QString &device, uint group)
+{
+    Q_UNUSED(device)
+
+    if (group >= static_cast<uint>(m_waylandLayouts.size())) {
+        return;
+    }
+
+    m_waylandGroup = static_cast<int>(group);
+    const QString id = m_waylandLayouts.at(m_waylandGroup);
+    m_model->setLayout(m_model->kbLayout().value(id, id));
+    saveWaylandLayouts();
 }
 
 void KeyboardWorker::onWlcomKeyEvent(bool pressed, const QString &shortcut)
@@ -306,6 +379,10 @@ void KeyboardWorker::refreshShortcut()
     // so enumerate the shortcuts held by gxde-wlcom instead.
     if (Dtk::Widget::DApplication::isWayland()) {
         QJsonArray array;
+        QSet<QString> listedBindings;
+        bool systemBindingsLoaded = false;
+        const QSet<QString> systemBindings =
+            wlcomSystemActionBindings(&systemBindingsLoaded);
         const QList<QPair<QString, QString>> actions = GxdeInput::listShortcuts();
         for (const auto &action : actions) {
             const QString &bindings = action.first;
@@ -319,15 +396,27 @@ void KeyboardWorker::refreshShortcut()
             if (obj.isEmpty() || !obj.value(QStringLiteral("enable")).toBool(true))
                 continue;
 
-            QJsonObject item;
-            item[QStringLiteral("Type")] = 1; // custom
-            item[QStringLiteral("Id")] = bindings;
-            item[QStringLiteral("Name")] = obj.value(QStringLiteral("desc")).toString(bindings);
-            item[QStringLiteral("Exec")] = obj.value(QStringLiteral("command")).toString();
-            QJsonArray accels;
-            accels.append(wlcomBindingToDisplay(bindings));
-            item[QStringLiteral("Accels")] = accels;
-            array.append(item);
+            QString type = obj.value(QStringLiteral("type")).toString();
+            if (type.isEmpty() && systemBindingsLoaded &&
+                !systemBindings.contains(bindings.toLower())) {
+                type = QStringLiteral("WLCOM_CUSTOM_DEF");
+            }
+            const QString category = wlcomShortcutCategory(type);
+            array.append(wlcomShortcutItem(
+                bindings, obj.value(QStringLiteral("desc")).toString(bindings),
+                obj.value(QStringLiteral("command")).toString(), category));
+            listedBindings.insert(bindings.toLower());
+        }
+
+        for (const GxdeInput::KeyBinding &binding : GxdeInput::listKeyBindings()) {
+            if (listedBindings.contains(binding.bindings.toLower()) ||
+                binding.type == QLatin1String("WLCOM_CUSTOM_DEF")) {
+                continue;
+            }
+            array.append(wlcomShortcutItem(
+                binding.bindings,
+                binding.description.isEmpty() ? binding.bindings : binding.description, QString(),
+                wlcomShortcutCategory(binding.type)));
         }
         m_shortcutModel->onParseInfo(QString::fromUtf8(QJsonDocument(array).toJson()));
         return;
@@ -646,18 +735,20 @@ void KeyboardWorker::delUserLayout(const QString &value)
         const QString id = m_model->userLayout().key(value);
         if (id.isEmpty() || m_waylandLayouts.size() <= 1)
             return;
-        const bool currentRemoved = m_waylandLayouts.first() == id;
+        const int removedIndex = m_waylandLayouts.indexOf(id);
         m_waylandLayouts.removeAll(id);
+        if (removedIndex < m_waylandGroup)
+            --m_waylandGroup;
+        else if (removedIndex == m_waylandGroup)
+            m_waylandGroup = qMin(m_waylandGroup, m_waylandLayouts.size() - 1);
         saveWaylandLayouts();
         applyWaylandLayouts();
-        QTimer::singleShot(0, this, [this, currentRemoved] {
+        QTimer::singleShot(0, this, [this] {
             m_model->cleanUserLayout();
             for (const QString &layout : std::as_const(m_waylandLayouts))
                 m_model->addUserLayout(layout, m_model->kbLayout().value(layout, layout));
-            if (currentRemoved) {
-                m_model->setLayout(m_model->kbLayout().value(m_waylandLayouts.first(),
-                                                             m_waylandLayouts.first()));
-            }
+            const QString current = m_waylandLayouts.at(m_waylandGroup);
+            m_model->setLayout(m_model->kbLayout().value(current, current));
         });
         return;
     }
@@ -1087,13 +1178,14 @@ int KeyboardWorker::converToModelInterval(int value)
 void KeyboardWorker::setLayout(const QString &value)
 {
     if (Dtk::Widget::DApplication::isWayland()) {
-        if (!m_waylandLayouts.contains(value))
+        const int group = m_waylandLayouts.indexOf(value);
+        if (group < 0)
             return;
-        m_waylandLayouts.removeAll(value);
-        m_waylandLayouts.prepend(value);
+        if (!GxdeInput::setKeymapGroup(GxdeInput::keyboardDevices(), group))
+            return;
+        m_waylandGroup = group;
         m_model->setLayout(m_model->kbLayout().value(value, value));
         saveWaylandLayouts();
-        applyWaylandLayouts();
         return;
     }
     m_keyboardInter->setCurrentLayout(value);
@@ -1137,10 +1229,13 @@ void KeyboardWorker::refreshWaylandLayouts()
                                     : layouts.firstKey());
     }
 
-    const QString current = settings.value(QStringLiteral("current")).toString();
-    if (m_waylandLayouts.contains(current)) {
-        m_waylandLayouts.removeAll(current);
-        m_waylandLayouts.prepend(current);
+    quint32 activeGroup = 0;
+    if (GxdeInput::getKeymapGroup(GxdeInput::keyboardDevices(), &activeGroup) &&
+        activeGroup < static_cast<quint32>(m_waylandLayouts.size())) {
+        m_waylandGroup = static_cast<int>(activeGroup);
+    } else {
+        m_waylandGroup = qMax(0, m_waylandLayouts.indexOf(
+                                      settings.value(QStringLiteral("current")).toString()));
     }
     m_waylandSwitch = settings.contains(QStringLiteral("switchMask"))
                           ? settings.value(QStringLiteral("switchMask")).toInt()
@@ -1151,7 +1246,8 @@ void KeyboardWorker::refreshWaylandLayouts()
     m_model->cleanUserLayout();
     for (const QString &layout : std::as_const(m_waylandLayouts))
         m_model->addUserLayout(layout, layouts.value(layout, layout));
-    m_model->setLayout(layouts.value(m_waylandLayouts.first(), m_waylandLayouts.first()));
+    const QString current = m_waylandLayouts.at(m_waylandGroup);
+    m_model->setLayout(layouts.value(current, current));
     m_model->setKbSwitch(m_waylandSwitch);
     saveWaylandLayouts();
 }
@@ -1183,6 +1279,8 @@ void KeyboardWorker::applyWaylandLayouts()
 
     if (!GxdeInput::setKeymap(GxdeInput::keyboardDevices(), keymap))
         qWarning() << "Failed to apply the Wayland keyboard layout" << keymap.layout;
+    else if (!GxdeInput::setKeymapGroup(GxdeInput::keyboardDevices(), m_waylandGroup))
+        qWarning() << "Failed to restore the Wayland keyboard layout group" << m_waylandGroup;
 }
 
 void KeyboardWorker::saveWaylandLayouts()
@@ -1191,7 +1289,8 @@ void KeyboardWorker::saveWaylandLayouts()
     settings.beginGroup(QStringLiteral("WaylandKeyboard"));
     settings.setValue(QStringLiteral("layouts"), m_waylandLayouts);
     settings.setValue(QStringLiteral("current"),
-                      m_waylandLayouts.isEmpty() ? QString() : m_waylandLayouts.first());
+                      m_waylandLayouts.isEmpty() ? QString()
+                                                 : m_waylandLayouts.at(m_waylandGroup));
     settings.setValue(QStringLiteral("switchMask"), m_waylandSwitch);
     settings.endGroup();
 }
