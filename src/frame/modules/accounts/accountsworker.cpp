@@ -27,8 +27,13 @@
 #include "user.h"
 
 #include <QFileDialog>
+#include <QFile>
+#include <QDBusConnectionInterface>
+#include <QDir>
 #include <QtConcurrent>
 #include <QFutureWatcher>
+#include <QProcess>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
@@ -42,6 +47,36 @@ using namespace dcc::accounts;
 
 const QString AccountsService("com.deepin.daemon.Accounts");
 const QString DisplayManagerService("org.freedesktop.DisplayManager");
+const QString GxdmService("top.gxde.DisplayManager");
+const QString GxdmConfig("/etc/gxdm.conf");
+const QString GxdmHelper("/usr/lib/gxde-control-center/gxde-control-center-gxdm-autologin-helper");
+
+void readGxdmConfigUser(const QString &path, QString *autoLoginUser)
+{
+    QFile configFile(path);
+    if (!configFile.open(QIODevice::ReadOnly)) {
+        return;
+    }
+
+    bool inAutologin = false;
+    while (!configFile.atEnd()) {
+        QString line = QString::fromUtf8(configFile.readLine()).trimmed();
+        line = line.section(QLatin1Char('#'), 0, 0).trimmed();
+        if (line.startsWith(QLatin1Char('['))
+                && line.endsWith(QLatin1Char(']'))) {
+            inAutologin = line.mid(1, line.size() - 2)
+                == QStringLiteral("Autologin");
+            continue;
+        }
+
+        const int separatorPosition = line.indexOf(QLatin1Char('='));
+        if (inAutologin && separatorPosition >= 0
+                && line.left(separatorPosition).trimmed()
+                    == QStringLiteral("User")) {
+            *autoLoginUser = line.mid(separatorPosition + 1).trimmed();
+        }
+    }
+}
 
 AccountsWorker::AccountsWorker(UserModel *userList, QObject *parent)
     : QObject(parent)
@@ -51,6 +86,8 @@ AccountsWorker::AccountsWorker(UserModel *userList, QObject *parent)
 #endif
     , m_dmInter(new DisplayManager(DisplayManagerService, "/org/freedesktop/DisplayManager", QDBusConnection::systemBus(), this))
     , m_userModel(userList)
+    , m_usingGxdm(QDBusConnection::systemBus().interface()
+          && QDBusConnection::systemBus().interface()->isServiceRegistered(GxdmService))
 {
     struct passwd *pws;
     pws = getpwuid(getuid());
@@ -73,10 +110,13 @@ AccountsWorker::AccountsWorker(UserModel *userList, QObject *parent)
 
 void AccountsWorker::active()
 {
+    const QString gxdmUser = m_usingGxdm ? gxdmAutoLoginUser() : QString();
     for (auto it(m_userInters.cbegin()); it != m_userInters.cend(); ++it)
     {
         it.key()->setName(it.value()->userName());
-        it.key()->setAutoLogin(it.value()->automaticLogin());
+        it.key()->setAutoLogin(m_usingGxdm
+            ? it.value()->userName() == gxdmUser
+            : it.value()->automaticLogin());
         it.key()->setAvatars(it.value()->iconList());
         it.key()->setCurrentAvatar(it.value()->iconFile());
     }
@@ -178,6 +218,39 @@ void AccountsWorker::setAutoLogin(User *user, const bool autoLogin)
     // because this operate need root permission, we must wait for finished and refersh result
     Q_EMIT requestFrameAutoHide(false);
 
+    if (m_usingGxdm) {
+        auto *process = new QProcess(this);
+        connect(process, &QProcess::errorOccurred, this,
+            [this, process](QProcess::ProcessError error) {
+                if (error != QProcess::FailedToStart) {
+                    return;
+                }
+                qWarning() << "Failed to start GXDM automatic login helper:"
+                           << process->errorString();
+                refreshGxdmAutoLoginState();
+                Q_EMIT requestFrameAutoHide(true);
+                process->deleteLater();
+            });
+        connect(process, &QProcess::finished, this,
+            [this, process](int exitCode, QProcess::ExitStatus exitStatus) {
+                if (exitStatus != QProcess::NormalExit || exitCode != 0) {
+                    qWarning() << "Failed to configure GXDM automatic login:"
+                               << process->readAllStandardError();
+                }
+                refreshGxdmAutoLoginState();
+                Q_EMIT requestFrameAutoHide(true);
+                process->deleteLater();
+            });
+
+        QStringList args { GxdmHelper, autoLogin ? QStringLiteral("enable")
+                                                 : QStringLiteral("disable") };
+        if (autoLogin) {
+            args << user->name();
+        }
+        process->start(QStringLiteral("pkexec"), args);
+        return;
+    }
+
     QDBusPendingCall call = ui->SetAutomaticLogin(autoLogin);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [=] {
@@ -240,7 +313,9 @@ void AccountsWorker::addUser(const QString &userPath)
 #endif
     });
 
-    connect(userInter, &AccountsUser::AutomaticLoginChanged, user, &User::setAutoLogin);
+    if (!m_usingGxdm) {
+        connect(userInter, &AccountsUser::AutomaticLoginChanged, user, &User::setAutoLogin);
+    }
     connect(userInter, &AccountsUser::IconListChanged, user, &User::setAvatars);
     connect(userInter, &AccountsUser::IconFileChanged, user, &User::setCurrentAvatar);
     connect(userInter, &AccountsUser::FullNameChanged, user, &User::setFullname);
@@ -249,7 +324,9 @@ void AccountsWorker::addUser(const QString &userPath)
 
     user->setName(userInter->userName());
     user->setFullname(userInter->fullName());
-    user->setAutoLogin(userInter->automaticLogin());
+    user->setAutoLogin(m_usingGxdm
+        ? userInter->userName() == gxdmAutoLoginUser()
+        : userInter->automaticLogin());
     user->setAvatars(userInter->iconList());
     user->setCurrentAvatar(userInter->iconFile());
     user->setNopasswdLogin(userInter->noPasswdLogin());
@@ -257,6 +334,35 @@ void AccountsWorker::addUser(const QString &userPath)
 
     m_userInters[user] = userInter;
     m_userModel->addUser(userPath, user);
+}
+
+QString AccountsWorker::gxdmAutoLoginUser() const
+{
+    QString autoLoginUser;
+    const QStringList configDirs {
+        QStringLiteral("/usr/lib/gxdm/gxdm.conf.d"),
+        QStringLiteral("/etc/gxdm.conf.d")
+    };
+
+    for (const QString &dirPath : configDirs) {
+        const QDir dir(dirPath);
+        const QStringList files = dir.entryList(
+            { QStringLiteral("*.conf") }, QDir::Files, QDir::Name);
+        for (const QString &file : files) {
+            readGxdmConfigUser(dir.filePath(file), &autoLoginUser);
+        }
+    }
+
+    readGxdmConfigUser(GxdmConfig, &autoLoginUser);
+    return autoLoginUser;
+}
+
+void AccountsWorker::refreshGxdmAutoLoginState()
+{
+    const QString autoLoginUser = gxdmAutoLoginUser();
+    for (auto it(m_userInters.cbegin()); it != m_userInters.cend(); ++it) {
+        it.key()->setAutoLogin(it.value()->userName() == autoLoginUser);
+    }
 }
 
 void AccountsWorker::removeUser(const QString &userPath)

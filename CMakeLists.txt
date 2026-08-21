@@ -36,6 +36,7 @@ configure_file(files/gxde-control-center.conf.in files/gxde-control-center.conf 
 
 add_subdirectory("src/frame")
 add_subdirectory("src/dialogs")
+add_subdirectory("src/helpers/gxdm-autologin")
 
 ## qm files
 file(GLOB QM_FILES "translations/*.qm")
@@ -60,6 +61,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/files/gxde-control-center.conf DESTINA
 
 # polkit policy file
 install(FILES com.gxde.controlcenter.update.policy DESTINATION share/polkit-1/actions)
+install(FILES com.gxde.controlcenter.gxdm-autologin.policy DESTINATION share/polkit-1/actions)
 if (OS_DEEPIN_PROFESSIONAL)
     if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
         install(FILES com.deepin.controlcenter.addomain.policy DESTINATION share/polkit-1/actions)

@@ -101,6 +101,8 @@ private:
     AccountsUser *userInter(const QString &userName) const;
     CreationResult *createAccountInternal(const User *user);
     QString cryptUserPassword(const QString &password);
+    QString gxdmAutoLoginUser() const;
+    void refreshGxdmAutoLoginState();
 
 private:
     Accounts *m_accountsInter;
@@ -113,6 +115,7 @@ private:
     DisplayManager *m_dmInter;
     QStringList m_onlineUsers;
     UserModel *m_userModel;
+    bool m_usingGxdm;
 };
 
 }   // namespace accounts
