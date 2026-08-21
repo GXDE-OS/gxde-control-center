@@ -38,7 +38,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
+#include <QCoreApplication>
 #include <QSettings>
+#include <QHash>
 #include <QSet>
 #include <QXmlStreamReader>
 #include <utility>
@@ -159,6 +161,55 @@ static QString wlcomShortcutCategory(const QString &type)
     return QStringLiteral("System");
 }
 
+// gxde-wlcom stores the built-in action names in its JSON configuration.
+// Keep the known names in the translation catalog while leaving user-defined
+// action names untouched.
+static QString translateWlcomDescription(const QString &description)
+{
+    static const QHash<QString, const char *> knownDescriptions {
+        {QStringLiteral("open launcher"), QT_TRANSLATE_NOOP("WlcomShortcut", "open launcher")},
+        {QStringLiteral("Take a screenshot"), QT_TRANSLATE_NOOP("WlcomShortcut", "Take a screenshot")},
+        {QStringLiteral("Take a screenshot for ocr"), QT_TRANSLATE_NOOP("WlcomShortcut", "Take a screenshot for ocr")},
+        {QStringLiteral("Launch screen recorder"), QT_TRANSLATE_NOOP("WlcomShortcut", "Launch screen recorder")},
+        {QStringLiteral("Take a screenshot of the most top window"), QT_TRANSLATE_NOOP("WlcomShortcut", "Take a screenshot of the most top window")},
+        {QStringLiteral("Take a screenshot after a few seconds"), QT_TRANSLATE_NOOP("WlcomShortcut", "Take a screenshot after a few seconds")},
+        {QStringLiteral("open file manager"), QT_TRANSLATE_NOOP("WlcomShortcut", "open file manager")},
+        {QStringLiteral("quake terminal"), QT_TRANSLATE_NOOP("WlcomShortcut", "quake terminal")},
+        {QStringLiteral("clipboard"), QT_TRANSLATE_NOOP("WlcomShortcut", "clipboard")},
+        {QStringLiteral("copy fullscreen to clipboard"), QT_TRANSLATE_NOOP("WlcomShortcut", "copy fullscreen to clipboard")},
+        {QStringLiteral("grand search"), QT_TRANSLATE_NOOP("WlcomShortcut", "grand search")},
+        {QStringLiteral("volume up"), QT_TRANSLATE_NOOP("WlcomShortcut", "volume up")},
+        {QStringLiteral("volume down"), QT_TRANSLATE_NOOP("WlcomShortcut", "volume down")},
+        {QStringLiteral("mute"), QT_TRANSLATE_NOOP("WlcomShortcut", "mute")},
+        {QStringLiteral("shutdown dialog"), QT_TRANSLATE_NOOP("WlcomShortcut", "shutdown dialog")},
+        {QStringLiteral("suspend"), QT_TRANSLATE_NOOP("WlcomShortcut", "suspend")},
+        {QStringLiteral("play"), QT_TRANSLATE_NOOP("WlcomShortcut", "play")},
+        {QStringLiteral("pause"), QT_TRANSLATE_NOOP("WlcomShortcut", "pause")},
+        {QStringLiteral("previous"), QT_TRANSLATE_NOOP("WlcomShortcut", "previous")},
+        {QStringLiteral("next"), QT_TRANSLATE_NOOP("WlcomShortcut", "next")},
+        {QStringLiteral("brightness up"), QT_TRANSLATE_NOOP("WlcomShortcut", "brightness up")},
+        {QStringLiteral("brightness down"), QT_TRANSLATE_NOOP("WlcomShortcut", "brightness down")},
+        {QStringLiteral("open terminal"), QT_TRANSLATE_NOOP("WlcomShortcut", "open terminal")},
+        {QStringLiteral("open system monitor"), QT_TRANSLATE_NOOP("WlcomShortcut", "open system monitor")},
+        {QStringLiteral("show ukui menu"), QT_TRANSLATE_NOOP("WlcomShortcut", "show ukui menu")},
+        {QStringLiteral("show multitaskView"), QT_TRANSLATE_NOOP("WlcomShortcut", "show multitaskView")},
+        {QStringLiteral("trigger switch windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "trigger switch windows")},
+        {QStringLiteral("switch up windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "switch up windows")},
+        {QStringLiteral("switch down windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "switch down windows")},
+        {QStringLiteral("switch left windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "switch left windows")},
+        {QStringLiteral("switch right windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "switch right windows")},
+        {QStringLiteral("stop switch windows"), QT_TRANSLATE_NOOP("WlcomShortcut", "stop switch windows")},
+        {QStringLiteral("show Siderbar"), QT_TRANSLATE_NOOP("WlcomShortcut", "show Siderbar")},
+        {QStringLiteral("simulate right key"), QT_TRANSLATE_NOOP("WlcomShortcut", "simulate right key")},
+        {QStringLiteral("global search"), QT_TRANSLATE_NOOP("WlcomShortcut", "global search")},
+    };
+
+    const auto it = knownDescriptions.constFind(description);
+    if (it == knownDescriptions.cend())
+        return description;
+    return QCoreApplication::translate("WlcomShortcut", *it);
+}
+
 static QSet<QString> wlcomSystemActionBindings(bool *loaded)
 {
     QSet<QString> bindings;
@@ -188,7 +239,7 @@ static QJsonObject wlcomShortcutItem(const QString &bindings, const QString &nam
     item[QStringLiteral("Type")] = category == QLatin1String("Custom") ? 1 : 0;
     item[QStringLiteral("Category")] = category;
     item[QStringLiteral("Id")] = bindings;
-    item[QStringLiteral("Name")] = name;
+    item[QStringLiteral("Name")] = translateWlcomDescription(name);
     item[QStringLiteral("Exec")] = command;
     QJsonArray accels;
     accels.append(wlcomBindingToDisplay(bindings));

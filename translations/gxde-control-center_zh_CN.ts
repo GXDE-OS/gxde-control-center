@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>WlcomShortcut</name>
+    <message><source>open launcher</source><translation>打开启动器</translation></message>
+    <message><source>Take a screenshot</source><translation>截图</translation></message>
+    <message><source>Take a screenshot for ocr</source><translation>文字识别截图</translation></message>
+    <message><source>Launch screen recorder</source><translation>启动屏幕录制</translation></message>
+    <message><source>Take a screenshot of the most top window</source><translation>截取最上层窗口</translation></message>
+    <message><source>Take a screenshot after a few seconds</source><translation>延时截图</translation></message>
+    <message><source>open file manager</source><translation>打开文件管理器</translation></message>
+    <message><source>quake terminal</source><translation>下拉终端</translation></message>
+    <message><source>clipboard</source><translation>剪贴板</translation></message>
+    <message><source>copy fullscreen to clipboard</source><translation>复制全屏内容到剪贴板</translation></message>
+    <message><source>grand search</source><translation>全局搜索</translation></message>
+    <message><source>volume up</source><translation>增大音量</translation></message>
+    <message><source>volume down</source><translation>减小音量</translation></message>
+    <message><source>mute</source><translation>静音</translation></message>
+    <message><source>shutdown dialog</source><translation>关机对话框</translation></message>
+    <message><source>suspend</source><translation>挂起</translation></message>
+    <message><source>play</source><translation>播放</translation></message>
+    <message><source>pause</source><translation>暂停</translation></message>
+    <message><source>previous</source><translation>上一项</translation></message>
+    <message><source>next</source><translation>下一项</translation></message>
+    <message><source>brightness up</source><translation>提高亮度</translation></message>
+    <message><source>brightness down</source><translation>降低亮度</translation></message>
+    <message><source>open terminal</source><translation>打开终端</translation></message>
+    <message><source>open system monitor</source><translation>打开系统监视器</translation></message>
+    <message><source>show ukui menu</source><translation>显示 UKUI 菜单</translation></message>
+    <message><source>show multitaskView</source><translation>显示多任务视图</translation></message>
+    <message><source>trigger switch windows</source><translation>触发窗口切换</translation></message>
+    <message><source>switch up windows</source><translation>向上切换窗口</translation></message>
+    <message><source>switch down windows</source><translation>向下切换窗口</translation></message>
+    <message><source>switch left windows</source><translation>向左切换窗口</translation></message>
+    <message><source>switch right windows</source><translation>向右切换窗口</translation></message>
+    <message><source>stop switch windows</source><translation>停止切换窗口</translation></message>
+    <message><source>show Siderbar</source><translation>显示侧边栏</translation></message>
+    <message><source>simulate right key</source><translation>模拟鼠标右键</translation></message>
+    <message><source>global search</source><translation>全局搜索</translation></message>
+</context>
+<context>
     <name>BluetoothDelegate</name>
     <message>
         <location filename="../src/frame/quick_control/bluetooth/bluetoothdelegate.cpp" line="97"/>

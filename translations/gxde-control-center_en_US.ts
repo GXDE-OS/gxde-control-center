@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>WlcomShortcut</name>
+    <message><source>open launcher</source><translation>open launcher</translation></message>
+    <message><source>Take a screenshot</source><translation>Take a screenshot</translation></message>
+    <message><source>Take a screenshot for ocr</source><translation>Take a screenshot for ocr</translation></message>
+    <message><source>Launch screen recorder</source><translation>Launch screen recorder</translation></message>
+    <message><source>Take a screenshot of the most top window</source><translation>Take a screenshot of the most top window</translation></message>
+    <message><source>Take a screenshot after a few seconds</source><translation>Take a screenshot after a few seconds</translation></message>
+    <message><source>open file manager</source><translation>open file manager</translation></message>
+    <message><source>quake terminal</source><translation>quake terminal</translation></message>
+    <message><source>clipboard</source><translation>clipboard</translation></message>
+    <message><source>copy fullscreen to clipboard</source><translation>copy fullscreen to clipboard</translation></message>
+    <message><source>grand search</source><translation>grand search</translation></message>
+    <message><source>volume up</source><translation>volume up</translation></message>
+    <message><source>volume down</source><translation>volume down</translation></message>
+    <message><source>mute</source><translation>mute</translation></message>
+    <message><source>shutdown dialog</source><translation>shutdown dialog</translation></message>
+    <message><source>suspend</source><translation>suspend</translation></message>
+    <message><source>play</source><translation>play</translation></message>
+    <message><source>pause</source><translation>pause</translation></message>
+    <message><source>previous</source><translation>previous</translation></message>
+    <message><source>next</source><translation>next</translation></message>
+    <message><source>brightness up</source><translation>brightness up</translation></message>
+    <message><source>brightness down</source><translation>brightness down</translation></message>
+    <message><source>open terminal</source><translation>open terminal</translation></message>
+    <message><source>open system monitor</source><translation>open system monitor</translation></message>
+    <message><source>show ukui menu</source><translation>show ukui menu</translation></message>
+    <message><source>show multitaskView</source><translation>show multitaskView</translation></message>
+    <message><source>trigger switch windows</source><translation>trigger switch windows</translation></message>
+    <message><source>switch up windows</source><translation>switch up windows</translation></message>
+    <message><source>switch down windows</source><translation>switch down windows</translation></message>
+    <message><source>switch left windows</source><translation>switch left windows</translation></message>
+    <message><source>switch right windows</source><translation>switch right windows</translation></message>
+    <message><source>stop switch windows</source><translation>stop switch windows</translation></message>
+    <message><source>show Siderbar</source><translation>show Siderbar</translation></message>
+    <message><source>simulate right key</source><translation>simulate right key</translation></message>
+    <message><source>global search</source><translation>global search</translation></message>
+</context>
+<context>
     <name>BluetoothDelegate</name>
     <message>
         <location filename="../src/frame/quick_control/bluetooth/bluetoothdelegate.cpp" line="97"/>
