@@ -1,4 +1,4 @@
-gxde-control-center (6.0.13) unstable; urgency=medium
+gxde-control-center (6.0.14) unstable; urgency=medium
 
   * 新增多屏支持，设置页面会在鼠标所在屏幕展示
   * 新增Wayland下的设置页面动画
