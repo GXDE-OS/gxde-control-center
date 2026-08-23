@@ -82,7 +82,7 @@ bool GxdmWidget::isAvailable()
             == QDBusMessage::ReplyMessage;
 }
 
-GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
+GxdmWidget::GxdmWidget(QWidget *parent)
         : ContentWidget(parent)
         , m_displayManagerIface(new QDBusInterface(
             DisplayManagerService, DisplayManagerPath, DisplayManagerInterface,
@@ -100,10 +100,12 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     defaultWallpaper->setTitle(tr("Restore default wallpaper"));
     loginGroup->appendItem(defaultWallpaper);
 
-    auto *cursorTheme = new Theme(tr("Welcome screen mouse cursor (global)"));
-    if (cursorModel) {
-        cursorTheme->setModel(cursorModel);
-    }
+    // 欢迎界面鼠标指针放入二级菜单
+    auto *cursorGroup =
+        new SettingsGroup(tr("Welcome screen mouse cursor (global)"));
+    NextPageWidget *cursorThemes = new NextPageWidget;
+    cursorThemes->setTitle(tr("Select mouse cursor"));
+    cursorGroup->appendItem(cursorThemes);
 
     auto *lockGroup = new SettingsGroup(tr("Lock screen manager"));
 
@@ -127,7 +129,7 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
     layout->addWidget(loginGroup);
-    layout->addWidget(cursorTheme);
+    layout->addWidget(cursorGroup);
     layout->addWidget(lockGroup);
     layout->addWidget(expGroup);
     layout->addStretch();
@@ -138,8 +140,12 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     connect(wallpaperChooser->edit(), &QLineEdit::textChanged, this,
         &GxdmWidget::onWallpaperChanged);
     connect(defaultWallpaper, &NextPageWidget::clicked, this, [this] {
-        call(m_displayManagerIface, QStringLiteral("SetWallpaperGXDEDefault"));
+        // 清空自定义壁纸，回到默认行为：
+        // 单用户跟随其锁屏壁纸，多用户使用默认登录壁纸
+        call(m_displayManagerIface, QStringLiteral("ClearWallpaper"));
     });
+    connect(cursorThemes, &NextPageWidget::clicked, this,
+        &GxdmWidget::requestShowCursorThemes);
     connect(lockWallpaperChooser->edit(), &QLineEdit::textChanged, this,
         &GxdmWidget::onLockWallpaperChanged);
     connect(defaultLockWallpaper, &NextPageWidget::clicked, this, [this] {
@@ -148,6 +154,37 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
     });
     connect(m_x11GreeterSwitch, &SwitchWidget::checkedChanged, this,
         &GxdmWidget::onGreeterServerChanged);
+
+    connect(wallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide, this,
+        &GxdmWidget::requestFrameKeepAutoHide);
+    connect(lockWallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide,
+        this, &GxdmWidget::requestFrameKeepAutoHide);
+
+    refresh();
+}
+
+GxdmCursorThemeWidget::GxdmCursorThemeWidget(ThemeModel *cursorModel,
+        QWidget *parent)
+        : ContentWidget(parent)
+        , m_displayManagerIface(new QDBusInterface(
+            DisplayManagerService, DisplayManagerPath, DisplayManagerInterface,
+            QDBusConnection::sessionBus(), this))
+{
+    auto *cursorTheme = new Theme(tr("Welcome screen mouse cursor (global)"));
+    if (cursorModel) {
+        cursorTheme->setModel(cursorModel);
+    }
+
+    auto *frame = new TranslucentFrame;
+    auto *layout = new QVBoxLayout(frame);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+    layout->addWidget(cursorTheme);
+    layout->addStretch();
+
+    setTitle(tr("Welcome screen mouse cursor (global)"));
+    setContent(frame);
+
     connect(cursorTheme, &Theme::requestSetDefault, this,
         [this, cursorTheme](const QJsonObject &value) {
             const QDBusMessage reply = call(m_displayManagerIface,
@@ -157,13 +194,6 @@ GxdmWidget::GxdmWidget(ThemeModel *cursorModel, QWidget *parent)
                 cursorTheme->setDefault(value[QStringLiteral("Id")].toString());
             }
         });
-
-    connect(wallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide, this,
-        &GxdmWidget::requestFrameKeepAutoHide);
-    connect(lockWallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide,
-        this, &GxdmWidget::requestFrameKeepAutoHide);
-
-    refresh();
 }
 
 void GxdmWidget::refresh() {

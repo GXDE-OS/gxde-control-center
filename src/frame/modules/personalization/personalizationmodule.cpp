@@ -141,13 +141,22 @@ void PersonalizationModule::showGxwmWidget()
 
 void PersonalizationModule::showDisplayManagerWidget()
 {
+    GxdmWidget *gxdmWidget = new GxdmWidget;
+    connect(gxdmWidget, &GxdmWidget::requestFrameKeepAutoHide, this,
+            &PersonalizationModule::onSetFrameAutoHide);
+    connect(gxdmWidget, &GxdmWidget::requestShowCursorThemes, this,
+            &PersonalizationModule::showGreeterCursorThemes);
+    m_frameProxy->pushWidget(this, gxdmWidget);
+}
+
+void PersonalizationModule::showGreeterCursorThemes()
+{
     // 鼠标指针网格复用个性化主题页的数据源，先刷新列表
     m_work->refreshTheme();
 
-    GxdmWidget *gxdmWidget = new GxdmWidget(m_model->getMouseModel());
-    connect(gxdmWidget, &GxdmWidget::requestFrameKeepAutoHide, this,
-            &PersonalizationModule::onSetFrameAutoHide);
-    m_frameProxy->pushWidget(this, gxdmWidget);
+    GxdmCursorThemeWidget *cursorThemes =
+        new GxdmCursorThemeWidget(m_model->getMouseModel());
+    m_frameProxy->pushWidget(this, cursorThemes);
 }
 
 void PersonalizationModule::onSetFrameAutoHide(const bool autoHide)
