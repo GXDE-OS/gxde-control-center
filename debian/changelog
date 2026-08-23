@@ -1,3 +1,10 @@
+gxde-control-center (6.0.15) unstable; urgency=medium
+
+  * GXDM 设置：欢迎界面鼠标指针移入二级菜单
+  * GXDM 设置：恢复默认壁纸改为清空设置（配合 GXDM 1.2.5 的回退逻辑）
+
+ -- CharOfString <root@charofstring.cc>  Sun, 23 Aug 2026 15:21:35 +0800
+
 gxde-control-center (6.0.14) unstable; urgency=medium
 
   * 新增多屏支持，设置页面会在鼠标所在屏幕展示
