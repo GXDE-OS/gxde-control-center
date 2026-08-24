@@ -2,44 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name>WlcomShortcut</name>
-    <message><source>open launcher</source><translation>open launcher</translation></message>
-    <message><source>Take a screenshot</source><translation>Take a screenshot</translation></message>
-    <message><source>Take a screenshot for ocr</source><translation>Take a screenshot for ocr</translation></message>
-    <message><source>Launch screen recorder</source><translation>Launch screen recorder</translation></message>
-    <message><source>Take a screenshot of the most top window</source><translation>Take a screenshot of the most top window</translation></message>
-    <message><source>Take a screenshot after a few seconds</source><translation>Take a screenshot after a few seconds</translation></message>
-    <message><source>open file manager</source><translation>open file manager</translation></message>
-    <message><source>quake terminal</source><translation>quake terminal</translation></message>
-    <message><source>clipboard</source><translation>clipboard</translation></message>
-    <message><source>copy fullscreen to clipboard</source><translation>copy fullscreen to clipboard</translation></message>
-    <message><source>grand search</source><translation>grand search</translation></message>
-    <message><source>volume up</source><translation>volume up</translation></message>
-    <message><source>volume down</source><translation>volume down</translation></message>
-    <message><source>mute</source><translation>mute</translation></message>
-    <message><source>shutdown dialog</source><translation>shutdown dialog</translation></message>
-    <message><source>suspend</source><translation>suspend</translation></message>
-    <message><source>play</source><translation>play</translation></message>
-    <message><source>pause</source><translation>pause</translation></message>
-    <message><source>previous</source><translation>previous</translation></message>
-    <message><source>next</source><translation>next</translation></message>
-    <message><source>brightness up</source><translation>brightness up</translation></message>
-    <message><source>brightness down</source><translation>brightness down</translation></message>
-    <message><source>open terminal</source><translation>open terminal</translation></message>
-    <message><source>open system monitor</source><translation>open system monitor</translation></message>
-    <message><source>show ukui menu</source><translation>show ukui menu</translation></message>
-    <message><source>show multitaskView</source><translation>show multitaskView</translation></message>
-    <message><source>trigger switch windows</source><translation>trigger switch windows</translation></message>
-    <message><source>switch up windows</source><translation>switch up windows</translation></message>
-    <message><source>switch down windows</source><translation>switch down windows</translation></message>
-    <message><source>switch left windows</source><translation>switch left windows</translation></message>
-    <message><source>switch right windows</source><translation>switch right windows</translation></message>
-    <message><source>stop switch windows</source><translation>stop switch windows</translation></message>
-    <message><source>show Siderbar</source><translation>show Siderbar</translation></message>
-    <message><source>simulate right key</source><translation>simulate right key</translation></message>
-    <message><source>global search</source><translation>global search</translation></message>
-</context>
-<context>
     <name>BluetoothDelegate</name>
     <message>
         <location filename="../src/frame/quick_control/bluetooth/bluetoothdelegate.cpp" line="97"/>
@@ -393,6 +355,184 @@ If no operation, the display will be restored after %1s.</translation>
     </message>
 </context>
 <context>
+    <name>WlcomShortcut</name>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="170"/>
+        <source>open launcher</source>
+        <translation>open launcher</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="171"/>
+        <source>Take a screenshot</source>
+        <translation>Take a screenshot</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="172"/>
+        <source>Take a screenshot for ocr</source>
+        <translation>Take a screenshot for ocr</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="173"/>
+        <source>Launch screen recorder</source>
+        <translation>Launch screen recorder</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="174"/>
+        <source>Take a screenshot of the most top window</source>
+        <translation>Take a screenshot of the most top window</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="175"/>
+        <source>Take a screenshot after a few seconds</source>
+        <translation>Take a screenshot after a few seconds</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="176"/>
+        <source>open file manager</source>
+        <translation>open file manager</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="177"/>
+        <source>quake terminal</source>
+        <translation>quake terminal</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="178"/>
+        <source>clipboard</source>
+        <translation>clipboard</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="179"/>
+        <source>copy fullscreen to clipboard</source>
+        <translation>copy fullscreen to clipboard</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="180"/>
+        <source>grand search</source>
+        <translation>grand search</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="181"/>
+        <source>volume up</source>
+        <translation>volume up</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="182"/>
+        <source>volume down</source>
+        <translation>volume down</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="183"/>
+        <source>mute</source>
+        <translation>mute</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="184"/>
+        <source>shutdown dialog</source>
+        <translation>shutdown dialog</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="185"/>
+        <source>suspend</source>
+        <translation>suspend</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="186"/>
+        <source>play</source>
+        <translation>play</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="187"/>
+        <source>pause</source>
+        <translation>pause</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="188"/>
+        <source>previous</source>
+        <translation>previous</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="189"/>
+        <source>next</source>
+        <translation>next</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="190"/>
+        <source>brightness up</source>
+        <translation>brightness up</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="191"/>
+        <source>brightness down</source>
+        <translation>brightness down</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="192"/>
+        <source>open terminal</source>
+        <translation>open terminal</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="193"/>
+        <source>open system monitor</source>
+        <translation>open system monitor</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="194"/>
+        <source>show ukui menu</source>
+        <translation>show ukui menu</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="195"/>
+        <source>show multitaskView</source>
+        <translation>show multitaskView</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="196"/>
+        <source>trigger switch windows</source>
+        <translation>trigger switch windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="197"/>
+        <source>switch up windows</source>
+        <translation>switch up windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="198"/>
+        <source>switch down windows</source>
+        <translation>switch down windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="199"/>
+        <source>switch left windows</source>
+        <translation>switch left windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="200"/>
+        <source>switch right windows</source>
+        <translation>switch right windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="201"/>
+        <source>stop switch windows</source>
+        <translation>stop switch windows</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="202"/>
+        <source>show Siderbar</source>
+        <translation>show Siderbar</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="203"/>
+        <source>simulate right key</source>
+        <translation>simulate right key</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="204"/>
+        <source>global search</source>
+        <translation>global search</translation>
+    </message>
+</context>
+<context>
     <name>dcc::accounts::ADDialog</name>
     <message>
         <location filename="../src/frame/modules/accounts/widgets/addialog.cpp" line="54"/>
@@ -496,37 +636,37 @@ If no operation, the display will be restored after %1s.</translation>
 <context>
     <name>dcc::accounts::AccountsWorker</name>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="122"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="162"/>
         <source>Images</source>
         <translation>Images</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="330"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="436"/>
         <source>Your host was removed from the domain server successfully</source>
         <translation>Your host was removed from the domain server successfully.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="331"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="437"/>
         <source>Your host joins the domain server successfully</source>
         <translation>Your host joins the domain server successfully.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="352"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="458"/>
         <source>Your host failed to leave the domain server</source>
         <translation>Your host failed to leave the domain server.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="353"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="459"/>
         <source>Your host failed to join the domain server</source>
         <translation>Your host failed to join the domain server.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="425"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="531"/>
         <source>Password not match</source>
         <translation>Password does not match</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="356"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="462"/>
         <source>AD domain settings</source>
         <translation>AD domain settings</translation>
     </message>
@@ -1226,7 +1366,7 @@ If no operation, the display will be restored after %1s.</translation>
         <translation>VNC Remote</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="310"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="321"/>
         <source>Wireless Screen Projection</source>
         <translation>Wireless Screen Projection</translation>
     </message>
@@ -1334,22 +1474,22 @@ If no operation, the display will be restored after %1s.</translation>
 <context>
     <name>dcc::display::ScalingPage</name>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="56"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="58"/>
         <source>Some applications in multi-screens may not scale as the settings.</source>
         <translation>Some applications in multi-screen environments may not scale as expected.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="62"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="64"/>
         <source>Display Scaling</source>
         <translation>Display Scaling</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="86"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="88"/>
         <source>Display scaling for %1</source>
         <translation>Display scaling for %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="87"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="89"/>
         <source>Display scaling for all monitors</source>
         <translation>Display scaling for all displays</translation>
     </message>
@@ -1543,69 +1683,69 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::keyboard::KeyboardWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="126"/>
         <location filename="../src/frame/navigationbar.cpp" line="302"/>
         <source>Keyboard and Language</source>
         <translation>Keyboard and Language</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="55"/>
         <source>Repeat Delay</source>
         <translation>Repeat Delay</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Short</source>
         <translation>Short</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Long</source>
         <translation>Long</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="68"/>
         <source>Repeat Rate</source>
         <translation>Repeat Rate</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Slow</source>
         <translation>Slow</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Fast</source>
         <translation>Fast</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="79"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="82"/>
         <source>Please Test Here</source>
         <translation>Please Test Here</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="96"/>
         <source>Enable Numeric Keyboard</source>
         <translation>Enable Numeric Keyboard</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="101"/>
         <source>Caps Lock Prompt</source>
         <translation>Caps Lock Prompt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>Keyboard Layout</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
         <source>System Language</source>
         <translation>System Language</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="122"/>
         <source>Shortcuts</source>
         <translation>Shortcuts</translation>
     </message>
@@ -1657,37 +1797,37 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::keyboard::ShortcutWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
         <source>Window</source>
         <translation>Window</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="58"/>
         <source>WorkSpace</source>
         <translation>Workspace</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="66"/>
         <source>Custom Shortcut</source>
         <translation>Custom Shortcut</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="78"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="79"/>
         <source>Add Custom Shortcut</source>
         <translation>Add Custom Shortcut</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="80"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="81"/>
         <source>Restore Defaults</source>
         <translation>Restore Defaults</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="95"/>
         <source>Shortcuts</source>
         <translation>Shortcuts</translation>
     </message>
@@ -3827,6 +3967,15 @@ Powered by x11vnc</translation>
     </message>
 </context>
 <context>
+    <name>dcc::personalization::GxdmCursorThemeWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">Welcome screen mouse cursor (global)</translation>
+    </message>
+</context>
+<context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
@@ -3845,7 +3994,7 @@ Powered by x11vnc</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="112"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Images (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
@@ -3855,37 +4004,42 @@ Powered by x11vnc</translation>
         <translation>Restore default wallpaper</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Welcome screen mouse cursor (global)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
         <source>Lock screen manager</source>
         <translation>Lock screen manager</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
         <source>Choose lock screen wallpaper</source>
         <translation>Choose lock screen wallpaper</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>Restore default lock screen wallpaper</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
         <source>Experimental features</source>
         <translation>Experimental features</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Do not touch the settings below unless you know what you are doing</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
         <source>Display manager</source>
         <translation>Display manager</translation>
     </message>
@@ -3893,47 +4047,62 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <source>Magic lamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Minimize button</source>
         <translation>Minimize button</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Maximize button</source>
         <translation>Maximize button</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Close button</source>
         <translation>Close button</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>Force clipping of rounded corners (unstable)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>GTK title bar buttons</source>
         <translation>GTK title bar buttons</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <source>Minimize animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
         <source>Experimental features</source>
         <translation>Experimental features</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Do not touch the settings below unless you know what you are doing</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
         <source>Window manager</source>
         <translation>Window manager</translation>
     </message>
@@ -3941,12 +4110,12 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="160"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
         <source>Standard Font</source>
         <translation>Standard Font</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
         <source>Monospaced Font</source>
         <translation>Monospaced Font</translation>
     </message>

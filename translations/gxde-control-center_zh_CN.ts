@@ -2,44 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name>WlcomShortcut</name>
-    <message><source>open launcher</source><translation>打开启动器</translation></message>
-    <message><source>Take a screenshot</source><translation>截图</translation></message>
-    <message><source>Take a screenshot for ocr</source><translation>文字识别截图</translation></message>
-    <message><source>Launch screen recorder</source><translation>启动屏幕录制</translation></message>
-    <message><source>Take a screenshot of the most top window</source><translation>截取最上层窗口</translation></message>
-    <message><source>Take a screenshot after a few seconds</source><translation>延时截图</translation></message>
-    <message><source>open file manager</source><translation>打开文件管理器</translation></message>
-    <message><source>quake terminal</source><translation>下拉终端</translation></message>
-    <message><source>clipboard</source><translation>剪贴板</translation></message>
-    <message><source>copy fullscreen to clipboard</source><translation>复制全屏内容到剪贴板</translation></message>
-    <message><source>grand search</source><translation>全局搜索</translation></message>
-    <message><source>volume up</source><translation>增大音量</translation></message>
-    <message><source>volume down</source><translation>减小音量</translation></message>
-    <message><source>mute</source><translation>静音</translation></message>
-    <message><source>shutdown dialog</source><translation>关机对话框</translation></message>
-    <message><source>suspend</source><translation>挂起</translation></message>
-    <message><source>play</source><translation>播放</translation></message>
-    <message><source>pause</source><translation>暂停</translation></message>
-    <message><source>previous</source><translation>上一项</translation></message>
-    <message><source>next</source><translation>下一项</translation></message>
-    <message><source>brightness up</source><translation>提高亮度</translation></message>
-    <message><source>brightness down</source><translation>降低亮度</translation></message>
-    <message><source>open terminal</source><translation>打开终端</translation></message>
-    <message><source>open system monitor</source><translation>打开系统监视器</translation></message>
-    <message><source>show ukui menu</source><translation>显示 UKUI 菜单</translation></message>
-    <message><source>show multitaskView</source><translation>显示多任务视图</translation></message>
-    <message><source>trigger switch windows</source><translation>触发窗口切换</translation></message>
-    <message><source>switch up windows</source><translation>向上切换窗口</translation></message>
-    <message><source>switch down windows</source><translation>向下切换窗口</translation></message>
-    <message><source>switch left windows</source><translation>向左切换窗口</translation></message>
-    <message><source>switch right windows</source><translation>向右切换窗口</translation></message>
-    <message><source>stop switch windows</source><translation>停止切换窗口</translation></message>
-    <message><source>show Siderbar</source><translation>显示侧边栏</translation></message>
-    <message><source>simulate right key</source><translation>模拟鼠标右键</translation></message>
-    <message><source>global search</source><translation>全局搜索</translation></message>
-</context>
-<context>
     <name>BluetoothDelegate</name>
     <message>
         <location filename="../src/frame/quick_control/bluetooth/bluetoothdelegate.cpp" line="97"/>
@@ -392,6 +354,184 @@ If no operation, the display will be restored after %1s.</source>
     </message>
 </context>
 <context>
+    <name>WlcomShortcut</name>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="170"/>
+        <source>open launcher</source>
+        <translation>打开启动器</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="171"/>
+        <source>Take a screenshot</source>
+        <translation>截图</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="172"/>
+        <source>Take a screenshot for ocr</source>
+        <translation>文字识别截图</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="173"/>
+        <source>Launch screen recorder</source>
+        <translation>启动屏幕录制</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="174"/>
+        <source>Take a screenshot of the most top window</source>
+        <translation>截取最上层窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="175"/>
+        <source>Take a screenshot after a few seconds</source>
+        <translation>延时截图</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="176"/>
+        <source>open file manager</source>
+        <translation>打开文件管理器</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="177"/>
+        <source>quake terminal</source>
+        <translation>下拉终端</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="178"/>
+        <source>clipboard</source>
+        <translation>剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="179"/>
+        <source>copy fullscreen to clipboard</source>
+        <translation>复制全屏内容到剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="180"/>
+        <source>grand search</source>
+        <translation>全局搜索</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="181"/>
+        <source>volume up</source>
+        <translation>增大音量</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="182"/>
+        <source>volume down</source>
+        <translation>减小音量</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="183"/>
+        <source>mute</source>
+        <translation>静音</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="184"/>
+        <source>shutdown dialog</source>
+        <translation>关机对话框</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="185"/>
+        <source>suspend</source>
+        <translation>挂起</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="186"/>
+        <source>play</source>
+        <translation>播放</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="187"/>
+        <source>pause</source>
+        <translation>暂停</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="188"/>
+        <source>previous</source>
+        <translation>上一项</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="189"/>
+        <source>next</source>
+        <translation>下一项</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="190"/>
+        <source>brightness up</source>
+        <translation>提高亮度</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="191"/>
+        <source>brightness down</source>
+        <translation>降低亮度</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="192"/>
+        <source>open terminal</source>
+        <translation>打开终端</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="193"/>
+        <source>open system monitor</source>
+        <translation>打开系统监视器</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="194"/>
+        <source>show ukui menu</source>
+        <translation>显示 UKUI 菜单</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="195"/>
+        <source>show multitaskView</source>
+        <translation>显示多任务视图</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="196"/>
+        <source>trigger switch windows</source>
+        <translation>触发窗口切换</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="197"/>
+        <source>switch up windows</source>
+        <translation>向上切换窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="198"/>
+        <source>switch down windows</source>
+        <translation>向下切换窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="199"/>
+        <source>switch left windows</source>
+        <translation>向左切换窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="200"/>
+        <source>switch right windows</source>
+        <translation>向右切换窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="201"/>
+        <source>stop switch windows</source>
+        <translation>停止切换窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="202"/>
+        <source>show Siderbar</source>
+        <translation>显示侧边栏</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="203"/>
+        <source>simulate right key</source>
+        <translation>模拟鼠标右键</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="204"/>
+        <source>global search</source>
+        <translation>全局搜索</translation>
+    </message>
+</context>
+<context>
     <name>dcc::accounts::ADDialog</name>
     <message>
         <location filename="../src/frame/modules/accounts/widgets/addialog.cpp" line="54"/>
@@ -495,37 +635,37 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::accounts::AccountsWorker</name>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="122"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="162"/>
         <source>Images</source>
         <translation>图片</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="330"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="436"/>
         <source>Your host was removed from the domain server successfully</source>
         <translation>您的主机成功退出了域服务器</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="331"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="437"/>
         <source>Your host joins the domain server successfully</source>
         <translation>您的主机成功加入了域服务器</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="352"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="458"/>
         <source>Your host failed to leave the domain server</source>
         <translation>您的主机退出域服务器失败</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="353"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="459"/>
         <source>Your host failed to join the domain server</source>
         <translation>您的主机加入域服务器失败</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="425"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="531"/>
         <source>Password not match</source>
         <translation>密码不一致</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="356"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="462"/>
         <source>AD domain settings</source>
         <translation>AD域设置</translation>
     </message>
@@ -1229,7 +1369,7 @@ If no operation, the display will be restored after %1s.</source>
         <translation>VNC 远程</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="310"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="321"/>
         <source>Wireless Screen Projection</source>
         <translation>无线投屏</translation>
     </message>
@@ -1341,22 +1481,22 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::ScalingPage</name>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="56"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="58"/>
         <source>Some applications in multi-screens may not scale as the settings.</source>
         <translation>屏幕缩放在多屏情况下可能会使某些应用无法正常显示。</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="62"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="64"/>
         <source>Display Scaling</source>
         <translation>屏幕缩放</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="86"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="88"/>
         <source>Display scaling for %1</source>
         <translation>%1的屏幕缩放值</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="87"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="89"/>
         <source>Display scaling for all monitors</source>
         <translation>所有显示器的屏幕缩放值</translation>
     </message>
@@ -1550,69 +1690,69 @@ Power by x11vnc</source>
 <context>
     <name>dcc::keyboard::KeyboardWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="126"/>
         <location filename="../src/frame/navigationbar.cpp" line="302"/>
         <source>Keyboard and Language</source>
         <translation>键盘和语言</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="55"/>
         <source>Repeat Delay</source>
         <translation>重复延迟</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Short</source>
         <translation>短</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Long</source>
         <translation>长</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="68"/>
         <source>Repeat Rate</source>
         <translation>重复速度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Slow</source>
         <translation>慢</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Fast</source>
         <translation>快</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="79"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="82"/>
         <source>Please Test Here</source>
         <translation>请在此测试</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="96"/>
         <source>Enable Numeric Keyboard</source>
         <translation>启用数字键盘</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="101"/>
         <source>Caps Lock Prompt</source>
         <translation>大写锁定提示</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>键盘布局</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
         <source>System Language</source>
         <translation>系统语言</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="122"/>
         <source>Shortcuts</source>
         <translation>快捷键</translation>
     </message>
@@ -1664,37 +1804,37 @@ Power by x11vnc</source>
 <context>
     <name>dcc::keyboard::ShortcutWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
         <source>System</source>
         <translation>系统</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="58"/>
         <source>WorkSpace</source>
         <translation>工作区</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="66"/>
         <source>Custom Shortcut</source>
         <translation>自定义快捷键</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="78"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="79"/>
         <source>Add Custom Shortcut</source>
         <translation>添加自定义快捷键</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="80"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="81"/>
         <source>Restore Defaults</source>
         <translation>恢复默认</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="95"/>
         <source>Shortcuts</source>
         <translation>快捷键</translation>
     </message>
@@ -3834,6 +3974,15 @@ Power by x11vnc</source>
     </message>
 </context>
 <context>
+    <name>dcc::personalization::GxdmCursorThemeWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">欢迎界面鼠标指针（全局）</translation>
+    </message>
+</context>
+<context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
@@ -3852,7 +4001,7 @@ Power by x11vnc</source>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="112"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>图片 (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
@@ -3862,37 +4011,42 @@ Power by x11vnc</source>
         <translation>恢复默认壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>欢迎界面鼠标指针（全局）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
         <source>Lock screen manager</source>
         <translation>锁屏管理器</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
         <source>Choose lock screen wallpaper</source>
         <translation>选择锁屏壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>恢复默认锁屏壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
         <source>Experimental features</source>
         <translation>实验性功能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>除非您知道自己在做什么，否则不要操作以下设置</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
         <source>Display manager</source>
         <translation>显示管理器</translation>
     </message>
@@ -3900,47 +4054,62 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Zoom</source>
+        <translation>缩放</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <source>Magic lamp</source>
+        <translation>魔灯</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Minimize button</source>
         <translation>最小化按钮</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Maximize button</source>
         <translation>最大化按钮</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Close button</source>
         <translation>关闭按钮</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>强制裁剪圆角（不稳定）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>排除 layer-shell 表面（顶栏、Dock、控制中心等）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>GTK title bar buttons</source>
         <translation>GTK标题栏按钮</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <source>Minimize animation</source>
+        <translation>最小化动画</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
         <source>Experimental features</source>
         <translation>实验性功能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>除非您知道自己在做什么，否则不要操作以下设置</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
         <source>Window manager</source>
         <translation>窗口管理器</translation>
     </message>
@@ -3948,12 +4117,12 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="160"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
         <source>Standard Font</source>
         <translation>标准字体</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
         <source>Monospaced Font</source>
         <translation>等宽字体</translation>
     </message>

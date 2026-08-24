@@ -18,6 +18,7 @@
 #include "gxwmwidget.h"
 
 #include "widgets/labels/tipslabel.h"
+#include "widgets/optionitem.h"
 #include "widgets/settingsgroup.h"
 #include "widgets/settingsitem.h"
 #include "widgets/switchwidget.h"
@@ -43,6 +44,13 @@ const QString WindowBtnInterface = QStringLiteral("top.gxde.Wlcom.WindowBtn");
 const QString WindowCornerService = QStringLiteral("top.gxde.Wlcom.WindowCorner");
 const QString WindowCornerPath = QStringLiteral("/top/gxde/Wlcom/WindowCorner");
 const QString WindowCornerInterface = QStringLiteral("top.gxde.Wlcom.WindowCorner");
+
+const QString ViewService = QStringLiteral("com.kylin.Wlcom");
+const QString ViewPath = QStringLiteral("/com/kylin/Wlcom/View");
+const QString ViewInterface = QStringLiteral("com.kylin.Wlcom.View");
+
+const int MinimizeEffectScale = 0;
+const int MinimizeEffectMagicLamp = 1;
 
 QDBusMessage call(QDBusInterface *iface, const QString &method,
         const QVariantList &args = QVariantList()) {
@@ -80,6 +88,11 @@ GxwmWidget::GxwmWidget(QWidget *parent)
         , m_windowCornerIface(new QDBusInterface(
             WindowCornerService, WindowCornerPath, WindowCornerInterface,
             QDBusConnection::sessionBus(), this))
+        , m_viewIface(new QDBusInterface(
+            ViewService, ViewPath, ViewInterface,
+            QDBusConnection::sessionBus(), this))
+        , m_scaleOption(new OptionItem(tr("Zoom"), false))
+        , m_magicLampOption(new OptionItem(tr("Magic lamp"), false))
         , m_minBtnSwitch(new SwitchWidget(tr("Minimize button")))
         , m_maxBtnSwitch(new SwitchWidget(tr("Maximize button")))
         , m_closeBtnSwitch(new SwitchWidget(tr("Close button")))
@@ -90,6 +103,12 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     gtkGroup->appendItem(m_minBtnSwitch);
     gtkGroup->appendItem(m_maxBtnSwitch);
     gtkGroup->appendItem(m_closeBtnSwitch);
+
+    auto *animationGroup = new SettingsGroup(tr("Minimize animation"));
+    m_scaleOption->setContentsMargins(20, 0, 10, 0);
+    m_magicLampOption->setContentsMargins(20, 0, 10, 0);
+    animationGroup->appendItem(m_scaleOption);
+    animationGroup->appendItem(m_magicLampOption);
 
     auto *expGroup = new SettingsGroup(tr("Experimental features"));
     auto *warningItem = new WarningItem;
@@ -103,6 +122,7 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(10);
     layout->addWidget(gtkGroup);
+    layout->addWidget(animationGroup);
     layout->addWidget(expGroup);
     layout->addStretch();
 
@@ -115,11 +135,18 @@ GxwmWidget::GxwmWidget(QWidget *parent)
         &GxwmWidget::onGtkButtonsChanged);
     connect(m_closeBtnSwitch, &SwitchWidget::checkedChanged, this,
         &GxwmWidget::onGtkButtonsChanged);
+    connect(m_scaleOption, &OptionItem::selectedChanged, this, [this] {
+        onMinimizeEffectChanged(MinimizeEffectScale);
+    });
+    connect(m_magicLampOption, &OptionItem::selectedChanged, this, [this] {
+        onMinimizeEffectChanged(MinimizeEffectMagicLamp);
+    });
     connect(m_forceRoundCornerSwitch, &SwitchWidget::checkedChanged, this,
         &GxwmWidget::onForceRoundCornerChanged);
     connect(m_excludeLayerShellSwitch, &SwitchWidget::checkedChanged, this,
         &GxwmWidget::onExcludeLayerShellChanged);
 
+    setMinimizeEffectSelection(MinimizeEffectScale);
     refresh();
 }
 
@@ -138,6 +165,13 @@ void GxwmWidget::refresh() {
         m_minBtnSwitch->setChecked(args.at(0).toBool());
         m_maxBtnSwitch->setChecked(args.at(1).toBool());
         m_closeBtnSwitch->setChecked(args.at(2).toBool());
+    }
+
+    const QDBusMessage effectReply =
+        call(m_viewIface, QStringLiteral("GetMinimizeEffect"));
+    if (effectReply.type() == QDBusMessage::ReplyMessage &&
+        !effectReply.arguments().isEmpty()) {
+        setMinimizeEffectSelection(effectReply.arguments().first().toInt());
     }
 
     const QDBusMessage forceReply =
@@ -165,6 +199,28 @@ void GxwmWidget::onGtkButtonsChanged() {
              QVariantList() << m_minBtnSwitch->checked()
                 << m_maxBtnSwitch->checked()
                 << m_closeBtnSwitch->checked());
+
+    if (reply.type() != QDBusMessage::ReplyMessage) {
+        refresh();
+    }
+}
+
+void GxwmWidget::setMinimizeEffectSelection(int effect) {
+    const bool scale = effect == MinimizeEffectScale;
+    m_scaleOption->blockSignals(true);
+    m_magicLampOption->blockSignals(true);
+    m_scaleOption->setSelected(scale);
+    m_magicLampOption->setSelected(!scale);
+    m_scaleOption->blockSignals(false);
+    m_magicLampOption->blockSignals(false);
+}
+
+void GxwmWidget::onMinimizeEffectChanged(int effect) {
+    setMinimizeEffectSelection(effect);
+
+    const QDBusMessage reply =
+        call(m_viewIface, QStringLiteral("SetMinimizeEffect"),
+             QVariantList() << effect);
 
     if (reply.type() != QDBusMessage::ReplyMessage) {
         refresh();

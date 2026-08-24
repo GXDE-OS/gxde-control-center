@@ -355,6 +355,184 @@ If no operation, the display will be restored after %1s.</source>
     </message>
 </context>
 <context>
+    <name>WlcomShortcut</name>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="170"/>
+        <source>open launcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="171"/>
+        <source>Take a screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="172"/>
+        <source>Take a screenshot for ocr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="173"/>
+        <source>Launch screen recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="174"/>
+        <source>Take a screenshot of the most top window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="175"/>
+        <source>Take a screenshot after a few seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="176"/>
+        <source>open file manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="177"/>
+        <source>quake terminal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="178"/>
+        <source>clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="179"/>
+        <source>copy fullscreen to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="180"/>
+        <source>grand search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="181"/>
+        <source>volume up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="182"/>
+        <source>volume down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="183"/>
+        <source>mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="184"/>
+        <source>shutdown dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="185"/>
+        <source>suspend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="186"/>
+        <source>play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="187"/>
+        <source>pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="188"/>
+        <source>previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="189"/>
+        <source>next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="190"/>
+        <source>brightness up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="191"/>
+        <source>brightness down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="192"/>
+        <source>open terminal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="193"/>
+        <source>open system monitor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="194"/>
+        <source>show ukui menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="195"/>
+        <source>show multitaskView</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="196"/>
+        <source>trigger switch windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="197"/>
+        <source>switch up windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="198"/>
+        <source>switch down windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="199"/>
+        <source>switch left windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="200"/>
+        <source>switch right windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="201"/>
+        <source>stop switch windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="202"/>
+        <source>show Siderbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="203"/>
+        <source>simulate right key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="204"/>
+        <source>global search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>dcc::accounts::ADDialog</name>
     <message>
         <location filename="../src/frame/modules/accounts/widgets/addialog.cpp" line="54"/>
@@ -458,37 +636,37 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::accounts::AccountsWorker</name>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="122"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="162"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="330"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="436"/>
         <source>Your host was removed from the domain server successfully</source>
         <translation>Вашият хост е премахнат успешно от домейн сървъра</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="331"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="437"/>
         <source>Your host joins the domain server successfully</source>
         <translation>Вашият хост влезе в домейн сървъра успешно</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="352"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="458"/>
         <source>Your host failed to leave the domain server</source>
         <translation>Вашият хост не успя да напусне домейн сървъра</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="353"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="459"/>
         <source>Your host failed to join the domain server</source>
         <translation>Вашият хост не успя да се присъедини към сървъра на домейна</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="425"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="531"/>
         <source>Password not match</source>
         <translation>Паролата нe съвпада</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="356"/>
+        <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="462"/>
         <source>AD domain settings</source>
         <translation>AD настройки на домейн</translation>
     </message>
@@ -1192,7 +1370,7 @@ If no operation, the display will be restored after %1s.</source>
         <translation>VNC Remote</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/displaywidget.cpp" line="310"/>
+        <location filename="../src/frame/modules/display/displaywidget.cpp" line="321"/>
         <source>Wireless Screen Projection</source>
         <translation>Безжична екранна прожекция</translation>
     </message>
@@ -1304,22 +1482,22 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>dcc::display::ScalingPage</name>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="56"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="58"/>
         <source>Some applications in multi-screens may not scale as the settings.</source>
         <translation>Някои приложения в мулти-екрани може да не се мащабират според настройките.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="62"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="64"/>
         <source>Display Scaling</source>
         <translation>Мащабиране на екрана</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="86"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="88"/>
         <source>Display scaling for %1</source>
         <translation>Показване на мащабиране за %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/display/scalingpage.cpp" line="87"/>
+        <location filename="../src/frame/modules/display/scalingpage.cpp" line="89"/>
         <source>Display scaling for all monitors</source>
         <translation>Показване на мащабиране за всички монитори</translation>
     </message>
@@ -1513,69 +1691,69 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::keyboard::KeyboardWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="126"/>
         <location filename="../src/frame/navigationbar.cpp" line="302"/>
         <source>Keyboard and Language</source>
         <translation>Клавиатура и език</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="55"/>
         <source>Repeat Delay</source>
         <translation>Забавяне преди повторение</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Short</source>
         <translation>Кратко</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="64"/>
         <source>Long</source>
         <translation>Дълго</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="68"/>
         <source>Repeat Rate</source>
         <translation>Скорост на повторение</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Slow</source>
         <translation>Бавно</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="74"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="77"/>
         <source>Fast</source>
         <translation>Бързо</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="79"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="82"/>
         <source>Please Test Here</source>
         <translation>Моля, пробвайте тук</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="96"/>
         <source>Enable Numeric Keyboard</source>
         <translation>Разреши цифрова клавиатура</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="101"/>
         <source>Caps Lock Prompt</source>
         <translation>Кажи за големи букви</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>Клавиатурни подредби</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
         <source>System Language</source>
         <translation>Системен език</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="122"/>
         <source>Shortcuts</source>
         <translation>Бързи клавиши</translation>
     </message>
@@ -1627,37 +1805,37 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::keyboard::ShortcutWidget</name>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
         <source>System</source>
         <translation>Система</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="56"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
         <source>Window</source>
         <translation>Прозорец</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="57"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="58"/>
         <source>WorkSpace</source>
         <translation>Работно пространство</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="66"/>
         <source>Custom Shortcut</source>
         <translation>Потребителски кратък път</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="78"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="79"/>
         <source>Add Custom Shortcut</source>
         <translation>Добави потребителски кратък път</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="80"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="81"/>
         <source>Restore Defaults</source>
         <translation>Възстановяване на стойности по подразбиране</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/keyboard/shortcutwidget.cpp" line="95"/>
         <source>Shortcuts</source>
         <translation>Кратък път</translation>
     </message>
@@ -3797,6 +3975,15 @@ Power by x11vnc</translation>
     </message>
 </context>
 <context>
+    <name>dcc::personalization::GxdmCursorThemeWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">Показалец на мишката на екрана за добре дошли (глобален)</translation>
+    </message>
+</context>
+<context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
@@ -3815,7 +4002,7 @@ Power by x11vnc</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="112"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Изображения (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
@@ -3825,37 +4012,42 @@ Power by x11vnc</translation>
         <translation>Възстановяване на тапета по подразбиране</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Показалец на мишката на екрана за добре дошли (глобален)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
         <source>Lock screen manager</source>
         <translation>Мениджър на заключения екран</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
         <source>Choose lock screen wallpaper</source>
         <translation>Избор на тапет за заключения екран</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>Възстановяване на тапета по подразбиране за заключения екран</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
         <source>Experimental features</source>
         <translation>Експериментални функции</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Не променяйте настройките по-долу, освен ако не знаете какво правите</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="135"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
         <source>Display manager</source>
         <translation>Мениджър на дисплея</translation>
     </message>
@@ -3863,47 +4055,62 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="83"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <source>Magic lamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Minimize button</source>
         <translation>Бутон за минимизиране</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="84"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Maximize button</source>
         <translation>Бутон за максимизиране</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="85"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Close button</source>
         <translation>Бутон за затваряне</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="86"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>Принудително изрязване на заоблените ъгли (нестабилно)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="88"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>Изключване на layer-shell повърхности (горна лента, Dock, контролен център и др.)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>GTK title bar buttons</source>
         <translation>Бутони на заглавната лента на GTK</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <source>Minimize animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
         <source>Experimental features</source>
         <translation>Експериментални функции</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Не променяйте настройките по-долу, освен ако не знаете какво правите</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
         <source>Window manager</source>
         <translation>Мениджър на прозорците</translation>
     </message>
@@ -3911,12 +4118,12 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="160"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
         <source>Standard Font</source>
         <translation>Стандартен шрифт </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
         <source>Monospaced Font</source>
         <translation>Непропорционален шрифт</translation>
     </message>

@@ -1,3 +1,10 @@
+gxde-control-center (6.0.16) unstable; urgency=medium
+
+  * 窗口管理器页面新增最小化动画设置，可选择缩放或魔灯
+  * 更新翻译文件
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 25 Aug 2026 01:55:00 +0800
+
 gxde-control-center (6.0.15) unstable; urgency=medium
 
   * GXDM 设置：欢迎界面鼠标指针移入二级菜单
