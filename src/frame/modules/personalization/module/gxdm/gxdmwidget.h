@@ -24,6 +24,7 @@ class QDBusInterface;
 
 namespace dcc {
 namespace widgets {
+class FileChooseWidget;
 class SwitchWidget;
 }
 namespace personalization {
@@ -52,6 +53,7 @@ private:
 private:
     QDBusInterface *m_displayManagerIface;
     widgets::SwitchWidget *m_x11GreeterSwitch;
+    widgets::FileChooseWidget *m_lockWallpaperChooser;
 };
 
 // 欢迎界面鼠标指针主题的二级页面

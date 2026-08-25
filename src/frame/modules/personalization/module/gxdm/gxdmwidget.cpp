@@ -88,7 +88,8 @@ GxdmWidget::GxdmWidget(QWidget *parent)
             DisplayManagerService, DisplayManagerPath, DisplayManagerInterface,
             QDBusConnection::sessionBus(), this))
         , m_x11GreeterSwitch(new SwitchWidget(tr(
-            "Switch to the X11 welcome screen frontend (restart required)"))) {
+            "Switch to the X11 welcome screen frontend (restart required)")))
+        , m_lockWallpaperChooser(nullptr) {
     auto *loginGroup = new SettingsGroup(tr("Welcome screen wallpaper (global)"));
 
     auto *wallpaperChooser = new FileChooseWidget;
@@ -109,10 +110,10 @@ GxdmWidget::GxdmWidget(QWidget *parent)
 
     auto *lockGroup = new SettingsGroup(tr("Lock screen manager"));
 
-    auto *lockWallpaperChooser = new FileChooseWidget;
-    lockWallpaperChooser->setTitle(tr("Choose lock screen wallpaper"));
-    lockWallpaperChooser->setType(tr("Images (*.png *.jpg *.jpeg *.bmp)"));
-    lockGroup->appendItem(lockWallpaperChooser);
+    m_lockWallpaperChooser = new FileChooseWidget;
+    m_lockWallpaperChooser->setTitle(tr("Choose lock screen wallpaper"));
+    m_lockWallpaperChooser->setType(tr("Images (*.png *.jpg *.jpeg *.bmp)"));
+    lockGroup->appendItem(m_lockWallpaperChooser);
 
     NextPageWidget *defaultLockWallpaper = new NextPageWidget;
     defaultLockWallpaper->setTitle(tr("Restore default lock screen wallpaper"));
@@ -146,18 +147,25 @@ GxdmWidget::GxdmWidget(QWidget *parent)
     });
     connect(cursorThemes, &NextPageWidget::clicked, this,
         &GxdmWidget::requestShowCursorThemes);
-    connect(lockWallpaperChooser->edit(), &QLineEdit::textChanged, this,
+    connect(m_lockWallpaperChooser->edit(), &QLineEdit::textChanged, this,
         &GxdmWidget::onLockWallpaperChanged);
     connect(defaultLockWallpaper, &NextPageWidget::clicked, this, [this] {
-        call(m_displayManagerIface, QStringLiteral(
-            "ClearLockWallpaperOverride"));
+        const QDBusMessage reply = call(m_displayManagerIface,
+            QStringLiteral("ClearLockWallpaperOverride"));
+        if (reply.type() == QDBusMessage::ReplyMessage &&
+            m_lockWallpaperChooser) {
+            const QSignalBlocker blocker(m_lockWallpaperChooser->edit());
+            m_lockWallpaperChooser->edit()->clear();
+        } else {
+            refresh();
+        }
     });
     connect(m_x11GreeterSwitch, &SwitchWidget::checkedChanged, this,
         &GxdmWidget::onGreeterServerChanged);
 
     connect(wallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide, this,
         &GxdmWidget::requestFrameKeepAutoHide);
-    connect(lockWallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide,
+    connect(m_lockWallpaperChooser, &FileChooseWidget::requestFrameKeepAutoHide,
         this, &GxdmWidget::requestFrameKeepAutoHide);
 
     refresh();
@@ -205,6 +213,22 @@ void GxdmWidget::refresh() {
         !reply.arguments().isEmpty()) {
         m_x11GreeterSwitch->setChecked(
             reply.arguments().first().toString() == QStringLiteral("x11"));
+    }
+
+    // Show the current lock-screen wallpaper override (e.g. set through the
+    // file manager context menu or the wallpaper chooser) instead of leaving
+    // the chooser empty.
+    if (m_lockWallpaperChooser) {
+        const QSignalBlocker lockBlocker(m_lockWallpaperChooser->edit());
+        const QDBusMessage lockReply = call(m_displayManagerIface,
+            QStringLiteral("LockWallpaperOverride"));
+        if (lockReply.type() == QDBusMessage::ReplyMessage &&
+            !lockReply.arguments().isEmpty()) {
+            m_lockWallpaperChooser->edit()->setText(
+                lockReply.arguments().first().toString());
+        } else {
+            m_lockWallpaperChooser->edit()->clear();
+        }
     }
 }
 
