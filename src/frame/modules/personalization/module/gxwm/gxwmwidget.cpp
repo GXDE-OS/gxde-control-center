@@ -219,8 +219,9 @@ void GxwmWidget::onMinimizeEffectChanged(int effect) {
     setMinimizeEffectSelection(effect);
 
     const QDBusMessage reply =
+        // 修复在 wayland 下切换最小化动画无效的问题
         call(m_viewIface, QStringLiteral("SetMinimizeEffect"),
-             QVariantList() << effect);
+             QVariantList() << QVariant::fromValue(static_cast<quint32>(effect)));
 
     if (reply.type() != QDBusMessage::ReplyMessage) {
         refresh();
