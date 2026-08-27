@@ -232,6 +232,16 @@ static QSet<QString> wlcomSystemActionBindings(bool *loaded)
     return bindings;
 }
 
+// 过滤掉“显示 UKUI 菜单”项和“无用的全局搜索”项
+static bool wlcomShortcutHidden(const QString &bindings, const QString &description)
+{
+    if (bindings.toLower().contains(QStringLiteral("xf86search")))
+        return true;
+    if (description.compare(QStringLiteral("show ukui menu"), Qt::CaseInsensitive) == 0)
+        return true;
+    return false;
+}
+
 static QJsonObject wlcomShortcutItem(const QString &bindings, const QString &name,
                                     const QString &command, const QString &category)
 {
@@ -447,6 +457,10 @@ void KeyboardWorker::refreshShortcut()
             if (obj.isEmpty() || !obj.value(QStringLiteral("enable")).toBool(true))
                 continue;
 
+            const QString description = obj.value(QStringLiteral("desc")).toString(bindings);
+            if (wlcomShortcutHidden(bindings, description))
+                continue;
+
             QString type = obj.value(QStringLiteral("type")).toString();
             if (type.isEmpty() && systemBindingsLoaded &&
                 !systemBindings.contains(bindings.toLower())) {
@@ -454,7 +468,7 @@ void KeyboardWorker::refreshShortcut()
             }
             const QString category = wlcomShortcutCategory(type);
             array.append(wlcomShortcutItem(
-                bindings, obj.value(QStringLiteral("desc")).toString(bindings),
+                bindings, description,
                 obj.value(QStringLiteral("command")).toString(), category));
             listedBindings.insert(bindings.toLower());
         }
@@ -464,6 +478,8 @@ void KeyboardWorker::refreshShortcut()
                 binding.type == QLatin1String("WLCOM_CUSTOM_DEF")) {
                 continue;
             }
+            if (wlcomShortcutHidden(binding.bindings, binding.description))
+                continue;
             array.append(wlcomShortcutItem(
                 binding.bindings,
                 binding.description.isEmpty() ? binding.bindings : binding.description, QString(),
