@@ -1,3 +1,10 @@
+gxde-control-center (6.0.18) UNRELEASED; urgency=medium
+
+  [ zeqi ]
+  * 修复在 wayland 下控制中心个性化-窗口管理器 切换最小化动画无效 的问题
+
+ -- gfdgd_xi <3025613752@qq.com>  Thu, 27 Aug 2026 15:56:53 +0800
+
 gxde-control-center (6.0.17) unstable; urgency=medium
 
   * GXDM 设置：锁屏壁纸选择器回显当前 override，文件管理器设置后可见
