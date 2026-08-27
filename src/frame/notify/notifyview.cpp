@@ -39,7 +39,7 @@ NotifyView::NotifyView(QWidget *parent) : QListView(parent)
     connect(this, &NotifyView::currentHoverChanged, this, &NotifyView::onCurrentHoverChanged);
     connect(this, &NotifyView::entered, this, &NotifyView::onItemEntered);
 
-    QScroller::grabGesture(this, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(this, QScroller::TouchGesture);
     QScroller *scroller = QScroller::scroller(this);
     QScrollerProperties sp;
     sp.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy, QScrollerProperties::OvershootAlwaysOff);

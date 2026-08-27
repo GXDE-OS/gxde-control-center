@@ -21,6 +21,9 @@
 
 #include "notifymodel.h"
 
+#include <QFont>
+#include <QFontMetrics>
+
 NotifyModel::NotifyModel(QObject *parent) : QAbstractListModel(parent)
 {
     m_dbus = new Notification("com.deepin.dde.Notification", "/com/deepin/dde/Notification", QDBusConnection::sessionBus(), this);
@@ -82,6 +85,23 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
         if (index.row() == m_dataJsonArray.size()) {
             return QSize(0, 10);
         }
+        if (m_expandedRows.contains(index.row())) {
+            // 展开时根据正文内容计算所需高度
+            QJsonObject notifyObject = m_dataJsonArray.at(m_dataJsonArray.size() - 1 - index.row()).toObject();
+            const QString &strBody = notifyObject.value("body").toString();
+            const QString &strSum = notifyObject.value("summary").toString();
+            const QString &text = strBody.isEmpty() ? strSum : strBody;
+            QFont font;
+            font.setPixelSize(13);
+            QFontMetrics fm(font);
+            const int lineHeight = fm.lineSpacing();
+            const int bodyWidth = 300; // 与绘制区域估算一致
+            const int textHeight = fm.boundingRect(QRect(0, 0, bodyWidth, 1),
+                                                   Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap, text).height();
+            const int height = 10 /*summary top*/ + 16 /*summary height*/
+                               + 5 /*spacing*/ + textHeight + 5 /*bottom*/ + 16 /*hint*/;
+            return QSize(0, qMax(80, height));
+        }
         return QSize(0, 80);
         break;
     case NotifyRemoveRole: {
@@ -97,6 +117,14 @@ QVariant NotifyModel::data(const QModelIndex &index, int role) const
     case NotifyHoverRole:
         return m_hoverIndex == index;
         break;
+    case NotifyExpandRole:
+        return m_expandedRows.contains(index.row());
+        break;
+    case NotifyFoldableRole: {
+        // 仅在展开时、或正文超出可见区域时判定为可折叠
+        return index.row() < m_dataJsonArray.size() && isBodyFoldable(index.row());
+        break;
+    }
     default:
         break;
     }
@@ -117,6 +145,7 @@ void NotifyModel::clearAllNotify()
     m_dbus->ClearRecords();
     beginResetModel();
     m_dataJsonArray = {};
+    m_expandedRows.clear();
     endResetModel();
     Q_EMIT notifyClearStateChanged(true);
 }
@@ -171,6 +200,59 @@ void NotifyModel::setHoverIndex(const QModelIndex &index)
 {
     m_hoverIndex = index;
     Q_EMIT dataChanged(m_hoverIndex, m_hoverIndex);
+}
+
+void NotifyModel::toggleExpand(const QModelIndex &index)
+{
+    if (!index.isValid() || index.row() >= m_dataJsonArray.size()) {
+        return;
+    }
+
+    if (!isBodyFoldable(index.row())) {
+        return;
+    }
+
+    if (m_expandedRows.contains(index.row())) {
+        m_expandedRows.remove(index.row());
+    } else {
+        m_expandedRows.insert(index.row());
+    }
+
+    Q_EMIT layoutChanged();
+    Q_EMIT dataChanged(index, index);
+}
+
+bool NotifyModel::isBodyFoldable(int row) const
+{
+    if (row < 0 || row >= m_dataJsonArray.size()) {
+        return false;
+    }
+
+    QJsonObject notifyObject = m_dataJsonArray.at(m_dataJsonArray.size() - 1 - row).toObject();
+    const QString &strBody = notifyObject.value("body").toString();
+    const QString &strSum = notifyObject.value("summary").toString();
+    const QString &text = strBody.isEmpty() ? strSum : strBody;
+
+    if (text.isEmpty()) {
+        return false;
+    }
+
+    // 估算正文在固定 80px 高度内能否完整显示
+    // 与 NotifyDelegate 的绘制区域保持一致：左侧图标 48 + 间距，右侧留白
+    const int bodyHeight = 80 - 10 /*summary top*/ - 16 /*summary height*/
+                           - 5 /*spacing*/ - 5 /*bottom*/;
+    QFont font;
+    font.setPixelSize(13);
+    QFontMetrics fm(font);
+    const int lineHeight = fm.lineSpacing();
+    if (lineHeight <= 0) {
+        return false;
+    }
+    const int maxLines = bodyHeight / lineHeight;
+    const int textLines = fm.boundingRect(QRect(0, 0, 300, 1),
+                                          Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap, text).height() / lineHeight;
+
+    return textLines > maxLines;
 }
 
 void NotifyModel::timerEvent(QTimerEvent *event)

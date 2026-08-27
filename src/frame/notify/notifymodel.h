@@ -41,7 +41,9 @@ public:
         NotifyTimeRole = Qt::UserRole + 6,
         NotifyRemoveRole = Qt::UserRole + 7,
         NotifyXOffsetRole = Qt::UserRole + 8,
-        NotifyHoverRole = Qt::UserRole + 9
+        NotifyHoverRole = Qt::UserRole + 9,
+        NotifyExpandRole = Qt::UserRole + 10,
+        NotifyFoldableRole = Qt::UserRole + 11
     };
 
     NotifyModel(QObject *parent = Q_NULLPTR);
@@ -57,6 +59,9 @@ public Q_SLOTS:
     void showClearAllAnim(int maxXOffset);
     void showRemoveAnim(const QModelIndex &removeIndex, int maxXOffset);
     void setHoverIndex(const QModelIndex &index);
+    void toggleExpand(const QModelIndex &index);
+
+    bool isBodyFoldable(int row) const;
 
 Q_SIGNALS:
     void removeAnimFinished(const QModelIndex &index);
@@ -76,6 +81,7 @@ private:
     QJsonArray m_dataJsonArray;
     QModelIndex m_removeIndex;
     QModelIndex m_hoverIndex;
+    QSet<int> m_expandedRows;
 
     int m_currentXOffset;
     int m_maxXOffset;

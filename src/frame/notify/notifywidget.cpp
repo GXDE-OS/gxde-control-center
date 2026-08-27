@@ -89,6 +89,7 @@ NotifyWidget::NotifyWidget(QWidget *parent) : QWidget(parent)
     setLayout(mainVBLayout);
 
     connect(m_notifyDelegate, &NotifyDelegate::removeBtnClicked, this, &NotifyWidget::onRemoveBtnClicked);
+    connect(m_notifyView, &QAbstractItemView::clicked, m_notifyModel, &NotifyModel::toggleExpand);
     connect(m_clearAllButton, &DImageButton::clicked, this, &NotifyWidget::showClearAllAnim);
     connect(m_notifyModel, &NotifyModel::removeAnimFinished, m_notifyModel, &NotifyModel::removeNotify);
     connect(m_notifyModel, &NotifyModel::removeAnimFinished, this, &NotifyWidget::onRemoveAnimFinished);

@@ -50,6 +50,8 @@ void NotifyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     const QString &strTime = notifyTime(index.data(NotifyModel::NotifyTimeRole).toString());
     bool isRemove = index.data(NotifyModel::NotifyRemoveRole).toBool();
     bool isHover = index.data(NotifyModel::NotifyHoverRole).toBool();
+    bool isExpand = index.data(NotifyModel::NotifyExpandRole).toBool();
+    bool isFoldable = index.data(NotifyModel::NotifyFoldableRole).toBool();
     int xOffset = index.data(NotifyModel::NotifyXOffsetRole).toInt();
 
     QRect mRect = option.rect;
@@ -124,9 +126,24 @@ void NotifyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     bodyRect.setBottom(option.rect.bottom() - 5);
 
     painter->setFont(bodyFont);
-    const auto bodyElided = holdTextInRect(painter->fontMetrics(), strBody.isEmpty() ? strSum : strBody, bodyRect);
+    const QString &bodyText = strBody.isEmpty() ? strSum : strBody;
+    if (isExpand) {
+        // 展开状态下显示完整正文
+        painter->drawText(bodyRect, Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap, bodyText);
+    } else {
+        const auto bodyElided = holdTextInRect(painter->fontMetrics(), bodyText, bodyRect);
+        painter->drawText(bodyRect, bodyElided.first);
+    }
 
-    painter->drawText(bodyRect, bodyElided.first);
+    // 长通知展开/收起提示
+    if (isFoldable) {
+        painter->setFont(timeFont);
+        const QString hint = isExpand ? tr("Collapse") : tr("Expand");
+        const QRect hintRect = QRect(mRect.x(), mRect.bottom() - 16, option.rect.width() - 10, 14);
+        painter->setPen(QColor(255, 255, 255, 160));
+        painter->drawText(hintRect, Qt::AlignRight | Qt::AlignBottom, hint);
+        painter->setPen(option.palette.color(QPalette::Text));
+    }
 }
 
 QWidget *NotifyDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
