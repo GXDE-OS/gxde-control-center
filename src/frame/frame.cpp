@@ -101,15 +101,6 @@ Frame::Frame(QWidget *parent)
         }
     });
 
-    m_platformWindowHandle.setEnableBlurWindow(false);
-    m_platformWindowHandle.setTranslucentBackground(true);
-    m_platformWindowHandle.setWindowRadius(0);
-    m_platformWindowHandle.setBorderWidth(0);
-    m_platformWindowHandle.setShadowOffset(QPoint(0, 0));
-    m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 255 * 0.5));
-    m_platformWindowHandle.setShadowRadius(20);
-//    m_platformWindowHandle.setShadowColor(Qt::red);
-
     m_delayKillerTimer->setSingleShot(true);
     m_delayKillerTimer->setInterval(60 * 1000);
 
@@ -131,15 +122,30 @@ Frame::Frame(QWidget *parent)
     setMaximumWidth(FRAME_WIDTH);
     setMaskColor(DBlurEffectWidget::DarkColor);
 
-    if (DApplication::isWayland()) {
+    if (!DApplication::isWayland()) {
+        // DPlatformWindowHandle changes DXcb window properties. Keep these
+        // calls on X11 so they do not interfere with the layer-shell surface
+        // before it is mapped under Wayland.
+        m_platformWindowHandle.setEnableBlurWindow(false);
+        m_platformWindowHandle.setTranslucentBackground(true);
+        m_platformWindowHandle.setWindowRadius(0);
+        m_platformWindowHandle.setBorderWidth(0);
+        m_platformWindowHandle.setShadowOffset(QPoint(0, 0));
+        m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 255 * 0.5));
+        m_platformWindowHandle.setShadowRadius(20);
+//        m_platformWindowHandle.setShadowColor(Qt::red);
+    } else {
         setWindowFlag(Qt::FramelessWindowHint, true);
         // Fix blur issue under Wayland
         setAttribute(Qt::WA_TranslucentBackground, true);
         setAttribute(Qt::WA_OpaquePaintEvent, false);
         setAutoFillBackground(false);
-        m_platformWindowHandle.setTranslucentBackground(true);
-        // 阴影会随 layer-shell 全高表面溢出屏幕边缘
-        m_platformWindowHandle.setShadowRadius(0);
+        // Keep the DBlur geometry square; the compositor window radius is
+        // applied after the layer-shell role is configured below.
+        setRadius(0);
+        setBlurRectXRadius(0);
+        setBlurRectYRadius(0);
+        setBlurEnabled(true);
         // DBlurEffectWidget 会在窗口出现时把透明度动画到 1，直接固定为 1
         setWindowOpacity(1.0);
     }
@@ -645,6 +651,13 @@ void Frame::show()
         // a regular xdg-toplevel and it can no longer become a layer surface.
         ensureLayerShellConfigured();
 #endif
+        // Treeland treats a radius of zero as "use the compositor default".
+        // Apply the smallest explicit radius after assigning the layer role,
+        // before the surface is mapped, so this panel remains square.
+        m_platformWindowHandle.setWindowRadius(1);
+        // A full-height layer surface must not reserve a compositor shadow
+        // outside the screen edges.
+        m_platformWindowHandle.setShadowRadius(0);
 
         // 与 X11 一致的滑入动画：先放到屏幕右侧之外，再滑到停靠位置
         const bool slide = waylandSlideEnabled();
