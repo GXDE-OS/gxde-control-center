@@ -103,17 +103,27 @@
 <context>
     <name>NotifyDelegate</name>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="197"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Collapse</source>
+        <translation>收起</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Expand</source>
+        <translation>展开</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="214"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="199"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="216"/>
         <source>The day before yesterday</source>
         <translation>前天</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="202"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="219"/>
         <source>%n day(s) ago</source>
         <translation>
             <numerusform>%n天前</numerusform>
@@ -3976,10 +3986,10 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">欢迎界面鼠标指针（全局）</translation>
+        <translation>欢迎界面鼠标指针（全局）</translation>
     </message>
 </context>
 <context>
@@ -3990,63 +4000,63 @@ Power by x11vnc</source>
         <translation>切换到X11欢迎界面前端（需重启）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>欢迎界面壁纸（全局）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Change wallpaper</source>
         <translation>修改壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>图片 (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
         <source>Restore default wallpaper</source>
         <translation>恢复默认壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>欢迎界面鼠标指针（全局）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
         <source>Select mouse cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>选择鼠标样式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
         <translation>锁屏管理器</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Choose lock screen wallpaper</source>
         <translation>选择锁屏壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>恢复默认锁屏壁纸</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>实验性功能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>除非您知道自己在做什么，否则不要操作以下设置</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
         <source>Display manager</source>
         <translation>显示管理器</translation>
     </message>

@@ -103,17 +103,27 @@
 <context>
     <name>NotifyDelegate</name>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="197"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Expand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="214"/>
         <source>Yesterday</source>
         <translation>어제</translation>
     </message>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="199"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="216"/>
         <source>The day before yesterday</source>
         <translation>그제</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="202"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="219"/>
         <source>%n day(s) ago</source>
         <translation>
             <numerusform>%n일 전</numerusform>
@@ -3976,8 +3986,8 @@ x11vnc로 구동됨</translation>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation type="unfinished">환영 화면 마우스 커서 (전역)</translation>
     </message>
@@ -3990,63 +4000,63 @@ x11vnc로 구동됨</translation>
         <translation>X11 환영 화면 프런트엔드로 전환 (재시작 필요)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>환영 화면 배경화면 (전역)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Change wallpaper</source>
         <translation>배경화면 변경</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>이미지 (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
         <source>Restore default wallpaper</source>
         <translation>기본 배경화면 복원</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>환영 화면 마우스 커서 (전역)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
         <translation>잠금 화면 관리자</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Choose lock screen wallpaper</source>
         <translation>잠금 화면 배경화면 선택</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>기본 잠금 화면 배경화면 복원</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>실험적 기능</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>무엇을 하는지 알지 못한다면 아래 설정을 조작하지 마세요</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
         <source>Display manager</source>
         <translation>디스플레이 관리자</translation>
     </message>

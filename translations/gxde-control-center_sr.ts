@@ -103,17 +103,27 @@
 <context>
     <name>NotifyDelegate</name>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="197"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Expand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="214"/>
         <source>Yesterday</source>
         <translation>Јуче</translation>
     </message>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="199"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="216"/>
         <source>The day before yesterday</source>
         <translation>Прекључе</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="202"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="219"/>
         <source>%n day(s) ago</source>
         <translation>
             <numerusform>%n дан раније</numerusform>
@@ -3978,8 +3988,8 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation type="unfinished">Курсор миша екрана добродошлице (глобални)</translation>
     </message>
@@ -3992,63 +4002,63 @@ Power by x11vnc</source>
         <translation>Пребаци се на X11 фронтенд екрана добродошлице (потребно је поновно покретање)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>Позадина екрана добродошлице (глобална)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Change wallpaper</source>
         <translation>Промени позадину</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Слике (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
         <source>Restore default wallpaper</source>
         <translation>Врати подразумевану позадину</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Курсор миша екрана добродошлице (глобални)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
         <translation>Менаџер закључаног екрана</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Choose lock screen wallpaper</source>
         <translation>Изабери позадину закључаног екрана</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>Врати подразумевану позадину закључаног екрана</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>Експерименталне функције</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Не дирајте подешавања испод осим ако знате шта радите</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
         <source>Display manager</source>
         <translation>Менаџер екрана</translation>
     </message>

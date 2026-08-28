@@ -103,17 +103,27 @@
 <context>
     <name>NotifyDelegate</name>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="197"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Collapse</source>
+        <translation>收起</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Expand</source>
+        <translation>展開</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="214"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="199"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="216"/>
         <source>The day before yesterday</source>
         <translation>前天</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="202"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="219"/>
         <source>%n day(s) ago</source>
         <translation>
             <numerusform>%n 天前</numerusform>
@@ -358,22 +368,22 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="170"/>
         <source>open launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>打開啟動器</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="171"/>
         <source>Take a screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>截圖</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="172"/>
         <source>Take a screenshot for ocr</source>
-        <translation type="unfinished"></translation>
+        <translation>文字識別</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="173"/>
         <source>Launch screen recorder</source>
-        <translation type="unfinished"></translation>
+        <translation>屏幕錄屏</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="174"/>
@@ -388,7 +398,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="176"/>
         <source>open file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>打開文件管理器</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="177"/>
@@ -398,7 +408,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="178"/>
         <source>clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>剪切板</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="179"/>
@@ -408,17 +418,17 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="180"/>
         <source>grand search</source>
-        <translation type="unfinished"></translation>
+        <translation>全局搜索</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="181"/>
         <source>volume up</source>
-        <translation type="unfinished"></translation>
+        <translation>提高音量</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="182"/>
         <source>volume down</source>
-        <translation type="unfinished"></translation>
+        <translation>降低音量</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="183"/>
@@ -438,47 +448,47 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="186"/>
         <source>play</source>
-        <translation type="unfinished"></translation>
+        <translation>播放</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="187"/>
         <source>pause</source>
-        <translation type="unfinished"></translation>
+        <translation>暫停</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="188"/>
         <source>previous</source>
-        <translation type="unfinished"></translation>
+        <translation>上一首</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="189"/>
         <source>next</source>
-        <translation type="unfinished"></translation>
+        <translation>下一首</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="190"/>
         <source>brightness up</source>
-        <translation type="unfinished"></translation>
+        <translation>提高亮度</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="191"/>
         <source>brightness down</source>
-        <translation type="unfinished"></translation>
+        <translation>降低亮度</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="192"/>
         <source>open terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>打開終端</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="193"/>
         <source>open system monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>打開系統監視器</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="194"/>
         <source>show ukui menu</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示UKUI菜單</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="195"/>
@@ -528,7 +538,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="204"/>
         <source>global search</source>
-        <translation type="unfinished"></translation>
+        <translation>全局搜索</translation>
     </message>
 </context>
 <context>
@@ -3976,8 +3986,8 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation type="unfinished">歡迎介面滑鼠指標（全域）</translation>
     </message>
@@ -3990,63 +4000,63 @@ Power by x11vnc</source>
         <translation>切換到 X11 歡迎介面前端（需重新啟動）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>歡迎介面桌布（全域）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Change wallpaper</source>
         <translation>修改桌布</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>圖片 (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
         <source>Restore default wallpaper</source>
         <translation>恢復預設桌布</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>歡迎介面滑鼠指標（全域）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
         <source>Select mouse cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇鼠標樣式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
         <translation>鎖定畫面管理員</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Choose lock screen wallpaper</source>
         <translation>選擇鎖定畫面桌布</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>恢復預設鎖定畫面桌布</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>實驗性功能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>除非您知道自己在做什麼，否則請勿操作以下設定</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
         <source>Display manager</source>
         <translation>顯示管理員</translation>
     </message>

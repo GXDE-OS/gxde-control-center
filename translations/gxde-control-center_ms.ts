@@ -103,17 +103,27 @@
 <context>
     <name>NotifyDelegate</name>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="197"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="141"/>
+        <source>Expand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="214"/>
         <source>Yesterday</source>
         <translation>Semalam</translation>
     </message>
     <message>
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="199"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="216"/>
         <source>The day before yesterday</source>
         <translation>Hari sebelum semalam</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/notify/notifydelegate.cpp" line="202"/>
+        <location filename="../src/frame/notify/notifydelegate.cpp" line="219"/>
         <source>%n day(s) ago</source>
         <translation>
             <numerusform>%n hari(s) yang lalu</numerusform>
@@ -3982,8 +3992,8 @@ Dihapus</translation>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="185"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation type="unfinished">Kursor tetikus skrin alu-aluan (global)</translation>
     </message>
@@ -3996,63 +4006,63 @@ Dihapus</translation>
         <translation>Tukar ke frontend skrin alu-aluan X11 (perlu dimulakan semula)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>Kertas dinding skrin alu-aluan (global)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Change wallpaper</source>
         <translation>Tukar kertas dinding</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Imej (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
         <source>Restore default wallpaper</source>
         <translation>Pulihkan kertas dinding lalai</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Kursor tetikus skrin alu-aluan (global)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
         <translation>Pengurus skrin kunci</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
         <source>Choose lock screen wallpaper</source>
         <translation>Pilih kertas dinding skrin kunci</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="118"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
         <source>Restore default lock screen wallpaper</source>
         <translation>Pulihkan kertas dinding skrin kunci lalai</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="121"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>Ciri eksperimen</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="123"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Jangan ubah tetapan di bawah kecuali anda tahu apa yang anda lakukan</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="137"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
         <source>Display manager</source>
         <translation>Pengurus paparan</translation>
     </message>
