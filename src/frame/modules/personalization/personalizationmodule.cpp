@@ -34,7 +34,11 @@
 #include "module/gxwm/gxwmwidget.h"
 #include "module/gxdm/gxdmwidget.h"
 
+#include <QCoreApplication>
+#include <QDir>
 #include <QElapsedTimer>
+#include <QProcess>
+#include <QProcessEnvironment>
 
 using namespace dcc;
 using namespace dcc::personalization;
@@ -136,6 +140,8 @@ void PersonalizationModule::showVideoWallpaperWidget()
 void PersonalizationModule::showGxwmWidget()
 {
     GxwmWidget *gxwmWidget = new GxwmWidget;
+    connect(gxwmWidget, &GxwmWidget::requestShowBlurSettings, this,
+        &PersonalizationModule::showBlurSettingsWindow);
     m_frameProxy->pushWidget(this, gxwmWidget);
 }
 
@@ -147,6 +153,21 @@ void PersonalizationModule::showDisplayManagerWidget()
     connect(gxdmWidget, &GxdmWidget::requestShowCursorThemes, this,
             &PersonalizationModule::showGreeterCursorThemes);
     m_frameProxy->pushWidget(this, gxdmWidget);
+}
+
+void PersonalizationModule::showBlurSettingsWindow()
+{
+    const QString executable = QDir(QCoreApplication::applicationDirPath())
+        .filePath(QStringLiteral("gxde-blur-settings"));
+
+    QProcess process;
+    process.setProgram(executable);
+    QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
+    environment.remove(QStringLiteral("QT_WAYLAND_SHELL_INTEGRATION"));
+    process.setProcessEnvironment(environment);
+    if (!process.startDetached()) {
+        qWarning("Failed to start %s", qPrintable(executable));
+    }
 }
 
 void PersonalizationModule::showGreeterCursorThemes()

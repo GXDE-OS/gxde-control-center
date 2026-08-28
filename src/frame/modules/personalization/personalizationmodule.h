@@ -59,6 +59,7 @@ private:
     void showGxwmWidget();
     void showDisplayManagerWidget();
     void showGreeterCursorThemes();
+    void showBlurSettingsWindow();
     void showStanardFontsListWidget();
     void showMonoFontsListWidget();
     void onSetFrameAutoHide(const bool autoHide);

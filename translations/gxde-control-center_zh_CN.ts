@@ -3974,6 +3974,61 @@ Power by x11vnc</source>
     </message>
 </context>
 <context>
+    <name>dcc::personalization::BlurSettingsWindow</name>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="101"/>
+        <source>Window Background Blur - System Settings</source>
+        <translation>窗口背景虚化 - 系统设置</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="104"/>
+        <source>Blur strength:</source>
+        <translation>模糊强度：</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="106"/>
+        <source>Noise strength:</source>
+        <translation>噪声强度：</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="104"/>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="106"/>
+        <source>Light</source>
+        <translation>弱</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="104"/>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="106"/>
+        <source>Strong</source>
+        <translation>强</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="111"/>
+        <source>Restore Defaults</source>
+        <translation>恢复默认值</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="112"/>
+        <source>Confirm</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="113"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="215"/>
+        <source>Blur strength: %1</source>
+        <translation>模糊强度：%1</translation>
+    </message>
+    <message>
+        <location filename="../src/helpers/blur-settings/blursettingswindow.cpp" line="216"/>
+        <source>Noise strength: %1</source>
+        <translation>噪声强度：%1</translation>
+    </message>
+</context>
+<context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="173"/>
@@ -4097,6 +4152,16 @@ Power by x11vnc</source>
         <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
         <source>Minimize animation</source>
         <translation>最小化动画</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation>窗口效果</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation>模糊设置</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
