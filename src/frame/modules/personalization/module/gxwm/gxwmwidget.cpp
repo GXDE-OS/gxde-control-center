@@ -18,6 +18,7 @@
 #include "gxwmwidget.h"
 
 #include "widgets/labels/tipslabel.h"
+#include "widgets/nextpagewidget.h"
 #include "widgets/optionitem.h"
 #include "widgets/settingsgroup.h"
 #include "widgets/settingsitem.h"
@@ -110,6 +111,11 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     animationGroup->appendItem(m_scaleOption);
     animationGroup->appendItem(m_magicLampOption);
 
+    auto *effectGroup = new SettingsGroup(tr("Window effects"));
+    auto *blurSettings = new NextPageWidget;
+    blurSettings->setTitle(tr("Blur settings"));
+    effectGroup->appendItem(blurSettings);
+
     auto *expGroup = new SettingsGroup(tr("Experimental features"));
     auto *warningItem = new WarningItem;
     warningItem->setText(tr("Do not touch the settings below unless you know what you are doing"));
@@ -123,6 +129,7 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     layout->setSpacing(10);
     layout->addWidget(gtkGroup);
     layout->addWidget(animationGroup);
+    layout->addWidget(effectGroup);
     layout->addWidget(expGroup);
     layout->addStretch();
 
@@ -141,6 +148,8 @@ GxwmWidget::GxwmWidget(QWidget *parent)
     connect(m_magicLampOption, &OptionItem::selectedChanged, this, [this] {
         onMinimizeEffectChanged(MinimizeEffectMagicLamp);
     });
+    connect(blurSettings, &NextPageWidget::clicked, this,
+            &GxwmWidget::requestShowBlurSettings);
     connect(m_forceRoundCornerSwitch, &SwitchWidget::checkedChanged, this,
         &GxwmWidget::onForceRoundCornerChanged);
     connect(m_excludeLayerShellSwitch, &SwitchWidget::checkedChanged, this,

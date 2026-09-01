@@ -37,6 +37,7 @@ configure_file(files/gxde-control-center.conf.in files/gxde-control-center.conf 
 add_subdirectory("src/frame")
 add_subdirectory("src/dialogs")
 add_subdirectory("src/helpers/gxdm-autologin")
+add_subdirectory("src/helpers/blur-settings")
 
 ## qm files
 file(GLOB QM_FILES "translations/*.qm")

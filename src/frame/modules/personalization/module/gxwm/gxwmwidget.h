@@ -35,6 +35,9 @@ class GxwmWidget : public ContentWidget {
 public:
     explicit GxwmWidget(QWidget *parent = nullptr);
 
+Q_SIGNALS:
+    void requestShowBlurSettings() const;
+
 private Q_SLOTS:
     void onGtkButtonsChanged();
     void onMinimizeEffectChanged(int effect);
