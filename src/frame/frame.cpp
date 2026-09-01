@@ -625,6 +625,13 @@ void Frame::show()
             << "size=" << size()
             << "stack=" << m_frameWidgetStack.size();
 
+    // m_shown records if the control panel is currently open.
+    // Now do no-ops while the panel already opens.
+    // If not doing so, the panel will play the open animation again, and
+    // that's annoying.
+    if (m_shown)
+        return;
+
     if (m_appearAnimation.state() == QPropertyAnimation::Running ||
         m_waylandSlideAnimation->state() == QPropertyAnimation::Running)
         return;
