@@ -1,4 +1,4 @@
-gxde-control-center (6.0.20) UNRELEASED; urgency=medium
+gxde-control-center (6.0.21) UNRELEASED; urgency=medium
 
   [ zeqi ]
   * 修复在 wayland 下控制中心个性化-窗口管理器 切换最小化动画无效 的问题
@@ -6,8 +6,12 @@ gxde-control-center (6.0.20) UNRELEASED; urgency=medium
 
   [ gfdgd_xi ]
   * 修复通知中心较长的通知无法完全展开，导致无法看全内容的问题（https://gitee.com/GXDE-OS/gxde-control-center/issues/IKAC8Z ）
+  
+  [ CharOfString ]
+  * 新增类似KWin的模糊强度设置
+  * 修复设置中心有圆角的问题
 
- -- gfdgd_xi <3025613752@qq.com>  Fri, 28 Aug 2026 10:52:50 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Tue, 01 Sep 2026 18:02:05 +0800
 
 gxde-control-center (6.0.17) unstable; urgency=medium
 
