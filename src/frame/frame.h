@@ -144,6 +144,7 @@ private:
     QPointer<SettingsWidget> m_allSettingsPage;
     QPointer<MainWidget> m_mainWidget;
     QTimer *m_delayKillerTimer;
+    QTimer *m_screenCaptureGuardTimer;
 
     DRegionMonitor *m_mouseAreaInter;
     DBusDisplay *m_displayInter;

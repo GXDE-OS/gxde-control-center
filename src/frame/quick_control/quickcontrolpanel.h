@@ -83,6 +83,7 @@ public:
 Q_SIGNALS:
     void requestDetailConfig() const;
     void requestPage(const QString &module, const QString &page, bool animation);
+    void screenCaptureStarted() const;
 
 protected:
     void leaveEvent(QEvent *e);
