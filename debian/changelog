@@ -1,4 +1,4 @@
-gxde-control-center (6.0.21) UNRELEASED; urgency=medium
+gxde-control-center (6.0.22) UNRELEASED; urgency=medium
 
   [ zeqi ]
   * 修复在 wayland 下控制中心个性化-窗口管理器 切换最小化动画无效 的问题
@@ -10,8 +10,10 @@ gxde-control-center (6.0.21) UNRELEASED; urgency=medium
   [ CharOfString ]
   * 新增类似KWin的模糊强度设置
   * 修复设置中心有圆角的问题
+  * 修复Wayland下已展开的gxde control center 再次点击任务栏图标会再次播放弹出动画而不是缩回的问题
+  * 修复Wayland下一触发截图设置面板就缩回去的问题
 
- -- gfdgd_xi <3025613752@qq.com>  Tue, 01 Sep 2026 18:02:05 +0800
+ -- gfdgd_xi <3025613752@qq.com>  Wed, 02 Sep 2026 13:06:12 +0800
 
 gxde-control-center (6.0.17) unstable; urgency=medium
 
