@@ -224,6 +224,7 @@ QuickControlPanel::QuickControlPanel(QWidget *parent)
     //connect(m_wifiSwitch, &QuickSwitchButton::hovered, m_itemStack, &QStackedLayout::setCurrentIndex);
     connect(m_screenShotBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --shot");
+        Q_EMIT screenCaptureStarted();
         startAppWithEffect("deepin-screen-recorder", {"--shot"});
     });
     connect(m_screenRecordBtn, &DImageButton::clicked, this, [this](){
@@ -244,10 +245,12 @@ QuickControlPanel::QuickControlPanel(QWidget *parent)
     });
     connect(m_ocrBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --ocr");
+        Q_EMIT screenCaptureStarted();
         startAppWithEffect("deepin-screen-recorder", {"--ocr"});
     });
     connect(m_scrollBtn, &DImageButton::clicked, this, [this](){
         // QProcess::startDetached("deepin-screen-recorder --scroll");
+        Q_EMIT screenCaptureStarted();
         startAppWithEffect("deepin-screen-recorder", {"--scroll"});
     });
 

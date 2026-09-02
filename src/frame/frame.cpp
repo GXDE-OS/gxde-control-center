@@ -35,6 +35,7 @@
 #include "wayland/gxdecursor.h"
 
 #include <QApplication>
+#include <QDBusServiceWatcher>
 #include <QKeyEvent>
 #include <QMargins>
 #include <QScreen>
@@ -57,6 +58,7 @@ Frame::Frame(QWidget *parent)
       m_contentWrapper(new FrameContentWrapper(this)),
       m_allSettingsPage(nullptr),
       m_delayKillerTimer(new QTimer(this)),
+      m_screenCaptureGuardTimer(new QTimer(this)),
       m_mouseAreaInter(new DRegionMonitor(this)),
       m_displayInter(new DBusDisplay("com.deepin.daemon.Display", "/com/deepin/daemon/Display", QDBusConnection::sessionBus(), this)),
       m_launcherInter(new LauncherInter("com.deepin.dde.Launcher", "/com/deepin/dde/Launcher", QDBusConnection::sessionBus(), this)),
@@ -103,6 +105,23 @@ Frame::Frame(QWidget *parent)
 
     m_delayKillerTimer->setSingleShot(true);
     m_delayKillerTimer->setInterval(60 * 1000);
+
+    // Starting screen capture takes keyboard focus away from layer-shell
+    // shortly, so we ignore short periods of focus loss to
+    // avoid the panel from hiding while taking screenshot.
+    m_screenCaptureGuardTimer->setSingleShot(true);
+    m_screenCaptureGuardTimer->setInterval(3000);
+
+    auto *screenRecorderWatcher = new QDBusServiceWatcher(
+        QStringLiteral("com.deepin.ScreenRecorder"),
+        QDBusConnection::sessionBus(),
+        QDBusServiceWatcher::WatchForRegistration,
+        this);
+    connect(screenRecorderWatcher, &QDBusServiceWatcher::serviceRegistered,
+            this, [this] {
+                if (isVisible())
+                    m_screenCaptureGuardTimer->start();
+            });
 
     m_navigationBar = new NavigationBar;
     m_navigationBar->setFixedWidth(NAVBAR_WIDTH);
@@ -228,6 +247,8 @@ void Frame::init()
     m_mainWidget = new MainWidget(m_contentWrapper.data());
     connect(m_mainWidget.data(), &MainWidget::showAllSettings, this, &Frame::showAllSettings);
     connect(m_mainWidget.data(), &MainWidget::showSettingPage, this, &Frame::showSettingsPage);
+    connect(m_mainWidget.data(), &MainWidget::screenCaptureStarted,
+            m_screenCaptureGuardTimer, qOverload<>(&QTimer::start));
     m_frameWidgetStack.push(m_mainWidget.data());
 
     // frame position adjust
@@ -625,6 +646,13 @@ void Frame::show()
             << "size=" << size()
             << "stack=" << m_frameWidgetStack.size();
 
+    // m_shown records if the control panel is currently open.
+    // Now do no-ops while the panel already opens.
+    // If not doing so, the panel will play the open animation again, and
+    // that's annoying.
+    if (m_shown)
+        return;
+
     if (m_appearAnimation.state() == QPropertyAnimation::Running ||
         m_waylandSlideAnimation->state() == QPropertyAnimation::Running)
         return;
@@ -912,7 +940,9 @@ bool Frame::event(QEvent *event)
 
 #ifdef HAS_LAYER_SHELL
     if (Wayland::BlurHelper::isWayland() && event->type() == QEvent::WindowDeactivate) {
-        if (isVisible() && m_autoHide && m_debugAutoHide) {
+        if (m_screenCaptureGuardTimer->isActive()) {
+            m_screenCaptureGuardTimer->stop();
+        } else if (isVisible() && m_autoHide && m_debugAutoHide) {
             hide();
         }
     }

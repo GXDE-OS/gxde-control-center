@@ -63,6 +63,7 @@ Q_SIGNALS:
     void appear() const;
     void disappear() const;
     void requestModuleVisible(const QString &module, bool visible);
+    void screenCaptureStarted() const;
 
 
 private:

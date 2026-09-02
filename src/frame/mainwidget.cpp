@@ -172,6 +172,7 @@ MainWidget::MainWidget(FrameContentWrapper *parent)
     connect(m_pluginsController, &PluginsController::requestModulePage, this, &MainWidget::showSettingPage, Qt::QueuedConnection);
     connect(m_quickSettingsPanel, &QuickControlPanel::requestDetailConfig, this, &MainWidget::showAllSettings);
     connect(m_quickSettingsPanel, &QuickControlPanel::requestPage, this, &MainWidget::showSettingPage);
+    connect(m_quickSettingsPanel, &QuickControlPanel::screenCaptureStarted, this, &MainWidget::screenCaptureStarted);
     connect(this, &MainWidget::appear, m_quickSettingsPanel, &QuickControlPanel::appear);
     connect(this, &MainWidget::disappear, m_quickSettingsPanel, &QuickControlPanel::disappear);
     connect(m_timeRefersh, &QTimer::timeout, this, &MainWidget::refershTimedate);
