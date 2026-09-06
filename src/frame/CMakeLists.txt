@@ -909,6 +909,9 @@ set(QRC
 # Find the library
 find_package(PkgConfig REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent DBus Network Multimedia Svg)
+if(NOT TARGET Qt6::GuiPrivate)
+    find_package(Qt6GuiPrivate REQUIRED)
+endif()
 find_package(Dtk6Core REQUIRED)
 find_package(Dtk6Log REQUIRED)
 find_package(Dtk2widget REQUIRED)
@@ -1047,6 +1050,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
     ${Dtk2widget_LIBRARIES}
     Dtk6::Core
     Qt6::Widgets
+    Qt6::GuiPrivate
     Qt6::Concurrent
     Qt6::DBus
     Qt6::Network
