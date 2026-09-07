@@ -102,7 +102,13 @@ void UpdateView::ExecUpgrader()
 void UpdateView::ShowTesingDialog()
 {
     QProcess process;
-    process.start("bash", QStringList() << "/usr/share/gxde-control-center/join-testing-group.sh");
+    // QProcess 提供的 QT_QPA_PLATFORM 默认为空，会导致启动 dtk2 应用异常，需强制指定一个 QT_QPA_PLATFORM
+    if (DApplication::isWayland()) {
+        process.start("bash", QStringList() << "-c" << "env QT_QPA_PLATFORM='wayland' bash /usr/share/gxde-control-center/join-testing-group.sh");
+    }
+    else {
+        process.start("bash", QStringList() << "-c" << "env QT_QPA_PLATFORM='dxcb;xcb;dwayland;wayland' bash /usr/share/gxde-control-center/join-testing-group.sh");
+    }
     process.waitForStarted();
     process.waitForFinished(-1);
 }
