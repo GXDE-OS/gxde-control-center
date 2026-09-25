@@ -142,6 +142,13 @@ bool controlShortcut(const QString &controlType, const QString &bindings);
 bool grabNextKey();
 bool cancelGrab();
 
+// --- shake mouse to enlarge pointer (top.gxde.Wlcom.MouseFinder) ---
+// This is a gxde-wlcom helper service that highlights/enlarges the pointer
+// when the mouse is shaken; it only exists under Wayland.
+bool mouseFinderAvailable();
+bool getMouseFinderEnabled(bool *enabled);
+bool setMouseFinderEnabled(bool enabled);
+
 } // namespace GxdeInput
 
 #endif // GXDEINPUT_H

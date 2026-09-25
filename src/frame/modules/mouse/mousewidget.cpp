@@ -24,6 +24,7 @@
  */
 
 #include "mousewidget.h"
+#include "dapplication.h"
 #include "widgets/switchwidget.h"
 #include "widgets/contentwidget.h"
 #include "widgets/settingsgroup.h"
@@ -60,6 +61,7 @@ MouseWidget::MouseWidget()
     m_scrollSpeedSlider = new TitledSliderItem(tr("Scroll Speed"));
     m_disTchStn = new SwitchWidget(tr("Disable the touchpad when inserting the mouse"));
     m_mouseNaturalScroll = new SwitchWidget(tr("Natural Scrolling"));
+    m_mouseFinder = new SwitchWidget(tr("Enlarge the Pointer when shaking the mouse"));
 
     m_touchMoveSlider = new TitledSliderItem(tr("Pointer Speed"));
     m_touchClickStn = new SwitchWidget(tr("Tap to Click"));
@@ -109,6 +111,7 @@ MouseWidget::MouseWidget()
     m_mouseSettingsGrp->appendItem(m_adaptiveAccelProfile);
     m_mouseSettingsGrp->appendItem(m_disTchStn);
     m_mouseSettingsGrp->appendItem(m_mouseNaturalScroll);
+    m_mouseSettingsGrp->appendItem(m_mouseFinder);
 
     m_touchSettingsGrp->appendItem(m_touchMoveSlider);
     m_touchSettingsGrp->appendItem(m_touchClickStn);
@@ -130,6 +133,7 @@ MouseWidget::MouseWidget()
 
     connect(m_mouseNaturalScroll, &SwitchWidget::checkedChanged, this, &MouseWidget::requestSetMouseNaturalScroll);
     connect(m_touchNaturalScroll, &SwitchWidget::checkedChanged, this, &MouseWidget::requestSetTouchNaturalScroll);
+    connect(m_mouseFinder, &SwitchWidget::checkedChanged, this, &MouseWidget::requestSetMouseFinderEnabled);
 
     connect(m_doubleSlider->slider(), &DCCSlider::valueChanged, this, &MouseWidget::requestSetDouClick);
     connect(m_mouseMoveSlider->slider(), &DCCSlider::valueChanged, this, &MouseWidget::requestSetMouseMotionAcceleration);
@@ -164,6 +168,7 @@ void MouseWidget::setModel(MouseModel *const model)
 
     connect(model, &MouseModel::mouseNaturalScrollChanged, m_mouseNaturalScroll, &SwitchWidget::setChecked);
     connect(model, &MouseModel::tpadNaturalScrollChanged, m_touchNaturalScroll, &SwitchWidget::setChecked);
+    connect(model, &MouseModel::mouseFinderEnabledChanged, m_mouseFinder, &SwitchWidget::setChecked);
 
     connect(model, &MouseModel::accelProfileChanged, m_adaptiveAccelProfile, &SwitchWidget::setChecked);
 
@@ -191,6 +196,8 @@ void MouseWidget::setModel(MouseModel *const model)
     m_mouseNaturalScroll->setChecked(model->mouseNaturalScroll());
     m_touchNaturalScroll->setChecked(model->tpadNaturalScroll());
     m_disTchStn->setChecked(model->disTpad());
+    m_mouseFinder->setChecked(model->mouseFinderEnabled());
+    m_mouseFinder->setVisible(Dtk::Widget::DApplication::isWayland());
     m_touchClickStn->setChecked(model->tapclick());
     m_leftHand->setChecked(model->leftHandState());
     m_adaptiveAccelProfile->setChecked(model->accelProfile());

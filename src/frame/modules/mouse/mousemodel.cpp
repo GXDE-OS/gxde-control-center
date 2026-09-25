@@ -47,6 +47,7 @@ MouseModel::MouseModel(QObject *parent)
     , m_palmMinWidth(1)
     , m_palmMinz(100)
     , m_scrollSpeed(1)
+    , m_mouseFinderEnabled(false)
 {
 }
 
@@ -233,4 +234,14 @@ void MouseModel::setScrollSpeed(int speed)
     m_scrollSpeed = speed;
 
     Q_EMIT scrollSpeedChanged(speed);
+}
+
+void MouseModel::setMouseFinderEnabled(bool enabled)
+{
+    if (m_mouseFinderEnabled == enabled)
+        return;
+
+    m_mouseFinderEnabled = enabled;
+
+    Q_EMIT mouseFinderEnabledChanged(enabled);
 }

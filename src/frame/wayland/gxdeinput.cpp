@@ -462,4 +462,54 @@ bool cancelGrab()
     return reply.type() == QDBusMessage::ReplyMessage;
 }
 
+// --- shake mouse to enlarge pointer (top.gxde.Wlcom.MouseFinder) ---
+namespace {
+
+static const QString MouseFinderService = QStringLiteral("top.gxde.Wlcom.MouseFinder");
+static const QString MouseFinderPath = QStringLiteral("/top/gxde/Wlcom/MouseFinder");
+static const QString MouseFinderInterface = QStringLiteral("top.gxde.Wlcom.MouseFinder");
+
+QDBusMessage callMouseFinder(const QString &method, const QVariantList &args = QVariantList())
+{
+    QDBusConnectionInterface *iface = QDBusConnection::sessionBus().interface();
+    if (!iface || !iface->isServiceRegistered(MouseFinderService))
+        return QDBusMessage();
+
+    QDBusMessage message =
+        QDBusMessage::createMethodCall(MouseFinderService, MouseFinderPath,
+                                       MouseFinderInterface, method);
+    message.setArguments(args);
+    return QDBusConnection::sessionBus().call(message, QDBus::Block);
+}
+
+} // namespace
+
+bool mouseFinderAvailable()
+{
+    QDBusConnectionInterface *iface = QDBusConnection::sessionBus().interface();
+    if (!iface)
+        return false;
+    return iface->isServiceRegistered(MouseFinderService);
+}
+
+bool getMouseFinderEnabled(bool *enabled)
+{
+    if (!enabled)
+        return false;
+
+    const QDBusMessage reply = callMouseFinder(QStringLiteral("GetEnabled"));
+    if (reply.type() != QDBusMessage::ReplyMessage || reply.arguments().isEmpty())
+        return false;
+
+    *enabled = reply.arguments().first().toBool();
+    return true;
+}
+
+bool setMouseFinderEnabled(bool enabled)
+{
+    const QDBusMessage reply =
+        callMouseFinder(QStringLiteral("SetEnabled"), QVariantList() << enabled);
+    return reply.type() == QDBusMessage::ReplyMessage;
+}
+
 } // namespace GxdeInput

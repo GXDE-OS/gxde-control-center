@@ -68,6 +68,7 @@ Q_SIGNALS:
     void requestContact(int value);
     void requestPressure(int value);
     void requestScrollSpeed(int speed);
+    void requestSetMouseFinderEnabled(const bool state);
 
 private Q_SLOTS:
     void onTouchpadHideChanged(const bool visible);
@@ -94,6 +95,7 @@ private:
     widgets::TitledSliderItem *m_scrollSpeedSlider;
     widgets::SwitchWidget *m_disTchStn;
     widgets::SwitchWidget *m_mouseNaturalScroll;
+    widgets::SwitchWidget *m_mouseFinder;
 
     widgets::TitledSliderItem *m_touchMoveSlider;
     widgets::SwitchWidget *m_touchClickStn;

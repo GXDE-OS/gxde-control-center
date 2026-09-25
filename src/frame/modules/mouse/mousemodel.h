@@ -93,6 +93,9 @@ public:
     int scrollSpeed() const { return m_scrollSpeed; }
     void setScrollSpeed(int speed);
 
+    inline bool mouseFinderEnabled() const { return m_mouseFinderEnabled; }
+    void setMouseFinderEnabled(bool enabled);
+
 Q_SIGNALS:
     void leftHandStateChanged(bool state);
     void disIfTypingStateChanged(bool state);
@@ -112,6 +115,7 @@ Q_SIGNALS:
     void palmMinzChanged(int palmMinz);
     void tapClickChanged(bool tapclick);
     void scrollSpeedChanged(int speed);
+    void mouseFinderEnabledChanged(bool enabled);
 
 private:
     bool m_leftHandState;
@@ -132,6 +136,7 @@ private:
     int  m_palmMinWidth;
     int  m_palmMinz;
     int  m_scrollSpeed;
+    bool m_mouseFinderEnabled;
 };
 }
 }

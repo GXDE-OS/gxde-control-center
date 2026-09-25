@@ -68,6 +68,7 @@ public Q_SLOTS:
     void setPalmMinWidth(int palmMinWidth);
     void setPalmMinz(int palmMinz);
     void setScrollSpeed(int speed);
+    void setMouseFinderEnabled(bool enabled);
 
     void onDefaultReset();
     void onLeftHandStateChanged(const bool state);
@@ -81,6 +82,7 @@ public Q_SLOTS:
     void onAccelProfileChanged(const bool state);
     void onTouchpadMotionAccelerationChanged(const int &value);
     void onTrackPointMotionAccelerationChanged(const int &value);
+    void onMouseFinderEnabledChanged(const bool state);
 
 private:
     int converToDouble(int value);

@@ -142,6 +142,10 @@ void MouseWorker::init()
         quint32 sendEventsMode = 0;
         if (GxdeInput::getTouchpadSendEvents(tpads, &sendEventsMode))
             setDisTouchPad(sendEventsMode == 2); // DISABLED_ON_EXTERNAL_MOUSE
+
+        bool mf = false;
+        if (GxdeInput::getMouseFinderEnabled(&mf))
+            setMouseFinderEnabled(mf);
         return;
     }
 
@@ -241,6 +245,19 @@ void MouseWorker::setPalmMinz(int palmMinz)
 void MouseWorker::setScrollSpeed(int speed)
 {
     m_dbusDevices->setWheelSpeed(speed);
+}
+
+void MouseWorker::setMouseFinderEnabled(bool enabled)
+{
+    m_model->setMouseFinderEnabled(enabled);
+}
+
+void MouseWorker::onMouseFinderEnabledChanged(const bool state)
+{
+    if (Dtk::Widget::DApplication::isWayland()) {
+        GxdeInput::setMouseFinderEnabled(state);
+        return;
+    }
 }
 
 void MouseWorker::onDefaultReset()
