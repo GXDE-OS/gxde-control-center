@@ -1863,82 +1863,87 @@ x11vnc تەۋقىيىلىش</translation>
 <context>
     <name>dcc::mouse::MouseWidget</name>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
         <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation>مائۇس</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="47"/>
         <source>Mouse and Touchpad</source>
         <translation>مائۇس ۋە سېزىمچان تاختا</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
         <source>TouchPad</source>
         <translation>سېزىمچان تاختا</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="52"/>
         <source>TrackPoint</source>
         <translation>ئىز قوغلىغۇچ تېزلىكى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
         <source>Left Hand</source>
         <translation>سول ئىسترېلكا</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
         <source>Disable the touchpad while typing</source>
         <translation>خەت يېزىۋاتقاندا سېزىمچان تاختا ئىشلىمىسۇن</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="56"/>
         <source>Double-click Speed</source>
         <translation>قوش چېكىش تېزلىكى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="58"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="70"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="72"/>
         <source>Pointer Speed</source>
         <translation>ئىسترېلكا تېزلىكى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
         <source>Mouse Acceleration</source>
         <translation>مائۇس تىزلىكى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
         <source>Scroll Speed</source>
         <translation>سۈرۈش تېزلىگى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
         <source>Disable the touchpad when inserting the mouse</source>
         <translation>مائۇس ئۇلىسىڭىز سېزىمچان تاختا توختىتىلىدۇ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="68"/>
         <source>Natural Scrolling</source>
         <translation>مائۇس غالتىكىنى سىيرىلىش</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
+        <source>Enlarge the Pointer when shaking the mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="67"/>
         <source>Tap to Click</source>
         <translation>چېكىپ بىلىۋېلىڭ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Slow</source>
         <translation>كۆرسىتىش</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Fast</source>
         <translation>تېز</translation>
     </message>
@@ -4068,62 +4073,72 @@ x11vnc تەۋقىيىلىش</translation>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Magic lamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Minimize button</source>
         <translation>كىچىكلەت توپچىسى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Maximize button</source>
         <translation>چوڭايت توپچىسى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Close button</source>
         <translation>تاقا توپچىسى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="100"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>يۇمىلاق بۇلۇڭلارنى كېسىشنى مەجبۇرلا (تۇراقسىز)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>layer-shell يۈزلىرىنى چىقىرىۋەت (ئۈستى بالداق، Dock، كونترول مەركىزى قاتارلىقلار)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="103"/>
         <source>GTK title bar buttons</source>
         <translation>GTK ماۋزۇ بالداق توپچىلىرى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="108"/>
         <source>Minimize animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="119"/>
         <source>Experimental features</source>
         <translation>تەجرىبە ئىقتىدارلىرى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="121"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>نېمە قىلىۋاتقانلىقىڭىزنى بىلمىسىڭىز، تۆۋەندىكى تەڭشەكلەرنى ئۆزگەرتمەڭ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="136"/>
         <source>Window manager</source>
         <translation>كۆزنەك باشقۇرغۇچىسى</translation>
     </message>
@@ -4131,12 +4146,12 @@ x11vnc تەۋقىيىلىش</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
         <source>Standard Font</source>
         <translation>ئۆلچەملىك خەت نۇسخىسى</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
         <source>Monospaced Font</source>
         <translation>Monospaced خەت نۇسخىسى</translation>
     </message>

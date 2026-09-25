@@ -1869,82 +1869,87 @@ Power by x11vnc</source>
 <context>
     <name>dcc::mouse::MouseWidget</name>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
         <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation>ചൂള</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="47"/>
         <source>Mouse and Touchpad</source>
         <translation>മൗസ് ആൻഡ് ടച്ച്പാഡ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
         <source>TouchPad</source>
         <translation>ടച്ച്‌പാഡ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="52"/>
         <source>TrackPoint</source>
         <translation>ട്രാക്ക്പോയിന്റ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
         <source>Left Hand</source>
         <translation>വലതു കൈ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
         <source>Disable the touchpad while typing</source>
         <translation>തൈപ്പിംഗ് ചെയ്യുമ്പോൾ ടച്ച്പാഡ് നിരോധിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="56"/>
         <source>Double-click Speed</source>
         <translation>ഡബിൾ ക്ലിക്ക് സ്പീഡ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="58"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="70"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="72"/>
         <source>Pointer Speed</source>
         <translation>പോയിന്റർ വേഗത</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
         <source>Mouse Acceleration</source>
         <translation>മൗസ് അക്കിലറേഷൻ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
         <source>Scroll Speed</source>
         <translation>അടിച്ചുനീക്കൽ വേഗത</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
         <source>Disable the touchpad when inserting the mouse</source>
         <translation>താങ്ങൽ പാഡ് മൗസ് ഇൻസെർട്ട് ചെയ്യുമ്പോൾ വിലക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="68"/>
         <source>Natural Scrolling</source>
         <translation>നാച്ചുറൽ സ്‌ക്രോളിംഗ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
+        <source>Enlarge the Pointer when shaking the mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="67"/>
         <source>Tap to Click</source>
         <translation>ടാപ്പ് ചെയ്യുക ക്ലിക്ക് ചെയ്യുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Slow</source>
         <translation>മന്ദഗതിയിലുള്ള</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Fast</source>
         <translation>വേഗം</translation>
     </message>
@@ -4091,62 +4096,72 @@ Key Direction
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Magic lamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Minimize button</source>
         <translation>ചെറുതാക്കുക ബട്ടൺ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Maximize button</source>
         <translation>വലുതാക്കുക ബട്ടൺ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Close button</source>
         <translation>അടയ്ക്കുക ബട്ടൺ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="100"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>വൃത്താകൃതിയിലുള്ള മൂലകൾ ക്ലിപ്പ് ചെയ്യാൻ നിർബന്ധിക്കുക (അസ്ഥിരം)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>layer-shell ഉപരിതലങ്ങൾ ഒഴിവാക്കുക (മുകളിലെ ബാർ, ഡോക്ക്, നിയന്ത്രണ കേന്ദ്രം മുതലായവ)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="103"/>
         <source>GTK title bar buttons</source>
         <translation>GTK ശീർഷക ബാർ ബട്ടണുകൾ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="108"/>
         <source>Minimize animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="119"/>
         <source>Experimental features</source>
         <translation>പരീക്ഷണാത്മക സവിശേഷതകൾ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="121"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>എന്താണ് ചെയ്യുന്നതെന്ന് അറിയില്ലെങ്കിൽ ചുവടെയുള്ള ക്രമീകരണങ്ങളിൽ മാറ്റം വരുത്തരുത്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="136"/>
         <source>Window manager</source>
         <translation>വിൻഡോ മാനേജർ</translation>
     </message>
@@ -4154,12 +4169,12 @@ Key Direction
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
         <source>Standard Font</source>
         <translation>സ്റ്റാൻഡേർഡ് ഫോണ്ട്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
         <source>Monospaced Font</source>
         <translation>മോണോസ്പേസ്ഡ് ഫോണ്ട്</translation>
     </message>

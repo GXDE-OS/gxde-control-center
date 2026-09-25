@@ -398,7 +398,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="176"/>
         <source>open file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>打開文件管理器</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="177"/>
@@ -433,7 +433,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="183"/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>靜音</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="184"/>
@@ -493,7 +493,7 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="195"/>
         <source>show multitaskView</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示多任務</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwork.cpp" line="196"/>
@@ -1860,82 +1860,87 @@ Power by x11vnc</source>
 <context>
     <name>dcc::mouse::MouseWidget</name>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
         <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation>滑鼠</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="47"/>
         <source>Mouse and Touchpad</source>
         <translation>滑鼠與觸控板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
         <source>TouchPad</source>
         <translation>觸摸板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="52"/>
         <source>TrackPoint</source>
         <translation>TrackPoint</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
         <source>Left Hand</source>
         <translation>左手</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
         <source>Disable the touchpad while typing</source>
         <translation>關閉打字時的觸摸板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="56"/>
         <source>Double-click Speed</source>
         <translation>雙擊滑鼠速度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="58"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="70"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="72"/>
         <source>Pointer Speed</source>
         <translation>鼠標速度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
         <source>Mouse Acceleration</source>
         <translation>滑鼠加速</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
         <source>Scroll Speed</source>
         <translation>滾動速度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
         <source>Disable the touchpad when inserting the mouse</source>
         <translation>當滑鼠正在插入時，停用觸控板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="68"/>
         <source>Natural Scrolling</source>
         <translation>自然捲動</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
+        <source>Enlarge the Pointer when shaking the mouse</source>
+        <translation>搖晃鼠標放大指針</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="67"/>
         <source>Tap to Click</source>
         <translation>點擊</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Slow</source>
         <translation>慢速</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Fast</source>
         <translation>快速</translation>
     </message>
@@ -3989,7 +3994,7 @@ Power by x11vnc</source>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">歡迎介面滑鼠指標（全域）</translation>
+        <translation>歡迎介面滑鼠指標（全域）</translation>
     </message>
 </context>
 <context>
@@ -4064,62 +4069,72 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Magic lamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Minimize button</source>
         <translation>最小化按鈕</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Maximize button</source>
         <translation>最大化按鈕</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Close button</source>
         <translation>關閉按鈕</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="100"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>強制裁剪圓角（不穩定）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>排除 layer-shell 表面（頂端欄、Dock、控制中心等）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="103"/>
         <source>GTK title bar buttons</source>
         <translation>GTK 標題列按鈕</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="108"/>
         <source>Minimize animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="119"/>
         <source>Experimental features</source>
         <translation>實驗性功能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="121"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>除非您知道自己在做什麼，否則請勿操作以下設定</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="136"/>
         <source>Window manager</source>
         <translation>視窗管理員</translation>
     </message>
@@ -4127,12 +4142,12 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
         <source>Standard Font</source>
         <translation>標準字體</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
         <source>Monospaced Font</source>
         <translation>等寬字體</translation>
     </message>

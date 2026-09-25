@@ -1861,82 +1861,87 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::mouse::MouseWidget</name>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
         <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation>माउस</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="47"/>
         <source>Mouse and Touchpad</source>
         <translation>माउस व टचपैड </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
         <source>TouchPad</source>
         <translation>टचपैड</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="52"/>
         <source>TrackPoint</source>
         <translation>ट्रैकपॉइंट</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
         <source>Left Hand</source>
         <translation>बायाँ हाथ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
         <source>Disable the touchpad while typing</source>
         <translation>टाइप करते समय टचपैड निष्क्रिय करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="56"/>
         <source>Double-click Speed</source>
         <translation>दोहरे-क्लिक की गति </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="58"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="70"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="72"/>
         <source>Pointer Speed</source>
         <translation>पॉइंटर की गति</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
         <source>Mouse Acceleration</source>
         <translation>माउस त्वरण</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
         <source>Scroll Speed</source>
         <translation>स्क्रॉल गति</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
         <source>Disable the touchpad when inserting the mouse</source>
         <translation>माउस लगाते समय टचपैड निष्क्रिय करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="68"/>
         <source>Natural Scrolling</source>
         <translation>सामान्य स्क्रॉल</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
+        <source>Enlarge the Pointer when shaking the mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="67"/>
         <source>Tap to Click</source>
         <translation>क्लिक करने हेतु टैप करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Slow</source>
         <translation>धीमा</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Fast</source>
         <translation>तेज़</translation>
     </message>
@@ -4065,62 +4070,72 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Magic lamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Minimize button</source>
         <translation>छोटा करें बटन</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Maximize button</source>
         <translation>बड़ा करें बटन</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Close button</source>
         <translation>बंद करें बटन</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="100"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>गोल कोनों की क्लिपिंग बाध्य करें (अस्थिर)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>layer-shell सतहों को बाहर रखें (शीर्ष पट्टी, डॉक, नियंत्रण केंद्र आदि)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="103"/>
         <source>GTK title bar buttons</source>
         <translation>GTK शीर्षक पट्टी बटन</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="108"/>
         <source>Minimize animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="119"/>
         <source>Experimental features</source>
         <translation>प्रायोगिक सुविधाएँ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="121"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>नीचे दी गई सेटिंग्स को तब तक न छुएँ जब तक आप जानते न हों कि आप क्या कर रहे हैं</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="136"/>
         <source>Window manager</source>
         <translation>विंडो प्रबंधक</translation>
     </message>
@@ -4128,12 +4143,12 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
         <source>Standard Font</source>
         <translation>सामान्य मुद्रलिपि</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
         <source>Monospaced Font</source>
         <translation>Monospace मुद्रलिपि</translation>
     </message>

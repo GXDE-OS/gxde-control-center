@@ -1862,82 +1862,87 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::mouse::MouseWidget</name>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="49"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="125"/>
         <location filename="../src/frame/navigationbar.cpp" line="301"/>
         <source>Mouse</source>
         <translation>Мышь</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="46"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="47"/>
         <source>Mouse and Touchpad</source>
         <translation>Мышь и сенсорная панель</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="50"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
         <source>TouchPad</source>
         <translation>Сенсорная панель</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="51"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="52"/>
         <source>TrackPoint</source>
         <translation>Манипулятор TrackPoint</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
         <source>Left Hand</source>
         <translation>Левая Рука</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
         <source>Disable the touchpad while typing</source>
         <translation>Отключать сенсорную панель когда печатаю</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="55"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="56"/>
         <source>Double-click Speed</source>
         <translation>Скорость Двойного клика</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="58"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="70"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="72"/>
         <source>Pointer Speed</source>
         <translation>Скорость Указателя</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="59"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
         <source>Mouse Acceleration</source>
         <translation>Ускорение Мыши</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="60"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
         <source>Scroll Speed</source>
         <translation>Скорость Прокрутки</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="61"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
         <source>Disable the touchpad when inserting the mouse</source>
         <translation>Отключать тачпад при подключении мыши</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="62"/>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="66"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="63"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="68"/>
         <source>Natural Scrolling</source>
         <translation>Естественная Прокрутка</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="65"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="64"/>
+        <source>Enlarge the Pointer when shaking the mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="67"/>
         <source>Tap to Click</source>
         <translation>Включить Касание</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Slow</source>
         <translation>Медленно</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="73"/>
+        <location filename="../src/frame/modules/mouse/mousewidget.cpp" line="75"/>
         <source>Fast</source>
         <translation>Быстро</translation>
     </message>
@@ -4066,62 +4071,72 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxwmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="95"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
         <source>Magic lamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
         <source>Minimize button</source>
         <translation>Кнопка свернуть</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="97"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
         <source>Maximize button</source>
         <translation>Кнопка развернуть</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
         <source>Close button</source>
         <translation>Кнопка закрыть</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="99"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="100"/>
         <source>Force clipping of rounded corners (unstable)</source>
         <translation>Принудительно обрезать скруглённые углы (нестабильно)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
         <source>Exclude layer-shell surfaces (top bar, Dock, control center, etc.)</source>
         <translation>Исключить поверхности layer-shell (верхняя панель, Dock, центр управления и т.д.)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="103"/>
         <source>GTK title bar buttons</source>
         <translation>Кнопки заголовка окна GTK</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="108"/>
         <source>Minimize animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="113"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="114"/>
+        <source>Window effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="116"/>
+        <source>Blur settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="119"/>
         <source>Experimental features</source>
         <translation>Экспериментальные функции</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="121"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Не изменяйте настройки ниже, если не знаете, что делаете</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/module/gxwm/gxwmwidget.cpp" line="136"/>
         <source>Window manager</source>
         <translation>Оконный менеджер</translation>
     </message>
@@ -4129,12 +4144,12 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="169"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
         <source>Standard Font</source>
         <translation>Стандартный Шрифт</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="178"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
         <source>Monospaced Font</source>
         <translation>Моноширный Шрифт</translation>
     </message>
