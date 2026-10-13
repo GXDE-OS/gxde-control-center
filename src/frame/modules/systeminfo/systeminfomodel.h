@@ -57,7 +57,7 @@ public:
         process.start("uname", QStringList() << "-r");
         process.waitForStarted();
         process.waitForFinished();
-        QString value = process.readAllStandardOutput();
+        QString value = process.readAllStandardOutput().replace("\n", "");
         process.close();
         return value;
     }
