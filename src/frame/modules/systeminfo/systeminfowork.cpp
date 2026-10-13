@@ -27,6 +27,7 @@
 #include "systeminfomodel.h"
 #include "widgets/basiclistdelegate.h"
 #include "dsysinfo.h"
+#include "ddesktopentry.h"
 
 DCORE_USE_NAMESPACE
 
@@ -35,6 +36,28 @@ namespace systeminfo{
 
 static const int ItemWidth = 334;
 static const int ItemHeight = 177;
+
+// 读取系统代号：/etc/deepin-version 中 [Addition] 分组的 Milestone。
+// 若同时存在 Milestone[zh_CN] 条目，则以 "代号（中文名）" 形式返回，
+// 例如 Lizhi（荔枝）；否则只返回代号本身。
+static QString systemCodename()
+{
+    DDesktopEntry entry("/etc/deepin-version");
+    if (!entry.contains("Milestone", "Addition"))
+        return QString();
+
+    const QString milestone = entry.stringValue("Milestone", "Addition");
+    if (milestone.isEmpty())
+        return QString();
+
+    // 注意：这里不能用 localizedValue()，它在找不到本地化键时会回退到
+    // 非本地化的 Milestone 值，从而出现 "Hetao（Hetao）" 这样的结果。
+    const QString milestoneCn = entry.rawValue("Milestone[zh_CN]", "Addition");
+    if (milestoneCn.isEmpty())
+        return milestone;
+
+    return QString("%1 (%2)").arg(milestone, milestoneCn);
+}
 
 SystemInfoWork::SystemInfoWork(SystemInfoModel *model, QObject *parent)
     :QObject(parent),
@@ -90,13 +113,17 @@ void SystemInfoWork::activate()
     // m_model->setMemory(m_systemInfoInter->memoryCap());
     // m_model->setDisk(m_systemInfoInter->diskCap());
 
-    QString version;
-    if (DSysInfo::isDeepin()) {
-        version = QString("%1 %2").arg(DSysInfo::deepinVersion())
-                                  .arg(DSysInfo::deepinTypeDisplayName());
-    } else {
-        version = QString("%1 %2").arg(DSysInfo::productTypeString())
-                                  .arg(DSysInfo::productVersion());
+    // 仅显示系统代号（含中文名），如 Lizhi（荔枝）；
+    // 取不到代号时回退为原有的版本信息，避免该项为空。
+    QString version = systemCodename();
+    if (version.isEmpty()) {
+        if (DSysInfo::isDeepin()) {
+            version = QString("%1 %2").arg(DSysInfo::deepinVersion())
+                                      .arg(DSysInfo::deepinTypeDisplayName());
+        } else {
+            version = QString("%1 %2").arg(DSysInfo::productTypeString())
+                                      .arg(DSysInfo::productVersion());
+        }
     }
 
     m_model->setVersion(version);
