@@ -4609,6 +4609,11 @@ Power by fantascene-dynamic-wallpaper</source>
         <source>%1Bit</source>
         <translation>%1位</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="215"/>
+        <source>rolling</source>
+        <translation>滾動發行</translation>
+    </message>
 </context>
 <context>
     <name>dcc::systeminfo::UserLicense</name>

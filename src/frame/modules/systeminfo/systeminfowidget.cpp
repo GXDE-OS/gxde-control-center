@@ -99,7 +99,7 @@ SystemInfoWidget::SystemInfoWidget(SystemInfoModel* model)
 
     m_distrover = new TitleValueItem();
     m_distrover->setTitle(tr("Distribution Release:"));
-    m_distrover->setValue(m_model->distrover());
+    setDistroVer(m_model->distrover());
     m_distrover->setVisible(false);
 
     m_version = new TitleValueItem();
@@ -196,6 +196,7 @@ SystemInfoWidget::SystemInfoWidget(SystemInfoModel* model)
 void SystemInfoWidget::setDistroID(const QString &distroid)
 {
     m_distroid->setValue(distroid);
+    setDistroVer(m_model->distrover());
 
     if (distroid == "Deepin") {
         m_distroid->setVisible(false);
@@ -207,9 +208,10 @@ void SystemInfoWidget::setDistroID(const QString &distroid)
     }
 }
 
-void SystemInfoWidget::setDistroVer(const QString &distrover)
-{
-    m_distrover->setValue(distrover);
+void SystemInfoWidget::setDistroVer(const QString &distrover) {
+    const bool isArchRolling = m_model->distroid().compare(QStringLiteral("Arch"), Qt::CaseInsensitive) == 0
+        && distrover.compare(QStringLiteral("rolling"), Qt::CaseInsensitive) == 0;
+    m_distrover->setValue(isArchRolling ? tr("rolling") : distrover);
 }
 
 void SystemInfoWidget::setEdition(const QString &edition)

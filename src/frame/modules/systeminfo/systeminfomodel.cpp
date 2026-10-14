@@ -28,6 +28,16 @@
 namespace dcc{
 namespace systeminfo{
 
+static QString unquoteDistroValue(const QString &value) {
+    const QString text = value.trimmed();
+    if (text.size() >= 2
+        && ((text.startsWith('"') && text.endsWith('"'))
+            || (text.startsWith('\'') && text.endsWith('\'')))) {
+        return text.mid(1, text.size() - 2);
+    }
+    return text;
+}
+
 static QString formatCap(qulonglong cap, const int size = 1024)
 {
     static QString type[] = {"B", "KB", "MB", "GB", "TB"};
@@ -115,21 +125,23 @@ void SystemInfoModel::setBackground(const QPixmap &background)
 
 #endif
 
-void SystemInfoModel::setDistroID(const QString &distroid)
-{
-    if(m_distroid == distroid)
+void SystemInfoModel::setDistroID(const QString &distroid) {
+    const QString value = unquoteDistroValue(distroid);
+    if(m_distroid == value) {
         return;
+    }
 
-    m_distroid = distroid;
+    m_distroid = value;
     Q_EMIT distroidChanged(m_distroid);
 }
 
-void SystemInfoModel::setDistroVer(const QString &distrover)
-{
-    if(m_distrover == distrover)
+void SystemInfoModel::setDistroVer(const QString &distrover) {
+    const QString value = unquoteDistroValue(distrover);
+    if(m_distrover == value) {
         return;
+    }
 
-    m_distrover = distrover;
+    m_distrover = value;
     Q_EMIT distroverChanged(m_distrover);
 }
 
