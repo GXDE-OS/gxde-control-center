@@ -5010,4 +5010,27 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>已連線</translation>
     </message>
 </context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <source>Font Settings</source>
+        <translation>字型設定</translation>
+    </message>
+    <message>
+        <source>Refreshing font cache…</source>
+        <translation>正在重新整理字型快取……</translation>
+    </message>
+    <message>
+        <source>Font cache refreshed.</source>
+        <translation>字型快取重新整理完成。</translation>
+    </message>
+    <message>
+        <source>Failed to refresh font cache.</source>
+        <translation>字型快取重新整理失敗。</translation>
+    </message>
+    <message>
+        <source>Failed to save font settings.</source>
+        <translation>字型設定儲存失敗。</translation>
+    </message>
+</context>
 </TS>

@@ -5077,4 +5077,27 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>已连接</translation>
     </message>
 </context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <source>Font Settings</source>
+        <translation>字体设置</translation>
+    </message>
+    <message>
+        <source>Refreshing font cache…</source>
+        <translation>正在刷新字体缓存……</translation>
+    </message>
+    <message>
+        <source>Font cache refreshed.</source>
+        <translation>字体缓存刷新完成。</translation>
+    </message>
+    <message>
+        <source>Failed to refresh font cache.</source>
+        <translation>字体缓存刷新失败。</translation>
+    </message>
+    <message>
+        <source>Failed to save font settings.</source>
+        <translation>字体设置保存失败。</translation>
+    </message>
+</context>
 </TS>

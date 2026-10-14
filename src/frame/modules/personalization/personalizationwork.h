@@ -33,6 +33,7 @@
 #include <QMap>
 #include <QString>
 #include <QJsonObject>
+#include <QProcess>
 #include <com_deepin_daemon_appearance.h>
 #include <com_deepin_wmswitcher.h>
 
@@ -88,6 +89,8 @@ private:
     void refreshThemeByType(const QString &type);
     void refreshFontByType(const QString &type);
     void refreshOpacity(double opacity);
+    void refreshFontCache();
+    void notifyFontCache(const QString &message);
 
     template<typename T>
     T toSliderValue(std::vector<T> list, T value);
@@ -98,6 +101,8 @@ private:
     WMSwitcher *m_wmSwitcher;
     QMap<QString, ThemeModel*> m_themeModels;
     QMap<QString, FontModel*> m_fontModels;
+    QProcess *m_fontCacheProcess = nullptr;
+    bool m_fontCacheRefreshPending = false;
 };
 }
 }

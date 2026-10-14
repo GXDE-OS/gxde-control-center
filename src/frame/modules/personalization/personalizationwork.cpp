@@ -27,6 +27,8 @@
 #include "model/thememodel.h"
 #include "model/fontmodel.h"
 #include "model/fontsizemodel.h"
+#include "userfontconfig.h"
+#include <QSysInfo>
 #include <QGSettings>
 
 using namespace dcc;
@@ -376,6 +378,19 @@ void PersonalizationWork::setDefault(const QJsonObject &value) {
             model->setDefault(theme);
         }
 
+        if (FontModel *model = m_fontModels.value(type, nullptr)) {
+            model->setFontName(theme);
+            if (QSysInfo::productType().compare(QStringLiteral("arch"), Qt::CaseInsensitive) == 0) {
+                QString error;
+                if (!saveUserFont(type, theme, &error)) {
+                    qWarning() << "Failed to save user fontconfig:" << error;
+                    notifyFontCache(tr("Failed to save font settings."));
+                } else {
+                    refreshFontCache();
+                }
+            }
+        }
+
         if (type != QStringLiteral("gtk")) {
             return;
         }
@@ -399,6 +414,52 @@ void PersonalizationWork::setDefault(const QJsonObject &value) {
             qWarning() << "Failed to save color scheme:" << scheme;
         }
     });
+}
+
+void PersonalizationWork::notifyFontCache(const QString &message) {
+    QDBusMessage notification = QDBusMessage::createMethodCall(
+        QStringLiteral("org.freedesktop.Notifications"),
+        QStringLiteral("/org/freedesktop/Notifications"),
+        QStringLiteral("org.freedesktop.Notifications"), QStringLiteral("Notify"));
+    notification << QStringLiteral("GXDE Control Center") << uint(0)
+        << QStringLiteral("preferences-desktop-font") << tr("Font Settings")
+        << message << QStringList() << QVariantMap() << 5000;
+    QDBusConnection::sessionBus().asyncCall(notification);
+}
+
+void PersonalizationWork::refreshFontCache() {
+    if (m_fontCacheProcess) {
+        m_fontCacheRefreshPending = true;
+        return;
+    }
+
+    notifyFontCache(tr("Refreshing font cache…"));
+    auto *process = new QProcess(this);
+    m_fontCacheProcess = process;
+    process->setStandardOutputFile(QProcess::nullDevice());
+    const auto complete = [this, process](bool success) {
+        m_fontCacheProcess = nullptr;
+        if (!success)
+            qWarning() << "Font cache refresh failed:" << process->errorString()
+                << process->readAllStandardError();
+        process->deleteLater();
+        if (m_fontCacheRefreshPending) {
+            m_fontCacheRefreshPending = false;
+            refreshFontCache();
+            return;
+        }
+        notifyFontCache(success ? tr("Font cache refreshed.")
+            : tr("Failed to refresh font cache."));
+    };
+    connect(process, &QProcess::finished, this, [complete](int code, QProcess::ExitStatus status) {
+        complete(status == QProcess::NormalExit && code == 0);
+    });
+    connect(process, &QProcess::errorOccurred, this, [complete](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            complete(false);
+        }
+    });
+    process->start(QStringLiteral("fc-cache"), {QStringLiteral("-f")});
 }
 
 void PersonalizationWork::setFontSize(const int value)
