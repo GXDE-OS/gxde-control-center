@@ -1,3 +1,15 @@
+gxde-control-center (6.1.0) UNRELEASED; urgency=medium
+
+  * 新增Archlinux构建
+  * 移除非GXDE OS上返回的系统名称外部等引号
+  * 修复非GXDE OS上磁盘大小显示为0B的问题 (改为显示根分区大小，当前在Nyarch Linux + btrfs文件系统下测试)
+  * 修复Archlinux下系统深浅色主题配置无法持久化的问题
+  * 在Archlinux下修改系统字体现在会应用到个人fontconfig并代替用户刷新缓存
+  * 修复了在非GXDE OS下窗口圆角永远显示0的问题 (必须使用GXWM或者FlakeWM会话才能正确获取/设置圆角大小)
+  * 尝试修复字体大小无法持久化等问题
+
+ -- CharOfString <root@charofstring.cc>  Wed, 14 Oct 2026 13:22:20 -0500
+
 gxde-control-center (6.0.25) UNRELEASED; urgency=medium
 
   [ zeqi ]
@@ -7,7 +19,7 @@ gxde-control-center (6.0.25) UNRELEASED; urgency=medium
   [ gfdgd_xi ]
   * 修复通知中心较长的通知无法完全展开，导致无法看全内容的问题（https://gitee.com/GXDE-OS/gxde-control-center/issues/IKAC8Z ）
   * 修复控制中心无法正常开启关闭内测的问题（https://gitee.com/GXDE-OS/gxde-control-center/issues/IKBO26 ）
-  * 支持启动晃动哦鼠标放大指针功能
+  * 支持启动晃动鼠标放大指针功能
   * fix: 修复控制中心内核版本条目存在无用的空行的问题
   * feat: 支持显示系统中文代号
   
