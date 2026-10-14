@@ -27,6 +27,7 @@
 #include "model/thememodel.h"
 #include "model/fontmodel.h"
 #include "model/fontsizemodel.h"
+#include <QGSettings>
 
 using namespace dcc;
 using namespace dcc::personalization;
@@ -355,10 +356,44 @@ double PersonalizationWork::sliderValutToOpacity(const int value) const
     return static_cast<double>(OPACITY_SLIDER[value]) / static_cast<double>(100);
 }
 
-void PersonalizationWork::setDefault(const QJsonObject &value)
-{
+void PersonalizationWork::setDefault(const QJsonObject &value) {
     //使用type去调用
-    m_dbus->Set(value["type"].toString(), value["Id"].toString());
+    const QString type = value["type"].toString();
+    const QString theme = value["Id"].toString();
+    const QDBusPendingCall call = m_dbus->Set(type, theme);
+
+    if (type != QStringLiteral("gtk")) {
+        return;
+    };
+
+    auto *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, theme] {
+        const QDBusPendingReply<> reply = *watcher;
+        watcher->deleteLater();
+        if (reply.isError()) {
+            qWarning() << "Failed to set GTK theme:" << reply.error();
+            return;
+        }
+
+        // Persist the color preference too
+        const QByteArray schema("org.gnome.desktop.interface");
+        if (!QGSettings::isSchemaInstalled(schema)) {
+            return;
+        }
+
+        QGSettings settings(schema);
+        if (!settings.keys().contains(QStringLiteral("colorScheme"))) {
+            return;
+        }
+
+        const QString scheme = theme.endsWith(QStringLiteral("-dark"),
+            Qt::CaseInsensitive)
+            ? QStringLiteral("prefer-dark") : QStringLiteral("prefer-light");
+
+        if (!settings.trySet(QStringLiteral("colorScheme"), scheme)) {
+            qWarning() << "Failed to save color scheme:" << scheme;
+        }
+    });
 }
 
 void PersonalizationWork::setFontSize(const int value)
