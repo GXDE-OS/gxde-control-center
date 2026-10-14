@@ -94,15 +94,18 @@ void BasicListModel::setSelectedIndex(const QModelIndex &index)
 
     m_selectedIndex = index;
 
-    Q_EMIT dataChanged(oldIndex, oldIndex);
-    Q_EMIT dataChanged(index, index);
+    if (oldIndex.isValid())
+        Q_EMIT dataChanged(oldIndex, oldIndex);
+    if (index.isValid())
+        Q_EMIT dataChanged(index, index);
 }
 
 void BasicListModel::setHoveredIndex(const QModelIndex &index)
 {
     m_hoveredIndex = index;
 
-    Q_EMIT dataChanged(index, index);
+    if (index.isValid())
+        Q_EMIT dataChanged(index, index);
 }
 
 }

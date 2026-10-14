@@ -81,7 +81,7 @@ private Q_SLOTS:
 
 private:
     int sizeToSliderValue(const double value) const;
-    float sliderValueToSize(const int value) const;
+    double sliderValueToSize(const int value) const;
     double sliderValutToOpacity(const int value) const;
     QList<QJsonObject> converToList(const QString &type, const QJsonArray &array);
     void addList(ThemeModel *model, const QString &type, const QJsonArray &array);
@@ -89,6 +89,8 @@ private:
     void refreshThemeByType(const QString &type);
     void refreshFontByType(const QString &type);
     void scanLocalFonts();
+    void refreshFontSize();
+    void syncGtkFontSize(double points);
     void updateFontList(FontModel *model, const QString &type, QList<QJsonObject> fonts);
     void refreshOpacity(double opacity);
     void refreshFontCache();
@@ -109,6 +111,7 @@ private:
     QList<QJsonObject> m_serviceStandardFonts;
     QProcess *m_fontCacheProcess = nullptr;
     bool m_fontCacheRefreshPending = false;
+    quint64 m_fontSizeRequest = 0;
 };
 }
 }

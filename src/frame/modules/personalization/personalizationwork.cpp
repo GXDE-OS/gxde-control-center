@@ -34,6 +34,10 @@
 #include <QGuiApplication>
 #include <QLocale>
 #include <QSet>
+#include <QDBusVariant>
+#include <QApplication>
+#include <QFont>
+#include <cmath>
 
 using namespace dcc;
 using namespace dcc::personalization;
@@ -87,6 +91,7 @@ PersonalizationWork::PersonalizationWork(PersonalizationModel *model, QObject *p
 
     m_dbus->setSync(false);
     m_wmSwitcher->setSync(false);
+    QMetaObject::invokeMethod(this, &PersonalizationWork::refreshFontSize, Qt::QueuedConnection);
 }
 
 void PersonalizationWork::active()
@@ -94,6 +99,7 @@ void PersonalizationWork::active()
     m_dbus->blockSignals(false);
     m_wmSwitcher->blockSignals(false);
 
+    refreshFontSize();
     refreshWMState();
     refreshOpacity(m_dbus->opacity());
 
@@ -163,8 +169,15 @@ void PersonalizationWork::refreshWMState()
 
 void PersonalizationWork::FontSizeChanged(const double value) const
 {
+    if (!std::isfinite(value) || value <= 0)
+        return;
     FontSizeModel *fontSizeModel = m_model->getFontSizeModel();
     fontSizeModel->setFontSize(sizeToSliderValue(value));
+    QFont font = QApplication::font();
+    if (!qFuzzyCompare(font.pointSizeF(), value)) {
+        font.setPointSizeF(value);
+        QApplication::setFont(font);
+    }
 }
 
 void PersonalizationWork::onGetFontFinished(QDBusPendingCallWatcher *w)
@@ -318,7 +331,33 @@ void PersonalizationWork::refreshFont()
         refreshFontByType(it.key());
     }
 
-    FontSizeChanged(m_dbus->fontSize());
+    refreshFontSize();
+}
+
+void PersonalizationWork::refreshFontSize()
+{
+    QDBusMessage request = QDBusMessage::createMethodCall(Service, Path,
+        QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("Get"));
+    request << QStringLiteral("com.deepin.daemon.Appearance") << QStringLiteral("FontSize");
+    const quint64 requestId = m_fontSizeRequest;
+    auto *watcher = new QDBusPendingCallWatcher(QDBusConnection::sessionBus().asyncCall(request), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, requestId] {
+        const QDBusPendingReply<QDBusVariant> reply = *watcher;
+        watcher->deleteLater();
+        if (requestId != m_fontSizeRequest)
+            return;
+        if (reply.isError()) {
+            qWarning() << "Failed to read font size:" << reply.error();
+            return;
+        }
+
+        bool ok = false;
+        const double points = reply.value().variant().toDouble(&ok);
+        if (ok && std::isfinite(points) && points > 0) {
+            FontSizeChanged(points);
+            syncGtkFontSize(points);
+        }
+    });
 }
 
 void PersonalizationWork::refreshFontByType(const QString &type) {
@@ -371,26 +410,17 @@ void PersonalizationWork::refreshOpacity(double opacity)
 
 int PersonalizationWork::sizeToSliderValue(const double value) const
 {
-    if (value <= 8.2) {
-        return 0;
-    } else if (value <= 9) {
+    if (!std::isfinite(value))
         return 1;
-    } else if (value <= 9.7) {
-        return 2;
-    } else if (value <= 11.2) {
-        return 3;
-    } else if (value <= 12) {
-        return 4;
-    } else if (value <= 13.5) {
-        return 5;
-    } else if (value >= 14.5) {
-        return 6;
-    } else {
-        return 1;
+    int closest = 0;
+    for (int index = 1; index <= 6; ++index) {
+        if (std::abs(value - sliderValueToSize(index)) < std::abs(value - sliderValueToSize(closest)))
+            closest = index;
     }
+    return closest;
 }
 
-float PersonalizationWork::sliderValueToSize(const int value) const
+double PersonalizationWork::sliderValueToSize(const int value) const
 {
     switch (value) {
     case 0:
@@ -523,7 +553,51 @@ void PersonalizationWork::refreshFontCache() {
 
 void PersonalizationWork::setFontSize(const int value)
 {
-    m_dbus->setFontSize(sliderValueToSize(value));
+    if (value < 0 || value > 6)
+        return;
+    const double points = sliderValueToSize(value);
+    const quint64 requestId = ++m_fontSizeRequest;
+    QDBusMessage request = QDBusMessage::createMethodCall(Service, Path,
+        QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("Set"));
+    request << QStringLiteral("com.deepin.daemon.Appearance") << QStringLiteral("FontSize")
+            << QVariant::fromValue(QDBusVariant(points));
+    auto *watcher = new QDBusPendingCallWatcher(QDBusConnection::sessionBus().asyncCall(request), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, requestId, points] {
+        const QDBusPendingReply<> reply = *watcher;
+        watcher->deleteLater();
+        if (requestId != m_fontSizeRequest)
+            return;
+        FontSizeModel *model = m_model->getFontSizeModel();
+        if (reply.isError()) {
+            qWarning() << "Failed to set font size:" << reply.error();
+            model->setFontSize(model->getFontSize());
+            return;
+        }
+        FontSizeChanged(points);
+        syncGtkFontSize(points);
+        qInfo() << "Font size applied:" << points << "pt; application font:"
+                << QApplication::font().pointSizeF() << "pt";
+    });
+}
+
+void PersonalizationWork::syncGtkFontSize(double points)
+{
+    if (QSysInfo::productType().compare(QStringLiteral("arch"), Qt::CaseInsensitive) != 0
+        || !QGSettings::isSchemaInstalled("com.deepin.dde.appearance")
+        || !QGSettings::isSchemaInstalled("org.gnome.desktop.interface"))
+        return;
+
+    QGSettings appearance("com.deepin.dde.appearance");
+    QGSettings gtk("org.gnome.desktop.interface");
+    const auto sync = [&appearance, &gtk, points](const QString &source, const QString &target) {
+        if (!appearance.keys().contains(source) || !gtk.keys().contains(target))
+            return;
+        const QString family = appearance.get(source).toString();
+        if (!family.isEmpty() && !gtk.trySet(target, family + ' ' + QString::number(points, 'g', 6)))
+            qWarning() << "Failed to sync GTK font size:" << target;
+    };
+    sync(QStringLiteral("fontStandard"), QStringLiteral("fontName"));
+    sync(QStringLiteral("fontMonospace"), QStringLiteral("monospaceFontName"));
 }
 
 void PersonalizationWork::switchWM()

@@ -44,7 +44,7 @@ Q_SIGNALS:
     void sizeChanged(int size);
 
 private:
-    int m_size;
+    int m_size = 1;
 };
 
 }

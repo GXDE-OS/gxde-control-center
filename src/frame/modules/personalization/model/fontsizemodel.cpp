@@ -35,8 +35,6 @@ FontSizeModel::FontSizeModel(QObject *parent) : QObject(parent)
 
 void FontSizeModel::setFontSize(const int size)
 {
-    if (m_size!=size) {
-        m_size = size;
-        Q_EMIT sizeChanged(size);
-    }
+    m_size = size;
+    Q_EMIT sizeChanged(size);
 }
