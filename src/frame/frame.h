@@ -42,7 +42,6 @@
 #include <dregionmonitor.h>
 
 #include "wayland/waylandhelper.h"
-#include "wayland/waylandblurhelper.h"
 
 #ifdef HAS_LAYER_SHELL
 #include <LayerShellQt/window.h>

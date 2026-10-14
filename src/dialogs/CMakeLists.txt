@@ -38,7 +38,6 @@ add_executable(${BIN_NAME} ${SRCS})
 target_include_directories(${BIN_NAME} PUBLIC
     ${DTK2WIDGET_INCLUDE_DIR}
     ${DtkCore_INCLUDE_DIRS}
-    ${Qt6Gui_PRIVATE_INCLUDE_DIRS}
     ${PROJECT_BINARY_DIR}
 )
 

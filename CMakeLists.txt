@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.7)
 
 project(gxde-control-center)
 
+include(CTest)
+
 find_package(Dtk6CMake REQUIRED)
 
 # Install settings

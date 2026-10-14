@@ -41,7 +41,7 @@
 #include <QScreen>
 #include <QGSettings>
 #include <QPainter>
-#include <qpa/qplatformwindow.h>
+#include <bernese/window_geometry.h>
 #include <DPlatformWindowHandle>
 #include <DForeignWindow>
 
@@ -164,6 +164,7 @@ Frame::Frame(QWidget *parent)
         setRadius(0);
         setBlurRectXRadius(0);
         setBlurRectYRadius(0);
+        setBlendMode(DBlurEffectWidget::BehindWindowBlend);
         setBlurEnabled(true);
         // DBlurEffectWidget 会在窗口出现时把透明度动画到 1，直接固定为 1
         setWindowOpacity(1.0);
@@ -178,7 +179,7 @@ Frame::Frame(QWidget *parent)
         const double effectiveOpacity =
             (opacity > 0.05 && opacity <= 1.0) ? opacity : 0.4;
         m_opacity = effectiveOpacity;
-        if (!Wayland::BlurHelper::isWayland())
+        if (!Wayland::isWaylandSession())
             setMaskAlpha(effectiveOpacity * 255);
         else
             update();
@@ -256,14 +257,6 @@ void Frame::init()
 
     QTimer::singleShot(1, this, &Frame::adjustShadowMask);
 
-    if (Wayland::BlurHelper::isWayland()) {
-        QTimer::singleShot(100, this, [this] {
-            if (windowHandle()) {
-                Wayland::BlurHelper::applyBlur(windowHandle());
-            }
-        });
-    }
-
 #ifdef QT_DEBUG
 //    showSettingsPage("network", QString());
 #endif
@@ -276,7 +269,7 @@ void Frame::init()
 #ifdef HAS_LAYER_SHELL
 void Frame::ensureLayerShellConfigured()
 {
-    if (!Wayland::BlurHelper::isWayland()) {
+    if (!Wayland::isWaylandSession()) {
         qWarning() << "(ControlCenter LayerShell) skipped on platform"
                    << QGuiApplication::platformName();
         return;
@@ -465,7 +458,7 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
 
     m_primaryRect = primaryRect;
 
-    if (!Wayland::BlurHelper::isWayland()) {
+    if (!Wayland::isWaylandSession()) {
         // 假定控制中心一直在主屏
         const qreal ratio = screen->devicePixelRatio();
         const auto h = m_primaryRect.height() / ratio;
@@ -474,7 +467,7 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
     }
 
     // Wayland 下显示器热插拔等场景窗口可能尚未创建，等窗口就绪后再定位
-    if (Wayland::BlurHelper::isWayland() && !windowHandle()) {
+    if (Wayland::isWaylandSession() && !windowHandle()) {
         return;
     }
 
@@ -483,7 +476,7 @@ void Frame::onScreenRectChanged(const QRect &primaryRect)
 
 void Frame::updateFramePosition()
 {
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         QScreen *screen = targetScreen();
         if (!screen || !windowHandle()) {
             return;
@@ -503,31 +496,22 @@ void Frame::updateFramePosition()
         return;
     }
 
-    // FIXME: The signal is too fast and the screen is not adjusted
-    // ###(zccrs): 窗口改变所在屏幕之后，新屏幕的缩放比可能和之前的屏幕不一致。
-    // 假定以下情况，屏幕A： 100x100，缩放=1.0，屏幕B：200x200，缩放=2.0
-    // 窗口从屏幕A移动屏幕B之后，计算出的新geometry和旧geometry一致，使用QWidget
-    // 或QWindow的接口更改窗口大小时会判断参数是否和旧的一致，导致更新位置和大小
-    // 失效，因此此处直接使用 QPlatformWindow 调整窗口位置和大小。
-    const qreal ratio = qApp->primaryScreen()->devicePixelRatio();
-    if (windowHandle() && windowHandle()->handle()) {
-        QPlatformWindow *native_window = windowHandle()->handle();
-        QRect rect = native_window->geometry();
-
-        rect.setWidth(static_cast<int>(FRAME_WIDTH * ratio));
-        rect.setHeight(m_primaryRect.height());
-        //the frame might be invisible here as rotating screen in control center hides the frame
-        rect.moveLeft(m_primaryRect.right() - (m_shown ? (rect.width() - 1) : 0));
-        rect.moveTop(m_primaryRect.top());
-
-        native_window->setGeometry(rect);
-
-        Q_EMIT rectChanged(rect);
-    } else {
-        int x = m_primaryRect.x() + m_primaryRect.width() / ratio - (m_shown ? (width() - 1) : 0);
-        int y = m_primaryRect.y();
-        DBlurEffectWidget::move(x, y);
+    QScreen *screen = targetScreen();
+    if (!screen) {
+        return;
     }
+
+    const QRect screenRect = bernese::window_utils::FromNativePixels(
+        m_primaryRect, screen->geometry().topLeft(), screen->devicePixelRatio());
+    setFixedHeight(screenRect.height());
+    m_frameWrapper->setFixedHeight(screenRect.height());
+    const QRect frameRect(
+        m_shown ? screenRect.right() - FRAME_WIDTH + 1 : screenRect.right() + 1,
+        screenRect.top(), FRAME_WIDTH, screenRect.height());
+    bernese::window_utils::SetTopLevelGeometry(this, screen, frameRect);
+
+    Q_EMIT rectChanged(bernese::window_utils::ToNativePixels(
+        geometry(), screen->geometry().topLeft(), screen->devicePixelRatio()));
 }
 
 void Frame::updateFrameMargins()
@@ -564,7 +548,7 @@ void Frame::setWaylandSlideOffset(int offset)
 bool Frame::waylandSlideEnabled() const
 {
     // 合成器不支持 ukui_shell 时没有滑动动画，直接出现/消失
-    return Wayland::BlurHelper::isWayland() && GxdeScreen::isAvailable();
+    return Wayland::isWaylandSession() && GxdeScreen::isAvailable();
 }
 
 QRect Frame::waylandFrameRect() const
@@ -593,7 +577,7 @@ void Frame::onMouseButtonReleased(const QPoint &p, const int flag)
         return;
     }
 
-    if (isVisible() && (windowHandle()->handle()->geometry().contains(p) || checkOnBoard(p)))
+    if (isVisible() && (bernese::window_utils::NativeWindowGeometry(windowHandle()).contains(p) || checkOnBoard(p)))
         return;
 
     // ready to hide frame
@@ -629,7 +613,7 @@ void Frame::moveEvent(QMoveEvent *e)
 
 void Frame::paintEvent(QPaintEvent *e)
 {
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         QPainter p(this);
         p.setRenderHint(QPainter::Antialiasing);
         p.fillRect(rect(), QColor(0, 0, 0,
@@ -660,7 +644,7 @@ void Frame::show()
     // show
     m_shown = true;
 
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         QScreen* screen = targetScreen();
         if (!screen) {
             return;
@@ -694,10 +678,13 @@ void Frame::show()
             updateFrameMargins();
         }
 
+        // Reapply through DTK after show() has created the Wayland surface.
+        // Its showEvent can run before that surface exists on the first show.
+        setBlurEnabled(false);
         DBlurEffectWidget::show();
+        setBlurEnabled(true);
         DBlurEffectWidget::raise();
         DBlurEffectWidget::activateWindow();
-        Wayland::BlurHelper::applyBlur(windowHandle());
 
         if (slide) {
             const QRect startRect(screenRect.right() + 1,
@@ -712,13 +699,6 @@ void Frame::show()
         Q_EMIT destRectChanged(waylandFrameRect());
     } else {
     QRect r = qApp->primaryScreen()->geometry();
-
-    const QScreen *screen = screenForGeometry(r);
-    if (screen) {
-        const qreal dpr = screen->devicePixelRatio();
-        const QRect screenGeo = screen->geometry();
-        r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
-    }
 
     // animation
     r.setLeft(r.x() + r.width());
@@ -759,7 +739,7 @@ void Frame::show()
 
 QScreen* Frame::targetScreen() const {
     // 显示屏幕跟鼠标所在屏幕一致
-    if (Wayland::BlurHelper::isWayland() && GxdeScreen::isAvailable()) {
+    if (Wayland::isWaylandSession() && GxdeScreen::isAvailable()) {
         const QString outputName = GxdeCursor::currentOutputName();
         for (QScreen *screen : qApp->screens()) {
             if (screen->name() == outputName) {
@@ -773,7 +753,7 @@ QScreen* Frame::targetScreen() const {
 }
 
 QScreen* Frame::currentScreen() const {
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         for (QScreen *screen : qApp->screens()) {
             if (screen->name() == m_currentOutputName) {
                 return screen;
@@ -796,7 +776,7 @@ void Frame::hide()
     // reset auto-hide
     m_autoHide = true;
 
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         // 滑出动画，动画结束后由 finished 回调真正隐藏窗口
         if (waylandSlideEnabled() && isVisible()) {
             m_waylandSlideAnimation->setStartValue(m_waylandSlideOffset);
@@ -808,13 +788,6 @@ void Frame::hide()
         }
     } else {
         QRect r = qApp->primaryScreen()->geometry();
-
-        const QScreen *screen = screenForGeometry(r);
-        if (screen) {
-            const qreal dpr = screen->devicePixelRatio();
-            const QRect screenGeo = screen->geometry();
-            r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
-        }
 
         // animation
         r.setLeft(r.x() + r.width() - FRAME_WIDTH);
@@ -869,7 +842,7 @@ void Frame::hideImmediately()
     // reset auto-hide
     m_autoHide = true;
 
-    if (Wayland::BlurHelper::isWayland()) {
+    if (Wayland::isWaylandSession()) {
         m_waylandSlideAnimation->stop();
         m_waylandSlideOffset = 0;
         updateFrameMargins();
@@ -877,12 +850,6 @@ void Frame::hideImmediately()
         // reset position
         QRect r = qApp->primaryScreen()->geometry();
 
-        const QScreen *screen = screenForGeometry(r);
-        if (screen) {
-            const qreal dpr = screen->devicePixelRatio();
-            const QRect screenGeo = screen->geometry();
-            r.moveTopLeft(screenGeo.topLeft() + (r.topLeft() - screenGeo.topLeft()) / dpr);
-        }
         r.setLeft(r.x() + r.width());
         Q_EMIT destRectChanged(r);
         move(r.topLeft());
@@ -905,15 +872,12 @@ void Frame::hideImmediately()
 
 const QScreen *Frame::screenForGeometry(const QRect &rect) const
 {
-    const qreal ratio = qApp->devicePixelRatio();
-
-    for (const auto *s : qApp->screens())
-    {
-        const QRect &g(s->geometry());
-        const QRect realRect(g.topLeft() / ratio, g.size());
-
-        if (realRect.contains(rect.center()))
-            return s;
+    for (const auto *screen : qApp->screens()) {
+        const QRect nativeRect = bernese::window_utils::ToNativePixels(
+            screen->geometry(), screen->geometry().topLeft(), screen->devicePixelRatio());
+        if (nativeRect.contains(rect.center())) {
+            return screen;
+        }
     }
 
     return nullptr;
@@ -924,7 +888,7 @@ bool Frame::checkOnBoard(const QPoint &point)
     QList<DForeignWindow*> windowList = DWindowManagerHelper::instance()->currentWorkspaceWindows();
 
     for (auto it = windowList.crbegin(); it != windowList.crend(); ++it) {
-        if ((*it)->handle()->geometry().contains(point)) {
+        if (bernese::window_utils::NativeWindowGeometry(*it).contains(point)) {
             return (*it)->wmClass() == "onboard";
         }
     }
@@ -939,7 +903,7 @@ bool Frame::event(QEvent *event)
     }
 
 #ifdef HAS_LAYER_SHELL
-    if (Wayland::BlurHelper::isWayland() && event->type() == QEvent::WindowDeactivate) {
+    if (Wayland::isWaylandSession() && event->type() == QEvent::WindowDeactivate) {
         if (m_screenCaptureGuardTimer->isActive()) {
             m_screenCaptureGuardTimer->stop();
         } else if (isVisible() && m_autoHide && m_debugAutoHide) {

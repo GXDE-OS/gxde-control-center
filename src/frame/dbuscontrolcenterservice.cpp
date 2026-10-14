@@ -46,7 +46,8 @@
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 #include <QGuiApplication>
-#include <qpa/qplatformwindow.h>
+#include <bernese/window_geometry.h>
+#include "wayland/waylandhelper.h"
 #include <QScreen>
 #include <QString>
 
@@ -95,8 +96,11 @@ bool DBusControlCenterService::showInRight() const
 
 const QRect DBusControlCenterService::rect() const
 {
-    if (parent()->windowHandle() && parent()->windowHandle()->handle()) {
-        return parent()->windowHandle()->handle()->geometry();
+    if (Wayland::isWaylandSession()) {
+        return parent()->waylandFrameRect();
+    }
+    if (parent()->windowHandle()) {
+        return bernese::window_utils::NativeWindowGeometry(parent()->windowHandle());
     }
 
     return parent()->geometry();

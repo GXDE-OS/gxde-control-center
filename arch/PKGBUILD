@@ -16,7 +16,7 @@ depends=('gxde-account-faces-git' 'deepin-daemon-git' 'gxde-api-git' 'xkeyboard-
          'gxde-app-upgrader-git' 'gxde-app-uninstaller-git' 'gxde-shell-tools-git' 'transhell-git'
          'wireplumber' 'pipewire-audio'
          'dtk2widget-qt6-git' 'dtk6core-git' 'dtk6log-git' 'gsettings-qt6' 'layer-shell-qt' 'libnm' 'glib2'
-         'qt6-base' 'qt6-svg' 'qt6-multimedia' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
+         'gxde-bernese-git' 'qt6-base' 'qt6-svg' 'qt6-multimedia' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
          'libgcc' 'libstdc++' 'glibc')
 optdepends=('x11vnc: remote desktop over VNC'
             'redshift: night light')

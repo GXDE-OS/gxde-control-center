@@ -80,9 +80,6 @@ set(FRAME_FILES
                 wayland/gxdeinput.h
                 wayland/gxdeinput.cpp
                 wayland/waylandhelper.h
-                wayland/waylandblurhelper.h
-                wayland/waylandblurhelper.cpp
-                wayland/protocols/blur-client-protocol.c
                 wayland/protocols/dde-shell-client-protocol.c
                 quick_control/bluetooth/bluetoothdelegate.cpp
                 quick_control/bluetooth/bluetoothdelegate.h
@@ -909,9 +906,7 @@ set(QRC
 # Find the library
 find_package(PkgConfig REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent DBus Network Multimedia Svg)
-if(NOT TARGET Qt6::GuiPrivate)
-    find_package(Qt6GuiPrivate REQUIRED)
-endif()
+find_package(GxdeBerneseQt6 0.1.1 REQUIRED)
 find_package(Dtk6Core REQUIRED)
 find_package(Dtk6Log REQUIRED)
 find_package(Dtk2widget REQUIRED)
@@ -1032,7 +1027,6 @@ target_include_directories(${BIN_NAME} PUBLIC
     ${DTK2WIDGET_INCLUDE_DIR}
     ${DtkCore_INCLUDE_DIRS}
     ${XCB_EWMH_INCLUDE_DIRS}
-    ${Qt6Gui_PRIVATE_INCLUDE_DIRS}
     ${PROJECT_BINARY_DIR}
     ${QGSettings_INCLUDE_DIRS}
     ${DDE-Network-Utils_INCLUDE_DIRS}
@@ -1050,7 +1044,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
     ${Dtk2widget_LIBRARIES}
     Dtk6::Core
     Qt6::Widgets
-    Qt6::GuiPrivate
+    GxdeBernese::Qt6
     Qt6::Concurrent
     Qt6::DBus
     Qt6::Network
@@ -1072,3 +1066,14 @@ endif()
 
 # bin
 install(TARGETS ${BIN_NAME} DESTINATION bin)
+
+if(BUILD_TESTING)
+    add_test(NAME no-qt-private-api
+        COMMAND ${CMAKE_COMMAND}
+            -DBINARY=$<TARGET_FILE:${BIN_NAME}>
+            -P ${PROJECT_SOURCE_DIR}/tests/check-qt-public.cmake)
+    add_test(NAME no-kwindoweffects
+        COMMAND ${CMAKE_COMMAND}
+            -DBINARY=$<TARGET_FILE:${BIN_NAME}>
+            -P ${PROJECT_SOURCE_DIR}/tests/check-no-kwindoweffects.cmake)
+endif()

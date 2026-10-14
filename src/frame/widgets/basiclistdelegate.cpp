@@ -23,6 +23,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <bernese/image_utils.h>
+
 #include "widgets/basiclistdelegate.h"
 #include "basiclistmodel.h"
 
@@ -38,7 +40,7 @@ QPixmap loadPixmap(const QString &path)
 
     if (!qFuzzyCompare(ratio, devicePixelRatio)) {
         QImageReader reader;
-        reader.setFileName(qt_findAtNxFile(path, devicePixelRatio, &ratio));
+        reader.setFileName(bernese::image_utils::ScaledAssetPath(path, devicePixelRatio, &ratio));
         if (reader.canRead()) {
             reader.setScaledSize(reader.size() * (devicePixelRatio / ratio));
             pixmap = QPixmap::fromImage(reader.read());
