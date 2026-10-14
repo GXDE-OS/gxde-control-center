@@ -4000,6 +4000,10 @@ Power by x11vnc</source>
         <source> (Unsupported font)</source>
         <translation>(不支持的字体)</translation>
     </message>
+    <message>
+        <source>Search fonts</source>
+        <translation>搜索字体</translation>
+    </message>
 </context>
 <context>
     <name>dcc::personalization::FontSettingsWidget</name>

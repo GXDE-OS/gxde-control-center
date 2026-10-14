@@ -28,8 +28,12 @@
 #include "model/fontmodel.h"
 #include "model/fontsizemodel.h"
 #include "userfontconfig.h"
+#include "fontfamilies.h"
 #include <QSysInfo>
 #include <QGSettings>
+#include <QGuiApplication>
+#include <QLocale>
+#include <QSet>
 
 using namespace dcc;
 using namespace dcc::personalization;
@@ -75,6 +79,11 @@ PersonalizationWork::PersonalizationWork(PersonalizationModel *model, QObject *p
     m_themeModels["cursor"]        = cursorTheme;
     m_fontModels["standardfont"]   = fontStand;
     m_fontModels["monospacefont"]  = fontMono;
+
+    connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, [this] {
+        m_localFontsLoaded = false;
+        scanLocalFonts();
+    });
 
     m_dbus->setSync(false);
     m_wmSwitcher->setSync(false);
@@ -255,14 +264,7 @@ void PersonalizationWork::setFontList(FontModel *model, const QString &type, con
 
             QJsonArray array = QJsonDocument::fromJson(r.value().toLocal8Bit().data()).array();
 
-            QList<QJsonObject> list = converToList(type, array);
-            // sort for display name
-            std::sort(list.begin(), list.end(), [=] (const QJsonObject &obj1, const QJsonObject &obj2) {
-                QCollator qc;
-                return qc.compare(obj1["Name"].toString(), obj2["Name"].toString()) < 0;
-            });
-
-            model->setFontList(list);
+            updateFontList(model, type, converToList(type, array));
         }
         else {
             qWarning() << w->error();
@@ -277,6 +279,29 @@ void PersonalizationWork::refreshTheme()
     for (QMap<QString, ThemeModel*>::ConstIterator it = m_themeModels.begin(); it != m_themeModels.end(); it++) {
         refreshThemeByType(it.key());
     }
+}
+
+void PersonalizationWork::updateFontList(FontModel *model, const QString &type, QList<QJsonObject> fonts)
+{
+    if (type == QStringLiteral("standardfont")) {
+        m_serviceStandardFonts = fonts;
+        QSet<QString> ids;
+        for (const QJsonObject &font : fonts)
+            ids.insert(font["Id"].toString());
+        for (const QJsonObject &font : m_localStandardFonts) {
+            const QString id = font["Id"].toString();
+            if (!ids.contains(id)) {
+                fonts.append(font);
+                ids.insert(id);
+            }
+        }
+    }
+
+    QCollator collator;
+    std::sort(fonts.begin(), fonts.end(), [&collator](const QJsonObject &left, const QJsonObject &right) {
+        return collator.compare(left["Name"].toString(), right["Name"].toString()) < 0;
+    });
+    model->setFontList(fonts);
 }
 
 void PersonalizationWork::refreshThemeByType(const QString &type)
@@ -297,10 +322,44 @@ void PersonalizationWork::refreshFont()
 }
 
 void PersonalizationWork::refreshFontByType(const QString &type) {
+    if (type == QStringLiteral("standardfont")) {
+        scanLocalFonts();
+        if (!m_fontModels.value(type)->getFontList().isEmpty())
+            return;
+    }
+
     QDBusPendingReply<QString> font = m_dbus->List(type);
     QDBusPendingCallWatcher *fontWatcher = new QDBusPendingCallWatcher(font, this);
     fontWatcher->setProperty("category", type);
     connect(fontWatcher, &QDBusPendingCallWatcher::finished, this, &PersonalizationWork::onGetFontFinished);
+}
+
+void PersonalizationWork::scanLocalFonts()
+{
+    if (m_localFontsLoaded || m_fontScanProcess)
+        return;
+    auto *process = new QProcess(this);
+    m_fontScanProcess = process;
+    connect(process, &QProcess::finished, this, [this, process](int code, QProcess::ExitStatus status) {
+        m_fontScanProcess = nullptr;
+        if (status == QProcess::NormalExit && code == 0) {
+            m_localStandardFonts = parseFontFamilies(process->readAllStandardOutput(), QLocale::system());
+            m_localFontsLoaded = true;
+            updateFontList(m_model->getStandFontModel(), QStringLiteral("standardfont"), m_serviceStandardFonts);
+        } else {
+            qWarning() << "Failed to list local fonts:" << process->readAllStandardError();
+        }
+        process->deleteLater();
+    });
+    connect(process, &QProcess::errorOccurred, this, [this, process](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            m_fontScanProcess = nullptr;
+            qWarning() << "Failed to start font listing:" << process->errorString();
+            process->deleteLater();
+        }
+    });
+    process->start(QStringLiteral("fc-list"),
+                   {QStringLiteral("--format"), QStringLiteral("%{family}\t%{familylang}\n")});
 }
 
 void PersonalizationWork::refreshOpacity(double opacity)

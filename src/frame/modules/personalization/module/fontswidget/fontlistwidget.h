@@ -27,15 +27,13 @@
 #define FONTLISTWIDGET_H
 
 #include "widgets/contentwidget.h"
-#include "widgets/translucentframe.h"
-#include <QObject>
-#include <QVBoxLayout>
-#include <QApplication>
 #include <QJsonObject>
 #include <QList>
-#include <QLabel>
-#include <QFont>
-#include <QMap>
+
+class QLineEdit;
+class QListView;
+class QStandardItemModel;
+class QSortFilterProxyModel;
 
 namespace dcc
 {
@@ -61,14 +59,14 @@ public Q_SLOTS:
     void setModel(FontModel *const model);
     void setList(const QList<QJsonObject> &list);
     void setDefault(const QString &name);
-    void onItemClicked();
 
 private:
-    FontModel                               *m_model;
-    QVBoxLayout                             *m_mainLayout;
-    widgets::TranslucentFrame               *m_widget;
-    widgets::SettingsGroup                  *m_mainGroup;
-    QMap<widgets::OptionItem *, QJsonObject> m_valueMap;
+    FontModel *m_model = nullptr;
+    QLineEdit *m_search;
+    QListView *m_list;
+    QStandardItemModel *m_items;
+    QSortFilterProxyModel *m_filter;
+
 };
 }
 }

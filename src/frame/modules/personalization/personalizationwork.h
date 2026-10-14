@@ -88,6 +88,8 @@ private:
     void refreshWMState();
     void refreshThemeByType(const QString &type);
     void refreshFontByType(const QString &type);
+    void scanLocalFonts();
+    void updateFontList(FontModel *model, const QString &type, QList<QJsonObject> fonts);
     void refreshOpacity(double opacity);
     void refreshFontCache();
     void notifyFontCache(const QString &message);
@@ -101,6 +103,10 @@ private:
     WMSwitcher *m_wmSwitcher;
     QMap<QString, ThemeModel*> m_themeModels;
     QMap<QString, FontModel*> m_fontModels;
+    QProcess *m_fontScanProcess = nullptr;
+    bool m_localFontsLoaded = false;
+    QList<QJsonObject> m_localStandardFonts;
+    QList<QJsonObject> m_serviceStandardFonts;
     QProcess *m_fontCacheProcess = nullptr;
     bool m_fontCacheRefreshPending = false;
 };

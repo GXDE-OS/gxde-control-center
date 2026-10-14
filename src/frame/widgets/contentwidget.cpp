@@ -206,10 +206,11 @@ bool ContentWidget::eventFilter(QObject *watched, QEvent *event)
 
     if (watched == m_content && event->type() == QEvent::LayoutRequest)
     {
-        if (m_content->hasHeightForWidth())
+        if (m_content->hasHeightForWidth()) {
             m_content->setMinimumHeight(m_content->heightForWidth(m_content->width()));
-        else
+        } else if (m_content->layout()) {
             m_content->setFixedHeight(m_content->layout()->sizeHint().height());
+        }
     }
 
     return false;

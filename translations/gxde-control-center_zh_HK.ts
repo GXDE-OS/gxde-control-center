@@ -3957,6 +3957,10 @@ Power by x11vnc</source>
         <source> (Unsupported font)</source>
         <translation>(不支援的字型)</translation>
     </message>
+    <message>
+        <source>Search fonts</source>
+        <translation>搜尋字型</translation>
+    </message>
 </context>
 <context>
     <name>dcc::personalization::FontSettingsWidget</name>
