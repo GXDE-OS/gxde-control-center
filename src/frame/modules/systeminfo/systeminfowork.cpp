@@ -28,6 +28,7 @@
 #include "widgets/basiclistdelegate.h"
 #include "dsysinfo.h"
 #include "ddesktopentry.h"
+#include <QStorageInfo>
 
 DCORE_USE_NAMESPACE
 
@@ -131,7 +132,14 @@ void SystemInfoWork::activate()
     m_model->setProcessor(QString("%1 x %2").arg(DSysInfo::cpuModelName())
                                             .arg(QThread::idealThreadCount()));
     m_model->setMemory(DSysInfo::memoryTotalSize());
-    m_model->setDisk(DSysInfo::systemDiskSize());
+    qint64 diskSize = DSysInfo::systemDiskSize();
+    if (diskSize <= 0) {
+        // Dtk may fail to resolve the system disk for some storage layouts.
+        const QStorageInfo root = QStorageInfo::root();
+        if (root.isValid() && root.isReady() && root.bytesTotal() > 0)
+            diskSize = root.bytesTotal();
+    }
+    m_model->setDisk(qMax<qint64>(0, diskSize));
 }
 
 void SystemInfoWork::deactivate()
