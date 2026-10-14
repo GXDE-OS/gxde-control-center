@@ -33,6 +33,8 @@
 #include <QProcessEnvironment>
 #include <QDBusMessage>
 #include <QDBusConnection>
+#include <QDBusReply>
+#include <QGSettings>
 
 #define PERSIONALIZATION_DESTINATION "com.gxde.daemon.personalization"
 #define PERSIONALIZATION_PATH "/com/gxde/daemon/personalization"
@@ -244,25 +246,62 @@ bool PersonalizationModel::isWayland() const
 
 int PersonalizationModel::windowRadius()
 {
+    if (qEnvironmentVariable("XDG_SESSION_TYPE") == QStringLiteral("wayland")
+        || !qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")) {
+        const QDBusMessage request = QDBusMessage::createMethodCall(
+            QStringLiteral("top.gxde.Wlcom.WindowCorner"),
+            QStringLiteral("/top/gxde/Wlcom/WindowCorner"),
+            QStringLiteral("top.gxde.Wlcom.WindowCorner"), QStringLiteral("GetCornerRadius"));
+        const QDBusReply<int> radius = QDBusConnection::sessionBus().call(request);
+        if (radius.isValid() && radius.value() >= 0)
+            return radius.value();
+    }
+
     QDBusMessage dbus = QDBusMessage::createMethodCall(PERSONALIZATION_DESTINATION,
                                                        PERSONALIZATION_PATH,
                                                        PERSONALIZATION_INTERFACE,
                                                        "Radius");
-    QDBusMessage res = QDBusConnection::sessionBus().call(dbus);
-    if (res.arguments().count() == 0) {
-        return 8;
+    const QDBusReply<int> radius = QDBusConnection::sessionBus().call(dbus);
+    if (radius.isValid() && radius.value() >= 0)
+        return radius.value();
+
+    qWarning() << "Failed to read window radius:" << radius.error();
+    if (QGSettings::isSchemaInstalled("com.deepin.xsettings")) {
+        QGSettings settings("com.deepin.xsettings");
+        if (settings.keys().contains(QStringLiteral("dtkWindowRadius")))
+            return qMax(0, settings.get(QStringLiteral("dtkWindowRadius")).toInt());
     }
-    return res.arguments().at(0).toInt();
+    return 8;
 }
 
 void PersonalizationModel::setWindowRadius(const int radius)
 {
+    if (radius < 0 || radius > 18)
+        return;
+
+    if (qEnvironmentVariable("XDG_SESSION_TYPE") == QStringLiteral("wayland")
+        || !qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")) {
+        QDBusMessage request = QDBusMessage::createMethodCall(
+            QStringLiteral("top.gxde.Wlcom.WindowCorner"),
+            QStringLiteral("/top/gxde/Wlcom/WindowCorner"),
+            QStringLiteral("top.gxde.Wlcom.WindowCorner"), QStringLiteral("SetCornerRadius"));
+        request << radius;
+        const QDBusReply<bool> result = QDBusConnection::sessionBus().call(request);
+        if (result.isValid()) {
+            if (!result.value())
+                qWarning() << "Window manager rejected radius:" << radius;
+            return;
+        }
+    }
+
     QDBusMessage dbus = QDBusMessage::createMethodCall(PERSONALIZATION_DESTINATION,
                                                        PERSONALIZATION_PATH,
                                                        PERSONALIZATION_INTERFACE,
                                                        "SetRadius");
     dbus << radius;
-    QDBusConnection::sessionBus().call(dbus);
+    const QDBusReply<void> result = QDBusConnection::sessionBus().call(dbus);
+    if (!result.isValid())
+        qWarning() << "Failed to set window radius:" << result.error();
 }
 
 void PersonalizationModel::setOpacity(std::pair<int, double> opacity)

@@ -24,6 +24,7 @@
  */
 
 #include "personalizationwidget.h"
+#include <QSignalBlocker>
 #include "widgets/contentwidget.h"
 #include "widgets/dccslider.h"
 #include "widgets/nextpagewidget.h"
@@ -278,8 +279,10 @@ void PersonalizationWidget::onBlurWindowChanged()
 
 void PersonalizationWidget::initRadiusSlider()
 {
-    m_radiusSlider->slider()->setValue(PersonalizationModel::windowRadius());
-    m_radiusSlider->setValueLiteral(QString::number(PersonalizationModel::windowRadius()));
+    const int radius = PersonalizationModel::windowRadius();
+    const QSignalBlocker blocker(m_radiusSlider->slider());
+    m_radiusSlider->slider()->setValue(radius);
+    m_radiusSlider->setValueLiteral(QString::number(radius));
 }
 
 void PersonalizationWidget::requestSetRadius(int value)
