@@ -1,3 +1,9 @@
+gxde-control-center (6.1.1) UNRELEASED; urgency=medium
+
+  * 移除对Qt private API的依赖
+
+ -- CharOfString <root@charofstring.cc>  Wed, 14 Oct 2026 18:41:04 -0500
+
 gxde-control-center (6.1.0) UNRELEASED; urgency=medium
 
   * 新增Archlinux构建
