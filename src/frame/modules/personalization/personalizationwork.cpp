@@ -362,16 +362,21 @@ void PersonalizationWork::setDefault(const QJsonObject &value) {
     const QString theme = value["Id"].toString();
     const QDBusPendingCall call = m_dbus->Set(type, theme);
 
-    if (type != QStringLiteral("gtk")) {
-        return;
-    };
-
     auto *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, theme] {
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, type, theme] {
         const QDBusPendingReply<> reply = *watcher;
         watcher->deleteLater();
         if (reply.isError()) {
-            qWarning() << "Failed to set GTK theme:" << reply.error();
+            qWarning() << "Failed to set theme:" << type << reply.error();
+            return;
+        }
+
+        // Manually refresh dark/light theme page after setting.
+        if (ThemeModel *model = m_themeModels.value(type, nullptr)) {
+            model->setDefault(theme);
+        }
+
+        if (type != QStringLiteral("gtk")) {
             return;
         }
 
