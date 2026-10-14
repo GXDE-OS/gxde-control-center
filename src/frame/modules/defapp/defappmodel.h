@@ -47,6 +47,7 @@ public:
     Category *getModVideo()       {return m_modVideo;}
     Category *getModPicture()     {return m_modPicture;}
     Category *getModTerminal()    {return m_modTerminal;}
+    Category *getModFileManager() {return m_modFileManager;}
 
 private:
     Category *m_modBrowser;
@@ -56,6 +57,7 @@ private:
     Category *m_modVideo;
     Category *m_modPicture;
     Category *m_modTerminal;
+    Category *m_modFileManager;
 };
 }
 }

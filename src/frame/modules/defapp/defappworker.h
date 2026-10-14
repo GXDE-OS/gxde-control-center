@@ -64,7 +64,7 @@ private:
     Mime     *m_dbusManager;
 
     enum DefaultAppsCategory {
-        Browser, Mail, Text, Music, Video, Picture, Terminal
+        Browser, Mail, Text, Music, Video, Picture, Terminal, FileManager
     };
 
     QMap<QString, DefaultAppsCategory> m_stringToCategory;

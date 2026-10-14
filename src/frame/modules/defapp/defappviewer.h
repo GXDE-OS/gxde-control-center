@@ -72,6 +72,7 @@ private:
     DefCategoryWidget *m_modVideo = nullptr;
     DefCategoryWidget *m_modPicture = nullptr;
     DefCategoryWidget *m_modTerminal = nullptr;
+    DefCategoryWidget *m_modFileManager = nullptr;
 };
 }
 }

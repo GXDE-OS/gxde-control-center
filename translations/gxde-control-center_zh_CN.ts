@@ -1253,6 +1253,11 @@ If no operation, the display will be restored after %1s.</source>
         <source>Terminal</source>
         <translation>终端</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="62"/>
+        <source>File Manager</source>
+        <translation>文件管理器</translation>
+    </message>
 </context>
 <context>
     <name>dcc::defapp::DefCategoryAddWidget</name>

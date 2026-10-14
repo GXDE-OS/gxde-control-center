@@ -48,6 +48,7 @@ DefAppWorker::DefAppWorker(DefAppModel *model, QObject *parent) :
     m_stringToCategory.insert("Video",       Video);
     m_stringToCategory.insert("Picture",     Picture);
     m_stringToCategory.insert("Terminal",    Terminal);
+    m_stringToCategory.insert("FileManager", FileManager);
 
     connect(m_dbusManager, &Mime::Change, this, &DefAppWorker::onGetListApps);
 
@@ -289,6 +290,8 @@ Category *DefAppWorker::getCategory(const QString &mime) const
         return m_defAppModel->getModPicture();
     case Terminal:
         return m_defAppModel->getModTerminal();
+    case FileManager:
+        return m_defAppModel->getModFileManager();
     }
     return nullptr;
 }
@@ -322,6 +325,7 @@ const QStringList DefAppWorker::getTypeListByCategory(const DefaultAppsCategory 
                                    << "image/x-png" << "image/tiff" << "image/svg+xml" << "image/x-xbitmap" << "image/gif"
                                    << "image/x-xpixmap";
     case Terminal:      return QStringList() << "application/x-terminal";
+    case FileManager:   return QStringList() << "inode/directory";
     }
     return QStringList();
 }

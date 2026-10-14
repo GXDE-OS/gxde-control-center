@@ -59,6 +59,7 @@ QWidget *DefAppViewer::defappDetail()
     m_modVideo = new DefCategoryWidget(tr("Video"), this);
     m_modPicture = new DefCategoryWidget(tr("Picture"), this);
     m_modTerminal = new DefCategoryWidget(tr("Terminal"), this);
+    m_modFileManager = new DefCategoryWidget(tr("File Manager"), this);
 
     mainlayout->addSpacing(10);
     mainlayout->addWidget(m_modBrowser);
@@ -68,9 +69,10 @@ QWidget *DefAppViewer::defappDetail()
     mainlayout->addWidget(m_modVideo);
     mainlayout->addWidget(m_modPicture);
     mainlayout->addWidget(m_modTerminal);
+    mainlayout->addWidget(m_modFileManager);
 
     QList<DefCategoryWidget*> list;
-    list << m_modBrowser << m_modMail << m_modText << m_modMusic << m_modVideo << m_modPicture << m_modTerminal;
+    list << m_modBrowser << m_modMail << m_modText << m_modMusic << m_modVideo << m_modPicture << m_modTerminal << m_modFileManager;
 
     for (DefCategoryWidget *def : list) {
         connect(def, &DefCategoryWidget::requestSetDefaultApp, this, &DefAppViewer::requestSetDefaultApp);
@@ -91,4 +93,5 @@ void DefAppViewer::setModel(DefAppModel *const model)
     m_modVideo->setCategory(model->getModVideo());
     m_modPicture->setCategory(model->getModPicture());
     m_modTerminal->setCategory(model->getModTerminal());
+    m_modFileManager->setCategory(model->getModFileManager());
 }

@@ -29,8 +29,7 @@
 using namespace dcc;
 using namespace dcc::defapp;
 DefAppModel::DefAppModel(QObject *parent)
-    :QObject(parent)
-{
+        :QObject(parent) {
     m_modBrowser = new Category(this);
     m_modMail = new Category(this);
     m_modText = new Category(this);
@@ -38,10 +37,10 @@ DefAppModel::DefAppModel(QObject *parent)
     m_modVideo = new Category(this);
     m_modPicture = new Category(this);
     m_modTerminal = new Category(this);
+    m_modFileManager = new Category(this);
 }
 
-DefAppModel::~DefAppModel()
-{
+DefAppModel::~DefAppModel() {
     m_modBrowser->deleteLater();
     m_modMail->deleteLater();
     m_modText->deleteLater();
@@ -49,6 +48,7 @@ DefAppModel::~DefAppModel()
     m_modVideo->deleteLater();
     m_modPicture->deleteLater();
     m_modTerminal->deleteLater();
+    m_modFileManager->deleteLater();
 }
 
 
