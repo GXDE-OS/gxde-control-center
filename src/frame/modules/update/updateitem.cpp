@@ -24,6 +24,7 @@
  */
 
 #include "updateitem.h"
+#include "common.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -159,6 +160,8 @@ UpdateItem::UpdateItem(QFrame *parent)
     layout->addLayout(rightLayout, 1);
 
     setLayout(layout);
+
+    m_checkBox->setVisible(PartialUpgradeAllowed);
 
     connect(m_details, &QPushButton::clicked, [this] {
         m_details->hide();

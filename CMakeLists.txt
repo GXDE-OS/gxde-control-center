@@ -55,15 +55,22 @@ install(FILES com.deepin.dde.ControlCenter.service DESTINATION share/dbus-1/serv
 install(FILES data/timezone.db DESTINATION share/gxde-control-center)
 
 #internal testing group
-install(DIRECTORY tools/gxde-control-center DESTINATION share/)
-install(PROGRAMS tools/gxde-control-center/gxde-update-worker.sh DESTINATION lib/gxde-control-center)
+if (NOT DEFINED DCC_DISABLE_TESTING_GROUP)
+    install(DIRECTORY tools/gxde-control-center DESTINATION share/)
+endif()
+
+if (NOT DEFINED DCC_UPDATE_USE_PACKAGEKIT)
+    install(PROGRAMS tools/gxde-control-center/gxde-update-worker.sh DESTINATION lib/gxde-control-center)
+endif()
 
 
 # conf file
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/files/gxde-control-center.conf DESTINATION share/gxde-control-center)
 
 # polkit policy file
-install(FILES com.gxde.controlcenter.update.policy DESTINATION share/polkit-1/actions)
+if (NOT DEFINED DCC_UPDATE_USE_PACKAGEKIT)
+    install(FILES com.gxde.controlcenter.update.policy DESTINATION share/polkit-1/actions)
+endif()
 install(FILES com.gxde.controlcenter.gxdm-autologin.policy DESTINATION share/polkit-1/actions)
 if (OS_DEEPIN_PROFESSIONAL)
     if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")

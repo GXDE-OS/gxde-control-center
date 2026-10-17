@@ -16,7 +16,7 @@ depends=('gxde-account-faces-git' 'deepin-daemon-git' 'gxde-api-git' 'xkeyboard-
          'gxde-app-upgrader-git' 'gxde-app-uninstaller-git' 'gxde-shell-tools-git' 'transhell-git'
          'wireplumber' 'pipewire-audio'
          'dtk2widget-qt6-git' 'dtk6core-git' 'dtk6log-git' 'gsettings-qt6' 'layer-shell-qt' 'libnm' 'glib2'
-         'gxde-bernese-git' 'qt6-base' 'qt6-svg' 'qt6-multimedia' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
+         'gxde-bernese-git' 'qt6-base' 'qt6-svg' 'qt6-multimedia' 'packagekit-qt6' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
          'libgcc' 'libstdc++' 'glibc')
 optdepends=('x11vnc: remote desktop over VNC'
             'redshift: night light')
@@ -32,7 +32,7 @@ _srcroot() {
 }
 
 build() {
-  local _opts=()
+  local _opts=(-DDCC_UPDATE_USE_PACKAGEKIT=YES -DDCC_DISABLE_TESTING_GROUP=YES)
   # 与 debian/rules 中 arm64 的选项相同 ・ Same options as arm64 in debian/rules.
   [[ $CARCH == aarch64 ]] && _opts+=(-DDISABLE_SYS_UPDATE_SOURCE_CHECK=YES -DDISABLE_SYS_UPDATE_MIRRORS=YES)
   cmake -B build -S "$(_srcroot)" -GNinja \

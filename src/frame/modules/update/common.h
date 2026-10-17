@@ -45,6 +45,12 @@ enum UpdatesStatus {
     DeependenciesBrokenError,
 };
 
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+constexpr bool PartialUpgradeAllowed = false;
+#else
+constexpr bool PartialUpgradeAllowed = true;
+#endif
+
 static inline QString formatCap(qulonglong cap, const int size = 1024)
 {
     static QString type[] = {"B", "KB", "MB", "GB", "TB"};

@@ -36,6 +36,12 @@
 #include <QLocale>
 #include <QTextStream>
 
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+#include <PackageKit/Daemon>
+#include <PackageKit/Details>
+#include <memory>
+#endif
+
 #define MIN_NM_ACTIVE 50
 
 namespace dcc{
@@ -201,6 +207,9 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject *parent)
     , m_batteryPercentage(0)
     , m_baseProgress(0)
     , m_aptssProcess(nullptr)
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    , m_pkError(PackageKit::Transaction::ErrorUnknown)
+#endif
 {
     m_managerInter->setSync(false);
     m_updateInter->setSync(false);
@@ -258,10 +267,29 @@ void UpdateWorker::checkForUpdates()
     if (m_aptssProcess) {
         return;
     }
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    if (m_pkTransaction) {
+        return;
+    }
+#endif
 
     m_model->setStatus(UpdatesStatus::Checking);
     m_model->setFailureMessage(QString());
     m_model->setUpdateProgress(0);
+
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    PackageKit::Transaction *transaction = PackageKit::Daemon::refreshCache(false);
+    connect(transaction, &PackageKit::Transaction::percentageChanged, this, [this, transaction] {
+        // 101 表示进度未知
+        if (transaction->percentage() <= 100) {
+            m_model->setUpdateProgress(transaction->percentage() / 100.0 * 0.5);
+        }
+    });
+    runPackageKitTransaction(transaction, [this] {
+        runPackageKitGetUpdates();
+    });
+    return;
+#endif
 
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
@@ -486,6 +514,11 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     if (m_aptssProcess || packages.isEmpty()) {
         return;
     }
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    if (m_pkTransaction) {
+        return;
+    }
+#endif
 
     const bool restartRequired = packageUpdatesNeedRestart(packages);
 
@@ -496,6 +529,50 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     m_model->setUpgradeMessage(tr("Downloading updates..."));
     m_aptssStdout.clear();
     m_aptssStderr.clear();
+
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    PackageKit::Transaction *transaction = PackageKit::Daemon::updatePackages(m_pkPackageIds.values());
+    connect(transaction, &PackageKit::Transaction::percentageChanged, this, [this, transaction] {
+        if (transaction->percentage() <= 100) {
+            m_model->setUpgradeProgress(transaction->percentage() / 100.0);
+        }
+    });
+
+    const auto updateMessage = [this, transaction] {
+        switch (transaction->status()) {
+        case PackageKit::Transaction::StatusDownload: {
+            const uint speed = transaction->speed();
+            m_model->setUpgradeMessage(speed ? tr("Downloading updates... %1").arg(formatCap(speed / 8) + "/s") : tr("Downloading updates..."));
+            break;
+        }
+        case PackageKit::Transaction::StatusInstall:
+        case PackageKit::Transaction::StatusUpdate:
+        case PackageKit::Transaction::StatusCommit:
+            m_model->setUpgradeMessage(tr("Installing updates from cache..."));
+            break;
+        default:
+            break;
+        }
+    };
+    connect(transaction, &PackageKit::Transaction::statusChanged, this, updateMessage);
+    connect(transaction, &PackageKit::Transaction::speedChanged, this, updateMessage);
+
+    connect(transaction, &PackageKit::Transaction::requireRestart, this, [this](PackageKit::Transaction::Restart type, const QString &) {
+        if (type >= PackageKit::Transaction::RestartSession) {
+            m_model->setRestartRequired(true);
+        }
+    });
+
+    runPackageKitTransaction(transaction, [this] {
+        m_model->setUpgradeProgress(1);
+        m_model->setUpgradeMessage(QString());
+        m_model->setFailureMessage(QString());
+        m_model->setStatus(UpdatesStatus::UpdateSucceeded);
+
+        showRestartReminderIfNeeded(m_model->restartRequired());
+    });
+    return;
+#endif
 
     m_aptssProcess = new QProcess(this);
     connect(m_aptssProcess, &QProcess::readyReadStandardOutput, this, [this] {
@@ -603,7 +680,11 @@ QString UpdateWorker::updateWorkerPath() const
 QString UpdateWorker::packageDisplayName(const QString &packageName) const
 {
     QProcess process;
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    process.start("pacman", QStringList() << "-Qlq" << packageName);
+#else
     process.start("dpkg-query", QStringList() << "-L" << packageName);
+#endif
     process.waitForFinished(1000);
 
     const QStringList languageKeys = DesktopNameLanguageKeys();
@@ -762,6 +843,95 @@ void UpdateWorker::clearAptssProcess()
     m_aptssProcess->deleteLater();
     m_aptssProcess = nullptr;
 }
+
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+void UpdateWorker::runPackageKitTransaction(PackageKit::Transaction *transaction, const std::function<void()> &onSuccess)
+{
+    m_pkTransaction = transaction;
+    m_pkError = PackageKit::Transaction::ErrorUnknown;
+    m_pkErrorDetails.clear();
+
+    connect(transaction, &PackageKit::Transaction::errorCode, this, [this](PackageKit::Transaction::Error error, const QString &details) {
+        m_pkError = error;
+        if (!m_pkErrorDetails.isEmpty()) {
+            m_pkErrorDetails += '\n';
+        }
+        m_pkErrorDetails += details;
+    });
+
+    connect(transaction, &PackageKit::Transaction::finished, this, [this, onSuccess](PackageKit::Transaction::Exit status, uint) {
+        m_pkTransaction = nullptr;
+
+        if (status == PackageKit::Transaction::ExitSuccess) {
+            onSuccess();
+            return;
+        }
+
+        qWarning() << "PackageKit transaction failed:" << status << m_pkError << m_pkErrorDetails;
+        m_model->setUpgradeMessage(QString());
+        m_model->setFailureMessage(m_pkErrorDetails);
+
+        if (m_pkError == PackageKit::Transaction::ErrorNoNetwork) {
+            m_model->setStatus(UpdatesStatus::NoNetwork);
+        } else if (m_pkError == PackageKit::Transaction::ErrorNoSpaceOnDevice) {
+            m_model->setStatus(UpdatesStatus::NoSpace);
+        } else {
+            m_model->setStatus(UpdatesStatus::UpdateFailed);
+        }
+    });
+}
+
+void UpdateWorker::runPackageKitGetUpdates()
+{
+    m_model->setUpdateProgress(0.5);
+    m_updatablePackages.clear();
+    m_pkPackageIds.clear();
+
+    auto infos = std::make_shared<QList<AppUpdateInfo>>();
+    PackageKit::Transaction *transaction = PackageKit::Daemon::getUpdates();
+    connect(transaction, &PackageKit::Transaction::package, this, [this, infos](PackageKit::Transaction::Info info, const QString &packageId, const QString &summary) {
+        if (info == PackageKit::Transaction::InfoBlocked) {
+            return;
+        }
+
+        AppUpdateInfo update;
+        update.m_packageId = PackageKit::Transaction::packageName(packageId);
+        update.m_name = packageDisplayName(update.m_packageId);
+        update.m_avilableVersion = PackageKit::Transaction::packageVersion(packageId);
+        update.m_changelog = summary.isEmpty() ? tr("System package update") : summary;
+
+        *infos << update;
+        m_updatablePackages << update.m_packageId;
+        m_pkPackageIds.insert(update.m_packageId, packageId);
+    });
+
+    runPackageKitTransaction(transaction, [this, infos] {
+        if (infos->isEmpty()) {
+            m_model->setUpdateProgress(1);
+            m_model->setDownloadInfo(new DownloadInfo(0, *infos));
+            m_model->setStatus(UpdatesStatus::Updated);
+            return;
+        }
+
+        runPackageKitDownloadSize(*infos);
+    });
+}
+
+void UpdateWorker::runPackageKitDownloadSize(const QList<AppUpdateInfo> &infos)
+{
+    auto downloadSize = std::make_shared<qlonglong>(0);
+    PackageKit::Transaction *transaction = PackageKit::Daemon::getDetails(m_pkPackageIds.values());
+    connect(transaction, &PackageKit::Transaction::details, this, [downloadSize](const PackageKit::Details &details) {
+        *downloadSize += details.value(QStringLiteral("download-size")).toLongLong();
+    });
+
+    runPackageKitTransaction(transaction, [this, infos, downloadSize] {
+        m_model->setUpdateProgress(1);
+        m_model->setDownloadInfo(new DownloadInfo(*downloadSize, infos));
+        m_model->setStatus(UpdatesStatus::UpdatesAvailable);
+    });
+}
+#endif
 
 void UpdateWorker::setAutoCheckUpdates(const bool autocheckUpdates)
 {

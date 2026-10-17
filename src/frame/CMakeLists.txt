@@ -57,6 +57,8 @@ DCC_DISABLE_TIMEZONE
 DCC_DISABLE_GRUB
 DCC_ENABLE_END_USER_LICENSE
 DCC_KEEP_SETTINGS_LIVE
+DCC_UPDATE_USE_PACKAGEKIT
+DCC_DISABLE_TESTING_GROUP
 )
 
 foreach(LETTER ${DEFINED_LIST})
@@ -913,6 +915,9 @@ find_package(Dtk2widget REQUIRED)
 find_package(KF6NetworkManagerQt REQUIRED)
 find_package(DFrameworkdbusQt6 REQUIRED)
 find_package(LayerShellQt QUIET)
+if (DEFINED DCC_UPDATE_USE_PACKAGEKIT)
+    find_package(packagekitqt6 REQUIRED)
+endif()
 
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh x11 xext)
 pkg_check_modules(QGSettings REQUIRED gsettings-qt6)
@@ -1062,6 +1067,10 @@ target_link_libraries(${BIN_NAME} PRIVATE
 if (LayerShellQt_FOUND)
     target_link_libraries(${BIN_NAME} PRIVATE LayerShellQt::Interface)
     target_compile_definitions(${BIN_NAME} PRIVATE HAS_LAYER_SHELL)
+endif()
+
+if (DEFINED DCC_UPDATE_USE_PACKAGEKIT)
+    target_link_libraries(${BIN_NAME} PRIVATE PK::packagekitqt6)
 endif()
 
 # bin

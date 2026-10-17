@@ -64,10 +64,12 @@ UpdateView::UpdateView()
 
     m_centralLayout->addWidget(m_updateGroup);
 
+#ifndef DCC_DISABLE_TESTING_GROUP
     if (QFile::exists("/usr/share/gxde-control-center/join-testing-group.sh")) {
         // 需要保证脚本存在才会显示按钮
         m_centralLayout->addWidget(m_addTestingSource);
     }
+#endif
 
     connect(m_addTestingSource, &QPushButton::clicked, this, &UpdateView::ShowTesingDialog);
     connect(m_updateItem, &NextPageWidget::clicked,this, &UpdateView::ExecUpgrader);

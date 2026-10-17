@@ -38,6 +38,11 @@
 #include <com_deepin_lastoresessionhelper.h>
 #include <com_deepin_lastore_smartmirror.h>
 
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+#include <PackageKit/Transaction>
+#include <functional>
+#endif
+
 #include "common.h"
 
 using UpdateInter=com::deepin::lastore::Updater;
@@ -115,6 +120,11 @@ private:
     bool packageUpdatesNeedRestart(const QStringList &packages) const;
     void showRestartReminderIfNeeded(bool restartRequired);
     void clearAptssProcess();
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    void runPackageKitTransaction(PackageKit::Transaction *transaction, const std::function<void()> &onSuccess);
+    void runPackageKitGetUpdates();
+    void runPackageKitDownloadSize(const QList<AppUpdateInfo> &infos);
+#endif
 
 private:
     UpdateModel* m_model;
@@ -139,6 +149,12 @@ private:
     QProcess *m_aptssProcess;
     QString m_aptssStdout;
     QString m_aptssStderr;
+#ifdef DCC_UPDATE_USE_PACKAGEKIT
+    QPointer<PackageKit::Transaction> m_pkTransaction;
+    PackageKit::Transaction::Error m_pkError;
+    QString m_pkErrorDetails;
+    QMap<QString, QString> m_pkPackageIds;
+#endif
 };
 }
 }

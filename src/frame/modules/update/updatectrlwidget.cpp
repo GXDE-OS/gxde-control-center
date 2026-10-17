@@ -224,7 +224,7 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
         break;
     case UpdatesStatus::UpdatesAvailable:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(true);
+        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setMessage(tr("Download and install selected updates"));
         setDownloadInfo(m_model->downloadInfo());
@@ -234,20 +234,20 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
         break;
     case UpdatesStatus::Downloading:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(true);
+        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setValue(m_progress->minimum());
         m_progress->setMessage(tr("%1% downloaded (Click to pause)").arg(m_progress->value()));
         break;
     case UpdatesStatus::DownloadPaused:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(true);
+        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setMessage(tr("%1% downloaded (Click to continue)").arg(m_progress->value()));
         break;
     case UpdatesStatus::Downloaded:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(true);
+        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setValue(m_progress->maximum());
         m_progress->setMessage(tr("Install updates"));
