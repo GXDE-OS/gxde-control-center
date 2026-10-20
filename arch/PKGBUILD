@@ -1,6 +1,6 @@
 # Maintainer: CharOfString <root@charofstring.cc>
 pkgname=gxde-control-center-git
-pkgver=6.1.2
+pkgver=6.1.3
 pkgrel=1
 pkgdesc='Control center for GXDE'
 arch=('x86_64' 'aarch64')

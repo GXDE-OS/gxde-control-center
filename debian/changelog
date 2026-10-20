@@ -1,3 +1,10 @@
+gxde-control-center (6.1.3) UNRELEASED; urgency=medium
+
+  * 更新模块不再支持勾选安装项，取消更新列表中的勾选框与“全选”
+  * 下载完成后改用 full-upgrade 安装全部更新，降低更新失败概率
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 20 Oct 2026 18:31:29 +0800
+
 gxde-control-center (6.1.2) UNRELEASED; urgency=medium
 
   * 支持Archlinux系统更新
