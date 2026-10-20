@@ -29,11 +29,11 @@ APT_OPTIONS=(
     -o Dpkg::Options::=--force-confold
 )
 
-apt_get_install_from_cache() {
+apt_get_full_upgrade_from_cache() {
     if [ -f "$APTSS_APT_CONF" ]; then
-        env "${APT_ENV[@]}" /usr/bin/apt-get -c "$APTSS_APT_CONF" "${APT_OPTIONS[@]}" install -y --no-download --only-upgrade "$@"
+        env "${APT_ENV[@]}" /usr/bin/apt-get -c "$APTSS_APT_CONF" "${APT_OPTIONS[@]}" full-upgrade -y --no-download
     else
-        env "${APT_ENV[@]}" /usr/bin/apt-get "${APT_OPTIONS[@]}" install -y --no-download --only-upgrade "$@"
+        env "${APT_ENV[@]}" /usr/bin/apt-get "${APT_OPTIONS[@]}" full-upgrade -y --no-download
     fi
 }
 
@@ -120,7 +120,7 @@ download_to_cache() {
 install_from_cache() {
     echo "# Installing updates from cache..."
     echo 85
-    apt_get_install_from_cache "$@"
+    apt_get_full_upgrade_from_cache
 }
 
 case "$1" in
@@ -186,7 +186,7 @@ case "$1" in
                     fail_with_log "download" "$download_ret"
                 fi
 
-                install_from_cache "$@"
+                install_from_cache
                 install_ret="$?"
                 echo 100
                 if [ "$install_ret" -ne 0 ]; then
@@ -196,7 +196,7 @@ case "$1" in
                 exit 0
             } 2>&1 | tee "$UPGRADE_LOG"
         else
-            env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} upgrade -y 2>&1 | tee "$UPGRADE_LOG"
+            env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} full-upgrade -y 2>&1 | tee "$UPGRADE_LOG"
         fi
 
         ret=${PIPESTATUS[0]}

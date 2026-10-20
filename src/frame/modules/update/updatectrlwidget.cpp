@@ -30,7 +30,6 @@
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QCheckBox>
 #include <QPushButton>
 #include <QPlainTextEdit>
 #include <QFontDatabase>
@@ -57,10 +56,7 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
       m_failureLogItem(new PlainTextItem),
       m_progress(new DownloadProgressBar),
       m_summaryGroup(new SettingsGroup),
-      m_selectAllGroup(new SettingsGroup),
       m_upgradeWarningGroup(new SettingsGroup),
-      m_selectAllItem(new SettingsItem),
-      m_selectAll(new QCheckBox(tr("Select all"))),
       m_summary(new SummaryItem),
       m_upgradeWarning(new SummaryItem),
       m_powerTip(new TipsLabel),
@@ -99,14 +95,6 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     m_summaryGroup->setVisible(false);
     m_summaryGroup->appendItem(m_summary);
 
-    m_selectAllGroup->setVisible(false);
-    m_selectAll->setChecked(true);
-    QHBoxLayout *selectAllLayout = new QHBoxLayout;
-    selectAllLayout->setContentsMargins(10, 10, 10, 10);
-    selectAllLayout->addWidget(m_selectAll);
-    m_selectAllItem->setLayout(selectAllLayout);
-    m_selectAllGroup->appendItem(m_selectAllItem);
-
     m_powerTip->setWordWrap(true);
     m_powerTip->setAlignment(Qt::AlignHCenter);
     m_powerTip->setVisible(false);
@@ -131,7 +119,6 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     layout->addWidget(m_progress);
     layout->addLayout(refreshLayout);
     layout->addWidget(m_upgradeWarningGroup);
-    layout->addWidget(m_selectAllGroup);
     layout->addWidget(m_summaryGroup);
     layout->addWidget(m_powerTip);
     layout->addWidget(m_reminderTip);
@@ -144,7 +131,6 @@ UpdateCtrlWidget::UpdateCtrlWidget(UpdateModel *model, QWidget *parent)
     setModel(model);
 
     connect(m_progress, &DownloadProgressBar::clicked, this, &UpdateCtrlWidget::onProgressBarClicked);
-    connect(m_selectAll, &QCheckBox::toggled, this, &UpdateCtrlWidget::setAllPackagesSelected);
     connect(m_refreshButton, &QPushButton::clicked, this, &UpdateCtrlWidget::requestRefreshUpdates);
 }
 
@@ -157,7 +143,6 @@ void UpdateCtrlWidget::loadAppList(const QList<AppUpdateInfo>& infos)
 {
     qDebug() << infos.count();
     m_updateItems.clear();
-    m_selectedPackages.clear();
     QLayoutItem *item;
     while((item = m_summaryGroup->layout()->takeAt(1)) != NULL) {
         item->widget()->deleteLater();
@@ -168,20 +153,17 @@ void UpdateCtrlWidget::loadAppList(const QList<AppUpdateInfo>& infos)
     {
         UpdateItem* item = new UpdateItem();
         item->setAppInfo(info);
-        connect(item, &UpdateItem::selectionChanged, this, &UpdateCtrlWidget::updateSelectedPackages);
 
         m_summaryGroup->appendItem(item);
         m_updateItems << item;
     }
-
-    updateSelectedPackages();
 }
 
 void UpdateCtrlWidget::onProgressBarClicked()
 {
     switch (m_status) {
     case UpdatesStatus::UpdatesAvailable:
-        Q_EMIT requestDownloadUpdates(selectedPackages());
+        Q_EMIT requestDownloadUpdates();
         break;
     case UpdatesStatus::Downloading:
         Q_EMIT requestPauseDownload();
@@ -206,7 +188,6 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
     m_resultGroup->setVisible(false);
     m_failureLogGroup->setVisible(false);
     m_progress->setVisible(false);
-    m_selectAllGroup->setVisible(false);
     m_summaryGroup->setVisible(false);
     m_upgradeWarningGroup->setVisible(false);
     m_reminderTip->setVisible(false);
@@ -224,30 +205,25 @@ void UpdateCtrlWidget::setStatus(const UpdatesStatus &status)
         break;
     case UpdatesStatus::UpdatesAvailable:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
-        m_progress->setMessage(tr("Download and install selected updates"));
+        m_progress->setMessage(tr("Download and install updates"));
         setDownloadInfo(m_model->downloadInfo());
         m_progress->setValue(0);
         setLowBattery(m_model->lowBattery());
-        updateSelectedPackages();
         break;
     case UpdatesStatus::Downloading:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setValue(m_progress->minimum());
         m_progress->setMessage(tr("%1% downloaded (Click to pause)").arg(m_progress->value()));
         break;
     case UpdatesStatus::DownloadPaused:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setMessage(tr("%1% downloaded (Click to continue)").arg(m_progress->value()));
         break;
     case UpdatesStatus::Downloaded:
         m_progress->setVisible(true);
-        m_selectAllGroup->setVisible(PartialUpgradeAllowed);
         m_summaryGroup->setVisible(true);
         m_progress->setValue(m_progress->maximum());
         m_progress->setMessage(tr("Install updates"));
@@ -359,43 +335,6 @@ void UpdateCtrlWidget::setFailureMessage(const QString &message)
     m_failureLogGroup->setVisible(m_status == UpdatesStatus::UpdateFailed && !message.isEmpty());
 }
 
-QStringList UpdateCtrlWidget::selectedPackages() const
-{
-    return m_selectedPackages.values();
-}
-
-void UpdateCtrlWidget::updateSelectedPackages()
-{
-    m_selectedPackages.clear();
-
-    for (UpdateItem *item : m_updateItems) {
-        if (item && item->isSelected()) {
-            m_selectedPackages.insert(item->packageId());
-        }
-    }
-
-    const bool allSelected = !m_updateItems.isEmpty() && m_selectedPackages.count() == m_updateItems.count();
-    const bool partiallySelected = !m_selectedPackages.isEmpty() && !allSelected;
-    m_selectAll->blockSignals(true);
-    m_selectAll->setTristate(partiallySelected);
-    m_selectAll->setCheckState(allSelected ? Qt::Checked : (partiallySelected ? Qt::PartiallyChecked : Qt::Unchecked));
-    m_selectAll->setTristate(false);
-    m_selectAll->blockSignals(false);
-
-    m_progress->setDisabled(m_selectedPackages.isEmpty() || m_model->lowBattery());
-}
-
-void UpdateCtrlWidget::setAllPackagesSelected(bool selected)
-{
-    for (UpdateItem *item : m_updateItems) {
-        if (item) {
-            item->setSelected(selected);
-        }
-    }
-
-    updateSelectedPackages();
-}
-
 void UpdateCtrlWidget::setLowBattery(const bool &lowBattery)
 {
     if (m_status == UpdatesStatus::Downloaded || m_status == UpdatesStatus::UpdatesAvailable) {
@@ -405,7 +344,7 @@ void UpdateCtrlWidget::setLowBattery(const bool &lowBattery)
             m_powerTip->setText(tr("Please ensure sufficient power to restart, and don't power off or unplug your machine"));
         }
 
-        m_progress->setDisabled(lowBattery || m_selectedPackages.isEmpty());
+        m_progress->setDisabled(lowBattery);
         m_powerTip->setVisible(lowBattery);
     }
 }

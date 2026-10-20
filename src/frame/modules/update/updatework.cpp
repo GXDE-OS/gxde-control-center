@@ -648,9 +648,9 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     distUpgradeInstallUpdates();
 }
 
-void UpdateWorker::downloadAndDistUpgrade(const QStringList &packages)
+void UpdateWorker::downloadAndDistUpgrade()
 {
-    distUpgradePackages(packages.isEmpty() ? upgradablePackages() : packages);
+    distUpgradePackages(upgradablePackages());
     return;
 
     m_baseProgress = 0.5;

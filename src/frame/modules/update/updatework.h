@@ -73,7 +73,7 @@ public Q_SLOTS:
     void pauseDownload();
     void resumeDownload();
     void distUpgrade();
-    void downloadAndDistUpgrade(const QStringList &packages);
+    void downloadAndDistUpgrade();
     void setAutoCheckUpdates(const bool autocheckUpdates);
     void setAutoCleanCache(const bool autoCleanCache);
     void setAutoDownloadUpdates(const bool &autoDownload);

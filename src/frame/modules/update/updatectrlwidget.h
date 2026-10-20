@@ -36,9 +36,7 @@
 #include <types/appupdateinfolist.h>
 
 #include <QSettings>
-#include <QSet>
 
-class QCheckBox;
 class QPushButton;
 
 using namespace dcc;
@@ -66,7 +64,7 @@ public:
     void setModel(UpdateModel *model);
 
 Q_SIGNALS:
-    void requestDownloadUpdates(const QStringList &packages);
+    void requestDownloadUpdates();
     void requestPauseDownload();
     void requestResumeDownload();
     void requestInstallUpdates();
@@ -85,9 +83,6 @@ private:
     void setUpdateProgress(const double value);
     void setUpgradeMessage(const QString &message);
     void setFailureMessage(const QString &message);
-    QStringList selectedPackages() const;
-    void updateSelectedPackages();
-    void setAllPackagesSelected(bool selected);
 
 private:
     UpdateModel *m_model;
@@ -102,10 +97,7 @@ private:
     dcc::widgets::PlainTextItem *m_failureLogItem;
     DownloadProgressBar* m_progress;
     SettingsGroup* m_summaryGroup;
-    SettingsGroup* m_selectAllGroup;
     SettingsGroup* m_upgradeWarningGroup;
-    SettingsItem *m_selectAllItem;
-    QCheckBox *m_selectAll;
     SummaryItem* m_summary;
     SummaryItem* m_upgradeWarning;
     TipsLabel *m_powerTip;
@@ -114,7 +106,6 @@ private:
 
     QSettings *m_qsettings;
     QList<UpdateItem *> m_updateItems;
-    QSet<QString> m_selectedPackages;
 };
 
 }
