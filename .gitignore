@@ -13,6 +13,7 @@
 *.a
 
 build*/
+Build/
 *.pro.user*
 *.DS_Store
 #dde-control-center
