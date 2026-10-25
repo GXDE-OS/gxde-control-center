@@ -25,6 +25,7 @@
 
 #include "frame.h"
 #include "dbuscontrolcenterservice.h"
+#include "sessionenvironment.h"
 
 #include <DApplication>
 #include <DDBusSender>
@@ -167,6 +168,9 @@ static bool checkWaylandReallyWorks() {
 
 int main(int argc, char *argv[])
 {
+    // 必须先于一切 dtk 初始化保存会话原始环境，供启动外部程序使用
+    dcc::sessionEnvironment();
+
     // 修复点击键盘与语言和鼠标子页设置崩溃的问题
     qDBusRegisterMetaType<QMap<QString, QString>>();
 
