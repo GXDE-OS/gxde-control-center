@@ -332,17 +332,17 @@ Pokud neuděláte nic, zobrazení bude obnoveno za %1s.</translation>
 <context>
     <name>WeatherWidget</name>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="120"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="122"/>
         <source>Sorry, unable to get weather!</source>
         <translation>Promiňte, nelze získat údaje o počasí!</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="127"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="129"/>
         <source>Loading weather...</source>
         <translation>Nahrává se počasí...</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="197"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="199"/>
         <source>Just updated</source>
         <translation>Právě aktualizováno</translation>
     </message>
@@ -1254,6 +1254,11 @@ Pokud neuděláte nic, zobrazení bude obnoveno za %1s.</translation>
         <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="61"/>
         <source>Terminal</source>
         <translation>Terminál</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="62"/>
+        <source>File Manager</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3950,7 +3955,13 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::FontListWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="107"/>
+        <source>Search fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="175"/>
         <source> (Unsupported font)</source>
         <translation>(Nepodporované písmo)</translation>
     </message>
@@ -4144,12 +4155,12 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
         <source>Standard Font</source>
         <translation>Obvyklé písmo</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
         <source>Monospaced Font</source>
         <translation>Písmo s pevnou šířkou</translation>
     </message>
@@ -4157,86 +4168,119 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>Přizpůsobení</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Transparency</source>
         <translation>Průhlednost</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Radius (Logout to apply)</source>
         <translation>Výběr (Odhlásit se pro aplikaci)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Window Effect</source>
         <translation>Okno efekt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel</source>
         <translation>Horní panel</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Top Panel Global Menu</source>
         <translation>Horní panel globálního menu</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Bottom Panel</source>
         <translation>Spodní panel</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Use deepin 20 style launcher</source>
         <translation>Použijte spouštěč ve stylu Deepin 20</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
         <source>Hide DDE Dock</source>
         <translation>Skrýt DDE Dock</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>Dock&apos;s Mac Mode</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>Povolit kompaktní režim na aplikacích DTK5 (Opětovné přihlášení je nutné k aktivaci)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Theme</source>
         <translation>Vzhled</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Font</source>
         <translation>Písmo</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <source>Wallpaper and Screensaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Video Wallpaper</source>
         <translation>Videostěna</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
         <source>Window manager</source>
         <translation>Správce oken</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>Správce displeje</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="476"/>
+        <source>Failed to save font settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="514"/>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="525"/>
+        <source>Refreshing font cache…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="540"/>
+        <source>Font cache refreshed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="541"/>
+        <source>Failed to refresh font cache.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4610,7 +4654,12 @@ Power by fantascene-dynamic-wallpaper</translation>
         <translation>Nabídka pro zavedení</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="222"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <source>rolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
         <source>%1Bit</source>
         <translation>%1bitový</translation>
     </message>
@@ -4690,94 +4739,93 @@ Power by fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation>Aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>Spusťte počítač znovu, aby se po aktualizaci daly systém a programy používat řádně</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="52"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Select all</source>
-        <translation>Vyberte vše</translation>
+        <translation type="vanished">Vyberte vše</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="64"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>Síť je odpojena, činnost opakujte po připojení.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="110"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>Tento update může trvat dlouho, prosím nehaste nebo restartujte počítač během procesu.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="204"/>
         <source>Checking for updates, please wait...</source>
         <translation>Hledají se aktualizace. Počkejte, prosím</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="209"/>
         <source>Download and install updates</source>
-        <translation type="vanished">Stáhnout a nainstalovat aktualizace</translation>
+        <translation>Stáhnout a nainstalovat aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Download and install selected updates</source>
-        <translation>Stáhněte a nainstalujte vybrané aktualizace</translation>
+        <translation type="vanished">Stáhněte a nainstalujte vybrané aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="218"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="321"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>%1% staženo (klepněte pro pozastavení)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>%1% staženo (klepněte pro pokračování)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Install updates</source>
         <translation>Nainstalovat aktualizace</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="236"/>
         <source>Your system is up to date</source>
         <translation>Váš systém je aktuální</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="241"/>
         <source>Updating, please wait...</source>
         <translation>Aktualizuje se. Počkejte, prosím...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="256"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>Nainstalována nejnovější verze systému. Je potřeba počítač spustit znovu, aby se projevila.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="266"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>Nedostatek místa na disku. Systém nelze zaktualizovat.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>Chyba závislosti. Nepodařilo se zjistit aktualizace</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="293"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>Zjištěna %n aktualizace programu</numerusform>
@@ -4786,12 +4834,12 @@ Power by fantascene-dynamic-wallpaper</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="298"/>
         <source>New system edition detected</source>
         <translation>Zjištěno nové vydání systému</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="300"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>Zjištěno nové vydání systému a aktualizace %n programu</numerusform>
@@ -4804,17 +4852,17 @@ Power by fantascene-dynamic-wallpaper</translation>
         <translation type="vanished">Staženo</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="306"/>
         <source>Download size: %1</source>
         <translation>Velikost stahování: %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="342"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>Stav baterie je na méně než 50% energie. Připojte, prosím, počítač k síti, a pokračujte</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="344"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>Zajistěte, prosím, dostatek energie pro restartování a nevypínejte ani neodpojujte zařízení</translation>
     </message>
@@ -4822,7 +4870,7 @@ Power by fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="125"/>
         <source>Details</source>
         <translation>Podrobnosti</translation>
     </message>
@@ -4894,7 +4942,7 @@ Power by fantascene-dynamic-wallpaper</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
         <source>Update</source>
         <translation>Aktualizace</translation>
     </message>
@@ -4906,38 +4954,42 @@ Power by fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="420"/>
         <source>Patches</source>
         <translation>Opravy</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="421"/>
         <source>System patches</source>
         <translation>Opravy pro systém</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="529"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates...</source>
         <translation>Stahování aktualizací...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="586"/>
         <source>Updates installed successfully</source>
         <translation>Aktualizace úspěšně nainstalovány</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="551"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="588"/>
         <source>Installing updates from cache...</source>
         <translation>Instalování aktualizací z mezipaměti...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates... %1</source>
         <translation>Stahování aktualizací... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
         <source>System package update</source>
         <translation>Systémový balíček aktualizace</translation>
     </message>

@@ -84,6 +84,7 @@ ModuleWidget *PersonalizationModule::moduleWidget()
         m_personalizationWidget->setModel(m_model);
         connect(m_personalizationWidget, &PersonalizationWidget::showThemeWidget, this, &PersonalizationModule::showThemeWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showFontsWidget, this, &PersonalizationModule::showFontsWidget);
+        connect(m_personalizationWidget, &PersonalizationWidget::showWallpaperChooserWidget, this, &PersonalizationModule::showWallpaperChooser);
         connect(m_personalizationWidget, &PersonalizationWidget::showVideoWallpaperWidget, this, &PersonalizationModule::showVideoWallpaperWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showGxwmWidget, this, &PersonalizationModule::showGxwmWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showDisplayManagerWidget, this, &PersonalizationModule::showDisplayManagerWidget);
@@ -128,6 +129,13 @@ void PersonalizationModule::showFontsWidget()
     connect(fontsWidget, &FontsWidget::requestSetFontSize, m_work, &PersonalizationWork::setFontSize);
 
     m_frameProxy->pushWidget(this, fontsWidget);
+}
+
+void PersonalizationModule::showWallpaperChooser()
+{
+    if (!QProcess::startDetached(QStringLiteral("gxde-wallpaper-chooser"), QStringList())) {
+        qWarning("Failed to start gxde-wallpaper-chooser");
+    }
 }
 
 void PersonalizationModule::showVideoWallpaperWidget()

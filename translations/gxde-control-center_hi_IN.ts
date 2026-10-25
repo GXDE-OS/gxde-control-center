@@ -331,17 +331,17 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>WeatherWidget</name>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="120"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="122"/>
         <source>Sorry, unable to get weather!</source>
         <translation>क्षमा करें, मौसम की जानकारी प्राप्त नहीं की जा सकी !</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="127"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="129"/>
         <source>Loading weather...</source>
         <translation>मौसम की जानकारी लोड की जा रही है...</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="197"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="199"/>
         <source>Just updated</source>
         <translation>अभी अपडेट किया गया</translation>
     </message>
@@ -1253,6 +1253,11 @@ If no operation, the display will be restored after %1s.</source>
         <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="61"/>
         <source>Terminal</source>
         <translation>टर्मिनल</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="62"/>
+        <source>File Manager</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3949,7 +3954,13 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::FontListWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="107"/>
+        <source>Search fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="175"/>
         <source> (Unsupported font)</source>
         <translation>(असमर्थित मुद्रलिपि)</translation>
     </message>
@@ -4143,12 +4154,12 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
         <source>Standard Font</source>
         <translation>सामान्य मुद्रलिपि</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
         <source>Monospaced Font</source>
         <translation>Monospace मुद्रलिपि</translation>
     </message>
@@ -4156,86 +4167,119 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>अनुकूलन</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Transparency</source>
         <translation>Transparency</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Radius (Logout to apply)</source>
         <translation>रेडियस (लॉगआउट करने के लिए लागू करें)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Window Effect</source>
         <translation>विंडो इफेक्ट</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel</source>
         <translation>टॉप पैनल</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Top Panel Global Menu</source>
         <translation>टॉप पैनल ग्लोबल मेनू</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Bottom Panel</source>
         <translation>नीचे पैनल</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Use deepin 20 style launcher</source>
         <translation>डीपिन 20 स्टाइल लॉन्चर का उपयोग करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
         <source>Hide DDE Dock</source>
         <translation>छिपाएँ DDE डॉक</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>डॉक का मैक मोड</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>कंपैक्ट मोड को DTK5 ऐप्स पर सक्षम करें (प्रभाव के लिए रीलॉगिन करें)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Theme</source>
         <translation>थीम</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Font</source>
         <translation>मुद्रलिपि</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <source>Wallpaper and Screensaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Video Wallpaper</source>
         <translation>विडियो वॉलपेपर</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
         <source>Window manager</source>
         <translation>विंडो प्रबंधक</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>डिस्प्ले प्रबंधक</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="476"/>
+        <source>Failed to save font settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="514"/>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="525"/>
+        <source>Refreshing font cache…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="540"/>
+        <source>Font cache refreshed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="541"/>
+        <source>Failed to refresh font cache.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4605,7 +4649,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>बूट मेन्यू</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="222"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <source>rolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
         <source>%1Bit</source>
         <translation>%1Bit</translation>
     </message>
@@ -4685,94 +4734,93 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation>अपडेट</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>अपडेट के उपरांत, अपने सिस्टम व अनुप्रयोगों के उचित क्रियान्वन हेतु, कृपया पुनः आरंभ करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="52"/>
         <source>Refresh</source>
         <translation>रिफ्रेश</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Select all</source>
-        <translation>सभी चुनें</translation>
+        <translation type="vanished">सभी चुनें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="64"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>नेटवर्क डिस्कनेक्ट हो गया है, कृपया कनेक्ट होने के बाद पुनः प्रयास करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="110"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>इस अपडेट में काफी समय लग सकता है, कृपया प्रक्रिया के दौरान सिस्टम को बंद न करें या रीबूट न करें।</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="204"/>
         <source>Checking for updates, please wait...</source>
         <translation>अपडेट खोजी जा रही हैं, कृपया प्रतीक्षा करें...</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="209"/>
         <source>Download and install updates</source>
-        <translation type="vanished">अपडेट डाउनलोड कर इंस्टॉल करें</translation>
+        <translation>अपडेट डाउनलोड कर इंस्टॉल करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Download and install selected updates</source>
-        <translation>अपडेट डाउनलोड करें और उन्हें इंस्टॉल करें</translation>
+        <translation type="vanished">अपडेट डाउनलोड करें और उन्हें इंस्टॉल करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="218"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="321"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>%1% डाउनलोड किया गया (रोकने हेतु क्लिक करें)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>%1% डाउनलोड किया गया (जारी रखने हेतु क्लिक करें)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Install updates</source>
         <translation>अपडेट इंस्टॉल करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="236"/>
         <source>Your system is up to date</source>
         <translation>आपका सिस्टम नवीनतम है </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="241"/>
         <source>Updating, please wait...</source>
         <translation>अपडेट किया जा रहा है, कृपया प्रतीक्षा करें... </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="256"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>नवीनतम सिस्टम इंस्टॉल कर दिया गया, लागू करने हेतु पुनः आरंभ करें</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="266"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>अपर्याप्त डिस्क स्पेस, सिस्टम को अपडेट करने में अक्षम</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>निर्भरता त्रुटि, अपडेट का पता लगाने में विफल</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="293"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>%n अनुप्रयोग अपडेट पता चला</numerusform>
@@ -4780,12 +4828,12 @@ Power by fantascene-dynamic-wallpaper</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="298"/>
         <source>New system edition detected</source>
         <translation>नया सिस्टम संस्करण पाया गया</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="300"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>नया सिस्टम संस्करण और %n एप्लिकेशन अपडेट पता चला</numerusform>
@@ -4797,17 +4845,17 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation type="vanished">डाउनलोड किया गया</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="306"/>
         <source>Download size: %1</source>
         <translation>डाउनलोड आकार : %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="342"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>बैटरी का स्तर 50% से कम है, जारी रखने हेतु कृपया चार्जिंग पर लगाएँ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="344"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>कृपया सुनिश्चित करें कि सिस्टम में पुनः आरंभ हो सकने जितनी बैटरी शेष हो, और कंप्यूटर को बंद न करें व न ही प्लग हटाएँ</translation>
     </message>
@@ -4815,7 +4863,7 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="125"/>
         <source>Details</source>
         <translation>विवरण</translation>
     </message>
@@ -4887,7 +4935,7 @@ Power by fantascene-dynamic-wallpaper</source>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
         <source>Update</source>
         <translation>अपडेट</translation>
     </message>
@@ -4899,38 +4947,42 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="420"/>
         <source>Patches</source>
         <translation>सॉफ्टवेयर पैच</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="421"/>
         <source>System patches</source>
         <translation>सिस्टम पैच</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="529"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates...</source>
         <translation>अपडेट डाउनलोड हो रहे हैं...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="586"/>
         <source>Updates installed successfully</source>
         <translation>अपडेट सफलतापूर्वक स्थापित किए गए</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="551"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="588"/>
         <source>Installing updates from cache...</source>
         <translation>अपडेट्स को कैश से इंस्टॉल कर रहा है...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates... %1</source>
         <translation>अपडेट डाउनलोड हो रहे हैं... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
         <source>System package update</source>
         <translation>सिस्टम पैकेज अपडेट</translation>
     </message>

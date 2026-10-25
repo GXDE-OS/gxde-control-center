@@ -330,17 +330,17 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>WeatherWidget</name>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="120"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="122"/>
         <source>Sorry, unable to get weather!</source>
         <translation>കൃപയായി, കാലാവസ്ഥ കിട്ടുന്നില്ല!</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="127"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="129"/>
         <source>Loading weather...</source>
         <translation>കാലാവസ്ഥ ചുമത്തുന്നു...</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="197"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="199"/>
         <source>Just updated</source>
         <translation>അപ്പോഴേക്കും പുതുക്കിയിട്ടുണ്ട്</translation>
     </message>
@@ -1261,6 +1261,11 @@ Fingerprint List
         <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="61"/>
         <source>Terminal</source>
         <translation>ടെർമിനൽ</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="62"/>
+        <source>File Manager</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3975,7 +3980,13 @@ Key Direction
 <context>
     <name>dcc::personalization::FontListWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="107"/>
+        <source>Search fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="175"/>
         <source> (Unsupported font)</source>
         <translation>(ഉപയോക്തൃ അനുവദിക്കാത്ത ഫോണ്ട്)</translation>
     </message>
@@ -4169,12 +4180,12 @@ Key Direction
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
         <source>Standard Font</source>
         <translation>സ്റ്റാൻഡേർഡ് ഫോണ്ട്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
         <source>Monospaced Font</source>
         <translation>മോണോസ്പേസ്ഡ് ഫോണ്ട്</translation>
     </message>
@@ -4182,86 +4193,119 @@ Key Direction
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>വ്യക്തിഗതീകരണം</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Transparency</source>
         <translation>പരിചയപ്പെടുത്തൽ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Radius (Logout to apply)</source>
         <translation>റേഡിയസ് (അപ്ലൈ ചെയ്യാൻ ലോഗൗട്ട് ചെയ്യുക)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Window Effect</source>
         <translation>വിൻഡോ എഫക്റ്റ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel</source>
         <translation>ഉപരി പാനൽ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Top Panel Global Menu</source>
         <translation>ഉപരി പാനൽ ഗ്ലോബൽ മെനു</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Bottom Panel</source>
         <translation>അടിഭാഗം പാനൽ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Use deepin 20 style launcher</source>
         <translation>ഡീപിൻ 20 സ്റ്റൈൽ ലോഞ്ചർ ഉപയോഗിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
         <source>Hide DDE Dock</source>
         <translation>തടങ്കൽ DDE ഡോക്ക്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>ഡോക്ക്‌സ് മാക് മോഡ്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>കമ്പാക്റ്റ് മോഡ് DTK5 ആപ്പുകളിൽ സജ്ജമാക്കുക (പ്രഭാവം വരുത്താൻ പുന:ലോഗിൻ ചെയ്യുക)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Theme</source>
         <translation>തീം</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Font</source>
         <translation>ഫോണ്ട്</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <source>Wallpaper and Screensaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Video Wallpaper</source>
         <translation>വീഡിയോ വാൾപേപ്പർ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
         <source>Window manager</source>
         <translation>വിൻഡോ മാനേജർ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>ഡിസ്പ്ലേ മാനേജർ</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="476"/>
+        <source>Failed to save font settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="514"/>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="525"/>
+        <source>Refreshing font cache…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="540"/>
+        <source>Font cache refreshed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="541"/>
+        <source>Failed to refresh font cache.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4627,7 +4671,12 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
         <translation>ബൂട്ട് മെനു</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="222"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <source>rolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
         <source>%1Bit</source>
         <translation>%1ബിറ്റ്</translation>
     </message>
@@ -4707,90 +4756,93 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation>പുതുക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>സിസ്റ്റം ആപ്പ്ലിക്കേഷനുകൾ പുതുക്കിയ ശേഷം നല്ല രീതിയിൽ ഉപയോഗിക്കാൻ പുനരാരംഭിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="52"/>
         <source>Refresh</source>
         <translation>പുനരാരംഭിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Select all</source>
-        <translation>അല്ലത് എല്ലാം തിരഞ്ഞെടുക്കുക</translation>
+        <translation type="vanished">അല്ലത് എല്ലാം തിരഞ്ഞെടുക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="64"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>നെറ്റ്‌വർക്ക് ഡിസ്‌കണെക്റ്റഡ്, കണക്റ്റ് ചെയ്ത ശേഷം പുനഃപരീക്ഷിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="110"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>ഈ അപ്ഡേറ്റ് നീണ്ടുനിൽക്കാം, കൃപയായി പ്രക്രിയയിടയിൽ ശട്ട്ഡൗൺ ചെയ്യുകയോ റീബൂട്ട് ചെയ്യുകയോ ചെയ്യാതിരിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="204"/>
         <source>Checking for updates, please wait...</source>
         <translation>അപ്ഡേറ്റുകൾ പരിശോധിക്കുന്നു, കരുതി...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Download and install selected updates</source>
-        <translation>അവലംബിച്ച അപ്ഡേറ്റുകൾ ഡൗൺലോഡ് ചെയ്യുകയും ഇൻസ്റ്റാൾ ചെയ്യുകയും ചെയ്യുക</translation>
+        <translation type="vanished">അവലംബിച്ച അപ്ഡേറ്റുകൾ ഡൗൺലോഡ് ചെയ്യുകയും ഇൻസ്റ്റാൾ ചെയ്യുകയും ചെയ്യുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="209"/>
+        <source>Download and install updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="218"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="321"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>%1% ഡൗൺലോഡ് ചെയ്യപ്പെട്ടു (പോസ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>%1% ഡൗൺലോഡ് ചെയ്തിട്ടുണ്ട് (തുടരാൻ ക്ലിക്ക് ചെയ്യുക)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Install updates</source>
         <translation>അപ്ഡേറ്റുകൾ ഇൻസ്റ്റാൾ ചെയ്യുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="236"/>
         <source>Your system is up to date</source>
         <translation>നിങ്ങളുടെ സിസ്റ്റം അപ്‌ഡേറ്റ് ചെയ്തിരിക്കുന്നു</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="241"/>
         <source>Updating, please wait...</source>
         <translation>അപ്ഡേറ്റ് ചെയ്യുന്നു, കൈവരിക്കുക...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="256"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>നവീനമായ സിസ്റ്റം ഇൻസ്റ്റാൾ ചെയ്തിരിക്കുന്നു, ഫലം വരുത്താൻ പുനരാരംഭിക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="266"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>ഡിസ്ക് സ്പേസ് പര്യാപ്തമല്ല, സിസ്റ്റം അപ്ഡേറ്റ് ചെയ്യാൻ കഴിയില്ല.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>അനുഭവപ്പെടുന്ന പിഴവ്, പുതിയ പതിപ്പുകൾ കണ്ടെത്താനായില്ല</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="293"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>%n ആപ്ലിക്കേഷൻ അപ്ഡേറ്റ്(കൾ) കണ്ടെത്തി</numerusform>
@@ -4798,12 +4850,12 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="298"/>
         <source>New system edition detected</source>
         <translation>പുതിയ സിസ്റ്റം എഡിഷൻ കണ്ടെത്തി</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="300"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>പുതിയ സിസ്റ്റം എഡിഷനും %n ആപ്ലിക്കേഷൻ അപ്ഡേറ്റ്(കൾ) കണ്ടെത്തി</numerusform>
@@ -4811,17 +4863,17 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="306"/>
         <source>Download size: %1</source>
         <translation>ഡൗൺലോഡ് വലുപ്പം: %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="342"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>നിങ്ങളുടെ ബാറ്ററി 50% താഴെയാണ്, തുടരാൻ ചേർക്കുക</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="344"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>പവർ പുനരാരംഭിക്കാനുള്ള പര്യാപ്ത ശക്തി ഉറപ്പാക്കുക, മെഷീൻ പവർ ഓഫ് ചെയ്യുകയോ അല്ലെങ്കിൽ അൺപ്ലഗ് ചെയ്യുകയോ ചെയ്യരുത്</translation>
     </message>
@@ -4829,7 +4881,7 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="125"/>
         <source>Details</source>
         <translation>വിശദാംശങ്ങള്‍</translation>
     </message>
@@ -4901,7 +4953,7 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
     </message>
     <message>
         <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
         <source>Update</source>
         <translation>പുതുക്കുക</translation>
     </message>
@@ -4909,38 +4961,42 @@ fantascene-dynamic-wallpaper ആണ് ശക്തി നൽകുന്നത�
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="420"/>
         <source>Patches</source>
         <translation>പാച്ചുകൾ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="421"/>
         <source>System patches</source>
         <translation>സിസ്റ്റം പാച്ചുകൾ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="529"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates...</source>
         <translation>അപ്ഡേറ്റുകൾ ഡൗൺലോഡ് ചെയ്യുന്നു...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="586"/>
         <source>Updates installed successfully</source>
         <translation>അപ്ഡേറ്റുകൾ വിജയകരമായി ഇൻസ്റ്റാൾ ചെയ്യപ്പെട്ടു</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="551"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="588"/>
         <source>Installing updates from cache...</source>
         <translation>അപ്ഡേറ്റുകൾ കാച്ചിൽ നിന്ന് ഇൻസ്റ്റാൾ ചെയ്യുന്നു...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates... %1</source>
         <translation>അപ്ഡേറ്റുകൾ ഡൗൺലോഡ് ചെയ്യുന്നു... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
         <source>System package update</source>
         <translation>സിസ്റ്റം പാക്കേജ് അപ്ഡേറ്റ്</translation>
     </message>

@@ -55,6 +55,7 @@ public:
 private:
     void showThemeWidget();
     void showFontsWidget();
+    void showWallpaperChooser();
     void showVideoWallpaperWidget();
     void showGxwmWidget();
     void showDisplayManagerWidget();

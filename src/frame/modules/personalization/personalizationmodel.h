@@ -69,6 +69,7 @@ public:
     bool isInstallTopPanel() const;
     bool isInstallBottomPanel() const;
     bool isInstallVideoWallpaper() const;
+    bool isInstallWallpaperChooser() const;
     bool isInstall20Launcher() const;
     bool isWayland() const;
     bool isUse20Launcher() const;

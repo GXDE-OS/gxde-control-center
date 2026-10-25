@@ -330,17 +330,17 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>WeatherWidget</name>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="120"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="122"/>
         <source>Sorry, unable to get weather!</source>
         <translation>抱歉，無法取得天氣！</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="127"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="129"/>
         <source>Loading weather...</source>
         <translation>正在載入天氣…</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="197"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="199"/>
         <source>Just updated</source>
         <translation>剛剛更新</translation>
     </message>
@@ -3953,11 +3953,13 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::FontListWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="175"/>
         <source> (Unsupported font)</source>
         <translation>（不支援的字型）</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="107"/>
         <source>Search fonts</source>
         <translation>搜尋字型</translation>
     </message>
@@ -4151,12 +4153,12 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
         <source>Standard Font</source>
         <translation>標準字型</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
         <source>Monospaced Font</source>
         <translation>等寬字型</translation>
     </message>
@@ -4164,86 +4166,119 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>個人化</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Transparency</source>
         <translation>透明度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Radius (Logout to apply)</source>
         <translation>半徑（登出以套用）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Window Effect</source>
         <translation>視窗特效</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel</source>
         <translation>頂部面板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Top Panel Global Menu</source>
         <translation>頂部全域選單</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Bottom Panel</source>
         <translation>底部面板</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Use deepin 20 style launcher</source>
         <translation>使用 Deepin 20 风格的启动器</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
         <source>Hide DDE Dock</source>
         <translation>隱藏 DDE Dock</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>Dock 的 Mac 模式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>啟用 DTK5 應用程式的緊湊模式（需重新登入生效）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Theme</source>
         <translation>主題</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Font</source>
         <translation>字型設定</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <source>Wallpaper and Screensaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Video Wallpaper</source>
         <translation>影片牆紙</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
         <source>Window manager</source>
         <translation>視窗管理員</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>顯示管理員</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="514"/>
+        <source>Font Settings</source>
+        <translation>字型設定</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="525"/>
+        <source>Refreshing font cache…</source>
+        <translation>正在重新整理字型快取……</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="540"/>
+        <source>Font cache refreshed.</source>
+        <translation>字型快取重新整理完成。</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="541"/>
+        <source>Failed to refresh font cache.</source>
+        <translation>字型快取重新整理失敗。</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="476"/>
+        <source>Failed to save font settings.</source>
+        <translation>字型設定儲存失敗。</translation>
     </message>
 </context>
 <context>
@@ -4617,12 +4652,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>開機選單</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="222"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
         <source>%1Bit</source>
         <translation>%1 位元</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="215"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
         <source>rolling</source>
         <translation>滾動發行</translation>
     </message>
@@ -4702,106 +4737,105 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>請在更新後重開機以正確地使用系統和程式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="52"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Select all</source>
-        <translation>請選取所有</translation>
+        <translation type="vanished">請選取所有</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="64"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>網路已斷線，請在連線後重試</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="110"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>此次更新可能需要較長時間，更新時請勿關機或重新開機</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="204"/>
         <source>Checking for updates, please wait...</source>
         <translation>正在檢查更新，請稍候…</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="209"/>
         <source>Download and install updates</source>
-        <translation type="vanished">下載與安裝更新</translation>
+        <translation>下載與安裝更新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Download and install selected updates</source>
-        <translation>下載並安裝選定的更新</translation>
+        <translation type="vanished">下載並安裝選定的更新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="218"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="321"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>已下載 %1%（點擊暫停）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>已下載 %1% (點選以繼續)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Install updates</source>
         <translation>安裝更新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="236"/>
         <source>Your system is up to date</source>
         <translation>系統已更新到最新版本</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="241"/>
         <source>Updating, please wait...</source>
         <translation>正在更新，請稍候…</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="256"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>重新啟動以套用安裝的更新</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="266"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>硬碟空間不足，無法更新系統。</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>依賴關係發生錯誤，偵測更新失敗</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="293"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>偵測到 %n 個應用程式更新</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="298"/>
         <source>New system edition detected</source>
         <translation>偵測到新版本系統</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="300"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>偵測到新的系統版本和 %n 個應用程式更新</numerusform>
@@ -4812,17 +4846,17 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation type="vanished">已下載</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="306"/>
         <source>Download size: %1</source>
         <translation>下載大小：%1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="342"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>電量低於 50%，請先接上電源</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="344"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>重新啟動前請確保穩定供電，並勿關機或拔除電源</translation>
     </message>
@@ -4830,7 +4864,7 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="125"/>
         <source>Details</source>
         <translation>詳細資訊</translation>
     </message>
@@ -4902,7 +4936,7 @@ Power by fantascene-dynamic-wallpaper</source>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
@@ -4914,38 +4948,42 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="420"/>
         <source>Patches</source>
         <translation>修補程式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="421"/>
         <source>System patches</source>
         <translation>系統修補程式</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="529"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates...</source>
         <translation>下載更新中...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="586"/>
         <source>Updates installed successfully</source>
         <translation>更新已成功安裝</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="551"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="588"/>
         <source>Installing updates from cache...</source>
         <translation>安裝快取中的更新...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates... %1</source>
         <translation>下載更新中... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
         <source>System package update</source>
         <translation>系統套件更新</translation>
     </message>
@@ -5012,29 +5050,6 @@ Power by fantascene-dynamic-wallpaper</source>
         <location filename="../src/frame/modules/display/connectwidget.cpp" line="38"/>
         <source>Connected</source>
         <translation>已連線</translation>
-    </message>
-</context>
-<context>
-    <name>dcc::personalization::PersonalizationWork</name>
-    <message>
-        <source>Font Settings</source>
-        <translation>字型設定</translation>
-    </message>
-    <message>
-        <source>Refreshing font cache…</source>
-        <translation>正在重新整理字型快取……</translation>
-    </message>
-    <message>
-        <source>Font cache refreshed.</source>
-        <translation>字型快取重新整理完成。</translation>
-    </message>
-    <message>
-        <source>Failed to refresh font cache.</source>
-        <translation>字型快取重新整理失敗。</translation>
-    </message>
-    <message>
-        <source>Failed to save font settings.</source>
-        <translation>字型設定儲存失敗。</translation>
     </message>
 </context>
 </TS>

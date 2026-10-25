@@ -331,17 +331,17 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
 <context>
     <name>WeatherWidget</name>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="120"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="122"/>
         <source>Sorry, unable to get weather!</source>
         <translation>Beklager - kan ikke hente vejret!</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="127"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="129"/>
         <source>Loading weather...</source>
         <translation>Indlæser vejret...</translation>
     </message>
     <message>
-        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="197"/>
+        <location filename="../src/frame/plugins/weather/weatherwidget.cpp" line="199"/>
         <source>Just updated</source>
         <translation>Netop opdateret</translation>
     </message>
@@ -1253,6 +1253,11 @@ Hvis ikke der handles, så gendannes skærmen om %1s.</translation>
         <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="61"/>
         <source>Terminal</source>
         <translation>Terminal</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/defapp/defappviewer.cpp" line="62"/>
+        <source>File Manager</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3949,7 +3954,13 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::FontListWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="89"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="107"/>
+        <source>Search fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/fontswidget/fontlistwidget.cpp" line="175"/>
         <source> (Unsupported font)</source>
         <translation> (ikke-understøttet skrifttype)</translation>
     </message>
@@ -4143,12 +4154,12 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="190"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
         <source>Standard Font</source>
         <translation>Standardskrifttype</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="199"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
         <source>Monospaced Font</source>
         <translation>Skifttype med fast bredde</translation>
     </message>
@@ -4156,86 +4167,119 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="147"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>Personlig tilpasning</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="52"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
         <source>Transparency</source>
         <translation>Gennemsigtighed</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Radius (Logout to apply)</source>
         <translation>Radius (Log ud for at anvende)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
         <source>Window Effect</source>
         <translation>Vindueffekt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
         <source>Top Panel</source>
         <translation>Top Panel</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
         <source>Top Panel Global Menu</source>
         <translation>Top Panel Global Menu</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
         <source>Bottom Panel</source>
         <translation>Bundpanelet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
         <source>Use deepin 20 style launcher</source>
         <translation>Brug deepin 20-stilafsender</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
         <source>Hide DDE Dock</source>
         <translation>Skjul DDE Dock</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>Dock&apos;s Mac Mode</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>Aktiver Kompakt tilstand på DTK5-apps (Genloggning for at ændringen træder i kraft)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
         <source>Theme</source>
         <translation>Tema</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Font</source>
         <translation>Skrifttype</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <source>Wallpaper and Screensaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Video Wallpaper</source>
         <translation>Videovægpapir</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="117"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
         <source>Window manager</source>
         <translation>Vindueshåndtering</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>Skærmhåndtering</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::PersonalizationWork</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="476"/>
+        <source>Failed to save font settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="514"/>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="525"/>
+        <source>Refreshing font cache…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="540"/>
+        <source>Font cache refreshed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwork.cpp" line="541"/>
+        <source>Failed to refresh font cache.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4609,7 +4653,12 @@ Drevet af fantascene-dynamic-wallpaper</translation>
         <translation>Opstartsmenu</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="222"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <source>rolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
         <source>%1Bit</source>
         <translation>%1Bit</translation>
     </message>
@@ -4689,94 +4738,93 @@ Drevet af fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateCtrlWidget</name>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="71"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="128"/>
         <location filename="../src/frame/navigationbar.cpp" line="305"/>
         <source>Update</source>
         <translation>Opdatering</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="67"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Please restart to use the system and applications properly after updated</source>
         <translation>Genstart venligst for at bruge systemet og programmerne ordentligt efter opdatering</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="52"/>
         <source>Refresh</source>
         <translation>Opdater</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="63"/>
         <source>Select all</source>
-        <translation>Vælg alle</translation>
+        <translation type="vanished">Vælg alle</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="68"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="64"/>
         <source>Network disconnected, please retry after connected</source>
         <translation>Netværk deaktiveret. Prøv venligst når forbindelsen er oprettet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="122"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="110"/>
         <source>This update may take a long time, please do not shut down or reboot during the process</source>
         <translation>Denne opdatering kan tage lang tid, så luk ikke ned eller genstarter under processen</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="204"/>
         <source>Checking for updates, please wait...</source>
         <translation>Søger efter opdateringer, vent venligst...</translation>
     </message>
     <message>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="209"/>
         <source>Download and install updates</source>
-        <translation type="vanished">Download og installer opdateringer</translation>
+        <translation>Download og installer opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Download and install selected updates</source>
-        <translation>Hent og installér de valgte opdateringer</translation>
+        <translation type="vanished">Hent og installér de valgte opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="240"/>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="345"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="218"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="321"/>
         <source>%1% downloaded (Click to pause)</source>
         <translation>%1% downloadet (klik for at pause)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="246"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="223"/>
         <source>%1% downloaded (Click to continue)</source>
         <translation>%1% downloadet (klik for at fortsætte)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="253"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="229"/>
         <source>Install updates</source>
         <translation>Installer opdateringer</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="260"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="236"/>
         <source>Your system is up to date</source>
         <translation>Dit system er opdateret</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="265"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="241"/>
         <source>Updating, please wait...</source>
         <translation>Opdaterer, vent venligst...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="280"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="256"/>
         <source>The newest system installed, restart to take effect</source>
         <translation>Nyeste system installeret, genstart for at træde i kraft</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="290"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="266"/>
         <source>Insufficient disk space, unable to update system.</source>
         <translation>Ikke tilstrækkelig diskplads, kan ikke opdatere system.</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="295"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="271"/>
         <source>Dependency error, failed to detect the updates</source>
         <translation>Afhængighedsfejl, kunne ikke registrere opdateringerne</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="317"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="293"/>
         <source>%n application update(s) detected</source>
         <translation>
             <numerusform>%n programopdatering registreret</numerusform>
@@ -4784,12 +4832,12 @@ Drevet af fantascene-dynamic-wallpaper</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="322"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="298"/>
         <source>New system edition detected</source>
         <translation>Ny systemudgave registreret</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="324"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="300"/>
         <source>New system edition and %n application update(s) detected</source>
         <translation>
             <numerusform>Ny systemudgave og %n programopdatering registreret</numerusform>
@@ -4801,17 +4849,17 @@ Drevet af fantascene-dynamic-wallpaper</translation>
         <translation type="vanished">Downloadet</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="330"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="306"/>
         <source>Download size: %1</source>
         <translation>Downloadstørrelse: %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="403"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="342"/>
         <source>Your battery is lower than 50%, please plug in to continue</source>
         <translation>Dit batteri er under 50%, tilslut venligst strømforsyningen for at fortsætte</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="405"/>
+        <location filename="../src/frame/modules/update/updatectrlwidget.cpp" line="344"/>
         <source>Please ensure sufficient power to restart, and don&apos;t power off or unplug your machine</source>
         <translation>Sørg venligst for tilstrækkeligt med strøm til genstart, og sluk ikke eller frakobl strømforsyningen fra din maskine</translation>
     </message>
@@ -4819,7 +4867,7 @@ Drevet af fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateItem</name>
     <message>
-        <location filename="../src/frame/modules/update/updateitem.cpp" line="127"/>
+        <location filename="../src/frame/modules/update/updateitem.cpp" line="125"/>
         <source>Details</source>
         <translation>Detaljer</translation>
     </message>
@@ -4891,7 +4939,7 @@ Drevet af fantascene-dynamic-wallpaper</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="77"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
         <source>Update</source>
         <translation>Opdatering</translation>
     </message>
@@ -4903,38 +4951,42 @@ Drevet af fantascene-dynamic-wallpaper</translation>
 <context>
     <name>dcc::update::UpdateWorker</name>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="392"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="420"/>
         <source>Patches</source>
         <translation>Rettelser</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="393"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="421"/>
         <source>System patches</source>
         <translation>Systemrettelser</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="496"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="529"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates...</source>
         <translation>Henter opdateringer...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="509"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="586"/>
         <source>Updates installed successfully</source>
         <translation>Opdateringer installeret succesfuldt</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="511"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="551"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="588"/>
         <source>Installing updates from cache...</source>
         <translation>Installer opdateringer fra cache...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="514"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="545"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="591"/>
         <source>Downloading updates... %1</source>
         <translation>Henter opdateringer... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="659"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
         <source>System package update</source>
         <translation>Systempakkeopdatering</translation>
     </message>

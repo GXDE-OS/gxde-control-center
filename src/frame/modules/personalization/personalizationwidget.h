@@ -50,6 +50,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void showThemeWidget();
     void showFontsWidget();
+    void showWallpaperChooserWidget();
     void showVideoWallpaperWidget();
     void showGxwmWidget();
     void showDisplayManagerWidget();

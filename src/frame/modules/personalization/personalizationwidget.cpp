@@ -86,6 +86,7 @@ PersonalizationWidget::PersonalizationWidget()
     m_centralLayout->addWidget(m_userGroup);
     NextPageWidget *theme = new NextPageWidget;
     NextPageWidget *font  = new NextPageWidget;
+    NextPageWidget *wallpaperChooser  = new NextPageWidget;
     NextPageWidget *videoWallpaper  = new NextPageWidget;
 
     m_wmSwitch = new SwitchWidget(tr("Window Effect"));
@@ -105,10 +106,15 @@ PersonalizationWidget::PersonalizationWidget()
 
     theme->setTitle(tr("Theme"));
     font->setTitle(tr("Font"));
+    wallpaperChooser->setTitle(tr("Wallpaper and Screensaver"));
     videoWallpaper->setTitle(tr("Video Wallpaper"));
 
     m_userGroup->appendItem(theme);
     m_userGroup->appendItem(font);
+    // 判断系统有没有安装壁纸与屏保选择器
+    if(m_model->isInstallWallpaperChooser()) {
+        m_userGroup->appendItem(wallpaperChooser);
+    }
     // 判断系统有没有安装动态壁纸
     if(m_model->isInstallVideoWallpaper()) {
         m_userGroup->appendItem(videoWallpaper);
@@ -150,6 +156,8 @@ PersonalizationWidget::PersonalizationWidget()
             &PersonalizationWidget::showThemeWidget);
     connect(font, &NextPageWidget::clicked, this,
             &PersonalizationWidget::showFontsWidget);
+    connect(wallpaperChooser, &NextPageWidget::clicked, this,
+            &PersonalizationWidget::showWallpaperChooserWidget);
     connect(videoWallpaper, &NextPageWidget::clicked, this,
             &PersonalizationWidget::showVideoWallpaperWidget);
     connect(gxwm, &NextPageWidget::clicked, this,

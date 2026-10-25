@@ -201,6 +201,11 @@ bool PersonalizationModel::isInstallVideoWallpaper() const
     return QFile::exists("/usr/bin/fantascene-dynamic-wallpaper");
 }
 
+bool PersonalizationModel::isInstallWallpaperChooser() const
+{
+    return QFile::exists("/usr/bin/gxde-wallpaper-chooser");
+}
+
 bool PersonalizationModel::isInstallBottomPanel() const
 {
     return QFile::exists("/usr/bin/plank");
