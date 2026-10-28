@@ -27,7 +27,6 @@
 #include "personalizationwidget.h"
 #include "personalizationmodel.h"
 #include "personalizationwork.h"
-#include "sessionenvironment.h"
 #include "module/themewidget/themewidget.h"
 #include "module/fontswidget/fontswidget.h"
 #include "module/fontswidget/fontlistwidget.h"
@@ -136,8 +135,6 @@ void PersonalizationModule::showWallpaperChooser()
 {
     QProcess process;
     process.setProgram(QStringLiteral("gxde-wallpaper-chooser"));
-    // 使用会话原始环境，避免继承 dtk 改写过的环境导致子进程窗口装饰异常
-    process.setProcessEnvironment(dcc::sessionEnvironment());
     if (!process.startDetached()) {
         qWarning("Failed to start gxde-wallpaper-chooser");
     }
@@ -175,7 +172,7 @@ void PersonalizationModule::showBlurSettingsWindow()
 
     QProcess process;
     process.setProgram(executable);
-    QProcessEnvironment environment = dcc::sessionEnvironment();
+    QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
     environment.remove(QStringLiteral("QT_WAYLAND_SHELL_INTEGRATION"));
     process.setProcessEnvironment(environment);
     if (!process.startDetached()) {

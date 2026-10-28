@@ -133,7 +133,6 @@ set(FRAME_FILES
                 notify/brightnessmodel.h
                 notify/brightnessmodel.cpp
                 dbuscontrolcenterservice.h
-                sessionenvironment.h
                 frame.cpp
                 frame.h
                 framewidget.cpp
