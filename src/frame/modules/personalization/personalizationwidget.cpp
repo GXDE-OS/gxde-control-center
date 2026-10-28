@@ -116,9 +116,9 @@ PersonalizationWidget::PersonalizationWidget()
         m_userGroup->appendItem(wallpaperChooser);
     }
     // 判断系统有没有安装动态壁纸
-    if(m_model->isInstallVideoWallpaper()) {
-        m_userGroup->appendItem(videoWallpaper);
-    }
+    //if(m_model->isInstallVideoWallpaper()) {
+    //    m_userGroup->appendItem(videoWallpaper);
+    //}
     // 仅 Wayland 会话且 WM 广播 gxde-identifier-v1 时显示
     NextPageWidget *gxwm = new NextPageWidget;
     gxwm->setTitle(tr("Window manager"));
