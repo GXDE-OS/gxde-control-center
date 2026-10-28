@@ -1,3 +1,11 @@
+gxde-control-center (6.1.5) UNRELEASED; urgency=medium
+
+  [ shenmo ]
+  * 移除启动外部程序时的会话环境快照（dtk2widget 6.3.8 起会自动还原被改写的
+    QT_QPA_PLATFORM / QT_STYLE_OVERRIDE，子进程不再需要单独处理）
+
+ -- shenmo <shenmo@spark-app.store>  Wed, 28 Oct 2026 22:11:00 +0800
+
 gxde-control-center (6.1.4) UNRELEASED; urgency=medium
 
   [ shenmo ]
