@@ -72,6 +72,7 @@ class QuickControlPanel : public QWidget
 
 public:
     explicit QuickControlPanel(QWidget *parent = 0);
+    ~QuickControlPanel();
 
     void setAllSettingsVisible(const bool visible);
     void setMPRISEnable(const bool enable);

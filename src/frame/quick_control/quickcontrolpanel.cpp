@@ -43,6 +43,7 @@
 #include <QVBoxLayout>
 #include <QProcess>
 #include <QProcessEnvironment>
+#include <QThread>
 #include <networkmodel.h>
 #include <networkworker.h>
 
@@ -313,6 +314,16 @@ QuickControlPanel::QuickControlPanel(QWidget *parent)
     onBluetoothDeviceEnableChanged();
     onBluetoothDeviceListChanged();
 #endif
+}
+
+QuickControlPanel::~QuickControlPanel()
+{
+    // NetworkModel does not stop its thread when it is deleted, and deleting
+    // a running QThread aborts.
+    for (QThread *thread : m_networkModel->findChildren<QThread *>()) {
+        thread->quit();
+        thread->wait();
+    }
 }
 
 void QuickControlPanel::reconnectDisplaySwitch()

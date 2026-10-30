@@ -40,6 +40,7 @@
 #include "connectionwirelesseditpage.h"
 
 #include <networkworker.h>
+#include <QThread>
 #include <networkmodel.h>
 #include <networkdevice.h>
 #include <wirelessdevice.h>
@@ -63,6 +64,15 @@ NetworkModule::NetworkModule(FrameProxyInterface *frame, QObject *parent)
 
 NetworkModule::~NetworkModule()
 {
+    // NetworkModel does not stop its thread when it is deleted, and deleting
+    // a running QThread aborts.
+    if (m_networkModel) {
+        for (QThread *thread : m_networkModel->findChildren<QThread *>()) {
+            thread->quit();
+            thread->wait();
+        }
+    }
+
     m_networkModel->deleteLater();
     m_networkWorker->deleteLater();
 }

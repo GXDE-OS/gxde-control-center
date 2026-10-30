@@ -1018,7 +1018,28 @@ foreach(LETTER ${BUILD_MACRO})
     add_build_macro(${LETTER})
 endforeach()
 
-set(OBJECT_DIR "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${BIN_NAME}.dir")
+# The old QWidget shell. Everything else goes into dcc-common, which both
+# frontends use.
+set(LEGACY_SHELL_FILES
+    main.cpp
+    dbuscontrolcenterservice.cpp
+    dbuscontrolcenterservice.h
+    framecontentwrapper.cpp
+    framecontentwrapper.h
+    frame.cpp
+    frame.h
+    framewidget.cpp
+    framewidget.h
+    mainwidget.cpp
+    mainwidget.h
+    navigationbar.cpp
+    navigationbar.h
+    settingswidget.cpp
+    settingswidget.h
+)
+list(REMOVE_ITEM SRCS ${LEGACY_SHELL_FILES})
+
+set(OBJECT_DIR "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/dcc-common.dir")
 file(MAKE_DIRECTORY "${OBJECT_DIR}")
 foreach(SRC_FILE ${SRCS})
     get_filename_component(SRC_DIR "${SRC_FILE}" DIRECTORY)
@@ -1027,8 +1048,8 @@ foreach(SRC_FILE ${SRCS})
     endif()
 endforeach()
 
-add_executable(${BIN_NAME} ${SRCS} ${QRC})
-target_include_directories(${BIN_NAME} PUBLIC
+add_library(dcc-common OBJECT ${SRCS} ${QRC})
+target_include_directories(dcc-common PUBLIC
     ${DTK2WIDGET_INCLUDE_DIR}
     ${DtkCore_INCLUDE_DIRS}
     ${XCB_EWMH_INCLUDE_DIRS}
@@ -1043,7 +1064,7 @@ target_include_directories(${BIN_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(${BIN_NAME} PRIVATE
+target_link_libraries(dcc-common PUBLIC
     ${XCB_EWMH_LIBRARIES}
     DFrameworkdbusQt6::DFrameworkdbusQt6
     ${Dtk2widget_LIBRARIES}
@@ -1065,12 +1086,27 @@ target_link_libraries(${BIN_NAME} PRIVATE
 )
 
 if (LayerShellQt_FOUND)
-    target_link_libraries(${BIN_NAME} PRIVATE LayerShellQt::Interface)
-    target_compile_definitions(${BIN_NAME} PRIVATE HAS_LAYER_SHELL)
+    target_link_libraries(dcc-common PUBLIC LayerShellQt::Interface)
+    target_compile_definitions(dcc-common PUBLIC HAS_LAYER_SHELL)
 endif()
 
 if (DEFINED DCC_UPDATE_USE_PACKAGEKIT)
-    target_link_libraries(${BIN_NAME} PRIVATE PK::packagekitqt6)
+    target_link_libraries(dcc-common PUBLIC PK::packagekitqt6)
+endif()
+
+# Module headers use the DISABLE_* macros. Pass them on, so src/quick sees
+# the same classes.
+get_directory_property(DCC_COMMON_DEFINITIONS COMPILE_DEFINITIONS)
+target_compile_definitions(dcc-common PUBLIC ${DCC_COMMON_DEFINITIONS})
+
+if (NOT DCC_QML_FRONTEND)
+    add_executable(${BIN_NAME} ${LEGACY_SHELL_FILES})
+    target_link_libraries(${BIN_NAME} PRIVATE dcc-common)
+endif()
+
+if (DCC_QML_FRONTEND)
+    # src/quick builds and installs the binary.
+    return()
 endif()
 
 # bin
