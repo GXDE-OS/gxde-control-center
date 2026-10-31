@@ -1,4 +1,4 @@
 TRANSHELL_CONTENT_QUIT_TEST_DIALOG="您已加入内测，是否退出？"
 TRANSHELL_CONTENT_JOIN_TEST_DIALOG="您是否确认要加入内测组\n\n加入内测组可体验最新的功能和修复，但也可能带来不稳定的问题\n建议有一定经验的用户加入\n\n您需要联网以加入内测"
-TRANSHELL_CONTENT_JOIN_USER_GROUP="恭喜，您已成功地加入内测\n\n您可加入我们的QQ群来反馈问题\n群号: 881201853"
+TRANSHELL_CONTENT_JOIN_USER_GROUP="恭喜，您已成功地加入内测\n\n您可加入我们的群来反馈问题\n即将打开浏览器以展示群聊信息"
 TRANSHELL_CONTENT_ERROR_IN_PROCESS="出现错误! 请重试或向我们反馈."

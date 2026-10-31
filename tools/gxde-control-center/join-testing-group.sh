@@ -21,7 +21,7 @@ else
             exit -1
         fi
         garma --info --text="${TRANSHELL_CONTENT_JOIN_USER_GROUP}"
-        xdg-open ${HERE}/QQ.jpg &
+        xdg-open "https://www.gxde.top/install/#%E6%B2%9F%E9%80%9A%E6%B8%A0%E9%81%93" &
         garma --info --width=300 --text="Discord：https://discord.gg/t5Uf2xYpvA" &
     else
         exit

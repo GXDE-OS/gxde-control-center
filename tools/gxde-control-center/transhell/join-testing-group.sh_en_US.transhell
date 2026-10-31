@@ -1,4 +1,4 @@
 TRANSHELL_CONTENT_QUIT_TEST_DIALOG="You've already been Internal Testing Group. Do you want to quit?"
 TRANSHELL_CONTENT_JOIN_TEST_DIALOG="Are you sure to join Internal Testing Group?\n\nJoin the testing to experience the latest features, but be aware that it may come with stability issues. \nRecommended for experienced users.\n\nYou need internet connection when joining."
-TRANSHELL_CONTENT_JOIN_USER_GROUP="Sucsessfully joined the Internal Testing Group. Enjoy\n\nYou should join our QQ Group to feedback\nGroup number: 881201853"
+TRANSHELL_CONTENT_JOIN_USER_GROUP="Sucsessfully joined the Internal Testing Group. Enjoy\n\nYou can join our group to report issues.\nA browser will open shortly to show the group chat information."
 TRANSHELL_CONTENT_ERROR_IN_PROCESS="Error occured during the process! Please retry or feedback."
