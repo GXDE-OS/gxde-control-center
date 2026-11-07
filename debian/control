@@ -27,7 +27,8 @@ Build-Depends: debhelper (>= 9),
  libxcb-ewmh-dev,
  qt6-multimedia-dev,
  libwayland-dev,
- liblayershellqtinterface-dev
+ liblayershellqtinterface-dev,
+ libcrypt-dev
 Standards-Version: 3.9.5
 Homepage: https://gitee.com/GXDE-OS/gxde-control-center
 
