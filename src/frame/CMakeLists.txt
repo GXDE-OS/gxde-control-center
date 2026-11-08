@@ -345,6 +345,14 @@ set(ACCOUNTS_FILES
                 modules/accounts/fingerpage.h
                 modules/accounts/fingerworker.cpp
                 modules/accounts/fingerworker.h
+                modules/accounts/facemodel.cpp
+                modules/accounts/facemodel.h
+                modules/accounts/faceworker.cpp
+                modules/accounts/faceworker.h
+                modules/accounts/facepage.cpp
+                modules/accounts/facepage.h
+                modules/accounts/addfacepage.cpp
+                modules/accounts/addfacepage.h
                 modules/accounts/modifyavatarpage.cpp
                 modules/accounts/modifyavatarpage.h
                 modules/accounts/modifyfullnamepage.cpp

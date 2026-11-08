@@ -32,6 +32,9 @@
 #include "fingerpage.h"
 #include "addfingerpage.h"
 #include "fingermodel.h"
+#include "facepage.h"
+#include "addfacepage.h"
+#include "facemodel.h"
 
 #ifdef DCC_ENABLE_ADDOMAIN
 #include "widgets/addialog.h"
@@ -63,10 +66,17 @@ void AccountsModule::initialize()
     m_fingerModel->moveToThread(qApp->thread());
     m_fingerWorker->moveToThread(qApp->thread());
 
+    m_faceModel = new FaceModel;
+    m_faceWorker = new FaceWorker(m_faceModel);
+
+    m_faceModel->moveToThread(qApp->thread());
+    m_faceWorker->moveToThread(qApp->thread());
+
     m_accountsWorker->active();
 
     connect(m_accountsWorker, &AccountsWorker::requestFrameAutoHide, this, &AccountsModule::setFrameAutoHide);
     connect(m_fingerWorker, &FingerWorker::requestShowAddThumb, this, &AccountsModule::showAddThumb);
+    connect(m_faceWorker, &FaceWorker::requestShowAddFace, this, &AccountsModule::showAddFace);
 }
 
 void AccountsModule::moduleActive()
@@ -169,7 +179,9 @@ void AccountsModule::showAccountsDetail(User *account)
 {
     AccountsDetailWidget *w = new AccountsDetailWidget(account);
     m_fingerWorker->refreshDevice();
+    m_faceWorker->refreshDevice();
     w->setFingerModel(m_fingerModel);
+    w->setFaceModel(m_faceModel);
 
     connect(w, &AccountsDetailWidget::requestSetAutoLogin, m_accountsWorker, &AccountsWorker::setAutoLogin);
     connect(w, &AccountsDetailWidget::requestDeleteAccount, m_accountsWorker, &AccountsWorker::deleteAccount);
@@ -177,6 +189,7 @@ void AccountsModule::showAccountsDetail(User *account)
     connect(w, &AccountsDetailWidget::showAvatarSettings, this, &AccountsModule::showAvatarPage);
     connect(w, &AccountsDetailWidget::showFullnameSettings, this, &AccountsModule::showFullnamePage);
     connect(w, &AccountsDetailWidget::showFingerSettings, this, &AccountsModule::showFingerPage);
+    connect(w, &AccountsDetailWidget::showFaceSettings, this, &AccountsModule::showFacePage);
     connect(w, &AccountsDetailWidget::requestNopasswdLogin, m_accountsWorker, &AccountsWorker::setNopasswdLogin);
 
     connect(w, &AccountsDetailWidget::requestChangeFrameAutoHide, this, [this] (const bool autoHide) {
@@ -223,6 +236,35 @@ void AccountsModule::showAddThumb(const QString &name, const QString &thumb)
     connect(page, &AddFingerPage::requestSaveThumb, m_fingerWorker, &FingerWorker::saveEnroll);
     connect(page, &AddFingerPage::requestReEnrollStart, m_fingerWorker, &FingerWorker::reEnrollStart);
     connect(page, &AddFingerPage::back, m_fingerWorker, &FingerWorker::stopEnroll);
+
+    m_frameProxy->pushWidget(this, page);
+}
+
+void AccountsModule::showFacePage(User *account)
+{
+    m_faceWorker->refreshUserFaces(account->name());
+
+    dcc::accounts::FacePage *page = new FacePage(account);
+    page->setFaceModel(m_faceModel);
+
+    connect(page, &FacePage::requestAddFace, m_faceWorker, &FaceWorker::enrollStart);
+    connect(page, &FacePage::requestDeleteFace, m_faceWorker, &FaceWorker::deleteFace);
+    connect(page, &FacePage::requestCleanFaces, this, [this] (User *user) {
+        m_faceWorker->cleanFaces(user->name());
+    });
+
+    m_frameProxy->pushWidget(this, page);
+}
+
+void AccountsModule::showAddFace(const QString &name)
+{
+    AddFacePage *page = new AddFacePage;
+    page->setFaceModel(m_faceModel);
+    page->setUsername(name);
+
+    connect(page, &AddFacePage::requestSaveFace, m_faceWorker, &FaceWorker::saveFace);
+    connect(page, &AddFacePage::requestReEnrollStart, m_faceWorker, &FaceWorker::reEnrollStart);
+    connect(page, &AddFacePage::back, m_faceWorker, &FaceWorker::stopEnroll);
 
     m_frameProxy->pushWidget(this, page);
 }

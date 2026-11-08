@@ -40,6 +40,7 @@ using com::deepin::daemon::fprintd::Device;
 namespace dcc {
 namespace accounts {
 class FingerModel;
+class FaceModel;
 class AccountsDetailWidget : public ContentWidget
 {
     Q_OBJECT
@@ -47,12 +48,14 @@ class AccountsDetailWidget : public ContentWidget
 public:
     explicit AccountsDetailWidget(User *user, QWidget *parent = 0);
     void setFingerModel(FingerModel *model);
+    void setFaceModel(FaceModel *model);
 
 Q_SIGNALS:
     void showPwdSettings(User *user) const;
     void showAvatarSettings(User *user) const;
     void showFullnameSettings(User *user) const;
     void showFingerSettings(User *user) const;
+    void showFaceSettings(User *user) const;
 
     void requestDeleteAccount(User *user, const bool deleteHome) const;
     void requestSetAutoLogin(User *user, const bool autoLogin) const;
@@ -72,6 +75,7 @@ private:
     dcc::widgets::SwitchWidget *m_autoLogin;
     dcc::widgets::SwitchWidget *m_nopasswdLogin;
     dcc::widgets::NextPageWidget *m_finger;
+    dcc::widgets::NextPageWidget *m_face;
     QPushButton *m_deleteAccount;
 };
 

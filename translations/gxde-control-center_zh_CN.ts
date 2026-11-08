@@ -616,6 +616,11 @@ If no operation, the display will be restored after %1s.</source>
         <source>Fingerprint Password</source>
         <translation>指纹密码</translation>
     </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/accountsdetailwidget.cpp" line="81"/>
+        <source>Face Password</source>
+        <translation>人脸密码</translation>
+    </message>
 </context>
 <context>
     <name>dcc::accounts::AccountsWidget</name>
@@ -678,6 +683,89 @@ If no operation, the display will be restored after %1s.</source>
         <location filename="../src/frame/modules/accounts/accountsworker.cpp" line="462"/>
         <source>AD domain settings</source>
         <translation>AD域设置</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::accounts::AddFacePage</name>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="37"/>
+        <source>Add Face</source>
+        <translation>添加人脸</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="53"/>
+        <source>Re-enter</source>
+        <translation>重新录入</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="54"/>
+        <source>Done</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="107"/>
+        <source>Added successfully</source>
+        <translation>成功添加人脸</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="128"/>
+        <source>Liveness detection failed, please face the camera with your real face</source>
+        <translation>活体检测未通过，请用真实面部面对摄像头</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="130"/>
+        <source>Please center your face in the frame</source>
+        <translation>请将面部对准取景框中央</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="132"/>
+        <source>Your face is too close to the camera, please move away a little</source>
+        <translation>面部离摄像头太近，请稍微远离</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="134"/>
+        <source>Your face is too small, please move closer to the camera</source>
+        <translation>面部太小，请靠近摄像头</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="136"/>
+        <source>No face detected, please look at the camera</source>
+        <translation>未检测到人脸，请正对摄像头</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="138"/>
+        <source>Multiple faces detected, please make sure you are the only one in the frame</source>
+        <translation>检测到多张人脸，请确保画面中只有您一人</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="140"/>
+        <source>The face is not clear, please adjust the light or distance</source>
+        <translation>人脸不清晰，请调整光线或距离</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="142"/>
+        <source>The ambient light is too bright or too dark, please adjust the lighting</source>
+        <translation>环境光线过亮或过暗，请调整光线</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="144"/>
+        <source>Please do not cover your face</source>
+        <translation>请勿遮挡面部</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="148"/>
+        <source>Enroll failed, please try again</source>
+        <translation>录入失败，请重试</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="150"/>
+        <source>Please look at the camera</source>
+        <translation>请正视摄像头</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/addfacepage.cpp" line="142"/>
+        <source>The camera only sees dark frames, please check the infrared emitter or the ambient light</source>
+        <translation>摄像头画面全黑或过暗，请检查红外补光器或环境光线</translation>
     </message>
 </context>
 <context>
@@ -777,6 +865,39 @@ If no operation, the display will be restored after %1s.</source>
         <location filename="../src/frame/modules/accounts/createpage.cpp" line="276"/>
         <source>The password must contain English letters (case-sensitive), numbers or special symbols (~!@#$%^&amp;*()[]{}\|/?,.&lt;&gt;)</source>
         <translation>密码必须包含英文（区分大小写）、数字或特殊符号（~!@#$%^&amp;*()[]{}\|/?,.&lt;&gt;）</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::accounts::FacePage</name>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="40"/>
+        <source>Face List</source>
+        <translation>人脸列表</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="43"/>
+        <source>Face Password</source>
+        <translation>人脸密码</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="46"/>
+        <source>Add Face</source>
+        <translation>添加人脸</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="49"/>
+        <source>Clear Face</source>
+        <translation>清除人脸</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="53"/>
+        <source>Face password is used in system login, application authorization and other scenes. Look at the camera when password needed.</source>
+        <translation>人脸密码可用于系统登录、应用授权等地方，在需要输入密码的时候面对摄像头即可</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/accounts/facepage.cpp" line="106"/>
+        <source>Face</source>
+        <translation>人脸</translation>
     </message>
 </context>
 <context>

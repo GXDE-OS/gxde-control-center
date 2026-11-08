@@ -98,6 +98,9 @@ if (NOT DEFINED DCC_UPDATE_USE_PACKAGEKIT)
     install(FILES com.gxde.controlcenter.update.policy DESTINATION share/polkit-1/actions)
 endif()
 install(FILES com.gxde.controlcenter.gxdm-autologin.policy DESTINATION share/polkit-1/actions)
+
+# 人脸录入免密授权:活动会话通过 pkexec 调用 howdy CLI 时不再弹密码
+install(FILES files/com.github.boltgolt.howdy.policy DESTINATION share/polkit-1/actions)
 if (OS_DEEPIN_PROFESSIONAL)
     if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
         install(FILES com.deepin.controlcenter.addomain.policy DESTINATION share/polkit-1/actions)

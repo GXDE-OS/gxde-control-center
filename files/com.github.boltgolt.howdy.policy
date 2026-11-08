@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD polkit Policy Configuration 1.0//EN"
+  "https://specifications.freedesktop.org/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>boltgolt</vendor>
+  <vendor_url>https://github.com/boltgolt/howdy</vendor_url>
+  <icon_name>howdy</icon_name>
+
+  <!-- Face model management (add/remove/clear/list) from the desktop
+       enrollment GUI: passwordless for the active local session.
+       The howdy CLI itself restricts pkexec invocations to the calling
+       user's own account and to these four commands (see src/cli.py). -->
+  <action id="com.github.boltgolt.howdy.cli">
+    <description>Manage howdy face models</description>
+    <message>Authentication is required to manage face models</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/python3</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">/usr/lib/howdy/cli.py</annotate>
+  </action>
+</policyconfig>

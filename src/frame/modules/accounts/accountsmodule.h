@@ -33,6 +33,8 @@
 #include "usermodel.h"
 #include "fingermodel.h"
 #include "fingerworker.h"
+#include "facemodel.h"
+#include "faceworker.h"
 
 #include <com_deepin_daemon_accounts.h>
 
@@ -66,6 +68,8 @@ private:
     void showCreateAccountPage();
     void showFingerPage(User *account);
     void showAddThumb(const QString &name, const QString &thumb);
+    void showFacePage(User *account);
+    void showAddFace(const QString &name);
     void contentPopped(ContentWidget * const w);
 
 #ifdef DCC_ENABLE_ADDOMAIN
@@ -83,6 +87,9 @@ private:
 
     FingerWorker *m_fingerWorker;
     FingerModel *m_fingerModel;
+
+    FaceWorker *m_faceWorker;
+    FaceModel *m_faceModel;
 };
 
 }   // namespace accounts

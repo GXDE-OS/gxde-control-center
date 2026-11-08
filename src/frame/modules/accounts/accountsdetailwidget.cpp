@@ -27,6 +27,7 @@
 #include "widgets/nextpagewidget.h"
 #include "widgets/translucentframe.h"
 #include "fingermodel.h"
+#include "facemodel.h"
 
 #include <QVBoxLayout>
 #include <QDebug>
@@ -47,6 +48,7 @@ AccountsDetailWidget::AccountsDetailWidget(User *user, QWidget *parent)
       m_autoLogin(new SwitchWidget),
       m_nopasswdLogin(new SwitchWidget),
       m_finger(new NextPageWidget),
+      m_face(new NextPageWidget),
       m_deleteAccount(new QPushButton)
 {
     m_modifyAvatar->setTitle(tr("Modify Avatar"));
@@ -77,6 +79,9 @@ AccountsDetailWidget::AccountsDetailWidget(User *user, QWidget *parent)
 
     SettingsGroup *fingerGrp = new SettingsGroup;
     fingerGrp->appendItem(m_finger);
+
+    m_face->setTitle(tr("Face Password"));
+    fingerGrp->appendItem(m_face);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addSpacing(10);
@@ -111,6 +116,7 @@ AccountsDetailWidget::AccountsDetailWidget(User *user, QWidget *parent)
     connect(m_modifyFullname, &NextPageWidget::clicked, [=] { Q_EMIT showFullnameSettings(user); });
     connect(m_nopasswdLogin, &SwitchWidget::checkedChanged, [=] (const bool nopasswdLogin) { Q_EMIT requestNopasswdLogin(user, nopasswdLogin);});
     connect(m_finger, &NextPageWidget::clicked, this, [=] { Q_EMIT showFingerSettings(user);});
+    connect(m_face, &NextPageWidget::clicked, this, [=] { Q_EMIT showFaceSettings(user);});
 
     setContent(mainWidget);
     setTitle(user->displayName());
@@ -131,6 +137,11 @@ AccountsDetailWidget::AccountsDetailWidget(User *user, QWidget *parent)
 void AccountsDetailWidget::setFingerModel(FingerModel *model)
 {
     m_finger->setVisible(model->isVaild());
+}
+
+void AccountsDetailWidget::setFaceModel(FaceModel *model)
+{
+    m_face->setVisible(model->isValid());
 }
 
 void AccountsDetailWidget::deleteUserClicked()
