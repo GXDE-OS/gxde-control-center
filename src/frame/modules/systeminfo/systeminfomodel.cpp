@@ -24,6 +24,11 @@
  */
 
 #include "systeminfomodel.h"
+#include "dsysinfo.h"
+
+#include <QSettings>
+
+DCORE_USE_NAMESPACE
 
 namespace dcc{
 namespace systeminfo{
@@ -126,7 +131,18 @@ void SystemInfoModel::setBackground(const QPixmap &background)
 #endif
 
 void SystemInfoModel::setDistroID(const QString &distroid) {
-    const QString value = unquoteDistroValue(distroid);
+    QString value = unquoteDistroValue(distroid);
+    if (value.isEmpty()) {
+        // Sadly, deepin-daemon only reads /etc/lsb-release.
+        // On Feodra we don't have that file, and we need to fallback to /etc/os-release.
+        // DsysInfo::operatingSystemName() does this and gets a pretty name w/ version num.
+        // Guys, that's ALL WE NEED!!
+        value = QSettings(QStringLiteral("/etc/os-release"), QSettings::IniFormat).value(QStringLiteral("NAME")).toString();
+        if (value.isEmpty()) {
+            value = DSysInfo::operatingSystemName();
+        }
+    }
+
     if(m_distroid == value) {
         return;
     }
@@ -136,7 +152,11 @@ void SystemInfoModel::setDistroID(const QString &distroid) {
 }
 
 void SystemInfoModel::setDistroVer(const QString &distrover) {
-    const QString value = unquoteDistroValue(distrover);
+    QString value = unquoteDistroValue(distrover);
+    if (value.isEmpty()) {
+        value = DSysInfo::productVersion();
+    }
+
     if(m_distrover == value) {
         return;
     }
