@@ -1,3 +1,12 @@
+gxde-control-center (6.1.6) UNRELEASED; urgency=medium
+
+  * 解决Wayland下加入内测对话框糊满屏幕的问题 (关闭GitHub Issue #2)
+  * 解决Wayland下无法加入内测的问题 (关闭GitHub Issue #2)
+  * 新增对Feodra软件包更新的支持 (通过PackageKit)
+  * 新增对Fedora关于页面显示distro名称和版本的支持
+
+ -- CharOfString <root@charofstring.cc>  Mon, 09 Nov 2026 14:11:44 -0600
+
 gxde-control-center (6.1.5) UNRELEASED; urgency=medium
 
   [ shenmo ]
