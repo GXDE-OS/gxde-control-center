@@ -191,6 +191,12 @@ SystemInfoWidget::SystemInfoWidget(SystemInfoModel* model)
     //connect(m_model, SIGNAL(xdgSessionTypeChanged(QString)), this, SLOT(setXdgSessionType(QString)));
 
     setType(m_model->type());
+
+    // When the model already have data, changed will not be sent.
+    // Explicitly re-sync, otherwise the distro info will keep hiding on Fedora.
+    if (!m_model->distroid().isEmpty()) {
+        setDistroID(m_model->distroid());
+    }
 }
 
 void SystemInfoWidget::setDistroID(const QString &distroid)

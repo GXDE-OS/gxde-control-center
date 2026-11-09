@@ -531,7 +531,7 @@ void UpdateWorker::distUpgradePackages(const QStringList &packages)
     m_aptssStderr.clear();
 
 #ifdef DCC_UPDATE_USE_PACKAGEKIT
-    PackageKit::Transaction *transaction = PackageKit::Daemon::updatePackages(m_pkPackageIds.values());
+    PackageKit::Transaction *transaction = PackageKit::Daemon::updatePackages(m_pkPackageIds);
     connect(transaction, &PackageKit::Transaction::percentageChanged, this, [this, transaction] {
         if (transaction->percentage() <= 100) {
             m_model->setUpgradeProgress(transaction->percentage() / 100.0);
@@ -679,17 +679,29 @@ QString UpdateWorker::updateWorkerPath() const
 
 QString UpdateWorker::packageDisplayName(const QString &packageName) const
 {
-    QProcess process;
 #ifdef DCC_UPDATE_USE_PACKAGEKIT
-    process.start("pacman", QStringList() << "-Qlq" << packageName);
+    const QList<QStringList> fileListCommands = {
+        {QStringLiteral("pacman"), QStringLiteral("-Qlq")},
+        {QStringLiteral("rpm"), QStringLiteral("-ql")},
+    };
 #else
-    process.start("dpkg-query", QStringList() << "-L" << packageName);
+    const QList<QStringList> fileListCommands = {
+        {QStringLiteral("dpkg-query"), QStringLiteral("-L")},
+    };
 #endif
-    process.waitForFinished(1000);
+
+    QString output;
+    for (const QStringList &command : fileListCommands) {
+        QProcess process;
+        process.start(command.first(), QStringList() << command.last() << packageName);
+        if (process.waitForFinished(1000) && process.exitStatus() == QProcess::NormalExit && process.exitCode() == 0) {
+            output = QString::fromLocal8Bit(process.readAllStandardOutput());
+            break;
+        }
+    }
 
     const QStringList languageKeys = DesktopNameLanguageKeys();
     QString fallbackName;
-    const QString output = QString::fromLocal8Bit(process.readAllStandardOutput());
     for (const QString &path : output.split('\n', Qt::SkipEmptyParts)) {
         const QString desktopPath = path.trimmed();
         if (!desktopPath.startsWith(QStringLiteral("/usr/share/applications/")) || !desktopPath.endsWith(QStringLiteral(".desktop"))) {
@@ -894,15 +906,22 @@ void UpdateWorker::runPackageKitGetUpdates()
             return;
         }
 
+        // Fedora 的 multilib 包（如 glibc.x86_64 和 glibc.i686）同名不同架构，
+        // 必须全部提交更新，否则事务会因版本不一致失败；列表中只显示一次
+        m_pkPackageIds << packageId;
+        const QString packageName = PackageKit::Transaction::packageName(packageId);
+        if (m_updatablePackages.contains(packageName)) {
+            return;
+        }
+
         AppUpdateInfo update;
-        update.m_packageId = PackageKit::Transaction::packageName(packageId);
+        update.m_packageId = packageName;
         update.m_name = packageDisplayName(update.m_packageId);
         update.m_avilableVersion = PackageKit::Transaction::packageVersion(packageId);
         update.m_changelog = summary.isEmpty() ? tr("System package update") : summary;
 
         *infos << update;
         m_updatablePackages << update.m_packageId;
-        m_pkPackageIds.insert(update.m_packageId, packageId);
     });
 
     runPackageKitTransaction(transaction, [this, infos] {
@@ -920,7 +939,7 @@ void UpdateWorker::runPackageKitGetUpdates()
 void UpdateWorker::runPackageKitDownloadSize(const QList<AppUpdateInfo> &infos)
 {
     auto downloadSize = std::make_shared<qlonglong>(0);
-    PackageKit::Transaction *transaction = PackageKit::Daemon::getDetails(m_pkPackageIds.values());
+    PackageKit::Transaction *transaction = PackageKit::Daemon::getDetails(m_pkPackageIds);
     connect(transaction, &PackageKit::Transaction::details, this, [downloadSize](const PackageKit::Details &details) {
         *downloadSize += details.value(QStringLiteral("download-size")).toLongLong();
     });
