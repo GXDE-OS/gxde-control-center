@@ -31,6 +31,7 @@
 #include <ddialog.h>
 #include <QFile>
 #include <QProcess>
+#include <QProcessEnvironment>
 #include <unistd.h>
 #include <QDBusMessage>
 #include <QDBusConnection>
@@ -103,16 +104,29 @@ void UpdateView::ExecUpgrader()
 
 void UpdateView::ShowTesingDialog()
 {
-    QProcess process;
+    QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
     // QProcess 提供的 QT_QPA_PLATFORM 默认为空，会导致启动 dtk2 应用异常，需强制指定一个 QT_QPA_PLATFORM
-    if (DApplication::isWayland()) {
-        process.start("bash", QStringList() << "-c" << "env QT_QPA_PLATFORM='wayland' bash /usr/share/gxde-control-center/join-testing-group.sh");
+
+    // There is issue of not able to enroll internal testing on Wayland sessions (GitHub Issue #2)
+    // See: https://github.com/GXDE-OS/gxde-control-center/issues/2
+    // Detect the session first.
+    environment.insert(QStringLiteral("QT_QPA_PLATFORM"),
+                       DApplication::isWayland() ? QStringLiteral("wayland")
+                                                 : QStringLiteral("dxcb;xcb;dwayland;wayland"));
+
+    // The child process will also gain layer shell integration, and that is something we don't want to see.
+    // Remove it.
+    environment.remove(QStringLiteral("QT_WAYLAND_SHELL_INTEGRATION"));
+
+    QProcess process;
+    process.setProgram(QStringLiteral("bash"));
+    process.setArguments({QStringLiteral("/usr/share/gxde-control-center/join-testing-group.sh")});
+    process.setProcessEnvironment(environment);
+
+    // Don't block and wait for the script to finish, or we will stuck forever.
+    if (!process.startDetached()) {
+        qWarning() << "Failed to start join-testing-group.sh";
     }
-    else {
-        process.start("bash", QStringList() << "-c" << "env QT_QPA_PLATFORM='dxcb;xcb;dwayland;wayland' bash /usr/share/gxde-control-center/join-testing-group.sh");
-    }
-    process.waitForStarted();
-    process.waitForFinished(-1);
 }
 
 void UpdateView::DisabledUpgradeNotifications()
