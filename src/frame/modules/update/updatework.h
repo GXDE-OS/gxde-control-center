@@ -153,7 +153,7 @@ private:
     QPointer<PackageKit::Transaction> m_pkTransaction;
     PackageKit::Transaction::Error m_pkError;
     QString m_pkErrorDetails;
-    QMap<QString, QString> m_pkPackageIds;
+    QStringList m_pkPackageIds;
 #endif
 };
 }
