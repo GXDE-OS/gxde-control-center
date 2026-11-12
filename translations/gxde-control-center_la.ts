@@ -154,14 +154,6 @@ If no operation, the display will be restored after %1s.</source>
     </message>
 </context>
 <context>
-    <name>SearchInput</name>
-    <message>
-        <location filename="../src/frame/widgets/searchinput.cpp" line="42"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SetLocationPage</name>
     <message>
         <location filename="../src/frame/plugins/weather/setlocationpage.cpp" line="50"/>
@@ -171,19 +163,6 @@ If no operation, the display will be restored after %1s.</source>
     <message>
         <location filename="../src/frame/plugins/weather/setlocationpage.cpp" line="142"/>
         <source>Current City: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SettingsHead</name>
-    <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="51"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="55"/>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1749,6 +1728,11 @@ Power by x11vnc</source>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="109"/>
+        <source></source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3992,79 +3976,142 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">Cursus muris screenae salutatoriae (globalis)</translation>
+        <translation type="obsolete">Cursus muris screenae salutatoriae (globalis)</translation>
     </message>
 </context>
 <context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="94"/>
         <source>Switch to the X11 welcome screen frontend (restart required)</source>
         <translation>Transi ad frontale X11 screenae salutatoriae (requiritur reinitium)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>Charta picta screenae salutatoriae (globalis)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="99"/>
         <source>Change wallpaper</source>
         <translation>Mutare chartam pictam</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Imagines (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="104"/>
         <source>Restore default wallpaper</source>
         <translation>Restituere chartam pictam praestitutam</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="109"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Cursus muris screenae salutatoriae (globalis)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
-        <translation>Procurator screenae claudendae</translation>
+        <translation type="vanished">Procurator screenae claudendae</translation>
+    </message>
+    <message>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="vanished">Eligere chartam pictam screenae claudendae</translation>
+    </message>
+    <message>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="vanished">Restituere chartam pictam praestitutam screenae claudendae</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
-        <source>Choose lock screen wallpaper</source>
-        <translation>Eligere chartam pictam screenae claudendae</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
-        <source>Restore default lock screen wallpaper</source>
-        <translation>Restituere chartam pictam praestitutam screenae claudendae</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>Munera experimentalia</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Noli tangere optiones infra nisi scis quid facias</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>Procurator ostentus</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxlockWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="100"/>
+        <source>Lock screen style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="101"/>
+        <source>Classic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="104"/>
+        <source>Modern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="114"/>
+        <source>Lock screen wallpaper (current user)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="115"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="unfinished">Eligere chartam pictam screenae claudendae</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="125"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation type="unfinished">Imagines (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="119"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="unfinished">Restituere chartam pictam praestitutam screenae claudendae</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="122"/>
+        <source>Lock screen wallpaper (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="124"/>
+        <source>Change wallpaper</source>
+        <translation type="unfinished">Mutare chartam pictam</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="128"/>
+        <source>Restore default wallpaper</source>
+        <translation type="unfinished">Restituere chartam pictam praestitutam</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="132"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="134"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="147"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4143,12 +4190,22 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="202"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">Cursus muris screenae salutatoriae (globalis)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="212"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="224"/>
         <source>Standard Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="233"/>
         <source>Monospaced Font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4156,91 +4213,96 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="160"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="55"/>
         <source>Radius (Logout to apply)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
         <source>Window Effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
         <source>Top Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
         <source>Top Panel Global Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="99"/>
         <source>Bottom Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Use deepin 20 style launcher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Hide DDE Dock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
         <source>Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Wallpaper and Screensaver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="111"/>
         <source>Video Wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="125"/>
         <source>Window manager</source>
         <translation>Procurator fenestrarum</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="130"/>
         <source>Display manager</source>
         <translation>Procurator ostentus</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4633,12 +4695,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="220"/>
         <source>rolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="230"/>
         <source>%1Bit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4896,18 +4958,18 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="60"/>
         <source>Internal Testing Group Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="63"/>
         <source>Disabled Upgrade Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="50"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="80"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4949,8 +5011,8 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="752"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="921"/>
         <source>System package update</source>
         <translation type="unfinished"></translation>
     </message>

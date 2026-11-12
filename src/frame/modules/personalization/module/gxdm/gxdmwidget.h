@@ -24,12 +24,9 @@ class QDBusInterface;
 
 namespace dcc {
 namespace widgets {
-class FileChooseWidget;
 class SwitchWidget;
 }
 namespace personalization {
-
-class ThemeModel;
 
 class GxdmWidget : public ContentWidget {
     Q_OBJECT
@@ -37,6 +34,7 @@ class GxdmWidget : public ContentWidget {
 public:
     explicit GxdmWidget(QWidget *parent = nullptr);
     static bool isAvailable();
+    static QDBusInterface *createInterface(QObject *parent = nullptr);
 
 Q_SIGNALS:
     void requestFrameKeepAutoHide(const bool autoHide) const;
@@ -45,7 +43,6 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onGreeterServerChanged(bool enabled);
     void onWallpaperChanged(const QString &path);
-    void onLockWallpaperChanged(const QString &path);
 
 private:
     void refresh();
@@ -53,19 +50,6 @@ private:
 private:
     QDBusInterface *m_displayManagerIface;
     widgets::SwitchWidget *m_x11GreeterSwitch;
-    widgets::FileChooseWidget *m_lockWallpaperChooser;
-};
-
-// 欢迎界面鼠标指针主题的二级页面
-class GxdmCursorThemeWidget : public ContentWidget {
-    Q_OBJECT
-
-public:
-    explicit GxdmCursorThemeWidget(ThemeModel *cursorModel,
-        QWidget *parent = nullptr);
-
-private:
-    QDBusInterface *m_displayManagerIface;
 };
 
 }  // namespace personalization

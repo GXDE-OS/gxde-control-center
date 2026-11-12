@@ -60,6 +60,8 @@ private:
     void showGxwmWidget();
     void showDisplayManagerWidget();
     void showGreeterCursorThemes();
+    void showLockScreenWidget();
+    void showLockCursorThemes();
     void showBlurSettingsWindow();
     void showStanardFontsListWidget();
     void showMonoFontsListWidget();

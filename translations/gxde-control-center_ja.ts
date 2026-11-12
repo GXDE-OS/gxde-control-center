@@ -156,9 +156,8 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SearchInput</name>
     <message>
-        <location filename="../src/frame/widgets/searchinput.cpp" line="42"/>
         <source>Search</source>
-        <translation>検索</translation>
+        <translation type="vanished">検索</translation>
     </message>
 </context>
 <context>
@@ -177,14 +176,12 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SettingsHead</name>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="51"/>
         <source>Edit</source>
-        <translation>編集</translation>
+        <translation type="vanished">編集</translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="55"/>
         <source>Cancel</source>
-        <translation>キャンセル</translation>
+        <translation type="vanished">キャンセル</translation>
     </message>
 </context>
 <context>
@@ -1760,6 +1757,11 @@ Powered by x11vnc</translation>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>キーボードレイアウト</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="109"/>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
@@ -4002,79 +4004,142 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">ウェルカム画面のマウスカーソル（グローバル）</translation>
+        <translation type="obsolete">ウェルカム画面のマウスカーソル（グローバル）</translation>
     </message>
 </context>
 <context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="94"/>
         <source>Switch to the X11 welcome screen frontend (restart required)</source>
         <translation>X11 ウェルカム画面フロントエンドに切り替える（再起動が必要）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>ウェルカム画面の壁紙（グローバル）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="99"/>
         <source>Change wallpaper</source>
         <translation>壁紙を変更</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>画像 (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="104"/>
         <source>Restore default wallpaper</source>
         <translation>デフォルトの壁紙に戻す</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="109"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>ウェルカム画面のマウスカーソル（グローバル）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
-        <translation>ロック画面マネージャー</translation>
+        <translation type="vanished">ロック画面マネージャー</translation>
+    </message>
+    <message>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="vanished">ロック画面の壁紙を選択</translation>
+    </message>
+    <message>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="vanished">デフォルトのロック画面壁紙に戻す</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
-        <source>Choose lock screen wallpaper</source>
-        <translation>ロック画面の壁紙を選択</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
-        <source>Restore default lock screen wallpaper</source>
-        <translation>デフォルトのロック画面壁紙に戻す</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>実験的な機能</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>何をしているか分からない場合は、以下の設定を操作しないでください</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>ディスプレイマネージャー</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxlockWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="100"/>
+        <source>Lock screen style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="101"/>
+        <source>Classic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="104"/>
+        <source>Modern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="114"/>
+        <source>Lock screen wallpaper (current user)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="115"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="unfinished">ロック画面の壁紙を選択</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="125"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation type="unfinished">画像 (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="119"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="unfinished">デフォルトのロック画面壁紙に戻す</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="122"/>
+        <source>Lock screen wallpaper (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="124"/>
+        <source>Change wallpaper</source>
+        <translation type="unfinished">壁紙を変更</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="128"/>
+        <source>Restore default wallpaper</source>
+        <translation type="unfinished">デフォルトの壁紙に戻す</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="132"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="134"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="147"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4153,12 +4218,22 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="202"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">ウェルカム画面のマウスカーソル（グローバル）</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="212"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="224"/>
         <source>Standard Font</source>
         <translation>標準のフォント</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="233"/>
         <source>Monospaced Font</source>
         <translation>等幅フォント</translation>
     </message>
@@ -4166,91 +4241,96 @@ Powered by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="160"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>パーソナライズ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Transparency</source>
         <translation>透明度</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="55"/>
         <source>Radius (Logout to apply)</source>
         <translation>半径（適用するにはログアウト）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
         <source>Window Effect</source>
         <translation>ウィンドウ効果</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
         <source>Top Panel</source>
         <translation>トップパネル</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
         <source>Top Panel Global Menu</source>
         <translation>トップパネル グローバル メニュー</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="99"/>
         <source>Bottom Panel</source>
         <translation>ボトムパネル</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Use deepin 20 style launcher</source>
         <translation>ディープイン 20 スタイルのランチャーを使用</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Hide DDE Dock</source>
         <translation>DDE Dockを非表示</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>DockのMacモード</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>コンパクトモードを有効にする（DTK5アプリの再ログインで反映）</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Theme</source>
         <translation>テーマ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
         <source>Font</source>
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Wallpaper and Screensaver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="111"/>
         <source>Video Wallpaper</source>
         <translation>ビデオウォールペーパー</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="125"/>
         <source>Window manager</source>
         <translation>ウィンドウマネージャー</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="130"/>
         <source>Display manager</source>
         <translation>ディスプレイマネージャー</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4647,12 +4727,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>起動メニュー</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="220"/>
         <source>rolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="230"/>
         <source>%1Bit</source>
         <translation>%1Bit</translation>
     </message>
@@ -4920,18 +5000,18 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="60"/>
         <source>Internal Testing Group Settings</source>
         <translation>内部テストグループ設定</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="63"/>
         <source>Disabled Upgrade Notifications</source>
         <translation>無効なアップグレード通知</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="50"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="80"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
@@ -4977,8 +5057,8 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>ダウンロード中... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="752"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="921"/>
         <source>System package update</source>
         <translation>システムパッケージの更新</translation>
     </message>

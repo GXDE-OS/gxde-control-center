@@ -157,9 +157,8 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SearchInput</name>
     <message>
-        <location filename="../src/frame/widgets/searchinput.cpp" line="42"/>
         <source>Search</source>
-        <translation>חיפוש</translation>
+        <translation type="vanished">חיפוש</translation>
     </message>
 </context>
 <context>
@@ -178,14 +177,12 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SettingsHead</name>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="51"/>
         <source>Edit</source>
-        <translation>ערוך</translation>
+        <translation type="vanished">ערוך</translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="55"/>
         <source>Cancel</source>
-        <translation>ביטול</translation>
+        <translation type="vanished">ביטול</translation>
     </message>
 </context>
 <context>
@@ -1764,6 +1761,11 @@ Power by x11vnc</source>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>פריסת מקלדת</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="109"/>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
@@ -4006,79 +4008,142 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">סמן עכבר של מסך הפתיחה (גלובלי)</translation>
+        <translation type="obsolete">סמן עכבר של מסך הפתיחה (גלובלי)</translation>
     </message>
 </context>
 <context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="94"/>
         <source>Switch to the X11 welcome screen frontend (restart required)</source>
         <translation>מעבר לחזית X11 של מסך הפתיחה (נדרש אתחול מחדש)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>טפט מסך הפתיחה (גלובלי)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="99"/>
         <source>Change wallpaper</source>
         <translation>שינוי טפט</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>תמונות (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="104"/>
         <source>Restore default wallpaper</source>
         <translation>שחזור טפט ברירת המחדל</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="109"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>סמן עכבר של מסך הפתיחה (גלובלי)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
-        <translation>מנהל מסך הנעילה</translation>
+        <translation type="vanished">מנהל מסך הנעילה</translation>
+    </message>
+    <message>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="vanished">בחירת טפט למסך הנעילה</translation>
+    </message>
+    <message>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="vanished">שחזור טפט ברירת המחדל של מסך הנעילה</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
-        <source>Choose lock screen wallpaper</source>
-        <translation>בחירת טפט למסך הנעילה</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
-        <source>Restore default lock screen wallpaper</source>
-        <translation>שחזור טפט ברירת המחדל של מסך הנעילה</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>תכונות ניסיוניות</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>אל תיגע בהגדרות שלהלן אלא אם כן אתה יודע מה אתה עושה</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>מנהל תצוגה</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxlockWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="100"/>
+        <source>Lock screen style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="101"/>
+        <source>Classic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="104"/>
+        <source>Modern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="114"/>
+        <source>Lock screen wallpaper (current user)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="115"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="unfinished">בחירת טפט למסך הנעילה</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="125"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation type="unfinished">תמונות (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="119"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="unfinished">שחזור טפט ברירת המחדל של מסך הנעילה</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="122"/>
+        <source>Lock screen wallpaper (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="124"/>
+        <source>Change wallpaper</source>
+        <translation type="unfinished">שינוי טפט</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="128"/>
+        <source>Restore default wallpaper</source>
+        <translation type="unfinished">שחזור טפט ברירת המחדל</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="132"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="134"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="147"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4157,12 +4222,22 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="202"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">סמן עכבר של מסך הפתיחה (גלובלי)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="212"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="224"/>
         <source>Standard Font</source>
         <translation>גופן סטנדרטי</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="233"/>
         <source>Monospaced Font</source>
         <translation>גופן חד-מרחק</translation>
     </message>
@@ -4170,91 +4245,96 @@ Power by x11vnc</source>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="160"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>התאמה אישית</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Transparency</source>
         <translation>שקיפות</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="55"/>
         <source>Radius (Logout to apply)</source>
         <translation>רדיוס (יציאה כדי ליישם)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
         <source>Window Effect</source>
         <translation>חלקת חלון</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
         <source>Top Panel</source>
         <translation>לוח העליון</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
         <source>Top Panel Global Menu</source>
         <translation>לוחית העליונה תפריט גלובלי</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="99"/>
         <source>Bottom Panel</source>
         <translation>לוח תחתון</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Use deepin 20 style launcher</source>
         <translation>השתמש בלונצ&apos;ר בסגנון deepin 20</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Hide DDE Dock</source>
         <translation>הסתר תיבה DDE</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>דוקס מוד מק</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>הפעל את מצב הקומפקט DTK5 (חובה להתחבר מחדש כדי שהשינוי ייפעל)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Theme</source>
         <translation>עיצוב</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
         <source>Font</source>
         <translation>גופן</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Wallpaper and Screensaver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="111"/>
         <source>Video Wallpaper</source>
         <translation>וידאו רקע</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="125"/>
         <source>Window manager</source>
         <translation>מנהל חלונות</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="130"/>
         <source>Display manager</source>
         <translation>מנהל תצוגה</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4648,12 +4728,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>תפריט אתחול</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="220"/>
         <source>rolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="230"/>
         <source>%1Bit</source>
         <translation>%1ביט</translation>
     </message>
@@ -4923,18 +5003,18 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="60"/>
         <source>Internal Testing Group Settings</source>
         <translation>הגדרות קבוצה למבחן פנימי</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="63"/>
         <source>Disabled Upgrade Notifications</source>
         <translation>התראות עדכון מושבתות</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="50"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="80"/>
         <source>Update</source>
         <translation>עדכון</translation>
     </message>
@@ -4976,8 +5056,8 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>הורדת עדכונים... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="752"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="921"/>
         <source>System package update</source>
         <translation>עדכון חבילת מערכת</translation>
     </message>

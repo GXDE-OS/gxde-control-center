@@ -156,9 +156,8 @@ Nếu không thao tác, màn hình sẽ tự động khôi phục sau %1s.</tran
 <context>
     <name>SearchInput</name>
     <message>
-        <location filename="../src/frame/widgets/searchinput.cpp" line="42"/>
         <source>Search</source>
-        <translation>Tìm kiếm</translation>
+        <translation type="vanished">Tìm kiếm</translation>
     </message>
 </context>
 <context>
@@ -177,14 +176,12 @@ Nếu không thao tác, màn hình sẽ tự động khôi phục sau %1s.</tran
 <context>
     <name>SettingsHead</name>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="51"/>
         <source>Edit</source>
-        <translation>Chỉnh sửa</translation>
+        <translation type="vanished">Chỉnh sửa</translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="55"/>
         <source>Cancel</source>
-        <translation>Hủy</translation>
+        <translation type="vanished">Hủy</translation>
     </message>
 </context>
 <context>
@@ -1763,6 +1760,11 @@ Power by x11vnc</translation>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>Bố trí bàn phím</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="109"/>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
@@ -4005,79 +4007,142 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">Con trỏ chuột màn hình chào mừng (toàn cục)</translation>
+        <translation type="obsolete">Con trỏ chuột màn hình chào mừng (toàn cục)</translation>
     </message>
 </context>
 <context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="94"/>
         <source>Switch to the X11 welcome screen frontend (restart required)</source>
         <translation>Chuyển sang giao diện X11 của màn hình chào mừng (cần khởi động lại)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>Hình nền màn hình chào mừng (toàn cục)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="99"/>
         <source>Change wallpaper</source>
         <translation>Thay đổi hình nền</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>Hình ảnh (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="104"/>
         <source>Restore default wallpaper</source>
         <translation>Khôi phục hình nền mặc định</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="109"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>Con trỏ chuột màn hình chào mừng (toàn cục)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
-        <translation>Trình quản lý màn hình khóa</translation>
+        <translation type="vanished">Trình quản lý màn hình khóa</translation>
+    </message>
+    <message>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="vanished">Chọn hình nền màn hình khóa</translation>
+    </message>
+    <message>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="vanished">Khôi phục hình nền màn hình khóa mặc định</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
-        <source>Choose lock screen wallpaper</source>
-        <translation>Chọn hình nền màn hình khóa</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
-        <source>Restore default lock screen wallpaper</source>
-        <translation>Khôi phục hình nền màn hình khóa mặc định</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>Tính năng thử nghiệm</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>Đừng thay đổi các cài đặt bên dưới trừ khi bạn biết mình đang làm gì</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>Trình quản lý màn hình</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxlockWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="100"/>
+        <source>Lock screen style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="101"/>
+        <source>Classic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="104"/>
+        <source>Modern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="114"/>
+        <source>Lock screen wallpaper (current user)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="115"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="unfinished">Chọn hình nền màn hình khóa</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="125"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation type="unfinished">Hình ảnh (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="119"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="unfinished">Khôi phục hình nền màn hình khóa mặc định</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="122"/>
+        <source>Lock screen wallpaper (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="124"/>
+        <source>Change wallpaper</source>
+        <translation type="unfinished">Thay đổi hình nền</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="128"/>
+        <source>Restore default wallpaper</source>
+        <translation type="unfinished">Khôi phục hình nền mặc định</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="132"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="134"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="147"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4156,12 +4221,22 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="202"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">Con trỏ chuột màn hình chào mừng (toàn cục)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="212"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="224"/>
         <source>Standard Font</source>
         <translation>Font chữ Chuẩn</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="233"/>
         <source>Monospaced Font</source>
         <translation>Font chữ Đơn cách</translation>
     </message>
@@ -4169,91 +4244,96 @@ Power by x11vnc</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="160"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>Cá nhân hóa</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Transparency</source>
         <translation>Độ minh bạch</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="55"/>
         <source>Radius (Logout to apply)</source>
         <translation>Bán kính (Đăng xuất để áp dụng)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
         <source>Window Effect</source>
         <translation>Cửa Sổ Hiệu Ứng</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
         <source>Top Panel</source>
         <translation>Bảng điều khiển trên cùng</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
         <source>Top Panel Global Menu</source>
         <translation>Menu Toàn Cục Bảng Điều Khiển</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="99"/>
         <source>Bottom Panel</source>
         <translation>Bảng dưới</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Use deepin 20 style launcher</source>
         <translation>Sử dụng trình khởi động theo phong cách deepin 20</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Hide DDE Dock</source>
         <translation>Ẩn DDE Dock</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>Chế độ Mac của Dock</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>Bật chế độ Compact trên ứng dụng DTK5 (Cần đăng nhập lại để có hiệu lực)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Theme</source>
         <translation>Chủ đề</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
         <source>Font</source>
         <translation>Phông chữ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Wallpaper and Screensaver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="111"/>
         <source>Video Wallpaper</source>
         <translation>Video nền</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="125"/>
         <source>Window manager</source>
         <translation>Trình quản lý cửa sổ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="130"/>
         <source>Display manager</source>
         <translation>Trình quản lý màn hình</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4647,12 +4727,12 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>Danh sách Khởi động</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="220"/>
         <source>rolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="230"/>
         <source>%1Bit</source>
         <translation>%1Bit</translation>
     </message>
@@ -4916,18 +4996,18 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="60"/>
         <source>Internal Testing Group Settings</source>
         <translation>Nhóm Cài Đặt Kiểm Tra Nội Bộ</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="63"/>
         <source>Disabled Upgrade Notifications</source>
         <translation>Thông báo nâng cấp bị vô hiệu hóa</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="50"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="80"/>
         <source>Update</source>
         <translation>Cập nhật</translation>
     </message>
@@ -4973,8 +5053,8 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation>Tải cập nhật... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="752"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="921"/>
         <source>System package update</source>
         <translation>Cập nhật gói hệ thống</translation>
     </message>

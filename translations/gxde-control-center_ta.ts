@@ -157,9 +157,8 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SearchInput</name>
     <message>
-        <location filename="../src/frame/widgets/searchinput.cpp" line="42"/>
         <source>Search</source>
-        <translation>தேடு</translation>
+        <translation type="vanished">தேடு</translation>
     </message>
 </context>
 <context>
@@ -178,14 +177,12 @@ If no operation, the display will be restored after %1s.</source>
 <context>
     <name>SettingsHead</name>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="51"/>
         <source>Edit</source>
-        <translation>தொகு</translation>
+        <translation type="vanished">தொகு</translation>
     </message>
     <message>
-        <location filename="../src/frame/widgets/settingshead.cpp" line="55"/>
         <source>Cancel</source>
-        <translation>நிறுத்து</translation>
+        <translation type="vanished">நிறுத்து</translation>
     </message>
 </context>
 <context>
@@ -1761,6 +1758,11 @@ x11vnc மூலம் இயங்குகிறது</translation>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="108"/>
         <source>Keyboard Layout</source>
         <translation>விசைப்பலகை அமைப்பை</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="109"/>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/frame/modules/keyboard/keyboardwidget.cpp" line="116"/>
@@ -4003,79 +4005,142 @@ x11vnc மூலம் இயங்குகிறது</translation>
 <context>
     <name>dcc::personalization::GxdmCursorThemeWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="181"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="193"/>
         <source>Welcome screen mouse cursor (global)</source>
-        <translation type="unfinished">வரவேற்புத் திரை சுட்டி கர்சர் (உலகளாவிய)</translation>
+        <translation type="obsolete">வரவேற்புத் திரை சுட்டி கர்சர் (உலகளாவிய)</translation>
     </message>
 </context>
 <context>
     <name>dcc::personalization::GxdmWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="90"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="94"/>
         <source>Switch to the X11 welcome screen frontend (restart required)</source>
         <translation>X11 வரவேற்புத் திரை முன்பகுதிக்கு மாறவும் (மறுதொடக்கம் தேவை)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="93"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
         <source>Welcome screen wallpaper (global)</source>
         <translation>வரவேற்புத் திரை வால்பேப்பர் (உலகளாவிய)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="99"/>
         <source>Change wallpaper</source>
         <translation>வால்பேப்பரை மாற்று</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="97"/>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="100"/>
         <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
         <translation>படங்கள் (*.png *.jpg *.jpeg *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="101"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="104"/>
         <source>Restore default wallpaper</source>
         <translation>இயல்புநிலை வால்பேப்பரை மீட்டமை</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="106"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="109"/>
         <source>Welcome screen mouse cursor (global)</source>
         <translation>வரவேற்புத் திரை சுட்டி கர்சர் (உலகளாவிய)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Select mouse cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="111"/>
         <source>Lock screen manager</source>
-        <translation>பூட்டுத் திரை மேலாளர்</translation>
+        <translation type="vanished">பூட்டுத் திரை மேலாளர்</translation>
+    </message>
+    <message>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="vanished">பூட்டுத் திரை வால்பேப்பரைத் தேர்வு செய்</translation>
+    </message>
+    <message>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="vanished">இயல்புநிலை பூட்டுத் திரை வால்பேப்பரை மீட்டமை</translation>
     </message>
     <message>
         <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="114"/>
-        <source>Choose lock screen wallpaper</source>
-        <translation>பூட்டுத் திரை வால்பேப்பரைத் தேர்வு செய்</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="119"/>
-        <source>Restore default lock screen wallpaper</source>
-        <translation>இயல்புநிலை பூட்டுத் திரை வால்பேப்பரை மீட்டமை</translation>
-    </message>
-    <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="122"/>
         <source>Experimental features</source>
         <translation>சோதனை அம்சங்கள்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="116"/>
         <source>Do not touch the settings below unless you know what you are doing</source>
         <translation>என்ன செய்கிறீர்கள் என்று தெரியாவிட்டால் கீழே உள்ள அமைப்புகளை மாற்ற வேண்டாம்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="138"/>
+        <location filename="../src/frame/modules/personalization/module/gxdm/gxdmwidget.cpp" line="129"/>
         <source>Display manager</source>
         <translation>காட்சி மேலாளர்</translation>
+    </message>
+</context>
+<context>
+    <name>dcc::personalization::GxlockWidget</name>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="100"/>
+        <source>Lock screen style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="101"/>
+        <source>Classic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="104"/>
+        <source>Modern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="114"/>
+        <source>Lock screen wallpaper (current user)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="115"/>
+        <source>Choose lock screen wallpaper</source>
+        <translation type="unfinished">பூட்டுத் திரை வால்பேப்பரைத் தேர்வு செய்</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="116"/>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="125"/>
+        <source>Images (*.png *.jpg *.jpeg *.bmp)</source>
+        <translation type="unfinished">படங்கள் (*.png *.jpg *.jpeg *.bmp)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="119"/>
+        <source>Restore default lock screen wallpaper</source>
+        <translation type="unfinished">இயல்புநிலை பூட்டுத் திரை வால்பேப்பரை மீட்டமை</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="122"/>
+        <source>Lock screen wallpaper (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="124"/>
+        <source>Change wallpaper</source>
+        <translation type="unfinished">வால்பேப்பரை மாற்று</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="128"/>
+        <source>Restore default wallpaper</source>
+        <translation type="unfinished">இயல்புநிலை வால்பேப்பரை மீட்டமை</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="132"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="134"/>
+        <source>Select mouse cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/module/gxlock/gxlockwidget.cpp" line="147"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4154,12 +4219,22 @@ x11vnc மூலம் இயங்குகிறது</translation>
 <context>
     <name>dcc::personalization::PersonalizationModule</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="198"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="202"/>
+        <source>Welcome screen mouse cursor (global)</source>
+        <translation type="unfinished">வரவேற்புத் திரை சுட்டி கர்சர் (உலகளாவிய)</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="212"/>
+        <source>Lock screen mouse cursor (global)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="224"/>
         <source>Standard Font</source>
         <translation>மதிப்புமிக்க எழுத்துரு</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="207"/>
+        <location filename="../src/frame/modules/personalization/personalizationmodule.cpp" line="233"/>
         <source>Monospaced Font</source>
         <translation>ஒற்றை அகல எழுத்துரு</translation>
     </message>
@@ -4167,91 +4242,96 @@ x11vnc மூலம் இயங்குகிறது</translation>
 <context>
     <name>dcc::personalization::PersonalizationWidget</name>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="154"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="160"/>
         <location filename="../src/frame/navigation/navmodel.cpp" line="119"/>
         <location filename="../src/frame/navigationbar.cpp" line="294"/>
         <source>Personalization</source>
         <translation>தனிப்பயனாக்கம்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="53"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
         <source>Transparency</source>
         <translation>பாரதியம்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="54"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="55"/>
         <source>Radius (Logout to apply)</source>
         <translation>விட்டு (வெளியேறு பயன்பாட்டு)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="92"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="93"/>
         <source>Window Effect</source>
         <translation>விண்டோ விளைவு</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="94"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="95"/>
         <source>Top Panel</source>
         <translation>மேல் பேனல்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="96"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="97"/>
         <source>Top Panel Global Menu</source>
         <translation>மேல் பேனல் உலகளாவிய மெனு</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="98"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="99"/>
         <source>Bottom Panel</source>
         <translation>கீழ் பேனல்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="100"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="101"/>
         <source>Use deepin 20 style launcher</source>
         <translation>தீப்பின் 20 பாணி தொடக்கி பயன்படுத்துங்கள்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="102"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
         <source>Hide DDE Dock</source>
         <translation>மறை DDE டாக்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="103"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="104"/>
         <source>Dock&apos;s Mac Mode</source>
         <translation>டாகின் மாக் மோடு</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="105"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="106"/>
         <source>Enable Compact mode on DTK5 Apps (Relogin to take effect)</source>
         <translation>கம்பக்ட் முறை DTK5 பயன்பாடுகளில் இயக்கவும் (பயனரை மீண்டும் பதிவு செய்ய வேண்டும்)</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="107"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
         <source>Theme</source>
         <translation>தீம்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="108"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
         <source>Font</source>
         <translation>பொட்டை</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="109"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
         <source>Wallpaper and Screensaver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="110"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="111"/>
         <source>Video Wallpaper</source>
         <translation>வீடியோ வால்பேப்பர்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="124"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="125"/>
         <source>Window manager</source>
         <translation>சாளர மேலாளர்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="129"/>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="130"/>
         <source>Display manager</source>
         <translation>காட்சி மேலாளர்</translation>
+    </message>
+    <message>
+        <location filename="../src/frame/modules/personalization/personalizationwidget.cpp" line="135"/>
+        <source>Lock screen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4645,12 +4725,12 @@ fantascene-dynamic-wallpaper மூலம் இயக்கம்</translation>
         <translation>துவக்க பட்டியல்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="214"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="220"/>
         <source>rolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="224"/>
+        <location filename="../src/frame/modules/systeminfo/systeminfowidget.cpp" line="230"/>
         <source>%1Bit</source>
         <translation>%1பிட்</translation>
     </message>
@@ -4916,18 +4996,18 @@ fantascene-dynamic-wallpaper மூலம் இயக்கம்</translation>
 <context>
     <name>dcc::update::UpdateView</name>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="59"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="60"/>
         <source>Internal Testing Group Settings</source>
         <translation>இடைமுகப்பு சோதனை குழு அமைவுகள்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="62"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="63"/>
         <source>Disabled Upgrade Notifications</source>
         <translation>வெளியீடு புதுப்பிப்புக் குறிப்புகளை நிறுத்தவும்</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="49"/>
-        <location filename="../src/frame/modules/update/updateview.cpp" line="79"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="50"/>
+        <location filename="../src/frame/modules/update/updateview.cpp" line="80"/>
         <source>Update</source>
         <translation>புதுப்பிப்பு</translation>
     </message>
@@ -4969,8 +5049,8 @@ fantascene-dynamic-wallpaper மூலம் இயக்கம்</translation>
         <translation>தேடல் புதுப்பிப்புகள்... %1</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="740"/>
-        <location filename="../src/frame/modules/update/updatework.cpp" line="901"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="752"/>
+        <location filename="../src/frame/modules/update/updatework.cpp" line="921"/>
         <source>System package update</source>
         <translation>சிஸ்டம் பேக்கேஜ் அப்டேட்</translation>
     </message>

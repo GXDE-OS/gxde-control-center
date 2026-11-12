@@ -33,6 +33,8 @@
 #include "module/videowallpaper/videowallpaper.h"
 #include "module/gxwm/gxwmwidget.h"
 #include "module/gxdm/gxdmwidget.h"
+#include "module/gxlock/gxlockwidget.h"
+#include "module/themewidget/cursorthemepage.h"
 
 #include <QCoreApplication>
 #include <QDir>
@@ -88,6 +90,7 @@ ModuleWidget *PersonalizationModule::moduleWidget()
         connect(m_personalizationWidget, &PersonalizationWidget::showVideoWallpaperWidget, this, &PersonalizationModule::showVideoWallpaperWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showGxwmWidget, this, &PersonalizationModule::showGxwmWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::showDisplayManagerWidget, this, &PersonalizationModule::showDisplayManagerWidget);
+        connect(m_personalizationWidget, &PersonalizationWidget::showLockScreenWidget, this, &PersonalizationModule::showLockScreenWidget);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSwitchWM, m_work, &PersonalizationWork::switchWM);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetOpacity, m_work, &PersonalizationWork::setOpacity);
         connect(m_personalizationWidget, &PersonalizationWidget::requestSetTopPanel, m_work, &PersonalizationWork::setTopPanel);
@@ -165,6 +168,16 @@ void PersonalizationModule::showDisplayManagerWidget()
     m_frameProxy->pushWidget(this, gxdmWidget);
 }
 
+void PersonalizationModule::showLockScreenWidget()
+{
+    GxlockWidget *gxlockWidget = new GxlockWidget;
+    connect(gxlockWidget, &GxlockWidget::requestFrameKeepAutoHide, this,
+            &PersonalizationModule::onSetFrameAutoHide);
+    connect(gxlockWidget, &GxlockWidget::requestShowCursorThemes, this,
+            &PersonalizationModule::showLockCursorThemes);
+    m_frameProxy->pushWidget(this, gxlockWidget);
+}
+
 void PersonalizationModule::showBlurSettingsWindow()
 {
     const QString executable = QDir(QCoreApplication::applicationDirPath())
@@ -185,8 +198,19 @@ void PersonalizationModule::showGreeterCursorThemes()
     // 鼠标指针网格复用个性化主题页的数据源，先刷新列表
     m_work->refreshTheme();
 
-    GxdmCursorThemeWidget *cursorThemes =
-        new GxdmCursorThemeWidget(m_model->getMouseModel());
+    CursorThemePage *cursorThemes = new CursorThemePage(
+        tr("Welcome screen mouse cursor (global)"),
+        GxdmWidget::createInterface(), m_model->getMouseModel());
+    m_frameProxy->pushWidget(this, cursorThemes);
+}
+
+void PersonalizationModule::showLockCursorThemes()
+{
+    m_work->refreshTheme();
+
+    CursorThemePage *cursorThemes = new CursorThemePage(
+        tr("Lock screen mouse cursor (global)"),
+        GxlockWidget::createInterface(), m_model->getMouseModel());
     m_frameProxy->pushWidget(this, cursorThemes);
 }
 

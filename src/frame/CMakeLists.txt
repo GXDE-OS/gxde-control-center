@@ -720,6 +720,10 @@ set(PERSONALIZATION_FILES
                 modules/personalization/module/gxwm/gxwmwidget.h
                 modules/personalization/module/gxdm/gxdmwidget.cpp
                 modules/personalization/module/gxdm/gxdmwidget.h
+                modules/personalization/module/gxlock/gxlockwidget.cpp
+                modules/personalization/module/gxlock/gxlockwidget.h
+                modules/personalization/module/themewidget/cursorthemepage.cpp
+                modules/personalization/module/themewidget/cursorthemepage.h
                 modules/personalization/module/videowallpaper/videowallpaperchoose.h
                 modules/personalization/module/videowallpaper/videowallpaperchoose.cpp
                 modules/personalization/module/videowallpaper/videowallpapermodel.h

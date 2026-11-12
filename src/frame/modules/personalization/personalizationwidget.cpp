@@ -36,6 +36,7 @@
 #include "dapplication.h"
 #include "wayland/gxdescreen.h"
 #include "module/gxdm/gxdmwidget.h"
+#include "module/gxlock/gxlockwidget.h"
 
 #include <QDebug>
 #include <QPushButton>
@@ -124,11 +125,16 @@ PersonalizationWidget::PersonalizationWidget()
     gxwm->setTitle(tr("Window manager"));
     gxwm->setHidden(!(DApplication::isWayland() && GxdeScreen::isAvailable()));
     m_userGroup->appendItem(gxwm);
-    // 仅当 gxdm 的 LkScrStat 可被调用时显示
+    // 仅当 gxdm 的设置服务可被调用时显示
     NextPageWidget *displayManager = new NextPageWidget;
     displayManager->setTitle(tr("Display manager"));
     displayManager->setHidden(!GxdmWidget::isAvailable());
     m_userGroup->appendItem(displayManager);
+    // Only when gxde-lock is installed
+    NextPageWidget *lockScreen = new NextPageWidget;
+    lockScreen->setTitle(tr("Lock screen"));
+    lockScreen->setHidden(!GxlockWidget::isAvailable());
+    m_userGroup->appendItem(lockScreen);
     m_userGroup->appendItem(m_wmSwitch);
     // 判断指定程序是否存在，如果不存在则不显示
     if(m_model->isInstallTopPanel()) {
@@ -164,6 +170,8 @@ PersonalizationWidget::PersonalizationWidget()
             &PersonalizationWidget::showGxwmWidget);
     connect(displayManager, &NextPageWidget::clicked, this,
             &PersonalizationWidget::showDisplayManagerWidget);
+    connect(lockScreen, &NextPageWidget::clicked, this,
+            &PersonalizationWidget::showLockScreenWidget);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this,
             &PersonalizationWidget::requestSwitchWM);
     connect(m_wmSwitch, &SwitchWidget::checkedChanged, this, [=] {
