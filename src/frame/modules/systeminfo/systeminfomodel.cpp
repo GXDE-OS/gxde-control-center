@@ -86,6 +86,14 @@ void SystemInfoModel::setThemeEnabled(const bool enabled)
     }
 }
 
+void SystemInfoModel::setThemeDisabled(const bool disabled)
+{
+    if (m_themeDisabled != disabled) {
+        m_themeDisabled = disabled;
+        Q_EMIT themeDisabledChanged(m_themeDisabled);
+    }
+}
+
 void SystemInfoModel::setDefaultEntry(const QString &entry)
 {
     if (m_defaultEntry != entry) {

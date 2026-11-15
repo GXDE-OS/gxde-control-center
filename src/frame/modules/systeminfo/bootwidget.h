@@ -53,6 +53,7 @@ public:
 
 Q_SIGNALS:
     void enableTheme(bool value);
+    void disableTheme(bool value);
     void bootdelay(bool value);
     void defaultEntry(const QString& item);
     void requestSetBackground(const QString &path);
@@ -64,7 +65,7 @@ public Q_SLOTS:
 private:
     QString m_defaultEntry;
     SwitchWidget* m_boot;
-    SwitchWidget* m_theme;
+    SwitchWidget* m_disableTheme;
     SwitchWidget* m_liveCDEnabled;
     QListWidget* m_bootList;
     TipsLabel *m_updatingLabel;

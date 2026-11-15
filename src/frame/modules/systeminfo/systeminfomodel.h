@@ -68,6 +68,7 @@ public:
 #ifndef DCC_DISABLE_GRUB
     bool bootDelay() const;
     bool themeEnabled() const { return m_themeEnabled; }
+    bool themeDisabled() const { return m_themeDisabled; }
     bool updating() const { return m_updating; }
     QPixmap background() const;
     void setBackground(const QPixmap &background);
@@ -77,6 +78,7 @@ Q_SIGNALS:
 #ifndef DCC_DISABLE_GRUB
     void bootDelayChanged(const int timeout) const;
     void themeEnabledChanged(const bool enabled) const;
+    void themeDisabledChanged(const bool disabled) const;
     void entryListsChanged(const QStringList &list);
     void defaultEntryChanged(const QString& entry);
     void updatingChanged(const bool &updating);
@@ -94,6 +96,7 @@ public Q_SLOTS:
 #ifndef DCC_DISABLE_GRUB
     void setBootDelay(bool bootDelay);
     void setThemeEnabled(const bool enabled);
+    void setThemeDisabled(const bool disabled);
     void setDefaultEntry(const QString& entry);
     void setUpdating(bool updating);
 #endif
@@ -109,6 +112,7 @@ private:
 #ifndef DCC_DISABLE_GRUB
     bool m_bootDelay;
     bool m_themeEnabled;
+    bool m_themeDisabled;
     bool m_updating;
     QStringList m_entryLists;
     QString m_defaultEntry;

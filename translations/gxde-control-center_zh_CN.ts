@@ -4653,22 +4653,22 @@ Power by fantascene-dynamic-wallpaper</source>
 <context>
     <name>dcc::systeminfo::BootWidget</name>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="69"/>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="70"/>
         <source>Updating...</source>
         <translation>正在更新...</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="80"/>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="81"/>
         <source>Startup Delay</source>
         <translation>启动延时</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="83"/>
-        <source>Theme</source>
-        <translation>主题</translation>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="84"/>
+        <source>Disable Theme</source>
+        <translation>禁用主题</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="86"/>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="87"/>
         <source>Enable Live Mode</source>
         <translation>启用应急维护系统</translation>
     </message>
@@ -4677,14 +4677,22 @@ Power by fantascene-dynamic-wallpaper</source>
         <translation type="vanished">您可以点击菜单改变默认启动项，也可以拖拽图片到窗口改变背景图片。</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="91"/>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="92"/>
         <source>Switch theme on to view it in boot menu</source>
         <translation>开启主题后您可以在开机时看到主题背景</translation>
     </message>
     <message>
-        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="115"/>
+        <location filename="../src/frame/modules/systeminfo/bootwidget.cpp" line="116"/>
         <source>Boot Menu</source>
         <translation>启动菜单</translation>
+    </message>
+    <message>
+        <source>Processing...</source>
+        <translation type="vanished">处理中</translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation type="vanished">主题</translation>
     </message>
 </context>
 <context>

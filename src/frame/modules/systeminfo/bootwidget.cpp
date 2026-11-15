@@ -28,6 +28,7 @@
 #include <QVBoxLayout>
 #include <QScrollBar>
 #include <QFile>
+#include <QProcess>
 #include <iostream>
 #include <QFileDialog>
 #include <dfiledialog.h>
@@ -79,8 +80,8 @@ BootWidget::BootWidget(QWidget *parent)
     m_boot = new SwitchWidget();
     m_boot->setTitle(tr("Startup Delay"));
 
-    m_theme = new SwitchWidget();
-    m_theme->setTitle(tr("Theme"));
+    m_disableTheme = new SwitchWidget();
+    m_disableTheme->setTitle(tr("Disable Theme"));
 
     m_liveCDEnabled = new SwitchWidget();
     m_liveCDEnabled->setTitle(tr("Enable Live Mode"));
@@ -94,7 +95,7 @@ BootWidget::BootWidget(QWidget *parent)
 
     group->appendItem(m_background);
     group->appendItem(m_boot);
-    group->appendItem(m_theme);
+    group->appendItem(m_disableTheme);
 
     if (QFile::exists("/usr/bin/gxde-live-local")) {
         group->appendItem(m_liveCDEnabled);
@@ -115,7 +116,7 @@ BootWidget::BootWidget(QWidget *parent)
     setTitle(tr("Boot Menu"));
 
     connect(m_liveCDEnabled, &SwitchWidget::checkedChanged, this, &BootWidget::EnabledLiveCD);
-    connect(m_theme, SIGNAL(checkedChanged(bool)), this, SIGNAL(enableTheme(bool)));
+    connect(m_disableTheme, &SwitchWidget::checkedChanged, this, &BootWidget::disableTheme);
     connect(m_boot, SIGNAL(checkedChanged(bool)), this, SIGNAL(bootdelay(bool)));
     connect(m_bootList, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),this, SLOT(onCurrentItem(QListWidgetItem*,QListWidgetItem*)));
     connect(m_background, &GrubBackgroundItem::requestEnableTheme, this, &BootWidget::enableTheme);
@@ -203,7 +204,7 @@ void BootWidget::setDefaultEntry(const QString &value)
 void BootWidget::setModel(SystemInfoModel *model)
 {
     connect(model, &SystemInfoModel::bootDelayChanged, m_boot, &SwitchWidget::setChecked);
-    connect(model, &SystemInfoModel::themeEnabledChanged, m_theme, &SwitchWidget::setChecked);
+    connect(model, &SystemInfoModel::themeDisabledChanged, m_disableTheme, &SwitchWidget::setChecked);
     connect(model, &SystemInfoModel::defaultEntryChanged, this, &BootWidget::setDefaultEntry);
     connect(model, &SystemInfoModel::updatingChanged, m_updatingLabel, &SmallLabel::setVisible);
     connect(model, &SystemInfoModel::entryListsChanged, this, &BootWidget::setEntryList);
@@ -211,7 +212,7 @@ void BootWidget::setModel(SystemInfoModel *model)
     connect(model, &SystemInfoModel::backgroundChanged, m_background, &GrubBackgroundItem::updateBackground);
 
     m_boot->setChecked(model->bootDelay());
-    m_theme->setChecked(model->themeEnabled());
+    m_disableTheme->setChecked(model->themeDisabled());
     m_updatingLabel->setVisible(model->updating());
     m_background->setThemeEnable(model->themeEnabled());
 

@@ -28,6 +28,8 @@
 #include "widgets/basiclistdelegate.h"
 #include "dsysinfo.h"
 #include "ddesktopentry.h"
+#include <QDBusInterface>
+#include <QDBusMessage>
 #include <QStorageInfo>
 
 DCORE_USE_NAMESPACE
@@ -93,6 +95,14 @@ SystemInfoWork::SystemInfoWork(SystemInfoModel *model, QObject *parent)
     }, Qt::QueuedConnection);
 
     connect(m_dbusGrubTheme, &GrubThemeDbus::BackgroundChanged, this, &SystemInfoWork::onBackgroundChanged);
+
+    // 禁用主题状态变化信号(deepin-daemon grub2 的 ThemeDisabled 属性)
+    QDBusConnection::systemBus().connect("com.deepin.daemon.Grub2",
+                                         "/com/deepin/daemon/Grub2",
+                                         "com.deepin.daemon.Grub2",
+                                         "ThemeDisabledChanged",
+                                         this,
+                                         SLOT(onThemeDisabledChanged(bool)));
 #endif
 
     connect(m_systemInfoInter, &__SystemInfo::DistroIDChanged, m_model, &SystemInfoModel::setDistroID);
@@ -174,8 +184,7 @@ void SystemInfoWork::setBootDelay(bool value)
 }
 
 void SystemInfoWork::setEnableTheme(bool value)
-{
-    /*Q_EMIT requestSetAutoHideDCC(false);
+{    /*Q_EMIT requestSetAutoHideDCC(false);
 
     QDBusPendingCall call = m_dbusGrub->SetEnableTheme(value);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
@@ -195,6 +204,34 @@ void SystemInfoWork::setEnableTheme(bool value)
         system("pkexec /usr/share/tela-grub2-themes/install.sh -r -t tela");
     }
     Q_EMIT m_model->themeEnabledChanged(m_model->themeEnabled());
+}
+
+void SystemInfoWork::setThemeDisabled(bool value)
+{
+    // 与启动延时一致:dbus 调用 deepin-daemon grub2 的 SetThemeDisabled,
+    // 服务端 polkit 校验(弹密码框),期间 Updating 属性驱动"正在更新"提示
+    Q_EMIT requestSetAutoHideDCC(false);
+
+    QDBusMessage msg = QDBusMessage::createMethodCall("com.deepin.daemon.Grub2",
+                                                      "/com/deepin/daemon/Grub2",
+                                                      "com.deepin.daemon.Grub2",
+                                                      "SetThemeDisabled");
+    msg << value;
+    QDBusPendingCall call = QDBusConnection::systemBus().asyncCall(msg);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [=] (QDBusPendingCallWatcher *w) {
+        if (w->isError()) {
+            Q_EMIT m_model->themeDisabledChanged(m_model->themeDisabled());
+        }
+
+        Q_EMIT requestSetAutoHideDCC(true);
+        w->deleteLater();
+    });
+}
+
+void SystemInfoWork::onThemeDisabledChanged(bool value)
+{
+    m_model->setThemeDisabled(value);
 }
 
 void SystemInfoWork::setDefaultEntry(const QString &entry)
@@ -218,6 +255,19 @@ void SystemInfoWork::grubServerFinished()
     m_model->setBootDelay(m_dbusGrub->timeout() > 1);
     m_model->setThemeEnabled(m_dbusGrub->enableTheme());
     m_model->setUpdating(m_dbusGrub->updating());
+
+    // 从服务读取禁用主题初始状态
+    QDBusInterface grubPropInter("com.deepin.daemon.Grub2",
+                                 "/com/deepin/daemon/Grub2",
+                                 "org.freedesktop.DBus.Properties",
+                                 QDBusConnection::systemBus(),
+                                 this);
+    QDBusReply<QVariant> reply = grubPropInter.call("Get",
+                                                    "com.deepin.daemon.Grub2",
+                                                    "ThemeDisabled");
+    if (reply.isValid()) {
+        m_model->setThemeDisabled(reply.value().toBool());
+    }
 
     getEntryTitles();
     onBackgroundChanged();

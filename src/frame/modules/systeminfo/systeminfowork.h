@@ -62,10 +62,14 @@ Q_SIGNALS:
 public Q_SLOTS:
     void setBootDelay(bool value);
     void setEnableTheme(bool value);
+    void setThemeDisabled(bool value);
     void setDefaultEntry(const QString& entry);
     void grubServerFinished();
     void onBackgroundChanged();
     void setBackground(const QString &path);
+
+private Q_SLOTS:
+    void onThemeDisabledChanged(bool value);
 
 private:
     void getEntryTitles();
