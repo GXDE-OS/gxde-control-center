@@ -1,5 +1,5 @@
 # Maintainer: CharOfString <root@charofstring.cc>
-pkgname=gxde-control-center-git
+pkgname=gxde-control-center
 pkgver=6.1.8
 pkgrel=1
 pkgdesc='Control center for GXDE'
@@ -7,19 +7,20 @@ arch=('x86_64' 'aarch64')
 url="https://github.com/GXDE-OS/gxde-control-center"
 license=('GPL-3.0-or-later')
 
-depends=('gxde-account-faces-git' 'deepin-daemon-git' 'gxde-api-git' 'xkeyboard-config'
-         'gxde-installer-timezones-git' 'shadow' 'gxde-top-panel-git' 'systemd' 'networkmanager-qt'
-         'dframework-dbus-qt6-git' 'gxde-network-utils-qt6-git' 'garma-git' 'gxde-app-installer-git'
-         'gxde-app-upgrader-git' 'gxde-app-uninstaller-git' 'gxde-shell-tools-git' 'transhell-git'
+depends=('gxde-account-faces' 'gxde-deepin-daemon' 'gxde-api' 'xkeyboard-config'
+         'gxde-installer-timezones' 'shadow' 'gxde-top-panel' 'systemd' 'networkmanager-qt'
+         'dframework-dbus-qt6' 'gxde-network-utils-qt6' 'garma' 'gxde-app-installer'
+         'gxde-app-upgrader' 'gxde-app-uninstaller' 'gxde-shell-tools' 'transhell'
          'wireplumber' 'pipewire-audio'
-         'dtk2widget-qt6-git' 'dtk6core-git' 'dtk6log-git' 'gsettings-qt6' 'layer-shell-qt' 'libnm' 'glib2'
-         'gxde-bernese-git' 'qt6-base' 'qt6-svg' 'qt6-multimedia' 'packagekit-qt6' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
+         'dtk2widget-qt6' 'gxde-dtk6core' 'gxde-dtk6log' 'gsettings-qt6' 'layer-shell-qt' 'libnm' 'glib2'
+         'gxde-bernese' 'qt6-base' 'qt6-svg' 'qt6-multimedia' 'packagekit-qt6' 'wayland' 'libx11' 'libxext' 'libxcb' 'xcb-util-wm'
          'libgcc' 'libstdc++' 'glibc')
 optdepends=('x11vnc: remote desktop over VNC'
             'redshift: night light')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
-provides=('gxde-control-center' 'deepin-control-center')
-conflicts=('gxde-control-center' 'deepin-control-center')
+provides=('deepin-control-center' "gxde-control-center-git=$pkgver")
+conflicts=('deepin-control-center' 'gxde-control-center-git')
+replaces=('gxde-control-center-git')
 source=()
 sha512sums=()
 
