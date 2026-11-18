@@ -79,6 +79,7 @@ ModuleWidget *SoundModule::moduleWidget()
     if (!m_soundWidget) {
         m_soundWidget = new SoundWidget(m_soundModel);
 
+        connect(m_soundWidget, &SoundWidget::visibleChanged, m_soundWorker, &SoundWorker::setFeedbackPageVisible);
         connect(m_soundWidget, &SoundWidget::requestSwitchSpeaker, m_soundWorker, &SoundWorker::switchSpeaker);
         connect(m_soundWidget, &SoundWidget::requestSiwtchMicrophone, m_soundWorker, &SoundWorker::switchMicrophone);
         connect(m_soundWidget, &SoundWidget::requestSetSpeakerBalance, m_soundWorker, &SoundWorker::setSinkBalance);

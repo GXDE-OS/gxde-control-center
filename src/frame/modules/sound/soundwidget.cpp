@@ -131,6 +131,18 @@ SoundWidget::~SoundWidget()
 
 }
 
+void SoundWidget::showEvent(QShowEvent *event)
+{
+    ModuleWidget::showEvent(event);
+    Q_EMIT visibleChanged(true);
+}
+
+void SoundWidget::hideEvent(QHideEvent *event)
+{
+    ModuleWidget::hideEvent(event);
+    Q_EMIT visibleChanged(false);
+}
+
 void SoundWidget::setModel(SoundModel *model)
 {
     connect(model, &SoundModel::speakerOnChanged, this, [this] (bool on) {

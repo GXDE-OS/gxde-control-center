@@ -66,6 +66,8 @@ public:
     void refreshSoundEffect();
 
 public Q_SLOTS:
+    void setFeedbackPageVisible(bool visible);
+
     void switchSpeaker(bool on);
     void switchMicrophone(bool on);
 
@@ -92,6 +94,8 @@ private Q_SLOTS:
 
 private:
     void updatePortActivity();
+    void updateFeedbackState();
+    void updateSourceMeter();
 
 private:
     SoundModel *m_model;
@@ -105,6 +109,10 @@ private:
     QPointer<Sink> m_defaultSink;
     QPointer<Source> m_defaultSource;
     QPointer<Meter> m_sourceMeter;
+    bool m_moduleActive;
+    bool m_pageVisible;
+    bool m_feedbackActive;
+    quint64 m_meterRequestId;
     QList<Sink*> m_sinks;
     QList<Source*> m_sources;
     QGSettings *m_effectGsettings;

@@ -50,12 +50,16 @@ public:
     ~SoundWidget();
 
     void setModel(SoundModel *model);
-#ifndef DCC_DISABLE_FEEDBACK
+
 protected:
+    void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
+#ifndef DCC_DISABLE_FEEDBACK
     virtual bool eventFilter(QObject *watched, QEvent *event);
 #endif
 
 Q_SIGNALS:
+    void visibleChanged(bool visible) const;
     void requestSwitchSpeaker(bool on) const;
     void requestSiwtchMicrophone(bool on) const;
     void requestSwitchSoundEffect(bool on) const;

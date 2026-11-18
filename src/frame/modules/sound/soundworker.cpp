@@ -44,6 +44,10 @@ SoundWorker::SoundWorker(SoundModel *model, QObject * parent)
     , m_defaultSink(nullptr)
     , m_defaultSource(nullptr)
     , m_sourceMeter(nullptr)
+    , m_moduleActive(false)
+    , m_pageVisible(false)
+    , m_feedbackActive(false)
+    , m_meterRequestId(0)
     , m_effectGsettings(new QGSettings("com.deepin.dde.sound-effect", "", this))
     , m_powerInter(new PowerInter("com.deepin.daemon.Power", "/com/deepin/daemon/Power", QDBusConnection::sessionBus(), this))
     , m_pingTimer(new QTimer(this))
@@ -68,7 +72,10 @@ SoundWorker::SoundWorker(SoundModel *model, QObject * parent)
 
     connect(m_soundEffectInter, &SoundEffect::EnabledChanged, m_model, &SoundModel::setEnableSoundEffect);
 
-    connect(m_pingTimer, &QTimer::timeout, [this] { if (m_sourceMeter) m_sourceMeter->Tick(); });
+    connect(m_pingTimer, &QTimer::timeout, [this] {
+        if (m_feedbackActive && m_sourceMeter)
+            m_sourceMeter->Tick();
+    });
     connect(m_activeTimer, &QTimer::timeout, this, &SoundWorker::updatePortActivity);
     connect(m_powerInter, &PowerInter::LidIsPresentChanged, m_model, &SoundModel::setIsLaptop);
 
@@ -80,12 +87,12 @@ SoundWorker::SoundWorker(SoundModel *model, QObject * parent)
 
 void SoundWorker::activate()
 {
-    m_pingTimer->start();
+    m_moduleActive = true;
+    updateFeedbackState();
 
     m_audioInter->blockSignals(false);
     if (m_defaultSink) m_defaultSink->blockSignals(false);
     if (m_defaultSource) m_defaultSource->blockSignals(false);
-    if (m_sourceMeter) m_sourceMeter->blockSignals(false);
 
     defaultSinkChanged(m_model->defaultSink());
     defaultSourceChanged(m_model->defaultSource());
@@ -94,12 +101,82 @@ void SoundWorker::activate()
 
 void SoundWorker::deactivate()
 {
-    m_pingTimer->stop();
+    m_moduleActive = false;
+    updateFeedbackState();
 
     m_audioInter->blockSignals(true);
     if (m_defaultSink) m_defaultSink->blockSignals(true);
     if (m_defaultSource) m_defaultSource->blockSignals(true);
-    if (m_sourceMeter) m_sourceMeter->blockSignals(true);
+}
+
+void SoundWorker::setFeedbackPageVisible(bool visible)
+{
+    if (m_pageVisible == visible)
+        return;
+
+    m_pageVisible = visible;
+    updateFeedbackState();
+}
+
+void SoundWorker::updateFeedbackState()
+{
+#ifndef DCC_DISABLE_FEEDBACK
+    const bool enabled = m_moduleActive && m_pageVisible;
+    if (enabled == m_feedbackActive)
+        return;
+
+    m_feedbackActive = enabled;
+    if (enabled) {
+        m_pingTimer->start();
+        updateSourceMeter();
+    } else {
+        ++m_meterRequestId;
+        m_pingTimer->stop();
+
+        if (m_sourceMeter) {
+            disconnect(m_sourceMeter, &Meter::VolumeChanged, m_model, &SoundModel::setMicrophoneFeedback);
+            m_sourceMeter->deleteLater();
+            m_sourceMeter = nullptr;
+        }
+    }
+#endif
+}
+
+void SoundWorker::updateSourceMeter()
+{
+#ifndef DCC_DISABLE_FEEDBACK
+    if (!m_feedbackActive || !m_defaultSource)
+        return;
+
+    const quint64 requestId = ++m_meterRequestId;
+    QDBusPendingCall call = m_defaultSource->GetMeter();
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this,
+            [this, call, requestId, watcher] {
+        watcher->deleteLater();
+
+        if (call.isError()) {
+            qWarning() << "get meter failed " << call.error().message();
+            return;
+        }
+
+        if (!m_feedbackActive || requestId != m_meterRequestId)
+            return;
+
+        QDBusReply<QDBusObjectPath> reply = call.reply();
+        const QDBusObjectPath meterPath = reply.value();
+        if (meterPath.path().isEmpty())
+            return;
+
+        if (m_sourceMeter)
+            m_sourceMeter->deleteLater();
+
+        m_sourceMeter = new Meter("com.deepin.daemon.Audio", meterPath.path(), QDBusConnection::sessionBus(), this);
+        m_sourceMeter->setSync(false);
+        connect(m_sourceMeter, &Meter::VolumeChanged, m_model, &SoundModel::setMicrophoneFeedback);
+        m_model->setMicrophoneFeedback(m_sourceMeter->volume());
+    });
+#endif
 }
 
 void SoundWorker::refreshSoundEffect()
@@ -201,27 +278,7 @@ void SoundWorker::defaultSourceChanged(const QDBusObjectPath &path)
     activeSourcePortChanged(m_defaultSource->activePort());
     onSourceCardChanged(m_defaultSource->card());
 
-#ifndef DCC_DISABLE_FEEDBACK
-    QDBusPendingCall call = m_defaultSource->GetMeter();
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
-        if (!call.isError()) {
-            QDBusReply<QDBusObjectPath> reply = call.reply();
-            QDBusObjectPath path = reply.value();
-
-            if (m_sourceMeter) {
-                m_sourceMeter->deleteLater();
-            }
-
-            m_sourceMeter = new Meter("com.deepin.daemon.Audio", path.path(), QDBusConnection::sessionBus(), this);
-            m_sourceMeter->setSync(false);
-            connect(m_sourceMeter, &Meter::VolumeChanged, m_model, &SoundModel::setMicrophoneFeedback);
-            m_model->setMicrophoneFeedback(m_sourceMeter->volume());
-        } else {
-            qWarning() << "get meter failed " << call.error().message();
-        }
-    });
-#endif
+    updateSourceMeter();
 }
 
 void SoundWorker::cardsChanged(const QString &cards)
