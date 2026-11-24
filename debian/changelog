@@ -1,3 +1,10 @@
+gxde-control-center (6.1.10) UNRELEASED; urgency=medium
+
+  * 系统更新进度改为读取 aptss 的 #APM_PROGRESS JSON 数据，
+    数据直接来自 aria2 RPC，不再通过 PTY 解析终端文本。
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 24 Nov 2026 18:42:00 +0800
+
 gxde-control-center (6.1.9) UNRELEASED; urgency=medium
 
   * 系统更新下载进度改用 aptss 的 APM 风格进度输出：通过 PTY 获取

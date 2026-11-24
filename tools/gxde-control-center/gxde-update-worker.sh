@@ -101,24 +101,37 @@ validate_packages() {
 }
 
 download_to_cache() {
+    local -a env_args=("${APT_ENV[@]}")
     local -a cmd
-    local quoted
 
-    # aptss 是 TTY 感知的：给它一个 PTY，才能进入 APM 风格单行进度模式。
-    # 控制中心主进程通过管道读输出，直接管道会给 aptss 非 TTY，退化成 aria2 原始输出。
-    if [ "${APT_CMD##*/}" = "aptss" ] && command -v script >/dev/null 2>&1; then
-        quoted="$(printf '%q ' env "${APT_ENV[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")"
-        cmd=(script -e -q -c "$quoted" /dev/null)
-    else
-        cmd=(env "${APT_ENV[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
+    # 让新版 aptss 直接输出 aria2 RPC 的 JSON 进度；旧版 aptss 会忽略该变量，
+    # 继续走下面的旧 aria2 输出解析。
+    if [ "${APT_CMD##*/}" = "aptss" ]; then
+        env_args+=(APTSS_PROGRESS_FORMAT=json)
     fi
+    cmd=(env "${env_args[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
 
     "${cmd[@]}" 2>&1 | tr '\r' '\n' | while IFS= read -r line; do
-        # 去掉 ANSI，解析 aptss/aria2 两种进度行
         line="$(printf '%s\n' "$line" | sed 's/\x1b\[[0-9;?]*[A-Za-z]//g')"
 
+        # aptss 的机器可读进度（数据来自 aria2 RPC）
+        case "$line" in
+            '#APM_PROGRESS '*)
+                json="${line#\#APM_PROGRESS }"
+                percent=$(printf '%s\n' "$json" | sed -n 's/.*"percent":\([0-9][0-9]*\).*/\1/p')
+                speed=$(printf '%s\n' "$json" | sed -n 's/.*"speed_human":"\([^"]*\)".*/\1/p')
+                if [ -n "$speed" ]; then
+                    echo "# Downloading updates... ${speed}"
+                fi
+                if [ -n "$percent" ]; then
+                    echo "$((percent * 80 / 100))"
+                fi
+                continue
+                ;;
+        esac
+
         # 不把原始进度行再输出给控制中心，避免它按其中的 "%" 二次覆盖进度；
-        # 进度统一通过下面的数字行交给控制中心。
+        # 进度统一通过上面的 JSON 或下面的数字行交给控制中心。
         case "$line" in
             \[[0-9]*/[0-9]*\]* | \[#*) ;;
             *) printf '%s\n' "$line" ;;
