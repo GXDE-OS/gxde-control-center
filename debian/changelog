@@ -1,3 +1,10 @@
+gxde-control-center (6.1.11) UNRELEASED; urgency=medium
+
+  * 修复旧版 aptss 在管道下没有 aria2 进度的问题：aptss 仍通过 PTY
+    运行，新版使用 RPC JSON，旧版回退旧进度输出解析。
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 24 Nov 2026 18:52:00 +0800
+
 gxde-control-center (6.1.10) UNRELEASED; urgency=medium
 
   * 系统更新进度改为读取 aptss 的 #APM_PROGRESS JSON 数据，

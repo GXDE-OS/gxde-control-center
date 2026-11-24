@@ -103,13 +103,23 @@ validate_packages() {
 download_to_cache() {
     local -a env_args=("${APT_ENV[@]}")
     local -a cmd
+    local quoted
 
-    # 让新版 aptss 直接输出 aria2 RPC 的 JSON 进度；旧版 aptss 会忽略该变量，
-    # 继续走下面的旧 aria2 输出解析。
+    # 新版 aptss 会在非 TTY 下输出 #APM_PROGRESS JSON；旧版 aptss 忽略这个
+    # 变量，只有在 TTY 下才会输出 aria2 进度。因此 aptss 仍通过 PTY 运行：
+    #   - 新版：JSON 模式优先，输出机器可读数据
+    #   - 旧版：PTY 让 aria2/旧进度脚本继续输出，worker 再兼容解析
     if [ "${APT_CMD##*/}" = "aptss" ]; then
         env_args+=(APTSS_PROGRESS_FORMAT=json)
+        if command -v script >/dev/null 2>&1; then
+            quoted="$(printf '%q ' env "${env_args[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")"
+            cmd=(script -e -q -c "$quoted" /dev/null)
+        else
+            cmd=(env "${env_args[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
+        fi
+    else
+        cmd=(env "${env_args[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
     fi
-    cmd=(env "${env_args[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
 
     "${cmd[@]}" 2>&1 | tr '\r' '\n' | while IFS= read -r line; do
         line="$(printf '%s\n' "$line" | sed 's/\x1b\[[0-9;?]*[A-Za-z]//g')"
