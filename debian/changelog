@@ -1,3 +1,10 @@
+gxde-control-center (6.1.9) UNRELEASED; urgency=medium
+
+  * 系统更新下载进度改用 aptss 的 APM 风格进度输出：通过 PTY 获取
+    单行进度、速度和百分比，兼容旧版 aria2 输出，避免进度条错乱。
+
+ -- shenmo <shenmo@spark-app.store>  Tue, 24 Nov 2026 18:30:00 +0800
+
 gxde-control-center (6.1.8) UNRELEASED; urgency=medium
 
   [ CharOfString ]

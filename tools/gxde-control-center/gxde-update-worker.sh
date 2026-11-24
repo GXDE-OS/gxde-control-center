@@ -101,15 +101,42 @@ validate_packages() {
 }
 
 download_to_cache() {
-    env LANGUAGE=en_US DEBIAN_FRONTEND=noninteractive ${APT_CMD} install -d -y --only-upgrade "$@" 2>&1 | tr '\r' '\n' | while IFS= read -r line; do
-        printf '%s\n' "$line"
-        speed=$(printf '%s\n' "$line" | sed -n 's/.*DL:\([^ ]*\).*/\1/p')
-        progress=$(printf '%s\n' "$line" | sed -n 's/.*(\([0-9][0-9]*\)%).*/\1/p')
+    local -a cmd
+    local quoted
+
+    # aptss 是 TTY 感知的：给它一个 PTY，才能进入 APM 风格单行进度模式。
+    # 控制中心主进程通过管道读输出，直接管道会给 aptss 非 TTY，退化成 aria2 原始输出。
+    if [ "${APT_CMD##*/}" = "aptss" ] && command -v script >/dev/null 2>&1; then
+        quoted="$(printf '%q ' env "${APT_ENV[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")"
+        cmd=(script -e -q -c "$quoted" /dev/null)
+    else
+        cmd=(env "${APT_ENV[@]}" "$APT_CMD" install -d -y --only-upgrade "$@")
+    fi
+
+    "${cmd[@]}" 2>&1 | tr '\r' '\n' | while IFS= read -r line; do
+        # 去掉 ANSI，解析 aptss/aria2 两种进度行
+        line="$(printf '%s\n' "$line" | sed 's/\x1b\[[0-9;?]*[A-Za-z]//g')"
+
+        # 不把原始进度行再输出给控制中心，避免它按其中的 "%" 二次覆盖进度；
+        # 进度统一通过下面的数字行交给控制中心。
+        case "$line" in
+            \[[0-9]*/[0-9]*\]* | \[#*) ;;
+            *) printf '%s\n' "$line" ;;
+        esac
+
+        # APM 风格: "... 3.1 MiB/s  源2 连8"
+        speed=$(printf '%s\n' "$line" | sed -n 's/.* \([0-9][0-9.]* [A-Za-z][A-Za-z]*\/s\).*/\1/p')
+        # 原有 aria2 风格: "DL:3.1MiB"
+        if [ -z "$speed" ]; then
+            speed=$(printf '%s\n' "$line" | sed -n 's/.*DL:\([^ ]*\).*/\1/p')
+        fi
+
+        # APM 风格 "45%" 或 aria2 风格 "(45%)"
+        progress=$(printf '%s\n' "$line" | sed -n 's/.*[^0-9]\([0-9][0-9]*\)%.*/\1/p')
 
         if [ -n "$speed" ]; then
             echo "# Downloading updates... ${speed}"
         fi
-
         if [ -n "$progress" ]; then
             echo "$((progress * 80 / 100))"
         fi
