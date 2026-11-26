@@ -1,3 +1,10 @@
+gxde-control-center (6.1.12) UNRELEASED; urgency=medium
+
+  * 键盘快捷键适配 flakewm：改为读取 /etc/flakewm/config.json，
+    读不到再回退 /etc/gxde-wlcom/config.json（按当前会话的合成器优先）
+
+ -- shenmo <shenmo@spark-app.store>  Thu, 26 Nov 2026 20:50:00 +0800
+
 gxde-control-center (6.1.11) UNRELEASED; urgency=medium
 
   * 修复旧版 aptss 在管道下没有 aria2 进度的问题：aptss 仍通过 PTY

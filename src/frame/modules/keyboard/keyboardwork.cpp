@@ -210,10 +210,31 @@ static QString translateWlcomDescription(const QString &description)
     return QCoreApplication::translate("WlcomShortcut", *it);
 }
 
+// flakewm 与 gxde-wlcom 的 config.json 格式相同，安装路径不同：
+// flakewm 用 /etc/flakewm，gxde-wlcom 用 /etc/gxde-wlcom。优先按当前
+// 会话的合成器选择，找不到再回退到另一个。
+static QString compositorConfigPath()
+{
+    const bool wlcomSession =
+        qgetenv("DDE_CURRENT_COMPOSITOR").compare(QByteArrayLiteral("GXWM"),
+            Qt::CaseInsensitive) == 0;
+    const QStringList candidates = wlcomSession
+        ? QStringList{QStringLiteral("/etc/gxde-wlcom/config.json"),
+              QStringLiteral("/etc/flakewm/config.json")}
+        : QStringList{QStringLiteral("/etc/flakewm/config.json"),
+              QStringLiteral("/etc/gxde-wlcom/config.json")};
+
+    for (const QString &path : candidates) {
+        if (QFile::exists(path))
+            return path;
+    }
+    return candidates.first();
+}
+
 static QSet<QString> wlcomSystemActionBindings(bool *loaded)
 {
     QSet<QString> bindings;
-    QFile file(QStringLiteral("/etc/gxde-wlcom/config.json"));
+    QFile file(compositorConfigPath());
     if (!file.open(QIODevice::ReadOnly)) {
         *loaded = false;
         return bindings;
